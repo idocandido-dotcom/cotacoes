@@ -1,24 +1,24 @@
 {
   "ok": true,
-  "ultima_sincronizacao": "2026-05-07 14:56:12",
-  "total_cotacoes_tabela": 148,
-  "total_cotacoes_brutas": 16448,
-  "total_dados_html": 148,
+  "ultima_sincronizacao": "2026-05-07 15:02:43",
+  "total_cotacoes_tabela": 143,
+  "total_cotacoes_brutas": 15479,
+  "total_dados_html": 143,
   "data_limite_cotacoes_ativas": "2026-02-06",
   "dias_maximos_cotacao_ativa": 90,
-  "grupos_descartados_por_data_antiga": 196,
+  "grupos_descartados_por_data_antiga": 177,
   "fontes": [
     {
       "fonte": "AIBA",
       "url": "https://aiba.org.br/cotacoes/",
-      "status": "erro",
-      "erro": "403 Client Error: Forbidden for url: https://aiba.org.br/cotacoes/"
+      "status": "ok",
+      "total_registros": 8
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 7319,
+      "total_registros": 6832,
       "colunas_preco_identificadas": [
         "valor_produto_kg"
       ],
@@ -28,7 +28,7 @@
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
       "status": "ok",
-      "total_registros": 9129,
+      "total_registros": 8639,
       "colunas_preco_identificadas": [
         "valor_produto_kg"
       ],
@@ -37,8 +37,9 @@
     {
       "fonte": "CEPEA/ESALQ Widget",
       "url": "https://cepea.org.br/br/widgetproduto.js.php?fonte=arial&tamanho=10&largura=400px&corfundo=dbd6b2&cortexto=333333&corlinha=ede7bf&id_indicador%5B%5D=54&id_indicador%5B%5D=91&id_indicador%5B%5D=50&id_indicador%5B%5D=149&id_indicador%5B%5D=35&id_indicador%5B%5D=53&id_indicador%5B%5D=2&id_indicador%5B%5D=381-56&id_indicador%5B%5D=leitep&id_indicador%5B%5D=77&id_indicador%5B%5D=92",
-      "status": "erro",
-      "erro": "403 Client Error: Forbidden for url: https://cepea.org.br/br/widgetproduto.js.php?fonte=arial&tamanho=10&largura=400px&corfundo=dbd6b2&cortexto=333333&corlinha=ede7bf&id_indicador%5B%5D=54&id_indicador%5B%5D=91&id_indicador%5B%5D=50&id_indicador%5B%5D=149&id_indicador%5B%5D=35&id_indicador%5B%5D=53&id_indicador%5B%5D=2&id_indicador%5B%5D=381-56&id_indicador%5B%5D=leitep&id_indicador%5B%5D=77&id_indicador%5B%5D=92"
+      "status": "widget_frontend",
+      "total_registros": 0,
+      "observacao": "Widget oficial mantido no HTML/WordPress. Não coletado pelo GitHub Actions para evitar erro 403 e duplicidade na tabela principal."
     },
     {
       "fonte": "B3 - Commodities",

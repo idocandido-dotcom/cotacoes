@@ -3,10 +3,10 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "repositorio": "idocandido-dotcom/cotacoes",
-  "versao": "1.0.8",
-  "ultima_sincronizacao": "2026-05-07 14:56:12",
-  "ultima_sincronizacao_iso": "2026-05-07T14:56:12.256558-03:00",
-  "gerado_em": "07/05/2026 14:56",
+  "versao": "1.0.9",
+  "ultima_sincronizacao": "2026-05-07 15:02:43",
+  "ultima_sincronizacao_iso": "2026-05-07T15:02:43.454278-03:00",
+  "gerado_em": "07/05/2026 15:02",
   "fuso_horario": "America/Fortaleza",
   "frequencia_atualizacao": "diaria",
   "dias_maximos_cotacao_ativa": 90,
@@ -14,39 +14,40 @@
   "politica_atualidade": "A tabela principal exibe somente cotações com data dentro dos últimos 90 dias.",
   "fonte_principal": "CONAB/AIBA",
   "fontes_complementares": [
-    "CEPEA/ESALQ Widget",
+    "CEPEA/ESALQ Widget no HTML",
     "B3 - referência de mercado futuro"
   ],
   "politica_classificacao_preco": "Os preços da CONAB são classificados por nível de comercialização quando a fonte permite: produtor, atacado, varejo, média UF ou não informado. Indicadores CEPEA/ESALQ entram como indicador de mercado e não como preço local.",
   "resumo": {
-    "total_cotacoes_tabela": 148,
-    "total_cotacoes_brutas": 16448,
-    "total_dados_html": 148,
-    "total_grupos_brutos": 344,
-    "grupos_descartados_por_data_antiga": 196,
+    "total_cotacoes_tabela": 143,
+    "total_cotacoes_brutas": 15479,
+    "total_dados_html": 143,
+    "total_grupos_brutos": 320,
+    "grupos_descartados_por_data_antiga": 177,
     "total_indicadores_cepea_widget": 0,
-    "total_precos_produtor": 6,
+    "total_precos_produtor": 0,
     "total_precos_atacado": 31,
     "total_indicadores_mercado": 0,
     "fontes_com_sucesso": [
+      "AIBA",
       "CONAB - Preços Agropecuários Semanal UF",
       "CONAB - Preços Agropecuários Semanal Município"
     ],
-    "total_fontes_com_erro": 2,
-    "tempo_execucao_segundos": 15.7
+    "total_fontes_com_erro": 0,
+    "tempo_execucao_segundos": 19.08
   },
   "fontes": [
     {
       "fonte": "AIBA",
       "url": "https://aiba.org.br/cotacoes/",
-      "status": "erro",
-      "erro": "403 Client Error: Forbidden for url: https://aiba.org.br/cotacoes/"
+      "status": "ok",
+      "total_registros": 8
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 7319,
+      "total_registros": 6832,
       "colunas_preco_identificadas": [
         "valor_produto_kg"
       ],
@@ -56,7 +57,7 @@
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
       "status": "ok",
-      "total_registros": 9129,
+      "total_registros": 8639,
       "colunas_preco_identificadas": [
         "valor_produto_kg"
       ],
@@ -65,8 +66,9 @@
     {
       "fonte": "CEPEA/ESALQ Widget",
       "url": "https://cepea.org.br/br/widgetproduto.js.php?fonte=arial&tamanho=10&largura=400px&corfundo=dbd6b2&cortexto=333333&corlinha=ede7bf&id_indicador%5B%5D=54&id_indicador%5B%5D=91&id_indicador%5B%5D=50&id_indicador%5B%5D=149&id_indicador%5B%5D=35&id_indicador%5B%5D=53&id_indicador%5B%5D=2&id_indicador%5B%5D=381-56&id_indicador%5B%5D=leitep&id_indicador%5B%5D=77&id_indicador%5B%5D=92",
-      "status": "erro",
-      "erro": "403 Client Error: Forbidden for url: https://cepea.org.br/br/widgetproduto.js.php?fonte=arial&tamanho=10&largura=400px&corfundo=dbd6b2&cortexto=333333&corlinha=ede7bf&id_indicador%5B%5D=54&id_indicador%5B%5D=91&id_indicador%5B%5D=50&id_indicador%5B%5D=149&id_indicador%5B%5D=35&id_indicador%5B%5D=53&id_indicador%5B%5D=2&id_indicador%5B%5D=381-56&id_indicador%5B%5D=leitep&id_indicador%5B%5D=77&id_indicador%5B%5D=92"
+      "status": "widget_frontend",
+      "total_registros": 0,
+      "observacao": "Widget oficial mantido no HTML/WordPress. Não coletado pelo GitHub Actions para evitar erro 403 e duplicidade na tabela principal."
     },
     {
       "fonte": "B3 - Commodities",
@@ -78,278 +80,274 @@
   ],
   "cotacoes": [
     {
-      "produto": "Algodão — Produtor",
+      "produto": "Algodão — Caroço — Regional",
       "produto_base": "Algodão",
-      "produto_original": "BENEFICIAMENTO DE ALGODAO",
-      "tipo_produto": "Padrão",
-      "produto_slug": "algodao-produtor",
+      "produto_original": "Algodão Caroço",
+      "tipo_produto": "Caroço",
+      "produto_slug": "algodao-caroco-regional",
       "uf": "BA",
       "estado": "Bahia",
-      "praca": "BARREIRAS-BA",
-      "unidade": "@",
-      "unidade_original": "@",
-      "preco": 0.83,
-      "preco_original": 0.83,
-      "preco_formatado": "R$ 0,83",
+      "praca": "Oeste Baiano",
+      "unidade": "Tonelada",
+      "unidade_original": "Tonelada",
+      "preco": 1100.0,
+      "preco_original": 1100.0,
+      "preco_formatado": "R$ 1100,00",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
       "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2026-03-23",
-      "fonte": "CONAB - Preços Agropecuários Semanal Município",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Produtor",
-      "nivel_comercializacao_chave": "preco_produtor",
-      "prioridade_nivel_preco": 1,
+      "variacao_percentual": -4.35,
+      "data_referencia": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
       "categoria": "commodity_agricola",
-      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Produtor.",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
       "historico_30_dias": [
         {
-          "data": "2026-03-02",
-          "valor": 0.83
-        },
-        {
-          "data": "2026-03-09",
-          "valor": 0.83
-        },
-        {
-          "data": "2026-03-16",
-          "valor": 0.83
-        },
-        {
-          "data": "2026-03-23",
-          "valor": 0.83
+          "data": "2026-05-07",
+          "valor": 1100.0
         }
       ]
     },
     {
-      "produto": "Milho — Produtor",
-      "produto_base": "Milho",
-      "produto_original": "INOCULANTE PARA MILHO",
-      "tipo_produto": "Padrão",
-      "produto_slug": "milho-produtor",
-      "uf": "BA",
-      "estado": "Bahia",
-      "praca": "BARREIRAS-BA",
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Kg",
-      "preco": 3300.0,
-      "preco_original": 55.0,
-      "preco_formatado": "R$ 3300,00",
-      "fator_conversao": 60.0,
-      "conversao_aplicada": true,
-      "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2026-03-23",
-      "fonte": "CONAB - Preços Agropecuários Semanal Município",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Produtor",
-      "nivel_comercializacao_chave": "preco_produtor",
-      "prioridade_nivel_preco": 1,
-      "categoria": "commodity_agricola",
-      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Produtor.",
-      "historico_30_dias": [
-        {
-          "data": "2026-03-02",
-          "valor": 3300.0
-        },
-        {
-          "data": "2026-03-09",
-          "valor": 3300.0
-        },
-        {
-          "data": "2026-03-16",
-          "valor": 3300.0
-        },
-        {
-          "data": "2026-03-23",
-          "valor": 3300.0
-        }
-      ]
-    },
-    {
-      "produto": "Soja — Produtor",
-      "produto_base": "Soja",
-      "produto_original": "INOCULANTE PARA SOJA",
-      "tipo_produto": "Padrão",
-      "produto_slug": "soja-produtor",
-      "uf": "BA",
-      "estado": "Bahia",
-      "praca": "BARREIRAS-BA",
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Kg",
-      "preco": 180.0,
-      "preco_original": 3.0,
-      "preco_formatado": "R$ 180,00",
-      "fator_conversao": 60.0,
-      "conversao_aplicada": true,
-      "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2026-03-23",
-      "fonte": "CONAB - Preços Agropecuários Semanal Município",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Produtor",
-      "nivel_comercializacao_chave": "preco_produtor",
-      "prioridade_nivel_preco": 1,
-      "categoria": "commodity_agricola",
-      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Produtor.",
-      "historico_30_dias": [
-        {
-          "data": "2026-03-02",
-          "valor": 180.0
-        },
-        {
-          "data": "2026-03-09",
-          "valor": 180.0
-        },
-        {
-          "data": "2026-03-16",
-          "valor": 180.0
-        },
-        {
-          "data": "2026-03-23",
-          "valor": 180.0
-        }
-      ]
-    },
-    {
-      "produto": "Algodão — Produtor",
+      "produto": "Algodão — Pluma — Regional",
       "produto_base": "Algodão",
-      "produto_original": "BENEFICIAMENTO DE ALGODAO",
-      "tipo_produto": "Padrão",
-      "produto_slug": "algodao-produtor",
+      "produto_original": "Algodão Pluma",
+      "tipo_produto": "Pluma",
+      "produto_slug": "algodao-pluma-regional",
       "uf": "BA",
       "estado": "Bahia",
-      "praca": "Média UF",
-      "unidade": "@",
-      "unidade_original": "@",
-      "preco": 0.83,
-      "preco_original": 0.83,
-      "preco_formatado": "R$ 0,83",
+      "praca": "Oeste Baiano",
+      "unidade": "Arroba (@)",
+      "unidade_original": "Arroba (@)",
+      "preco": 134.0,
+      "preco_original": 134.0,
+      "preco_formatado": "R$ 134,00",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
       "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2026-03-23",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Produtor",
-      "nivel_comercializacao_chave": "preco_produtor",
-      "prioridade_nivel_preco": 1,
+      "variacao_percentual": 0.37,
+      "data_referencia": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
       "categoria": "commodity_agricola",
-      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Produtor.",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
       "historico_30_dias": [
         {
-          "data": "2026-03-02",
-          "valor": 0.83
-        },
-        {
-          "data": "2026-03-09",
-          "valor": 0.83
-        },
-        {
-          "data": "2026-03-16",
-          "valor": 0.83
-        },
-        {
-          "data": "2026-03-23",
-          "valor": 0.83
+          "data": "2026-05-07",
+          "valor": 134.0
         }
       ]
     },
     {
-      "produto": "Milho — Produtor",
+      "produto": "Arroz — Regional",
+      "produto_base": "Arroz",
+      "produto_original": "Arroz em Casca",
+      "tipo_produto": "Padrão",
+      "produto_slug": "arroz-regional",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Oeste Baiano",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "preco": 78.5,
+      "preco_original": 78.5,
+      "preco_formatado": "R$ 78,50",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": 0.64,
+      "data_referencia": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
+      "historico_30_dias": [
+        {
+          "data": "2026-05-07",
+          "valor": 78.5
+        }
+      ]
+    },
+    {
+      "produto": "Feijão — Carioca — Regional",
+      "produto_base": "Feijão",
+      "produto_original": "Feijão Carioca",
+      "tipo_produto": "Carioca",
+      "produto_slug": "feijao-carioca-regional",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Oeste Baiano",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "preco": 402.5,
+      "preco_original": 402.5,
+      "preco_formatado": "R$ 402,50",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": 3.87,
+      "data_referencia": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
+      "historico_30_dias": [
+        {
+          "data": "2026-05-07",
+          "valor": 402.5
+        }
+      ]
+    },
+    {
+      "produto": "Milho — Regional",
       "produto_base": "Milho",
-      "produto_original": "INOCULANTE PARA MILHO",
+      "produto_original": "Milho",
       "tipo_produto": "Padrão",
-      "produto_slug": "milho-produtor",
+      "produto_slug": "milho-regional",
       "uf": "BA",
       "estado": "Bahia",
-      "praca": "Média UF",
+      "praca": "Oeste Baiano",
       "unidade": "Saca 60 kg",
-      "unidade_original": "Kg",
-      "preco": 3300.0,
-      "preco_original": 55.0,
-      "preco_formatado": "R$ 3300,00",
-      "fator_conversao": 60.0,
-      "conversao_aplicada": true,
+      "unidade_original": "Saca 60kg",
+      "preco": 55.5,
+      "preco_original": 55.5,
+      "preco_formatado": "R$ 55,50",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
       "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2026-03-23",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Produtor",
-      "nivel_comercializacao_chave": "preco_produtor",
-      "prioridade_nivel_preco": 1,
+      "variacao_percentual": 0.0,
+      "data_referencia": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
       "categoria": "commodity_agricola",
-      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Produtor.",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
       "historico_30_dias": [
         {
-          "data": "2026-03-02",
-          "valor": 3300.0
-        },
-        {
-          "data": "2026-03-09",
-          "valor": 3300.0
-        },
-        {
-          "data": "2026-03-16",
-          "valor": 3300.0
-        },
-        {
-          "data": "2026-03-23",
-          "valor": 3300.0
+          "data": "2026-05-07",
+          "valor": 55.5
         }
       ]
     },
     {
-      "produto": "Soja — Produtor",
+      "produto": "Soja — Balcão — Regional",
       "produto_base": "Soja",
-      "produto_original": "INOCULANTE PARA SOJA",
-      "tipo_produto": "Padrão",
-      "produto_slug": "soja-produtor",
+      "produto_original": "Soja Balcão",
+      "tipo_produto": "Balcão",
+      "produto_slug": "soja-balcao-regional",
       "uf": "BA",
       "estado": "Bahia",
-      "praca": "Média UF",
+      "praca": "Oeste Baiano",
       "unidade": "Saca 60 kg",
-      "unidade_original": "Kg",
-      "preco": 180.0,
-      "preco_original": 3.0,
-      "preco_formatado": "R$ 180,00",
-      "fator_conversao": 60.0,
-      "conversao_aplicada": true,
+      "unidade_original": "Saca 60kg",
+      "preco": 110.67,
+      "preco_original": 110.67,
+      "preco_formatado": "R$ 110,67",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
       "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2026-03-23",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Produtor",
-      "nivel_comercializacao_chave": "preco_produtor",
-      "prioridade_nivel_preco": 1,
+      "variacao_percentual": 0.0,
+      "data_referencia": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
       "categoria": "commodity_agricola",
-      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Produtor.",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
       "historico_30_dias": [
         {
-          "data": "2026-03-02",
-          "valor": 180.0
-        },
+          "data": "2026-05-07",
+          "valor": 110.67
+        }
+      ]
+    },
+    {
+      "produto": "Soja — Disponível — Regional",
+      "produto_base": "Soja",
+      "produto_original": "Soja Disponível",
+      "tipo_produto": "Disponível",
+      "produto_slug": "soja-disponivel-regional",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Oeste Baiano",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "preco": 112.13,
+      "preco_original": 112.13,
+      "preco_formatado": "R$ 112,13",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": -1.64,
+      "data_referencia": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
+      "historico_30_dias": [
         {
-          "data": "2026-03-09",
-          "valor": 180.0
-        },
+          "data": "2026-05-07",
+          "valor": 112.13
+        }
+      ]
+    },
+    {
+      "produto": "Sorgo — Regional",
+      "produto_base": "Sorgo",
+      "produto_original": "Sorgo",
+      "tipo_produto": "Padrão",
+      "produto_slug": "sorgo-regional",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Oeste Baiano",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "preco": 42.0,
+      "preco_original": 42.0,
+      "preco_formatado": "R$ 42,00",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": 0.0,
+      "data_referencia": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
+      "historico_30_dias": [
         {
-          "data": "2026-03-16",
-          "valor": 180.0
-        },
-        {
-          "data": "2026-03-23",
-          "valor": 180.0
+          "data": "2026-05-07",
+          "valor": 42.0
         }
       ]
     },
@@ -10086,84 +10084,6 @@
       ]
     },
     {
-      "produto": "Algodão — Caroço",
-      "produto_base": "Algodão",
-      "produto_original": "CAROCO DE ALGODAO",
-      "tipo_produto": "Caroço",
-      "produto_slug": "algodao-caroco",
-      "uf": "BA",
-      "estado": "Bahia",
-      "praca": "Média UF",
-      "unidade": "@",
-      "unidade_original": "@",
-      "preco": 1.2,
-      "preco_original": 1.2,
-      "preco_formatado": "R$ 1,20",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2026-04-27",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Média UF",
-      "nivel_comercializacao_chave": "media_uf",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Média UF.",
-      "historico_30_dias": [
-        {
-          "data": "2026-02-09",
-          "valor": 1.22
-        },
-        {
-          "data": "2026-02-16",
-          "valor": 1.22
-        },
-        {
-          "data": "2026-02-23",
-          "valor": 1.2
-        },
-        {
-          "data": "2026-03-02",
-          "valor": 1.2
-        },
-        {
-          "data": "2026-03-09",
-          "valor": 1.23
-        },
-        {
-          "data": "2026-03-16",
-          "valor": 1.23
-        },
-        {
-          "data": "2026-03-23",
-          "valor": 1.23
-        },
-        {
-          "data": "2026-03-30",
-          "valor": 1.2
-        },
-        {
-          "data": "2026-04-06",
-          "valor": 1.2
-        },
-        {
-          "data": "2026-04-13",
-          "valor": 1.2
-        },
-        {
-          "data": "2026-04-20",
-          "valor": 1.2
-        },
-        {
-          "data": "2026-04-27",
-          "valor": 1.2
-        }
-      ]
-    },
-    {
       "produto": "Boi Gordo",
       "produto_base": "Boi Gordo",
       "produto_original": "BOI",
@@ -10356,84 +10276,6 @@
         {
           "data": "2026-04-27",
           "valor": 352.8
-        }
-      ]
-    },
-    {
-      "produto": "Leite",
-      "produto_base": "Leite",
-      "produto_original": "LEITE DE CABRA",
-      "tipo_produto": "Padrão",
-      "produto_slug": "leite",
-      "uf": "BA",
-      "estado": "Bahia",
-      "praca": "Média UF",
-      "unidade": "Litro",
-      "unidade_original": "Litro",
-      "preco": 3.78,
-      "preco_original": 3.78,
-      "preco_formatado": "R$ 3,7800",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2026-04-27",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Média UF",
-      "nivel_comercializacao_chave": "media_uf",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Média UF.",
-      "historico_30_dias": [
-        {
-          "data": "2026-02-09",
-          "valor": 3.75
-        },
-        {
-          "data": "2026-02-16",
-          "valor": 3.73
-        },
-        {
-          "data": "2026-02-23",
-          "valor": 3.73
-        },
-        {
-          "data": "2026-03-02",
-          "valor": 3.75
-        },
-        {
-          "data": "2026-03-09",
-          "valor": 3.73
-        },
-        {
-          "data": "2026-03-16",
-          "valor": 3.73
-        },
-        {
-          "data": "2026-03-23",
-          "valor": 3.73
-        },
-        {
-          "data": "2026-03-30",
-          "valor": 3.73
-        },
-        {
-          "data": "2026-04-06",
-          "valor": 3.73
-        },
-        {
-          "data": "2026-04-13",
-          "valor": 3.73
-        },
-        {
-          "data": "2026-04-20",
-          "valor": 3.75
-        },
-        {
-          "data": "2026-04-27",
-          "valor": 3.78
         }
       ]
     },
@@ -10668,84 +10510,6 @@
         {
           "data": "2026-04-27",
           "valor": 112.2
-        }
-      ]
-    },
-    {
-      "produto": "Sorgo",
-      "produto_base": "Sorgo",
-      "produto_original": "SORGO GRANIFERO",
-      "tipo_produto": "Padrão",
-      "produto_slug": "sorgo",
-      "uf": "BA",
-      "estado": "Bahia",
-      "praca": "Média UF",
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Kg",
-      "preco": 42.0,
-      "preco_original": 0.7,
-      "preco_formatado": "R$ 42,00",
-      "fator_conversao": 60.0,
-      "conversao_aplicada": true,
-      "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2026-04-27",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Média UF",
-      "nivel_comercializacao_chave": "media_uf",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Média UF.",
-      "historico_30_dias": [
-        {
-          "data": "2026-02-09",
-          "valor": 42.6
-        },
-        {
-          "data": "2026-02-16",
-          "valor": 42.6
-        },
-        {
-          "data": "2026-02-23",
-          "valor": 42.0
-        },
-        {
-          "data": "2026-03-02",
-          "valor": 42.0
-        },
-        {
-          "data": "2026-03-09",
-          "valor": 42.0
-        },
-        {
-          "data": "2026-03-16",
-          "valor": 43.2
-        },
-        {
-          "data": "2026-03-23",
-          "valor": 42.6
-        },
-        {
-          "data": "2026-03-30",
-          "valor": 42.6
-        },
-        {
-          "data": "2026-04-06",
-          "valor": 42.0
-        },
-        {
-          "data": "2026-04-13",
-          "valor": 42.0
-        },
-        {
-          "data": "2026-04-20",
-          "valor": 42.6
-        },
-        {
-          "data": "2026-04-27",
-          "valor": 42.0
         }
       ]
     },
@@ -11416,84 +11180,6 @@
       ]
     },
     {
-      "produto": "Leite",
-      "produto_base": "Leite",
-      "produto_original": "LEITE DE CABRA",
-      "tipo_produto": "Padrão",
-      "produto_slug": "leite",
-      "uf": "PB",
-      "estado": "Paraíba",
-      "praca": "Média UF",
-      "unidade": "Litro",
-      "unidade_original": "Litro",
-      "preco": 4.29,
-      "preco_original": 4.29,
-      "preco_formatado": "R$ 4,2900",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2026-04-27",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Média UF",
-      "nivel_comercializacao_chave": "media_uf",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Média UF.",
-      "historico_30_dias": [
-        {
-          "data": "2026-02-09",
-          "valor": 4.11
-        },
-        {
-          "data": "2026-02-16",
-          "valor": 4.11
-        },
-        {
-          "data": "2026-02-23",
-          "valor": 4.11
-        },
-        {
-          "data": "2026-03-02",
-          "valor": 4.11
-        },
-        {
-          "data": "2026-03-09",
-          "valor": 4.11
-        },
-        {
-          "data": "2026-03-16",
-          "valor": 4.29
-        },
-        {
-          "data": "2026-03-23",
-          "valor": 4.29
-        },
-        {
-          "data": "2026-03-30",
-          "valor": 4.29
-        },
-        {
-          "data": "2026-04-06",
-          "valor": 4.29
-        },
-        {
-          "data": "2026-04-13",
-          "valor": 4.29
-        },
-        {
-          "data": "2026-04-20",
-          "valor": 4.29
-        },
-        {
-          "data": "2026-04-27",
-          "valor": 4.29
-        }
-      ]
-    },
-    {
       "produto": "Leite — Vaca",
       "produto_base": "Leite",
       "produto_original": "LEITE DE VACA",
@@ -11646,84 +11332,6 @@
         {
           "data": "2026-04-27",
           "valor": 292.2
-        }
-      ]
-    },
-    {
-      "produto": "Leite",
-      "produto_base": "Leite",
-      "produto_original": "LEITE DE CABRA",
-      "tipo_produto": "Padrão",
-      "produto_slug": "leite",
-      "uf": "PE",
-      "estado": "Pernambuco",
-      "praca": "Média UF",
-      "unidade": "Litro",
-      "unidade_original": "Litro",
-      "preco": 3.0,
-      "preco_original": 3.0,
-      "preco_formatado": "R$ 3,0000",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2026-04-27",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Média UF",
-      "nivel_comercializacao_chave": "media_uf",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Média UF.",
-      "historico_30_dias": [
-        {
-          "data": "2026-02-09",
-          "valor": 2.5
-        },
-        {
-          "data": "2026-02-16",
-          "valor": 2.5
-        },
-        {
-          "data": "2026-02-23",
-          "valor": 3.0
-        },
-        {
-          "data": "2026-03-02",
-          "valor": 3.0
-        },
-        {
-          "data": "2026-03-09",
-          "valor": 2.5
-        },
-        {
-          "data": "2026-03-16",
-          "valor": 2.5
-        },
-        {
-          "data": "2026-03-23",
-          "valor": 2.5
-        },
-        {
-          "data": "2026-03-30",
-          "valor": 2.5
-        },
-        {
-          "data": "2026-04-06",
-          "valor": 2.5
-        },
-        {
-          "data": "2026-04-13",
-          "valor": 2.5
-        },
-        {
-          "data": "2026-04-20",
-          "valor": 3.0
-        },
-        {
-          "data": "2026-04-27",
-          "valor": 3.0
         }
       ]
     },
@@ -12196,84 +11804,6 @@
       ]
     },
     {
-      "produto": "Sorgo",
-      "produto_base": "Sorgo",
-      "produto_original": "SORGO GRANIFERO",
-      "tipo_produto": "Padrão",
-      "produto_slug": "sorgo",
-      "uf": "PI",
-      "estado": "Piauí",
-      "praca": "Média UF",
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Kg",
-      "preco": 51.6,
-      "preco_original": 0.86,
-      "preco_formatado": "R$ 51,60",
-      "fator_conversao": 60.0,
-      "conversao_aplicada": true,
-      "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2026-04-27",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Média UF",
-      "nivel_comercializacao_chave": "media_uf",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Média UF.",
-      "historico_30_dias": [
-        {
-          "data": "2026-02-09",
-          "valor": 54.6
-        },
-        {
-          "data": "2026-02-16",
-          "valor": 54.0
-        },
-        {
-          "data": "2026-02-23",
-          "valor": 52.2
-        },
-        {
-          "data": "2026-03-02",
-          "valor": 51.6
-        },
-        {
-          "data": "2026-03-09",
-          "valor": 53.4
-        },
-        {
-          "data": "2026-03-16",
-          "valor": 54.6
-        },
-        {
-          "data": "2026-03-23",
-          "valor": 54.6
-        },
-        {
-          "data": "2026-03-30",
-          "valor": 55.2
-        },
-        {
-          "data": "2026-04-06",
-          "valor": 54.6
-        },
-        {
-          "data": "2026-04-13",
-          "valor": 54.0
-        },
-        {
-          "data": "2026-04-20",
-          "valor": 51.6
-        },
-        {
-          "data": "2026-04-27",
-          "valor": 51.6
-        }
-      ]
-    },
-    {
       "produto": "Arroz",
       "produto_base": "Arroz",
       "produto_original": "ARROZ",
@@ -12348,84 +11878,6 @@
         {
           "data": "2026-04-27",
           "valor": 107.4
-        }
-      ]
-    },
-    {
-      "produto": "Leite",
-      "produto_base": "Leite",
-      "produto_original": "LEITE DE CABRA",
-      "tipo_produto": "Padrão",
-      "produto_slug": "leite",
-      "uf": "RN",
-      "estado": "Rio Grande do Norte",
-      "praca": "Média UF",
-      "unidade": "Litro",
-      "unidade_original": "Litro",
-      "preco": 3.78,
-      "preco_original": 3.78,
-      "preco_formatado": "R$ 3,7800",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2026-04-27",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Média UF",
-      "nivel_comercializacao_chave": "media_uf",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Média UF.",
-      "historico_30_dias": [
-        {
-          "data": "2026-02-09",
-          "valor": 3.47
-        },
-        {
-          "data": "2026-02-16",
-          "valor": 3.47
-        },
-        {
-          "data": "2026-02-23",
-          "valor": 3.47
-        },
-        {
-          "data": "2026-03-02",
-          "valor": 3.57
-        },
-        {
-          "data": "2026-03-09",
-          "valor": 3.68
-        },
-        {
-          "data": "2026-03-16",
-          "valor": 3.78
-        },
-        {
-          "data": "2026-03-23",
-          "valor": 3.78
-        },
-        {
-          "data": "2026-03-30",
-          "valor": 3.78
-        },
-        {
-          "data": "2026-04-06",
-          "valor": 3.78
-        },
-        {
-          "data": "2026-04-13",
-          "valor": 3.78
-        },
-        {
-          "data": "2026-04-20",
-          "valor": 3.78
-        },
-        {
-          "data": "2026-04-27",
-          "valor": 3.78
         }
       ]
     },
@@ -12745,301 +12197,257 @@
   "dados": [
     {
       "estado": "BA",
-      "cidade": "BARREIRAS-BA",
+      "cidade": "Oeste Baiano",
       "regiao": "Bahia",
-      "produto": "Algodão — Produtor",
+      "produto": "Algodão — Caroço — Regional",
       "produto_base": "Algodão",
-      "produto_original": "BENEFICIAMENTO DE ALGODAO",
-      "tipo_produto": "Padrão",
-      "nivel_comercializacao": "Produtor",
-      "nivel_comercializacao_chave": "preco_produtor",
-      "prioridade_nivel_preco": 1,
+      "produto_original": "Algodão Caroço",
+      "tipo_produto": "Caroço",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
       "categoria": "commodity_agricola",
-      "valor": 0.83,
-      "preco": "R$ 0,83",
-      "preco_original": 0.83,
-      "unidade": "@",
-      "unidade_original": "@",
+      "valor": 1100.0,
+      "preco": "R$ 1100,00",
+      "preco_original": 1100.0,
+      "unidade": "Tonelada",
+      "unidade_original": "Tonelada",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "23/03/2026",
-      "data_iso": "2026-03-23",
-      "fonte": "CONAB - Preços Agropecuários Semanal Município",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "data": "07/05/2026",
+      "data_iso": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
       "historico_30d": [
         {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
-          "valor": 0.83,
-          "preco": "R$ 0,83"
-        },
-        {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
-          "valor": 0.83,
-          "preco": "R$ 0,83"
-        },
-        {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
-          "valor": 0.83,
-          "preco": "R$ 0,83"
-        },
-        {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
-          "valor": 0.83,
-          "preco": "R$ 0,83"
+          "data": "07/05/2026",
+          "data_iso": "2026-05-07",
+          "valor": 1100.0,
+          "preco": "R$ 1100,00"
         }
       ]
     },
     {
       "estado": "BA",
-      "cidade": "BARREIRAS-BA",
+      "cidade": "Oeste Baiano",
       "regiao": "Bahia",
-      "produto": "Milho — Produtor",
-      "produto_base": "Milho",
-      "produto_original": "INOCULANTE PARA MILHO",
-      "tipo_produto": "Padrão",
-      "nivel_comercializacao": "Produtor",
-      "nivel_comercializacao_chave": "preco_produtor",
-      "prioridade_nivel_preco": 1,
-      "categoria": "commodity_agricola",
-      "valor": 3300.0,
-      "preco": "R$ 3300,00",
-      "preco_original": 55.0,
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Kg",
-      "fator_conversao": 60.0,
-      "conversao_aplicada": true,
-      "data": "23/03/2026",
-      "data_iso": "2026-03-23",
-      "fonte": "CONAB - Preços Agropecuários Semanal Município",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
-      "historico_30d": [
-        {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
-          "valor": 3300.0,
-          "preco": "R$ 3300,00"
-        },
-        {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
-          "valor": 3300.0,
-          "preco": "R$ 3300,00"
-        },
-        {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
-          "valor": 3300.0,
-          "preco": "R$ 3300,00"
-        },
-        {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
-          "valor": 3300.0,
-          "preco": "R$ 3300,00"
-        }
-      ]
-    },
-    {
-      "estado": "BA",
-      "cidade": "BARREIRAS-BA",
-      "regiao": "Bahia",
-      "produto": "Soja — Produtor",
-      "produto_base": "Soja",
-      "produto_original": "INOCULANTE PARA SOJA",
-      "tipo_produto": "Padrão",
-      "nivel_comercializacao": "Produtor",
-      "nivel_comercializacao_chave": "preco_produtor",
-      "prioridade_nivel_preco": 1,
-      "categoria": "commodity_agricola",
-      "valor": 180.0,
-      "preco": "R$ 180,00",
-      "preco_original": 3.0,
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Kg",
-      "fator_conversao": 60.0,
-      "conversao_aplicada": true,
-      "data": "23/03/2026",
-      "data_iso": "2026-03-23",
-      "fonte": "CONAB - Preços Agropecuários Semanal Município",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
-      "historico_30d": [
-        {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
-          "valor": 180.0,
-          "preco": "R$ 180,00"
-        },
-        {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
-          "valor": 180.0,
-          "preco": "R$ 180,00"
-        },
-        {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
-          "valor": 180.0,
-          "preco": "R$ 180,00"
-        },
-        {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
-          "valor": 180.0,
-          "preco": "R$ 180,00"
-        }
-      ]
-    },
-    {
-      "estado": "BA",
-      "cidade": "Média UF",
-      "regiao": "Bahia",
-      "produto": "Algodão — Produtor",
+      "produto": "Algodão — Pluma — Regional",
       "produto_base": "Algodão",
-      "produto_original": "BENEFICIAMENTO DE ALGODAO",
-      "tipo_produto": "Padrão",
-      "nivel_comercializacao": "Produtor",
-      "nivel_comercializacao_chave": "preco_produtor",
-      "prioridade_nivel_preco": 1,
+      "produto_original": "Algodão Pluma",
+      "tipo_produto": "Pluma",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
       "categoria": "commodity_agricola",
-      "valor": 0.83,
-      "preco": "R$ 0,83",
-      "preco_original": 0.83,
-      "unidade": "@",
-      "unidade_original": "@",
+      "valor": 134.0,
+      "preco": "R$ 134,00",
+      "preco_original": 134.0,
+      "unidade": "Arroba (@)",
+      "unidade_original": "Arroba (@)",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "23/03/2026",
-      "data_iso": "2026-03-23",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "data": "07/05/2026",
+      "data_iso": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
       "historico_30d": [
         {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
-          "valor": 0.83,
-          "preco": "R$ 0,83"
-        },
-        {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
-          "valor": 0.83,
-          "preco": "R$ 0,83"
-        },
-        {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
-          "valor": 0.83,
-          "preco": "R$ 0,83"
-        },
-        {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
-          "valor": 0.83,
-          "preco": "R$ 0,83"
+          "data": "07/05/2026",
+          "data_iso": "2026-05-07",
+          "valor": 134.0,
+          "preco": "R$ 134,00"
         }
       ]
     },
     {
       "estado": "BA",
-      "cidade": "Média UF",
+      "cidade": "Oeste Baiano",
       "regiao": "Bahia",
-      "produto": "Milho — Produtor",
+      "produto": "Arroz — Regional",
+      "produto_base": "Arroz",
+      "produto_original": "Arroz em Casca",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "valor": 78.5,
+      "preco": "R$ 78,50",
+      "preco_original": 78.5,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "07/05/2026",
+      "data_iso": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "historico_30d": [
+        {
+          "data": "07/05/2026",
+          "data_iso": "2026-05-07",
+          "valor": 78.5,
+          "preco": "R$ 78,50"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Oeste Baiano",
+      "regiao": "Bahia",
+      "produto": "Feijão — Carioca — Regional",
+      "produto_base": "Feijão",
+      "produto_original": "Feijão Carioca",
+      "tipo_produto": "Carioca",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "valor": 402.5,
+      "preco": "R$ 402,50",
+      "preco_original": 402.5,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "07/05/2026",
+      "data_iso": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "historico_30d": [
+        {
+          "data": "07/05/2026",
+          "data_iso": "2026-05-07",
+          "valor": 402.5,
+          "preco": "R$ 402,50"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Oeste Baiano",
+      "regiao": "Bahia",
+      "produto": "Milho — Regional",
       "produto_base": "Milho",
-      "produto_original": "INOCULANTE PARA MILHO",
+      "produto_original": "Milho",
       "tipo_produto": "Padrão",
-      "nivel_comercializacao": "Produtor",
-      "nivel_comercializacao_chave": "preco_produtor",
-      "prioridade_nivel_preco": 1,
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
       "categoria": "commodity_agricola",
-      "valor": 3300.0,
-      "preco": "R$ 3300,00",
-      "preco_original": 55.0,
+      "valor": 55.5,
+      "preco": "R$ 55,50",
+      "preco_original": 55.5,
       "unidade": "Saca 60 kg",
-      "unidade_original": "Kg",
-      "fator_conversao": 60.0,
-      "conversao_aplicada": true,
-      "data": "23/03/2026",
-      "data_iso": "2026-03-23",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "unidade_original": "Saca 60kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "07/05/2026",
+      "data_iso": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
       "historico_30d": [
         {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
-          "valor": 3300.0,
-          "preco": "R$ 3300,00"
-        },
-        {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
-          "valor": 3300.0,
-          "preco": "R$ 3300,00"
-        },
-        {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
-          "valor": 3300.0,
-          "preco": "R$ 3300,00"
-        },
-        {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
-          "valor": 3300.0,
-          "preco": "R$ 3300,00"
+          "data": "07/05/2026",
+          "data_iso": "2026-05-07",
+          "valor": 55.5,
+          "preco": "R$ 55,50"
         }
       ]
     },
     {
       "estado": "BA",
-      "cidade": "Média UF",
+      "cidade": "Oeste Baiano",
       "regiao": "Bahia",
-      "produto": "Soja — Produtor",
+      "produto": "Soja — Balcão — Regional",
       "produto_base": "Soja",
-      "produto_original": "INOCULANTE PARA SOJA",
-      "tipo_produto": "Padrão",
-      "nivel_comercializacao": "Produtor",
-      "nivel_comercializacao_chave": "preco_produtor",
-      "prioridade_nivel_preco": 1,
+      "produto_original": "Soja Balcão",
+      "tipo_produto": "Balcão",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
       "categoria": "commodity_agricola",
-      "valor": 180.0,
-      "preco": "R$ 180,00",
-      "preco_original": 3.0,
+      "valor": 110.67,
+      "preco": "R$ 110,67",
+      "preco_original": 110.67,
       "unidade": "Saca 60 kg",
-      "unidade_original": "Kg",
-      "fator_conversao": 60.0,
-      "conversao_aplicada": true,
-      "data": "23/03/2026",
-      "data_iso": "2026-03-23",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "unidade_original": "Saca 60kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "07/05/2026",
+      "data_iso": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
       "historico_30d": [
         {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
-          "valor": 180.0,
-          "preco": "R$ 180,00"
-        },
+          "data": "07/05/2026",
+          "data_iso": "2026-05-07",
+          "valor": 110.67,
+          "preco": "R$ 110,67"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Oeste Baiano",
+      "regiao": "Bahia",
+      "produto": "Soja — Disponível — Regional",
+      "produto_base": "Soja",
+      "produto_original": "Soja Disponível",
+      "tipo_produto": "Disponível",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "valor": 112.13,
+      "preco": "R$ 112,13",
+      "preco_original": 112.13,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "07/05/2026",
+      "data_iso": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "historico_30d": [
         {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
-          "valor": 180.0,
-          "preco": "R$ 180,00"
-        },
+          "data": "07/05/2026",
+          "data_iso": "2026-05-07",
+          "valor": 112.13,
+          "preco": "R$ 112,13"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Oeste Baiano",
+      "regiao": "Bahia",
+      "produto": "Sorgo — Regional",
+      "produto_base": "Sorgo",
+      "produto_original": "Sorgo",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "valor": 42.0,
+      "preco": "R$ 42,00",
+      "preco_original": 42.0,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "07/05/2026",
+      "data_iso": "2026-05-07",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "historico_30d": [
         {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
-          "valor": 180.0,
-          "preco": "R$ 180,00"
-        },
-        {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
-          "valor": 180.0,
-          "preco": "R$ 180,00"
+          "data": "07/05/2026",
+          "data_iso": "2026-05-07",
+          "valor": 42.0,
+          "preco": "R$ 42,00"
         }
       ]
     },
@@ -25593,104 +25001,6 @@
       "estado": "BA",
       "cidade": "Média UF",
       "regiao": "Bahia",
-      "produto": "Algodão — Caroço",
-      "produto_base": "Algodão",
-      "produto_original": "CAROCO DE ALGODAO",
-      "tipo_produto": "Caroço",
-      "nivel_comercializacao": "Média UF",
-      "nivel_comercializacao_chave": "media_uf",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "valor": 1.2,
-      "preco": "R$ 1,20",
-      "preco_original": 1.2,
-      "unidade": "@",
-      "unidade_original": "@",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "data": "27/04/2026",
-      "data_iso": "2026-04-27",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "historico_30d": [
-        {
-          "data": "09/02/2026",
-          "data_iso": "2026-02-09",
-          "valor": 1.22,
-          "preco": "R$ 1,22"
-        },
-        {
-          "data": "16/02/2026",
-          "data_iso": "2026-02-16",
-          "valor": 1.22,
-          "preco": "R$ 1,22"
-        },
-        {
-          "data": "23/02/2026",
-          "data_iso": "2026-02-23",
-          "valor": 1.2,
-          "preco": "R$ 1,20"
-        },
-        {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
-          "valor": 1.2,
-          "preco": "R$ 1,20"
-        },
-        {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
-          "valor": 1.23,
-          "preco": "R$ 1,23"
-        },
-        {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
-          "valor": 1.23,
-          "preco": "R$ 1,23"
-        },
-        {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
-          "valor": 1.23,
-          "preco": "R$ 1,23"
-        },
-        {
-          "data": "30/03/2026",
-          "data_iso": "2026-03-30",
-          "valor": 1.2,
-          "preco": "R$ 1,20"
-        },
-        {
-          "data": "06/04/2026",
-          "data_iso": "2026-04-06",
-          "valor": 1.2,
-          "preco": "R$ 1,20"
-        },
-        {
-          "data": "13/04/2026",
-          "data_iso": "2026-04-13",
-          "valor": 1.2,
-          "preco": "R$ 1,20"
-        },
-        {
-          "data": "20/04/2026",
-          "data_iso": "2026-04-20",
-          "valor": 1.2,
-          "preco": "R$ 1,20"
-        },
-        {
-          "data": "27/04/2026",
-          "data_iso": "2026-04-27",
-          "valor": 1.2,
-          "preco": "R$ 1,20"
-        }
-      ]
-    },
-    {
-      "estado": "BA",
-      "cidade": "Média UF",
-      "regiao": "Bahia",
       "produto": "Boi Gordo",
       "produto_base": "Boi Gordo",
       "produto_original": "BOI",
@@ -25940,104 +25250,6 @@
           "data_iso": "2026-04-27",
           "valor": 352.8,
           "preco": "R$ 352,80"
-        }
-      ]
-    },
-    {
-      "estado": "BA",
-      "cidade": "Média UF",
-      "regiao": "Bahia",
-      "produto": "Leite",
-      "produto_base": "Leite",
-      "produto_original": "LEITE DE CABRA",
-      "tipo_produto": "Padrão",
-      "nivel_comercializacao": "Média UF",
-      "nivel_comercializacao_chave": "media_uf",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "valor": 3.78,
-      "preco": "R$ 3,7800",
-      "preco_original": 3.78,
-      "unidade": "Litro",
-      "unidade_original": "Litro",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "data": "27/04/2026",
-      "data_iso": "2026-04-27",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "historico_30d": [
-        {
-          "data": "09/02/2026",
-          "data_iso": "2026-02-09",
-          "valor": 3.75,
-          "preco": "R$ 3,7500"
-        },
-        {
-          "data": "16/02/2026",
-          "data_iso": "2026-02-16",
-          "valor": 3.73,
-          "preco": "R$ 3,7300"
-        },
-        {
-          "data": "23/02/2026",
-          "data_iso": "2026-02-23",
-          "valor": 3.73,
-          "preco": "R$ 3,7300"
-        },
-        {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
-          "valor": 3.75,
-          "preco": "R$ 3,7500"
-        },
-        {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
-          "valor": 3.73,
-          "preco": "R$ 3,7300"
-        },
-        {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
-          "valor": 3.73,
-          "preco": "R$ 3,7300"
-        },
-        {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
-          "valor": 3.73,
-          "preco": "R$ 3,7300"
-        },
-        {
-          "data": "30/03/2026",
-          "data_iso": "2026-03-30",
-          "valor": 3.73,
-          "preco": "R$ 3,7300"
-        },
-        {
-          "data": "06/04/2026",
-          "data_iso": "2026-04-06",
-          "valor": 3.73,
-          "preco": "R$ 3,7300"
-        },
-        {
-          "data": "13/04/2026",
-          "data_iso": "2026-04-13",
-          "valor": 3.73,
-          "preco": "R$ 3,7300"
-        },
-        {
-          "data": "20/04/2026",
-          "data_iso": "2026-04-20",
-          "valor": 3.75,
-          "preco": "R$ 3,7500"
-        },
-        {
-          "data": "27/04/2026",
-          "data_iso": "2026-04-27",
-          "valor": 3.78,
-          "preco": "R$ 3,7800"
         }
       ]
     },
@@ -26332,104 +25544,6 @@
           "data_iso": "2026-04-27",
           "valor": 112.2,
           "preco": "R$ 112,20"
-        }
-      ]
-    },
-    {
-      "estado": "BA",
-      "cidade": "Média UF",
-      "regiao": "Bahia",
-      "produto": "Sorgo",
-      "produto_base": "Sorgo",
-      "produto_original": "SORGO GRANIFERO",
-      "tipo_produto": "Padrão",
-      "nivel_comercializacao": "Média UF",
-      "nivel_comercializacao_chave": "media_uf",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "valor": 42.0,
-      "preco": "R$ 42,00",
-      "preco_original": 0.7,
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Kg",
-      "fator_conversao": 60.0,
-      "conversao_aplicada": true,
-      "data": "27/04/2026",
-      "data_iso": "2026-04-27",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "historico_30d": [
-        {
-          "data": "09/02/2026",
-          "data_iso": "2026-02-09",
-          "valor": 42.6,
-          "preco": "R$ 42,60"
-        },
-        {
-          "data": "16/02/2026",
-          "data_iso": "2026-02-16",
-          "valor": 42.6,
-          "preco": "R$ 42,60"
-        },
-        {
-          "data": "23/02/2026",
-          "data_iso": "2026-02-23",
-          "valor": 42.0,
-          "preco": "R$ 42,00"
-        },
-        {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
-          "valor": 42.0,
-          "preco": "R$ 42,00"
-        },
-        {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
-          "valor": 42.0,
-          "preco": "R$ 42,00"
-        },
-        {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
-          "valor": 43.2,
-          "preco": "R$ 43,20"
-        },
-        {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
-          "valor": 42.6,
-          "preco": "R$ 42,60"
-        },
-        {
-          "data": "30/03/2026",
-          "data_iso": "2026-03-30",
-          "valor": 42.6,
-          "preco": "R$ 42,60"
-        },
-        {
-          "data": "06/04/2026",
-          "data_iso": "2026-04-06",
-          "valor": 42.0,
-          "preco": "R$ 42,00"
-        },
-        {
-          "data": "13/04/2026",
-          "data_iso": "2026-04-13",
-          "valor": 42.0,
-          "preco": "R$ 42,00"
-        },
-        {
-          "data": "20/04/2026",
-          "data_iso": "2026-04-20",
-          "valor": 42.6,
-          "preco": "R$ 42,60"
-        },
-        {
-          "data": "27/04/2026",
-          "data_iso": "2026-04-27",
-          "valor": 42.0,
-          "preco": "R$ 42,00"
         }
       ]
     },
@@ -27265,104 +26379,6 @@
       "estado": "PB",
       "cidade": "Média UF",
       "regiao": "Paraíba",
-      "produto": "Leite",
-      "produto_base": "Leite",
-      "produto_original": "LEITE DE CABRA",
-      "tipo_produto": "Padrão",
-      "nivel_comercializacao": "Média UF",
-      "nivel_comercializacao_chave": "media_uf",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "valor": 4.29,
-      "preco": "R$ 4,2900",
-      "preco_original": 4.29,
-      "unidade": "Litro",
-      "unidade_original": "Litro",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "data": "27/04/2026",
-      "data_iso": "2026-04-27",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "historico_30d": [
-        {
-          "data": "09/02/2026",
-          "data_iso": "2026-02-09",
-          "valor": 4.11,
-          "preco": "R$ 4,1100"
-        },
-        {
-          "data": "16/02/2026",
-          "data_iso": "2026-02-16",
-          "valor": 4.11,
-          "preco": "R$ 4,1100"
-        },
-        {
-          "data": "23/02/2026",
-          "data_iso": "2026-02-23",
-          "valor": 4.11,
-          "preco": "R$ 4,1100"
-        },
-        {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
-          "valor": 4.11,
-          "preco": "R$ 4,1100"
-        },
-        {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
-          "valor": 4.11,
-          "preco": "R$ 4,1100"
-        },
-        {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
-          "valor": 4.29,
-          "preco": "R$ 4,2900"
-        },
-        {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
-          "valor": 4.29,
-          "preco": "R$ 4,2900"
-        },
-        {
-          "data": "30/03/2026",
-          "data_iso": "2026-03-30",
-          "valor": 4.29,
-          "preco": "R$ 4,2900"
-        },
-        {
-          "data": "06/04/2026",
-          "data_iso": "2026-04-06",
-          "valor": 4.29,
-          "preco": "R$ 4,2900"
-        },
-        {
-          "data": "13/04/2026",
-          "data_iso": "2026-04-13",
-          "valor": 4.29,
-          "preco": "R$ 4,2900"
-        },
-        {
-          "data": "20/04/2026",
-          "data_iso": "2026-04-20",
-          "valor": 4.29,
-          "preco": "R$ 4,2900"
-        },
-        {
-          "data": "27/04/2026",
-          "data_iso": "2026-04-27",
-          "valor": 4.29,
-          "preco": "R$ 4,2900"
-        }
-      ]
-    },
-    {
-      "estado": "PB",
-      "cidade": "Média UF",
-      "regiao": "Paraíba",
       "produto": "Leite — Vaca",
       "produto_base": "Leite",
       "produto_original": "LEITE DE VACA",
@@ -27552,104 +26568,6 @@
           "data_iso": "2026-04-27",
           "valor": 292.2,
           "preco": "R$ 292,20"
-        }
-      ]
-    },
-    {
-      "estado": "PE",
-      "cidade": "Média UF",
-      "regiao": "Pernambuco",
-      "produto": "Leite",
-      "produto_base": "Leite",
-      "produto_original": "LEITE DE CABRA",
-      "tipo_produto": "Padrão",
-      "nivel_comercializacao": "Média UF",
-      "nivel_comercializacao_chave": "media_uf",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "valor": 3.0,
-      "preco": "R$ 3,0000",
-      "preco_original": 3.0,
-      "unidade": "Litro",
-      "unidade_original": "Litro",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "data": "27/04/2026",
-      "data_iso": "2026-04-27",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "historico_30d": [
-        {
-          "data": "09/02/2026",
-          "data_iso": "2026-02-09",
-          "valor": 2.5,
-          "preco": "R$ 2,5000"
-        },
-        {
-          "data": "16/02/2026",
-          "data_iso": "2026-02-16",
-          "valor": 2.5,
-          "preco": "R$ 2,5000"
-        },
-        {
-          "data": "23/02/2026",
-          "data_iso": "2026-02-23",
-          "valor": 3.0,
-          "preco": "R$ 3,0000"
-        },
-        {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
-          "valor": 3.0,
-          "preco": "R$ 3,0000"
-        },
-        {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
-          "valor": 2.5,
-          "preco": "R$ 2,5000"
-        },
-        {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
-          "valor": 2.5,
-          "preco": "R$ 2,5000"
-        },
-        {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
-          "valor": 2.5,
-          "preco": "R$ 2,5000"
-        },
-        {
-          "data": "30/03/2026",
-          "data_iso": "2026-03-30",
-          "valor": 2.5,
-          "preco": "R$ 2,5000"
-        },
-        {
-          "data": "06/04/2026",
-          "data_iso": "2026-04-06",
-          "valor": 2.5,
-          "preco": "R$ 2,5000"
-        },
-        {
-          "data": "13/04/2026",
-          "data_iso": "2026-04-13",
-          "valor": 2.5,
-          "preco": "R$ 2,5000"
-        },
-        {
-          "data": "20/04/2026",
-          "data_iso": "2026-04-20",
-          "valor": 3.0,
-          "preco": "R$ 3,0000"
-        },
-        {
-          "data": "27/04/2026",
-          "data_iso": "2026-04-27",
-          "valor": 3.0,
-          "preco": "R$ 3,0000"
         }
       ]
     },
@@ -28242,104 +27160,6 @@
       ]
     },
     {
-      "estado": "PI",
-      "cidade": "Média UF",
-      "regiao": "Piauí",
-      "produto": "Sorgo",
-      "produto_base": "Sorgo",
-      "produto_original": "SORGO GRANIFERO",
-      "tipo_produto": "Padrão",
-      "nivel_comercializacao": "Média UF",
-      "nivel_comercializacao_chave": "media_uf",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "valor": 51.6,
-      "preco": "R$ 51,60",
-      "preco_original": 0.86,
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Kg",
-      "fator_conversao": 60.0,
-      "conversao_aplicada": true,
-      "data": "27/04/2026",
-      "data_iso": "2026-04-27",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "historico_30d": [
-        {
-          "data": "09/02/2026",
-          "data_iso": "2026-02-09",
-          "valor": 54.6,
-          "preco": "R$ 54,60"
-        },
-        {
-          "data": "16/02/2026",
-          "data_iso": "2026-02-16",
-          "valor": 54.0,
-          "preco": "R$ 54,00"
-        },
-        {
-          "data": "23/02/2026",
-          "data_iso": "2026-02-23",
-          "valor": 52.2,
-          "preco": "R$ 52,20"
-        },
-        {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
-          "valor": 51.6,
-          "preco": "R$ 51,60"
-        },
-        {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
-          "valor": 53.4,
-          "preco": "R$ 53,40"
-        },
-        {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
-          "valor": 54.6,
-          "preco": "R$ 54,60"
-        },
-        {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
-          "valor": 54.6,
-          "preco": "R$ 54,60"
-        },
-        {
-          "data": "30/03/2026",
-          "data_iso": "2026-03-30",
-          "valor": 55.2,
-          "preco": "R$ 55,20"
-        },
-        {
-          "data": "06/04/2026",
-          "data_iso": "2026-04-06",
-          "valor": 54.6,
-          "preco": "R$ 54,60"
-        },
-        {
-          "data": "13/04/2026",
-          "data_iso": "2026-04-13",
-          "valor": 54.0,
-          "preco": "R$ 54,00"
-        },
-        {
-          "data": "20/04/2026",
-          "data_iso": "2026-04-20",
-          "valor": 51.6,
-          "preco": "R$ 51,60"
-        },
-        {
-          "data": "27/04/2026",
-          "data_iso": "2026-04-27",
-          "valor": 51.6,
-          "preco": "R$ 51,60"
-        }
-      ]
-    },
-    {
       "estado": "RN",
       "cidade": "Média UF",
       "regiao": "Rio Grande do Norte",
@@ -28434,104 +27254,6 @@
           "data_iso": "2026-04-27",
           "valor": 107.4,
           "preco": "R$ 107,40"
-        }
-      ]
-    },
-    {
-      "estado": "RN",
-      "cidade": "Média UF",
-      "regiao": "Rio Grande do Norte",
-      "produto": "Leite",
-      "produto_base": "Leite",
-      "produto_original": "LEITE DE CABRA",
-      "tipo_produto": "Padrão",
-      "nivel_comercializacao": "Média UF",
-      "nivel_comercializacao_chave": "media_uf",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "valor": 3.78,
-      "preco": "R$ 3,7800",
-      "preco_original": 3.78,
-      "unidade": "Litro",
-      "unidade_original": "Litro",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "data": "27/04/2026",
-      "data_iso": "2026-04-27",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "historico_30d": [
-        {
-          "data": "09/02/2026",
-          "data_iso": "2026-02-09",
-          "valor": 3.47,
-          "preco": "R$ 3,4700"
-        },
-        {
-          "data": "16/02/2026",
-          "data_iso": "2026-02-16",
-          "valor": 3.47,
-          "preco": "R$ 3,4700"
-        },
-        {
-          "data": "23/02/2026",
-          "data_iso": "2026-02-23",
-          "valor": 3.47,
-          "preco": "R$ 3,4700"
-        },
-        {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
-          "valor": 3.57,
-          "preco": "R$ 3,5700"
-        },
-        {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
-          "valor": 3.68,
-          "preco": "R$ 3,6800"
-        },
-        {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
-          "valor": 3.78,
-          "preco": "R$ 3,7800"
-        },
-        {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
-          "valor": 3.78,
-          "preco": "R$ 3,7800"
-        },
-        {
-          "data": "30/03/2026",
-          "data_iso": "2026-03-30",
-          "valor": 3.78,
-          "preco": "R$ 3,7800"
-        },
-        {
-          "data": "06/04/2026",
-          "data_iso": "2026-04-06",
-          "valor": 3.78,
-          "preco": "R$ 3,7800"
-        },
-        {
-          "data": "13/04/2026",
-          "data_iso": "2026-04-13",
-          "valor": 3.78,
-          "preco": "R$ 3,7800"
-        },
-        {
-          "data": "20/04/2026",
-          "data_iso": "2026-04-20",
-          "valor": 3.78,
-          "preco": "R$ 3,7800"
-        },
-        {
-          "data": "27/04/2026",
-          "data_iso": "2026-04-27",
-          "valor": 3.78,
-          "preco": "R$ 3,7800"
         }
       ]
     },
@@ -28929,5 +27651,5 @@
     }
   ],
   "historico_30_dias": {},
-  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A tabela exibe o registro mais recente por produto, praça, unidade e fonte. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados ou industrializados, como óleo de soja, fubá, flocos e sementes, são removidos da página principal de commodities. A tabela principal mostra apenas cotações com data dentro dos últimos 90 dias, evitando a exibição de preços antigos como se fossem atuais. Os dados da CONAB são classificados por nível de comercialização quando possível, como produtor, atacado, varejo ou média UF. Os indicadores CEPEA/ESALQ são carregados pelo widget oficial e tratados como referência de mercado. O gráfico usa as observações históricas recentes disponíveis. Os valores podem variar conforme praça de negociação, qualidade do produto, volume negociado, frete, forma de pagamento, logística e data de atualização. B3 e CEPEA/ESALQ podem representar referências de mercado e não necessariamente preço local de praça."
+  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A tabela exibe o registro mais recente por produto, praça, unidade e fonte. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados ou industrializados, como óleo de soja, fubá, flocos e sementes, são removidos da página principal de commodities. A tabela principal mostra apenas cotações com data dentro dos últimos 90 dias, evitando a exibição de preços antigos como se fossem atuais. Os dados da CONAB são classificados por nível de comercialização quando possível, como produtor, atacado, varejo ou média UF. Insumos, serviços e derivados são removidos para evitar que itens como inoculante para milho, inoculante para soja e beneficiamento de algodão apareçam como commodity. Os indicadores CEPEA/ESALQ ficam em seção própria do HTML via widget oficial. O gráfico usa as observações históricas recentes disponíveis. Os valores podem variar conforme praça de negociação, qualidade do produto, volume negociado, frete, forma de pagamento, logística e data de atualização. B3 e CEPEA/ESALQ podem representar referências de mercado e não necessariamente preço local de praça."
 }
