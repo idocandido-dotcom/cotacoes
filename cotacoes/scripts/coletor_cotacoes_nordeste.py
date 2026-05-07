@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.0.6
+Nordeste Agro — Coletor Automático de Cotações v1.0.8
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -20,6 +20,18 @@ Melhorias desta versão:
 - Filtra produtos derivados/industrializados para não poluir a página:
   * óleo de soja, fubá de milho, flocos de milho, semente de feijão,
     farelo, farinha, canjica, creme, ração e similares.
+- Remove da página principal cotações antigas:
+  * só entram na tabela cotações com data dentro dos últimos 90 dias.
+  * cotações antigas continuam fora da página para evitar preço desatualizado.
+- Classifica o tipo de preço da CONAB:
+  * produtor, atacado, varejo, média UF ou não informado.
+  * prioriza produtor/regional na organização dos dados.
+- Mescla indicadores CEPEA/ESALQ via widget oficial:
+  * usa o script público do widget da CEPEA.
+  * trata esses dados como indicador de mercado, não como preço local.
+- Mantém o layout do site:
+  * o HTML continua puxando o mesmo JSON.
+  * apenas os campos e informações ficam mais bem classificados.
 - Gera:
   * cotacoes/public/cotacoes_nordeste.json
   * cotacoes/public/cotacoes_regionais.json
@@ -32,7 +44,7 @@ import io
 import json
 import re
 import unicodedata
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Any, Optional
 from zoneinfo import ZoneInfo
@@ -112,6 +124,8 @@ CEPEA_INDICADORES = [
 
 B3_COMMODITIES_URL = "https://www.b3.com.br/pt_br/produtos-e-servicos/negociacao/commodities/"
 
+CEPEA_WIDGET_URL = "https://cepea.org.br/br/widgetproduto.js.php?fonte=arial&tamanho=10&largura=400px&corfundo=dbd6b2&cortexto=333333&corlinha=ede7bf&id_indicador%5B%5D=54&id_indicador%5B%5D=91&id_indicador%5B%5D=50&id_indicador%5B%5D=149&id_indicador%5B%5D=35&id_indicador%5B%5D=53&id_indicador%5B%5D=2&id_indicador%5B%5D=381-56&id_indicador%5B%5D=leitep&id_indicador%5B%5D=77&id_indicador%5B%5D=92"
+
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; NordesteAgroBot/1.0; +https://nordesteagro.com)",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -165,6 +179,21 @@ TIPOS_REAIS = {
 # Regra definida para Nordeste Agro:
 # soja, milho, sorgo, arroz e feijão devem aparecer por saca de 60 kg.
 PRODUTOS_SACA_60KG = {"Soja", "Milho", "Sorgo", "Arroz", "Feijão"}
+
+# Regra de segurança para não mostrar preços antigos como se fossem atuais.
+# Se uma praça/produto não tiver cotação dentro desse prazo, ela sai da tabela principal.
+DIAS_MAXIMOS_COTACAO_ATIVA = 90
+
+NIVEIS_PRECO_PRIORIDADE = {
+    "preco_produtor": 1,
+    "preco_regional": 2,
+    "preco_atacado": 3,
+    "preco_varejo": 4,
+    "media_uf": 5,
+    "indicador_mercado": 6,
+    "mercado_futuro": 7,
+    "nao_informado": 99,
+}
 
 # Termos que indicam produtos industrializados, processados, insumos ou derivados.
 # Esses itens não devem entrar na página principal de commodities agrícolas.
@@ -230,6 +259,61 @@ def slugify(valor: Any) -> str:
 
 def chave_normalizada(valor: Any) -> str:
     return slugify(limpar_texto(valor))
+
+
+def normalizar_nivel_preco(valor: Any) -> tuple[str, str, int]:
+    """
+    Classifica o tipo de preço para não misturar produtor, atacado,
+    varejo, média UF e indicadores de mercado.
+    """
+    texto = remover_acentos(valor).lower()
+
+    if any(chave in texto for chave in [
+        "pago pelo prod",
+        "preco pago pelo prod",
+        "preço pago pelo prod",
+        "recebido pelo prod",
+        "preco recebido pelo produtor",
+        "preço recebido pelo produtor",
+        "produtor",
+    ]):
+        return "preco_produtor", "Produtor", NIVEIS_PRECO_PRIORIDADE["preco_produtor"]
+
+    if "aiba" in texto or "regional" in texto or "oeste baiano" in texto:
+        return "preco_regional", "Regional", NIVEIS_PRECO_PRIORIDADE["preco_regional"]
+
+    if "atacado" in texto or "atacadista" in texto:
+        return "preco_atacado", "Atacado", NIVEIS_PRECO_PRIORIDADE["preco_atacado"]
+
+    if "varejo" in texto or "varejista" in texto:
+        return "preco_varejo", "Varejo", NIVEIS_PRECO_PRIORIDADE["preco_varejo"]
+
+    if "media uf" in texto or "média uf" in texto or "medio uf" in texto or "médio uf" in texto:
+        return "media_uf", "Média UF", NIVEIS_PRECO_PRIORIDADE["media_uf"]
+
+    if "cepea" in texto or "esalq" in texto or "indicador" in texto:
+        return "indicador_mercado", "Indicador de Mercado", NIVEIS_PRECO_PRIORIDADE["indicador_mercado"]
+
+    if "b3" in texto or "futuro" in texto:
+        return "mercado_futuro", "Mercado Futuro", NIVEIS_PRECO_PRIORIDADE["mercado_futuro"]
+
+    return "nao_informado", "Não informado", NIVEIS_PRECO_PRIORIDADE["nao_informado"]
+
+
+def nome_produto_com_nivel(produto_base: str, tipo_produto: str, nivel_label: str) -> str:
+    """
+    Mantém o layout da tabela sem criar coluna nova.
+    Quando o tipo do preço é importante, ele aparece no nome do produto.
+    """
+    nome = montar_nome_produto(produto_base, tipo_produto)
+
+    if nivel_label in {"Não informado", "Média UF"}:
+        return nome
+
+    if nivel_label in nome:
+        return nome
+
+    return f"{nome} — {nivel_label}"
 
 
 def produto_eh_alvo(produto: Any) -> bool:
@@ -476,6 +560,15 @@ def data_ordenavel(data_iso: Any) -> str:
     return parse_data(data_iso)
 
 
+def data_corte_cotacoes_ativas() -> str:
+    return (agora_local().date() - timedelta(days=DIAS_MAXIMOS_COTACAO_ATIVA)).isoformat()
+
+
+def data_dentro_do_limite(data_iso: Any, data_corte_iso: str) -> bool:
+    data_item = parse_data(data_iso)
+    return data_item >= data_corte_iso
+
+
 def baixar_texto(url: str, timeout: int = 60) -> str:
     resposta = requests.get(url, headers=HEADERS, timeout=timeout)
     resposta.raise_for_status()
@@ -513,19 +606,40 @@ def criar_item(
     fonte_url: str,
     tipo_fonte: str,
     observacao: str,
+    nivel_comercializacao: str = "Não informado",
+    categoria: str = "commodity_agricola",
+    converter_unidade: bool = True,
+    preco_formatado_override: Optional[str] = None,
 ) -> dict[str, Any]:
     produto_base = normalizar_produto_base(produto_original)
     tipo_produto = identificar_tipo_produto(produto_original)
-    produto_nome = montar_nome_produto(produto_base, tipo_produto)
+
+    nivel_chave, nivel_label, nivel_prioridade = normalizar_nivel_preco(nivel_comercializacao)
+
+    if tipo_fonte == "regional" and nivel_chave == "nao_informado":
+        nivel_chave, nivel_label, nivel_prioridade = normalizar_nivel_preco("regional")
+
+    if tipo_fonte == "referencia_mercado" and nivel_chave == "nao_informado":
+        nivel_chave, nivel_label, nivel_prioridade = normalizar_nivel_preco("indicador")
+
+    produto_nome = nome_produto_com_nivel(produto_base, tipo_produto, nivel_label)
 
     unidade_original = inferir_unidade(produto_original, produto_base, unidade, fonte, preco)
     preco_original = preco
 
-    preco_final, unidade_final, fator_conversao, conversao_aplicada = aplicar_conversao_unidade_comercial(
-        produto_base=produto_base,
-        preco=preco,
-        unidade=unidade_original,
-    )
+    if converter_unidade:
+        preco_final, unidade_final, fator_conversao, conversao_aplicada = aplicar_conversao_unidade_comercial(
+            produto_base=produto_base,
+            preco=preco,
+            unidade=unidade_original,
+        )
+    else:
+        preco_final = preco
+        unidade_final = limpar_texto(unidade_original) or limpar_texto(unidade) or "Unidade"
+        fator_conversao = 1.0
+        conversao_aplicada = False
+
+    preco_formatado = preco_formatado_override or formatar_preco(preco_final, unidade_final)
 
     return {
         "produto": produto_nome,
@@ -540,7 +654,7 @@ def criar_item(
         "unidade_original": unidade_original,
         "preco": preco_final,
         "preco_original": preco_original,
-        "preco_formatado": formatar_preco(preco_final, unidade_final),
+        "preco_formatado": preco_formatado,
         "fator_conversao": fator_conversao,
         "conversao_aplicada": conversao_aplicada,
         "moeda": "BRL",
@@ -549,7 +663,10 @@ def criar_item(
         "fonte": fonte,
         "fonte_url": fonte_url,
         "tipo": tipo_fonte,
-        "categoria": "commodity_agricola",
+        "nivel_comercializacao": nivel_label,
+        "nivel_comercializacao_chave": nivel_chave,
+        "prioridade_nivel_preco": nivel_prioridade,
+        "categoria": categoria,
         "observacao": observacao,
         "historico_30_dias": [],
     }
@@ -564,6 +681,10 @@ def cotacao_para_dado_html(item: dict[str, Any]) -> dict[str, Any]:
         "produto_base": item.get("produto_base") or "",
         "produto_original": item.get("produto_original") or "",
         "tipo_produto": item.get("tipo_produto") or "",
+        "nivel_comercializacao": item.get("nivel_comercializacao") or "",
+        "nivel_comercializacao_chave": item.get("nivel_comercializacao_chave") or "",
+        "prioridade_nivel_preco": item.get("prioridade_nivel_preco", 99),
+        "categoria": item.get("categoria") or "",
         "valor": item.get("preco"),
         "preco": item.get("preco_formatado") or "",
         "preco_original": item.get("preco_original"),
@@ -700,6 +821,56 @@ def ler_registros_csv(texto: str) -> list[dict[str, str]]:
     return registros
 
 
+def identificar_colunas_preco_conab(colunas: list[str]) -> list[str]:
+    """
+    Identifica colunas que podem conter preço na base da CONAB.
+    Em alguns arquivos há uma coluna única de preço; em outros, o tipo de preço
+    pode aparecer no nome da coluna.
+    """
+    resultado = []
+
+    for col in colunas:
+        col_norm = normalizar_coluna(col)
+
+        if any(chave in col_norm for chave in ["preco", "pre_o", "valor", "vlr"]):
+            if not any(ignorar in col_norm for ignorar in ["data", "produto", "codigo", "cod_"]):
+                resultado.append(col)
+
+    # Evita duplicar e mantém ordem original.
+    vistos = set()
+    unicos = []
+    for col in resultado:
+        if col not in vistos:
+            vistos.add(col)
+            unicos.append(col)
+
+    return unicos
+
+
+def detectar_nivel_conab(
+    *,
+    coluna_preco: str,
+    linha: dict[str, str],
+    col_nivel: Optional[str],
+    nome_fonte: str,
+) -> str:
+    candidatos = []
+
+    if col_nivel:
+        candidatos.append(linha.get(col_nivel, ""))
+
+    candidatos.append(coluna_preco)
+    candidatos.append(nome_fonte)
+
+    texto = " ".join(limpar_texto(c) for c in candidatos if c)
+
+    if "Semanal UF" in nome_fonte and "atacado" not in remover_acentos(texto).lower() and "produtor" not in remover_acentos(texto).lower():
+        # A linha de UF é uma média agregada quando não houver outra classificação.
+        return texto + " Média UF"
+
+    return texto
+
+
 def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     cotacoes = []
 
@@ -720,11 +891,32 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
             col_produto = encontrar_coluna(colunas, ["produto", "produto_descricao", "nome_produto"])
             col_uf = encontrar_coluna(colunas, ["uf", "sigla_uf", "estado"])
             col_praca = encontrar_coluna(colunas, ["municipio", "município", "cidade", "praca", "praça"])
-            col_preco = encontrar_coluna(colunas, ["preco", "preço", "valor", "vlr"])
             col_unidade = encontrar_coluna(colunas, ["unidade", "unid", "medida"])
             col_data = encontrar_coluna(colunas, ["data", "dt", "referencia", "referência", "semana"])
+            col_nivel = encontrar_coluna(
+                colunas,
+                [
+                    "nivel",
+                    "nível",
+                    "comercializacao",
+                    "comercialização",
+                    "mercado",
+                    "tipo_preco",
+                    "tipo preço",
+                    "tipo",
+                    "categoria_preco",
+                ],
+            )
 
-            if not col_produto or not col_uf or not col_preco:
+            colunas_preco = identificar_colunas_preco_conab(colunas)
+
+            # Fallback para manter compatibilidade com a versão anterior.
+            if not colunas_preco:
+                col_preco = encontrar_coluna(colunas, ["preco", "preço", "valor", "vlr"])
+                if col_preco:
+                    colunas_preco = [col_preco]
+
+            if not col_produto or not col_uf or not colunas_preco:
                 raise RuntimeError(f"Colunas principais não identificadas. Colunas: {colunas}")
 
             for linha in registros:
@@ -738,11 +930,6 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 if not produto_deve_entrar_na_base(produto_original):
                     continue
 
-                preco = parse_preco(linha.get(col_preco, ""))
-
-                if preco is None:
-                    continue
-
                 praca = "Média UF"
 
                 if col_praca:
@@ -751,24 +938,47 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 unidade = limpar_texto(linha.get(col_unidade, "")) if col_unidade else ""
                 data_ref = parse_data(linha.get(col_data, "")) if col_data else agora_local().date().isoformat()
 
-                cotacoes.append(
-                    criar_item(
-                        produto_original=produto_original,
-                        uf=uf,
-                        estado_nome=UFS_NORDESTE[uf],
-                        praca=praca,
-                        unidade=unidade,
-                        preco=preco,
-                        variacao_percentual=None,
-                        data_referencia=data_ref,
-                        fonte=nome,
-                        fonte_url=url,
-                        tipo_fonte="oficial",
-                        observacao="Preço agropecuário oficial/compilado pela CONAB e parceiros.",
-                    )
-                )
+                for col_preco in colunas_preco:
+                    preco = parse_preco(linha.get(col_preco, ""))
 
-                total += 1
+                    if preco is None:
+                        continue
+
+                    nivel_texto = detectar_nivel_conab(
+                        coluna_preco=col_preco,
+                        linha=linha,
+                        col_nivel=col_nivel,
+                        nome_fonte=nome,
+                    )
+
+                    nivel_chave, nivel_label, _ = normalizar_nivel_preco(nivel_texto)
+
+                    # Se não identificou nada, deixa pelo menos a origem explícita.
+                    if nivel_chave == "nao_informado":
+                        nivel_texto = "Não informado"
+
+                    cotacoes.append(
+                        criar_item(
+                            produto_original=produto_original,
+                            uf=uf,
+                            estado_nome=UFS_NORDESTE[uf],
+                            praca=praca,
+                            unidade=unidade,
+                            preco=preco,
+                            variacao_percentual=None,
+                            data_referencia=data_ref,
+                            fonte=nome,
+                            fonte_url=url,
+                            tipo_fonte="oficial",
+                            nivel_comercializacao=nivel_texto,
+                            observacao=(
+                                "Preço agropecuário oficial/compilado pela CONAB e parceiros. "
+                                f"Nível identificado: {nivel_label}."
+                            ),
+                        )
+                    )
+
+                    total += 1
 
             status_fontes.append(
                 {
@@ -776,6 +986,8 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "url": url,
                     "status": "ok",
                     "total_registros": total,
+                    "colunas_preco_identificadas": colunas_preco,
+                    "coluna_nivel_identificada": col_nivel,
                 }
             )
 
@@ -813,6 +1025,165 @@ def extrair_primeiro_indicador_cepea(texto_pagina: str) -> Optional[tuple[str, f
             return parse_data(data), preco, parse_percentual(variacao)
 
     return None
+
+
+def decodificar_html_widget_cepea(js_texto: str) -> str:
+    """
+    O widget oficial da CEPEA retorna JavaScript com HTML.
+    Esta função tenta transformar esse JavaScript em HTML legível para parser.
+    """
+    partes = []
+
+    for chamada in re.findall(r"document\\.write\\((.*?)\\);", js_texto, flags=re.S):
+        for trecho in re.findall(r"""['"]((?:\\\\.|[^'"\\\\])*)['"]""", chamada, flags=re.S):
+            try:
+                partes.append(bytes(trecho, "utf-8").decode("unicode_escape"))
+            except Exception:
+                partes.append(trecho)
+
+    if partes:
+        html = "".join(partes)
+    else:
+        html = js_texto
+
+    html = (
+        html.replace("\\/", "/")
+        .replace('\\"', '"')
+        .replace("\\'", "'")
+        .replace("\\n", "\n")
+        .replace("\\t", "\t")
+    )
+
+    return html
+
+
+def parse_preco_cepea(valor: Any) -> Optional[float]:
+    return parse_preco(valor)
+
+
+def extrair_linhas_widget_cepea(html: str) -> list[dict[str, str]]:
+    soup = BeautifulSoup(html, "html.parser")
+    linhas = []
+
+    for tr in soup.find_all("tr"):
+        celulas = tr.find_all(["td", "th"])
+
+        if len(celulas) < 3:
+            continue
+
+        data = limpar_texto(celulas[0].get_text(" ", strip=True))
+        produto_bruto = limpar_texto(celulas[1].get_text("|", strip=True))
+        valor = limpar_texto(celulas[2].get_text(" ", strip=True))
+
+        if not re.search(r"\\d{2}/\\d{2}/\\d{4}|\\d{2}/\\d{4}|\\d{2}/\\d{2}", data):
+            continue
+
+        partes_produto = [limpar_texto(p) for p in produto_bruto.split("|") if limpar_texto(p)]
+
+        produto = partes_produto[0] if partes_produto else produto_bruto
+        unidade = partes_produto[1] if len(partes_produto) > 1 else "Indicador CEPEA"
+
+        preco = parse_preco_cepea(valor)
+
+        if preco is None:
+            continue
+
+        linhas.append(
+            {
+                "data": data,
+                "produto": produto,
+                "unidade": unidade,
+                "valor_texto": valor,
+                "preco": preco,
+            }
+        )
+
+    # Fallback quando o HTML do widget vier como texto quebrado e não como tabela.
+    if not linhas:
+        texto = soup.get_text("\\n", strip=True)
+        tokens = [limpar_texto(t) for t in texto.splitlines() if limpar_texto(t)]
+
+        for i in range(0, len(tokens) - 2):
+            if re.search(r"\\d{2}/\\d{2}/\\d{4}|\\d{2}/\\d{4}", tokens[i]) and parse_preco_cepea(tokens[i + 2]) is not None:
+                linhas.append(
+                    {
+                        "data": tokens[i],
+                        "produto": tokens[i + 1],
+                        "unidade": "Indicador CEPEA",
+                        "valor_texto": tokens[i + 2],
+                        "preco": parse_preco_cepea(tokens[i + 2]) or 0,
+                    }
+                )
+
+    return linhas
+
+
+def coletar_cepea_widget(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """
+    Coleta o widget oficial da CEPEA/ESALQ.
+    Diferente das páginas de indicador, o widget foi feito para uso em sites externos.
+    Os dados entram no JSON como indicador de mercado, sem substituir preço local.
+    """
+    cotacoes = []
+
+    try:
+        js = baixar_texto(CEPEA_WIDGET_URL, timeout=90)
+        html = decodificar_html_widget_cepea(js)
+        linhas = extrair_linhas_widget_cepea(html)
+
+        for linha in linhas:
+            produto = linha["produto"]
+            unidade = linha["unidade"]
+            preco = linha["preco"]
+            valor_texto = linha["valor_texto"]
+            data_ref = parse_data(linha["data"])
+
+            cotacoes.append(
+                criar_item(
+                    produto_original=f"{produto} — CEPEA/ESALQ",
+                    uf="REF",
+                    estado_nome="Referência CEPEA/ESALQ",
+                    praca=f"Indicador CEPEA/ESALQ — {produto}",
+                    unidade=unidade,
+                    preco=preco,
+                    variacao_percentual=None,
+                    data_referencia=data_ref,
+                    fonte="CEPEA/ESALQ Widget",
+                    fonte_url=CEPEA_WIDGET_URL,
+                    tipo_fonte="referencia_mercado",
+                    nivel_comercializacao="Indicador CEPEA/ESALQ",
+                    categoria="indicador_mercado",
+                    converter_unidade=False,
+                    preco_formatado_override=valor_texto,
+                    observacao=(
+                        "Indicador CEPEA/ESALQ carregado a partir do widget oficial. "
+                        "Não representa necessariamente preço local de praça produtora."
+                    ),
+                )
+            )
+
+        status_fontes.append(
+            {
+                "fonte": "CEPEA/ESALQ Widget",
+                "url": CEPEA_WIDGET_URL,
+                "status": "ok",
+                "total_registros": len(cotacoes),
+                "observacao": "Widget oficial CEPEA/ESALQ integrado ao JSON como indicador de mercado.",
+            }
+        )
+
+    except Exception as erro:
+        status_fontes.append(
+            {
+                "fonte": "CEPEA/ESALQ Widget",
+                "url": CEPEA_WIDGET_URL,
+                "status": "erro",
+                "erro": str(erro),
+            }
+        )
+
+    return cotacoes
+
 
 
 def coletar_cepea(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -894,16 +1265,32 @@ def chave_agrupamento(item: dict[str, Any]) -> tuple[str, ...]:
         chave_normalizada(item.get("uf")),
         chave_normalizada(item.get("praca")),
         chave_normalizada(item.get("unidade")),
+        chave_normalizada(item.get("nivel_comercializacao_chave")),
+        chave_normalizada(item.get("categoria")),
     )
 
 
-def consolidar_mais_recentes(cotacoes_brutas: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def consolidar_mais_recentes(
+    cotacoes_brutas: list[dict[str, Any]],
+    data_corte_iso: str,
+) -> tuple[list[dict[str, Any]], int, int]:
+    """
+    Consolida a base para uso no site.
+
+    Regra v1.0.8:
+    - Agrupa todos os registros brutos por fonte + produto + UF + praça + unidade.
+    - Dentro de cada grupo, mantém apenas o item mais recente.
+    - Se o item mais recente do grupo for mais antigo que data_corte_iso, o grupo inteiro
+      fica fora da tabela principal.
+    - O histórico do gráfico também fica limitado ao período recente.
+    """
     grupos: dict[tuple[str, ...], list[dict[str, Any]]] = {}
 
     for item in cotacoes_brutas:
         grupos.setdefault(chave_agrupamento(item), []).append(item)
 
     consolidadas = []
+    grupos_descartados_por_data = 0
 
     for _, itens in grupos.items():
         itens_ordenados = sorted(
@@ -911,9 +1298,19 @@ def consolidar_mais_recentes(cotacoes_brutas: list[dict[str, Any]]) -> list[dict
             key=lambda x: data_ordenavel(x.get("data_referencia")),
         )
 
+        itens_recentes = [
+            item
+            for item in itens_ordenados
+            if data_dentro_do_limite(item.get("data_referencia"), data_corte_iso)
+        ]
+
+        if not itens_recentes:
+            grupos_descartados_por_data += 1
+            continue
+
         historico = []
 
-        for p in itens_ordenados[-30:]:
+        for p in itens_recentes[-30:]:
             valor = p.get("preco")
             if valor is None:
                 continue
@@ -925,13 +1322,14 @@ def consolidar_mais_recentes(cotacoes_brutas: list[dict[str, Any]]) -> list[dict
                 }
             )
 
-        mais_recente = dict(itens_ordenados[-1])
+        mais_recente = dict(itens_recentes[-1])
         mais_recente["historico_30_dias"] = historico
 
         consolidadas.append(mais_recente)
 
     consolidadas.sort(
         key=lambda item: (
+            item.get("prioridade_nivel_preco", 99),
             item.get("uf", ""),
             item.get("praca", ""),
             item.get("produto_base", ""),
@@ -940,7 +1338,7 @@ def consolidar_mais_recentes(cotacoes_brutas: list[dict[str, Any]]) -> list[dict
         )
     )
 
-    return consolidadas
+    return consolidadas, len(grupos), grupos_descartados_por_data
 
 
 def salvar_csv(cotacoes: list[dict[str, Any]]) -> None:
@@ -951,6 +1349,9 @@ def salvar_csv(cotacoes: list[dict[str, Any]]) -> None:
         "produto_base",
         "produto_original",
         "tipo_produto",
+        "nivel_comercializacao",
+        "nivel_comercializacao_chave",
+        "prioridade_nivel_preco",
         "produto_slug",
         "uf",
         "estado",
@@ -989,6 +1390,9 @@ def salvar_log(payload: dict[str, Any]) -> None:
         "total_cotacoes_tabela": payload.get("resumo", {}).get("total_cotacoes_tabela"),
         "total_cotacoes_brutas": payload.get("resumo", {}).get("total_cotacoes_brutas"),
         "total_dados_html": payload.get("resumo", {}).get("total_dados_html"),
+        "data_limite_cotacoes_ativas": payload.get("data_limite_cotacoes_ativas"),
+        "dias_maximos_cotacao_ativa": payload.get("dias_maximos_cotacao_ativa"),
+        "grupos_descartados_por_data_antiga": payload.get("resumo", {}).get("grupos_descartados_por_data_antiga"),
         "fontes": payload.get("fontes"),
     }
 
@@ -1005,10 +1409,14 @@ def main() -> None:
     cotacoes_brutas: list[dict[str, Any]] = []
     cotacoes_brutas.extend(coletar_aiba(status_fontes))
     cotacoes_brutas.extend(coletar_conab(status_fontes))
-    cotacoes_brutas.extend(coletar_cepea(status_fontes))
+    cotacoes_brutas.extend(coletar_cepea_widget(status_fontes))
     registrar_b3(status_fontes)
 
-    cotacoes_tabela = consolidar_mais_recentes(cotacoes_brutas)
+    data_corte_iso = data_corte_cotacoes_ativas()
+    cotacoes_tabela, total_grupos_brutos, grupos_descartados_por_data = consolidar_mais_recentes(
+        cotacoes_brutas,
+        data_corte_iso,
+    )
     dados_html = [cotacao_para_dado_html(item) for item in cotacoes_tabela]
 
     fontes_ok = [f["fonte"] for f in status_fontes if f.get("status") == "ok"]
@@ -1019,18 +1427,32 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.0.6",
+        "versao": "1.0.8",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
         "fuso_horario": TIMEZONE,
         "frequencia_atualizacao": "diaria",
+        "dias_maximos_cotacao_ativa": DIAS_MAXIMOS_COTACAO_ATIVA,
+        "data_limite_cotacoes_ativas": data_corte_iso,
+        "politica_atualidade": "A tabela principal exibe somente cotações com data dentro dos últimos 90 dias.",
         "fonte_principal": "CONAB/AIBA",
-        "fontes_complementares": ["CEPEA/ESALQ", "B3 - referência de mercado futuro"],
+        "fontes_complementares": ["CEPEA/ESALQ Widget", "B3 - referência de mercado futuro"],
+        "politica_classificacao_preco": (
+            "Os preços da CONAB são classificados por nível de comercialização quando a fonte permite: "
+            "produtor, atacado, varejo, média UF ou não informado. Indicadores CEPEA/ESALQ entram como "
+            "indicador de mercado e não como preço local."
+        ),
         "resumo": {
             "total_cotacoes_tabela": len(cotacoes_tabela),
             "total_cotacoes_brutas": len(cotacoes_brutas),
             "total_dados_html": len(dados_html),
+            "total_grupos_brutos": total_grupos_brutos,
+            "grupos_descartados_por_data_antiga": grupos_descartados_por_data,
+            "total_indicadores_cepea_widget": len([item for item in cotacoes_tabela if item.get("fonte") == "CEPEA/ESALQ Widget"]),
+            "total_precos_produtor": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "preco_produtor"]),
+            "total_precos_atacado": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "preco_atacado"]),
+            "total_indicadores_mercado": len([item for item in cotacoes_tabela if item.get("categoria") == "indicador_mercado"]),
             "fontes_com_sucesso": fontes_ok,
             "total_fontes_com_erro": len(fontes_erro),
             "tempo_execucao_segundos": round((agora_local() - inicio).total_seconds(), 2),
@@ -1045,7 +1467,11 @@ def main() -> None:
             "o registro mais recente por produto, praça, unidade e fonte. Soja, milho, sorgo, arroz "
             "e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos "
             "derivados ou industrializados, como óleo de soja, fubá, flocos e sementes, são removidos "
-            "da página principal de commodities. O gráfico usa as observações históricas disponíveis. "
+            "da página principal de commodities. A tabela principal mostra apenas cotações com data "
+            "dentro dos últimos 90 dias, evitando a exibição de preços antigos como se fossem atuais. "
+            "Os dados da CONAB são classificados por nível de comercialização quando possível, como produtor, "
+            "atacado, varejo ou média UF. Os indicadores CEPEA/ESALQ são carregados pelo widget oficial e "
+            "tratados como referência de mercado. O gráfico usa as observações históricas recentes disponíveis. "
             "Os valores podem variar conforme praça "
             "de negociação, qualidade do produto, volume negociado, frete, forma de pagamento, "
             "logística e data de atualização. B3 e CEPEA/ESALQ podem representar referências "
@@ -1070,8 +1496,14 @@ def main() -> None:
 
     print("Coleta finalizada.")
     print(f"Total de cotações brutas: {len(cotacoes_brutas)}")
+    print(f"Total de grupos brutos: {total_grupos_brutos}")
+    print(f"Grupos descartados por data antiga: {grupos_descartados_por_data}")
+    print(f"Data limite para tabela: {data_corte_iso}")
     print(f"Total de cotações para tabela: {len(cotacoes_tabela)}")
     print(f"Total de dados HTML: {len(dados_html)}")
+    print(f"Total CEPEA Widget: {len([item for item in cotacoes_tabela if item.get('fonte') == 'CEPEA/ESALQ Widget'])}")
+    print(f"Total Preço Produtor: {len([item for item in cotacoes_tabela if item.get('nivel_comercializacao_chave') == 'preco_produtor'])}")
+    print(f"Total Preço Atacado: {len([item for item in cotacoes_tabela if item.get('nivel_comercializacao_chave') == 'preco_atacado'])}")
     print(f"JSON principal: {OUTPUT_JSON}")
     print(f"JSON regional: {OUTPUT_JSON_REGIONAL}")
     print(f"CSV: {OUTPUT_CSV}")
