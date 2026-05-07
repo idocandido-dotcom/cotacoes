@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.0.5
+Nordeste Agro — Coletor Automático de Cotações v1.0.6
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -17,6 +17,9 @@ Melhorias desta versão:
 - Converte grãos comercializados em saco para preço por Saca 60 kg:
   * soja, milho, sorgo, arroz e feijão.
   * Exemplo: preço CONAB em Kg x 60 = preço por Saca 60 kg.
+- Filtra produtos derivados/industrializados para não poluir a página:
+  * óleo de soja, fubá de milho, flocos de milho, semente de feijão,
+    farelo, farinha, canjica, creme, ração e similares.
 - Gera:
   * cotacoes/public/cotacoes_nordeste.json
   * cotacoes/public/cotacoes_regionais.json
@@ -158,7 +161,50 @@ TIPOS_REAIS = {
     "vaca",
 }
 
+# Produtos que devem ser exibidos no site em preço por Saca 60 kg.
+# Regra definida para Nordeste Agro:
+# soja, milho, sorgo, arroz e feijão devem aparecer por saca de 60 kg.
 PRODUTOS_SACA_60KG = {"Soja", "Milho", "Sorgo", "Arroz", "Feijão"}
+
+# Termos que indicam produtos industrializados, processados, insumos ou derivados.
+# Esses itens não devem entrar na página principal de commodities agrícolas.
+TERMOS_EXCLUIR_DERIVADOS = [
+    "oleo",
+    "óleo",
+    "oleo de soja",
+    "óleo de soja",
+    "fuba",
+    "fubá",
+    "fuba de milho",
+    "fubá de milho",
+    "floco",
+    "flocos",
+    "flocos de milho",
+    "canjica",
+    "farinha",
+    "farinha de milho",
+    "farinha de arroz",
+    "creme",
+    "creme de milho",
+    "farelo",
+    "farelo de soja",
+    "torta",
+    "torta de algodao",
+    "torta de algodão",
+    "semente",
+    "semente de feijao",
+    "semente de feijão",
+    "semente de milho",
+    "semente de soja",
+    "racao",
+    "ração",
+    "mistura",
+    "extrato",
+    "derivado",
+    "beneficiado",
+    "polido",
+    "parboilizado",
+]
 
 
 def agora_local() -> datetime:
@@ -189,6 +235,31 @@ def chave_normalizada(valor: Any) -> str:
 def produto_eh_alvo(produto: Any) -> bool:
     produto_norm = remover_acentos(produto).lower()
     return any(remover_acentos(p).lower() in produto_norm for p in PRODUTOS_ALVO)
+
+
+def produto_eh_derivado_ou_industrializado(produto: Any) -> bool:
+    produto_norm = remover_acentos(produto).lower()
+
+    for termo in TERMOS_EXCLUIR_DERIVADOS:
+        termo_norm = remover_acentos(termo).lower()
+        if termo_norm and termo_norm in produto_norm:
+            return True
+
+    return False
+
+
+def produto_deve_entrar_na_base(produto: Any) -> bool:
+    """
+    Regras da base Nordeste Agro:
+    - Entra: commodity agrícola/pecuária principal.
+    - Não entra: derivado, processado, industrializado ou insumo.
+    Exemplos excluídos: óleo de soja, fubá de milho, flocos de milho,
+    semente de feijão, farelo e farinha.
+    """
+    if produto_eh_derivado_ou_industrializado(produto):
+        return False
+
+    return produto_eh_alvo(produto)
 
 
 def normalizar_produto_base(produto: Any) -> str:
@@ -290,6 +361,8 @@ def inferir_unidade(produto_original: Any, produto_base: str, unidade: Any, font
     base_norm = remover_acentos(produto_base).lower()
     fonte_norm = remover_acentos(fonte).lower()
 
+    # CONAB frequentemente retorna preço unitário quando a coluna de unidade não está clara.
+    # Para grãos, tratamos a base como Kg e convertemos depois para Saca 60 kg.
     if "conab" in fonte_norm:
         if "leite" in base_norm:
             return "Litro"
@@ -318,6 +391,15 @@ def aplicar_conversao_unidade_comercial(
     preco: float,
     unidade: str,
 ) -> tuple[float, str, float, bool]:
+    """
+    Converte produtos comercializados em saca para Saca 60 kg.
+
+    Regra:
+    - Soja, milho, sorgo, arroz e feijão devem aparecer em Saca 60 kg.
+    - Se a fonte vier em Kg, multiplica por 60.
+    - Se já vier em saca, mantém o preço.
+    - Retorna: preco_convertido, unidade_convertida, fator_conversao, conversao_aplicada.
+    """
     if not produto_usa_saca_60kg(produto_base):
         return preco, unidade, 1.0, False
 
@@ -327,6 +409,8 @@ def aplicar_conversao_unidade_comercial(
     if unidade_indica_kg(unidade) or unidade.lower() in {"unidade", "unidade informada pela fonte"}:
         return round(preco * 60, 4), "Saca 60 kg", 60.0, True
 
+    # Se a unidade estiver desconhecida para grãos, padronizamos visualmente como saca,
+    # mas sem multiplicar para evitar distorção quando a fonte já trouxer preço por saca.
     return preco, "Saca 60 kg", 1.0, False
 
 
@@ -525,7 +609,7 @@ def coletar_aiba(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
             if not preco_texto.startswith("R$"):
                 continue
 
-            if not produto_eh_alvo(produto_original):
+            if not produto_deve_entrar_na_base(produto_original):
                 continue
 
             preco = parse_preco(preco_texto)
@@ -651,7 +735,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
                 produto_original = limpar_texto(linha.get(col_produto, ""))
 
-                if not produto_eh_alvo(produto_original):
+                if not produto_deve_entrar_na_base(produto_original):
                     continue
 
                 preco = parse_preco(linha.get(col_preco, ""))
@@ -799,6 +883,10 @@ def registrar_b3(status_fontes: list[dict[str, Any]]) -> None:
 
 
 def chave_agrupamento(item: dict[str, Any]) -> tuple[str, ...]:
+    """
+    Define a linha única da tabela final.
+    O histórico fica agrupado dentro desta chave.
+    """
     return (
         chave_normalizada(item.get("fonte")),
         chave_normalizada(item.get("produto_base")),
@@ -931,7 +1019,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.0.5",
+        "versao": "1.0.6",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -955,8 +1043,10 @@ def main() -> None:
             "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas "
             "a partir de fontes regionais, oficiais e indicadores de mercado. A tabela exibe "
             "o registro mais recente por produto, praça, unidade e fonte. Soja, milho, sorgo, arroz "
-            "e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg, enquanto "
-            "o gráfico usa as observações históricas disponíveis. Os valores podem variar conforme praça "
+            "e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos "
+            "derivados ou industrializados, como óleo de soja, fubá, flocos e sementes, são removidos "
+            "da página principal de commodities. O gráfico usa as observações históricas disponíveis. "
+            "Os valores podem variar conforme praça "
             "de negociação, qualidade do produto, volume negociado, frete, forma de pagamento, "
             "logística e data de atualização. B3 e CEPEA/ESALQ podem representar referências "
             "de mercado e não necessariamente preço local de praça."
