@@ -1,17 +1,24 @@
 {
   "ok": true,
-  "ultima_sincronizacao": "2026-05-07 16:02:31",
-  "total_cotacoes_tabela": 127,
+  "ultima_sincronizacao": "2026-05-07 16:24:30",
+  "total_cotacoes_tabela": 8,
   "total_cotacoes_brutas": 15479,
-  "total_dados_html": 127,
+  "total_dados_html": 8,
   "total_cotacoes_descartadas_por_validacao": 2513,
+  "total_cotacoes_descartadas_por_nivel": 12958,
   "resumo_descartes_validacao": {
     "preco_abaixo_da_faixa": 253,
     "preco_acima_da_faixa": 2260
   },
+  "resumo_descartes_nivel": {
+    "nivel_bloqueado_atacado": 4175,
+    "nivel_bloqueado_media_uf": 1595,
+    "nivel_bloqueado_nao_informado": 2754,
+    "nivel_bloqueado_varejo": 4434
+  },
   "data_limite_cotacoes_ativas": "2026-02-06",
   "dias_maximos_cotacao_ativa": 90,
-  "grupos_descartados_por_data_antiga": 159,
+  "grupos_descartados_por_data_antiga": 0,
   "fontes": [
     {
       "fonte": "AIBA",
