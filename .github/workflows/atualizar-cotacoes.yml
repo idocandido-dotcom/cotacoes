@@ -47,7 +47,6 @@ jobs:
           fi
 
       - name: Localizar coletor de cotações
-        id: localizar-coletor
         run: |
           echo "Procurando coletor..."
 
