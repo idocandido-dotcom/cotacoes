@@ -37,24 +37,14 @@ jobs:
 
       - name: Rodar coletor de cotações
         run: |
-          echo "Verificando caminho do coletor..."
-
-          if [ -f "cotacoes/scripts/coletor_cotacoes_nordeste.py" ]; then
-            echo "Coletor encontrado no caminho correto."
-            python cotacoes/scripts/coletor_cotacoes_nordeste.py
-          else
-            echo "Coletor não encontrado no caminho esperado."
-            echo "Arquivos Python encontrados:"
-            find . -name "*.py" -type f | sort
-            exit 1
-          fi
+          python cotacoes/scripts/coletor_cotacoes_nordeste.py
 
       - name: Verificar arquivos gerados
         run: |
           echo "Verificando arquivos gerados..."
-          find . -maxdepth 6 -type f | sort
-
+          find cotacoes/public -maxdepth 2 -type f | sort
           python -m json.tool cotacoes/public/cotacoes_nordeste.json > /dev/null
+          python -m json.tool cotacoes/public/cotacoes_regionais.json > /dev/null
 
       - name: Salvar atualização no repositório
         run: |
@@ -62,6 +52,7 @@ jobs:
           git config user.email "github-actions@github.com"
 
           git add cotacoes/public/cotacoes_nordeste.json
+          git add cotacoes/public/cotacoes_regionais.json
           git add cotacoes/public/cotacoes_nordeste.csv
           git add cotacoes/logs/status_ultima_execucao.json
 
