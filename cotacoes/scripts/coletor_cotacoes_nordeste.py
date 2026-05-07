@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.0.9
+Nordeste Agro — Coletor Automático de Cotações v1.1.0
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -36,6 +36,10 @@ Melhorias desta versão:
 - Corrige filtros de produtos:
   * remove insumos e serviços que estavam entrando indevidamente:
     inoculante para milho, inoculante para soja e beneficiamento de algodão.
+- Valida preço e unidade comercial:
+  * remove valores absurdos ou incompatíveis com a unidade.
+  * exemplo: milho acima de R$ 200/saca ou algodão abaixo de R$ 50/@ sai da tabela.
+  * registra no JSON quantas cotações foram descartadas e por qual motivo.
 - Gera:
   * cotacoes/public/cotacoes_nordeste.json
   * cotacoes/public/cotacoes_regionais.json
@@ -198,6 +202,44 @@ NIVEIS_PRECO_PRIORIDADE = {
     "mercado_futuro": 7,
     "nao_informado": 99,
 }
+
+# Faixas de segurança para evitar que valores absurdos sejam publicados.
+# Essas faixas não substituem a fonte oficial; elas apenas bloqueiam erro de unidade,
+# produto indevido ou conversão incorreta.
+FAIXAS_VALIDACAO_COMERCIAL = {
+    "Soja": {
+        "Saca 60 kg": (50.0, 250.0),
+    },
+    "Milho": {
+        "Saca 60 kg": (20.0, 200.0),
+    },
+    "Sorgo": {
+        "Saca 60 kg": (15.0, 180.0),
+    },
+    "Arroz": {
+        "Saca 60 kg": (30.0, 250.0),
+    },
+    "Feijão": {
+        "Saca 60 kg": (80.0, 700.0),
+    },
+    "Algodão": {
+        "Arroba (@)": (50.0, 300.0),
+        "@": (50.0, 300.0),
+        "Tonelada": (200.0, 3000.0),
+    },
+    "Leite": {
+        "Litro": (1.0, 10.0),
+    },
+    "Boi Gordo": {
+        "@": (100.0, 500.0),
+        "Arroba (@)": (100.0, 500.0),
+    },
+    "Carne Bovina": {
+        "Kg": (5.0, 80.0),
+    },
+}
+
+PRODUTOS_COM_VALIDACAO_OBRIGATORIA = set(FAIXAS_VALIDACAO_COMERCIAL.keys())
 
 # Termos que indicam produtos industrializados, processados, insumos ou derivados.
 # Esses itens não devem entrar na página principal de commodities agrícolas.
@@ -674,6 +716,147 @@ def baixar_texto(url: str, timeout: int = 60) -> str:
             continue
 
     return resposta.content.decode("latin1", errors="ignore")
+
+
+def normalizar_unidade_validacao(unidade: Any) -> str:
+    u = limpar_texto(unidade)
+    u_norm = remover_acentos(u).lower()
+
+    if "saca" in u_norm or "60kg" in u_norm or "60 kg" in u_norm:
+        return "Saca 60 kg"
+
+    if "arroba" in u_norm or u_norm == "@":
+        return "@"
+
+    if "tonelada" in u_norm or u_norm in {"t", "ton"}:
+        return "Tonelada"
+
+    if "litro" in u_norm or u_norm == "l":
+        return "Litro"
+
+    if u_norm in {"kg", "quilo", "quilograma", "quilogramas"}:
+        return "Kg"
+
+    return u
+
+
+def faixa_validacao_para(produto_base: Any, unidade: Any) -> Optional[tuple[float, float]]:
+    produto = limpar_texto(produto_base)
+    unidade_norm = normalizar_unidade_validacao(unidade)
+
+    faixas_produto = FAIXAS_VALIDACAO_COMERCIAL.get(produto)
+
+    if not faixas_produto:
+        return None
+
+    if unidade_norm in faixas_produto:
+        return faixas_produto[unidade_norm]
+
+    # Algodão pode vir como Arroba (@) ou @.
+    if produto == "Algodão" and unidade_norm == "@":
+        return faixas_produto.get("@") or faixas_produto.get("Arroba (@)")
+
+    return None
+
+
+def validar_item_publicavel(item: dict[str, Any]) -> tuple[bool, str]:
+    """
+    Valida se a cotação pode aparecer na tabela principal.
+
+    A validação protege contra:
+    - produto correto com unidade errada;
+    - preço convertido de forma indevida;
+    - valores absurdamente altos ou baixos;
+    - categorias que não devem ir para a tabela principal.
+    """
+    produto_base = limpar_texto(item.get("produto_base"))
+    produto_original = limpar_texto(item.get("produto_original"))
+    unidade = limpar_texto(item.get("unidade"))
+    preco = item.get("preco")
+    categoria = limpar_texto(item.get("categoria"))
+    fonte = limpar_texto(item.get("fonte"))
+
+    if categoria and categoria != "commodity_agricola":
+        return False, f"categoria_nao_publicavel:{categoria}"
+
+    if produto_eh_derivado_ou_industrializado(produto_original):
+        return False, "produto_derivado_insumo_servico"
+
+    if produto_base not in PRODUTOS_COM_VALIDACAO_OBRIGATORIA:
+        # Produto sem faixa obrigatória fica liberado, desde que seja numérico e positivo.
+        try:
+            preco_num = float(preco)
+        except Exception:
+            return False, "preco_nao_numerico"
+
+        if preco_num <= 0:
+            return False, "preco_menor_ou_igual_zero"
+
+        return True, "ok_sem_faixa_especifica"
+
+    faixa = faixa_validacao_para(produto_base, unidade)
+
+    if not faixa:
+        return False, f"unidade_insegura:{produto_base}:{unidade or 'vazio'}"
+
+    try:
+        preco_num = float(preco)
+    except Exception:
+        return False, "preco_nao_numerico"
+
+    minimo, maximo = faixa
+
+    if preco_num < minimo:
+        return False, f"preco_abaixo_da_faixa:{produto_base}:{unidade}:min_{minimo}:valor_{preco_num}"
+
+    if preco_num > maximo:
+        return False, f"preco_acima_da_faixa:{produto_base}:{unidade}:max_{maximo}:valor_{preco_num}"
+
+    return True, "ok"
+
+
+def filtrar_cotacoes_publicaveis(cotacoes: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    publicaveis = []
+    descartadas = []
+
+    for item in cotacoes:
+        ok, motivo = validar_item_publicavel(item)
+
+        if ok:
+            item["validacao_publicacao"] = "ok"
+            publicaveis.append(item)
+            continue
+
+        descartada = {
+            "produto": item.get("produto"),
+            "produto_base": item.get("produto_base"),
+            "produto_original": item.get("produto_original"),
+            "uf": item.get("uf"),
+            "estado": item.get("estado"),
+            "praca": item.get("praca"),
+            "unidade": item.get("unidade"),
+            "unidade_original": item.get("unidade_original"),
+            "preco": item.get("preco"),
+            "preco_original": item.get("preco_original"),
+            "fonte": item.get("fonte"),
+            "data_referencia": item.get("data_referencia"),
+            "motivo": motivo,
+        }
+        descartadas.append(descartada)
+
+    return publicaveis, descartadas
+
+
+def resumir_descartes(descartadas: list[dict[str, Any]]) -> dict[str, int]:
+    resumo: dict[str, int] = {}
+
+    for item in descartadas:
+        motivo = limpar_texto(item.get("motivo", "motivo_nao_informado"))
+        chave = motivo.split(":")[0]
+        resumo[chave] = resumo.get(chave, 0) + 1
+
+    return dict(sorted(resumo.items(), key=lambda par: par[0]))
+
 
 
 def formatar_preco(preco: Optional[float], unidade: str) -> str:
@@ -1327,7 +1510,7 @@ def consolidar_mais_recentes(
     """
     Consolida a base para uso no site.
 
-    Regra v1.0.9:
+    Regra v1.1.0:
     - Agrupa todos os registros brutos por fonte + produto + UF + praça + unidade.
     - Dentro de cada grupo, mantém apenas o item mais recente.
     - Se o item mais recente do grupo for mais antigo que data_corte_iso, o grupo inteiro
@@ -1440,6 +1623,8 @@ def salvar_log(payload: dict[str, Any]) -> None:
         "total_cotacoes_tabela": payload.get("resumo", {}).get("total_cotacoes_tabela"),
         "total_cotacoes_brutas": payload.get("resumo", {}).get("total_cotacoes_brutas"),
         "total_dados_html": payload.get("resumo", {}).get("total_dados_html"),
+        "total_cotacoes_descartadas_por_validacao": payload.get("resumo", {}).get("total_cotacoes_descartadas_por_validacao"),
+        "resumo_descartes_validacao": payload.get("resumo", {}).get("resumo_descartes_validacao"),
         "data_limite_cotacoes_ativas": payload.get("data_limite_cotacoes_ativas"),
         "dias_maximos_cotacao_ativa": payload.get("dias_maximos_cotacao_ativa"),
         "grupos_descartados_por_data_antiga": payload.get("resumo", {}).get("grupos_descartados_por_data_antiga"),
@@ -1462,9 +1647,11 @@ def main() -> None:
     cotacoes_brutas.extend(coletar_cepea_widget(status_fontes))
     registrar_b3(status_fontes)
 
+    cotacoes_validas, cotacoes_descartadas_validacao = filtrar_cotacoes_publicaveis(cotacoes_brutas)
+
     data_corte_iso = data_corte_cotacoes_ativas()
     cotacoes_tabela, total_grupos_brutos, grupos_descartados_por_data = consolidar_mais_recentes(
-        cotacoes_brutas,
+        cotacoes_validas,
         data_corte_iso,
     )
     dados_html = [cotacao_para_dado_html(item) for item in cotacoes_tabela]
@@ -1477,7 +1664,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.0.9",
+        "versao": "1.1.0",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -1496,6 +1683,9 @@ def main() -> None:
         "resumo": {
             "total_cotacoes_tabela": len(cotacoes_tabela),
             "total_cotacoes_brutas": len(cotacoes_brutas),
+            "total_cotacoes_validas_apos_validacao": len(cotacoes_validas),
+            "total_cotacoes_descartadas_por_validacao": len(cotacoes_descartadas_validacao),
+            "resumo_descartes_validacao": resumir_descartes(cotacoes_descartadas_validacao),
             "total_dados_html": len(dados_html),
             "total_grupos_brutos": total_grupos_brutos,
             "grupos_descartados_por_data_antiga": grupos_descartados_por_data,
@@ -1511,6 +1701,16 @@ def main() -> None:
         "cotacoes": cotacoes_tabela,
         "dados": dados_html,
         "historico_30_dias": {},
+        "validacao_comercial": {
+            "descricao": (
+                "Validação automática para remover cotações com unidade insegura, "
+                "preço absurdo ou produto incompatível com a tabela principal."
+            ),
+            "faixas": FAIXAS_VALIDACAO_COMERCIAL,
+            "total_descartadas": len(cotacoes_descartadas_validacao),
+            "resumo_descartes": resumir_descartes(cotacoes_descartadas_validacao),
+            "amostra_descartadas": cotacoes_descartadas_validacao[:50],
+        },
         "aviso_legal": (
             "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas "
             "a partir de fontes regionais, oficiais e indicadores de mercado. A tabela exibe "
@@ -1522,7 +1722,9 @@ def main() -> None:
             "Os dados da CONAB são classificados por nível de comercialização quando possível, como produtor, "
             "atacado, varejo ou média UF. Insumos, serviços e derivados são removidos para evitar que "
             "itens como inoculante para milho, inoculante para soja e beneficiamento de algodão apareçam "
-            "como commodity. Os indicadores CEPEA/ESALQ ficam em seção própria do HTML via widget oficial. "
+            "como commodity. Além disso, o coletor aplica validação por faixa de preço e unidade para bloquear "
+            "valores incompatíveis, como milho com preço exorbitante por saca ou algodão com preço muito baixo "
+            "por arroba. Os indicadores CEPEA/ESALQ ficam em seção própria do HTML via widget oficial. "
             "O gráfico usa as observações históricas recentes disponíveis. "
             "Os valores podem variar conforme praça "
             "de negociação, qualidade do produto, volume negociado, frete, forma de pagamento, "
@@ -1548,6 +1750,9 @@ def main() -> None:
 
     print("Coleta finalizada.")
     print(f"Total de cotações brutas: {len(cotacoes_brutas)}")
+    print(f"Total de cotações válidas após validação: {len(cotacoes_validas)}")
+    print(f"Total de cotações descartadas por validação: {len(cotacoes_descartadas_validacao)}")
+    print(f"Resumo descartes validação: {resumir_descartes(cotacoes_descartadas_validacao)}")
     print(f"Total de grupos brutos: {total_grupos_brutos}")
     print(f"Grupos descartados por data antiga: {grupos_descartados_por_data}")
     print(f"Data limite para tabela: {data_corte_iso}")
