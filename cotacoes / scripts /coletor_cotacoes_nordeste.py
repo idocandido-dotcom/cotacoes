@@ -4,16 +4,14 @@
 """
 Nordeste Agro — Coletor Automático de Cotações
 
-Arquivo correto:
+Arquivo:
 cotacoes/scripts/coletor_cotacoes_nordeste.py
 
-Este script gera:
+Gera:
 cotacoes/public/cotacoes_nordeste.json
 cotacoes/public/cotacoes_nordeste.csv
 cotacoes/logs/status_ultima_execucao.json
 """
-
-from __future__ import annotations
 
 import csv
 import json
@@ -73,8 +71,7 @@ def limpar_texto(valor: Any) -> str:
 def remover_acentos(valor: Any) -> str:
     texto = str(valor or "")
     texto = unicodedata.normalize("NFD", texto)
-    texto = "".join(ch for ch in texto if unicodedata.category(ch) != "Mn")
-    return texto
+    return "".join(ch for ch in texto if unicodedata.category(ch) != "Mn")
 
 
 def slugify(valor: Any) -> str:
@@ -149,7 +146,6 @@ def parse_percentual(valor: Any) -> Optional[float]:
 
 def parse_data(valor: Any) -> str:
     texto = limpar_texto(valor)
-
     match = re.search(r"(\d{2})/(\d{2})/(\d{4})", texto)
 
     if match:
@@ -185,25 +181,11 @@ def coletar_aiba(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
             if limpar_texto(linha)
         ]
 
-        ignorar = {
-            "início",
-            "inicio",
-            "home",
-            "cotações",
-            "cotacoes",
-            "mercado bahia",
-            "siga a aiba",
-            "carregando dados...",
-        }
-
         for i in range(0, len(linhas) - 3):
             produto = linhas[i]
             unidade = linhas[i + 1]
             preco_texto = linhas[i + 2]
             detalhe = linhas[i + 3]
-
-            if produto.lower() in ignorar:
-                continue
 
             if not preco_texto.startswith("R$"):
                 continue
@@ -319,9 +301,7 @@ def main() -> None:
     inicio = agora_local()
 
     status_fontes: list[dict[str, Any]] = []
-
-    cotacoes = []
-    cotacoes.extend(coletar_aiba(status_fontes))
+    cotacoes = coletar_aiba(status_fontes)
 
     payload = {
         "ok": True,
