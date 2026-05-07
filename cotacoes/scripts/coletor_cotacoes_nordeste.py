@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.1.2
+Nordeste Agro — Coletor Automático de Cotações v1.1.3
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -47,8 +47,8 @@ Melhorias desta versão:
   * reforça Regional, Atacado, Produtor e Média UF para o HTML.
 - Corrige pecuária:
   * quando a CONAB informa BOI/BOI GORDO em Kg, converte para Arroba (@) usando 15 kg.
-  * carne bovina permanece em Kg.
-  * isso permite que o card Carne bovina exiba Boi Gordo quando houver dado recente.
+  * quando a CONAB informa CARNE BOVINA em Kg, também converte para Arroba equivalente (@) usando 15 kg.
+  * isso padroniza a tabela da aba Carne bovina em Arroba (@).
 - Gera:
   * cotacoes/public/cotacoes_nordeste.json
   * cotacoes/public/cotacoes_regionais.json
@@ -244,6 +244,8 @@ FAIXAS_VALIDACAO_COMERCIAL = {
         "Arroba (@)": (100.0, 500.0),
     },
     "Carne Bovina": {
+        "Arroba (@)": (100.0, 1000.0),
+        "@": (100.0, 1000.0),
         "Kg": (5.0, 80.0),
     },
 }
@@ -639,10 +641,14 @@ def aplicar_conversao_unidade_comercial(
 
     - Soja, milho, sorgo, arroz e feijão:
       Kg -> Saca 60 kg, fator 60.
-    - BOI/BOI GORDO:
+    - BOI / BOI GORDO:
       Kg -> Arroba (@), fator 15.
-    - Carne bovina:
-      mantém Kg.
+    - CARNE BOVINA:
+      Kg -> Arroba equivalente (@), fator 15.
+      Observação: quando o dado for varejo, isso é uma equivalência matemática para padronizar a tabela,
+      não necessariamente preço de boi gordo recebido pelo produtor.
+    - Leite:
+      mantém Litro.
     """
     unidade_limpa = limpar_texto(unidade)
     unidade_norm = remover_acentos(unidade_limpa).lower()
@@ -654,7 +660,6 @@ def aplicar_conversao_unidade_comercial(
         if unidade_indica_kg(unidade) or unidade_norm in {"unidade", "unidade informada pela fonte", ""}:
             return round(preco * 60, 2), "Saca 60 kg", 60.0, True
 
-        # Se estiver incerto, mantém o valor e padroniza visualmente para evitar multiplicação indevida.
         return round(preco, 2), "Saca 60 kg", 1.0, False
 
     if produto_base == "Boi Gordo":
@@ -667,10 +672,13 @@ def aplicar_conversao_unidade_comercial(
         return round(preco, 2), unidade_limpa or "Unidade informada pela fonte", 1.0, False
 
     if produto_base == "Carne Bovina":
-        if unidade_indica_kg(unidade) or unidade_norm in {"unidade", "unidade informada pela fonte", ""}:
-            return round(preco, 2), "Kg", 1.0, False
+        if unidade_norm in {"@", "arroba", "arrobas"} or "arroba" in unidade_norm:
+            return round(preco, 2), "Arroba (@)", 1.0, False
 
-        return round(preco, 2), unidade_limpa or "Kg", 1.0, False
+        if unidade_indica_kg(unidade) or unidade_norm in {"unidade", "unidade informada pela fonte", ""}:
+            return round(preco * 15, 2), "Arroba (@)", 15.0, True
+
+        return round(preco, 2), unidade_limpa or "Unidade informada pela fonte", 1.0, False
 
     if produto_base == "Leite":
         if "litro" in unidade_norm or unidade_norm in {"l", "lt", "litros", "unidade", "unidade informada pela fonte", ""}:
@@ -1564,7 +1572,7 @@ def consolidar_mais_recentes(
     """
     Consolida a base para uso no site.
 
-    Regra v1.1.2:
+    Regra v1.1.3:
     - Agrupa todos os registros brutos por fonte + produto + UF + praça + unidade.
     - Dentro de cada grupo, mantém apenas o item mais recente.
     - Se o item mais recente do grupo for mais antigo que data_corte_iso, o grupo inteiro
@@ -1727,7 +1735,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.1.2",
+        "versao": "1.1.3",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -1791,9 +1799,10 @@ def main() -> None:
             "itens como inoculante para milho, inoculante para soja e beneficiamento de algodão apareçam "
             "como commodity. Além disso, o coletor aplica validação por faixa de preço e unidade para bloquear "
             "valores incompatíveis, como milho com preço exorbitante por saca ou algodão com preço muito baixo "
-            "por arroba. Para BOI/BOI GORDO informado em Kg pela CONAB, o sistema converte para Arroba (@) "
-            "usando o fator de 15 kg. Carne bovina permanece em Kg. Os indicadores CEPEA/ESALQ ficam "
-            "em seção própria do HTML via widget oficial. "
+            "por arroba. Para BOI/BOI GORDO e CARNE BOVINA informados em Kg pela CONAB, o sistema converte para Arroba (@) "
+            "usando o fator de 15 kg. Quando o dado for de varejo, a arroba exibida é uma equivalência matemática "
+            "para padronização visual, e não necessariamente preço recebido pelo produtor. Os indicadores CEPEA/ESALQ "
+            "ficam em seção própria do HTML via widget oficial. "
             "O gráfico usa as observações históricas recentes disponíveis. "
             "Os valores podem variar conforme praça "
             "de negociação, qualidade do produto, volume negociado, frete, forma de pagamento, "
