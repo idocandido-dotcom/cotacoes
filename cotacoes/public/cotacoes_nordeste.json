@@ -4,8 +4,8 @@
   "modulo": "cotacoes",
   "repositorio": "idocandido-dotcom/cotacoes",
   "versao": "1.0.2",
-  "ultima_sincronizacao": "2026-05-07 12:53:33",
-  "ultima_sincronizacao_iso": "2026-05-07T12:53:33.700207-03:00",
+  "ultima_sincronizacao": "2026-05-07 12:55:32",
+  "ultima_sincronizacao_iso": "2026-05-07T12:55:32.957275-03:00",
   "fuso_horario": "America/Fortaleza",
   "frequencia_atualizacao": "diaria",
   "fonte_principal": "AIBA",
@@ -16,7 +16,7 @@
       "AIBA"
     ],
     "total_fontes_com_erro": 0,
-    "tempo_execucao_segundos": 1.06
+    "tempo_execucao_segundos": 1.3
   },
   "fontes": [
     {
