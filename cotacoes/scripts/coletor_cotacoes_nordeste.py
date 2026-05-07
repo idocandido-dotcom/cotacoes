@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.0.8
+Nordeste Agro — Coletor Automático de Cotações v1.0.9
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -26,12 +26,16 @@ Melhorias desta versão:
 - Classifica o tipo de preço da CONAB:
   * produtor, atacado, varejo, média UF ou não informado.
   * prioriza produtor/regional na organização dos dados.
-- Mescla indicadores CEPEA/ESALQ via widget oficial:
-  * usa o script público do widget da CEPEA.
-  * trata esses dados como indicador de mercado, não como preço local.
+- Mantém CEPEA/ESALQ pelo widget oficial no HTML:
+  * o widget funciona no navegador do visitante.
+  * o GitHub Actions pode receber 403 ao tentar baixar o script.
+  * por isso o coletor não força CEPEA no JSON para não gerar erro falso.
 - Mantém o layout do site:
   * o HTML continua puxando o mesmo JSON.
   * apenas os campos e informações ficam mais bem classificados.
+- Corrige filtros de produtos:
+  * remove insumos e serviços que estavam entrando indevidamente:
+    inoculante para milho, inoculante para soja e beneficiamento de algodão.
 - Gera:
   * cotacoes/public/cotacoes_nordeste.json
   * cotacoes/public/cotacoes_regionais.json
@@ -233,6 +237,43 @@ TERMOS_EXCLUIR_DERIVADOS = [
     "beneficiado",
     "polido",
     "parboilizado",
+    "inoculante",
+    "inoculante para milho",
+    "inoculante para soja",
+    "beneficiamento",
+    "beneficiamento de algodao",
+    "beneficiamento de algodão",
+    "servico",
+    "serviço",
+    "servicos",
+    "serviços",
+    "adubo",
+    "fertilizante",
+    "fertilizantes",
+    "ureia",
+    "uréia",
+    "calcario",
+    "calcário",
+    "defensivo",
+    "defensivos",
+    "herbicida",
+    "fungicida",
+    "inseticida",
+    "maquina",
+    "máquina",
+    "maquinario",
+    "maquinário",
+    "trator",
+    "plantio",
+    "colheita",
+    "pulverizacao",
+    "pulverização",
+    "frete",
+    "transporte",
+    "armazenagem",
+    "secagem",
+    "classificacao",
+    "classificação",
 ]
 
 
@@ -317,8 +358,61 @@ def nome_produto_com_nivel(produto_base: str, tipo_produto: str, nivel_label: st
 
 
 def produto_eh_alvo(produto: Any) -> bool:
+    """
+    Evita falso positivo por substring.
+    Exemplo que NÃO pode entrar:
+    - INOCULANTE PARA MILHO
+    - INOCULANTE PARA SOJA
+    - BENEFICIAMENTO DE ALGODAO
+
+    Entra quando o produto for a commodity principal ou uma variação comercial direta.
+    """
     produto_norm = remover_acentos(produto).lower()
-    return any(remover_acentos(p).lower() in produto_norm for p in PRODUTOS_ALVO)
+    produto_norm = re.sub(r"[^a-z0-9 ]+", " ", produto_norm)
+    produto_norm = re.sub(r"\s+", " ", produto_norm).strip()
+
+    # Produtos pecuários/comerciais diretos
+    if produto_norm in {
+        "boi",
+        "boi gordo",
+        "carne bovina",
+        "leite",
+        "leite de vaca",
+    }:
+        return True
+
+    # Commodities agrícolas diretas
+    commodities_diretas = {
+        "soja",
+        "milho",
+        "sorgo",
+        "arroz",
+        "feijao",
+        "feijao carioca",
+        "feijao preto",
+        "algodao",
+        "algodao pluma",
+        "algodao em pluma",
+        "pluma de algodao",
+    }
+
+    if produto_norm in commodities_diretas:
+        return True
+
+    # Aceita variações comerciais claras, mas sem insumos/serviços/derivados.
+    padroes_permitidos = [
+        r"^soja( grao| em grao| disponivel| balcao)?$",
+        r"^milho( grao| em grao| disponivel| balcao)?$",
+        r"^sorgo( grao| em grao)?$",
+        r"^arroz( em casca| casca| irrigado| sequeiro)?$",
+        r"^feijao( carioca| preto| verde)?$",
+        r"^algodao( em pluma| pluma| caroço| caroco)?$",
+        r"^boi( gordo)?$",
+        r"^leite( de vaca)?$",
+        r"^carne bovina$",
+    ]
+
+    return any(re.match(padrao, produto_norm) for padrao in padroes_permitidos)
 
 
 def produto_eh_derivado_ou_industrializado(produto: Any) -> bool:
@@ -338,7 +432,7 @@ def produto_deve_entrar_na_base(produto: Any) -> bool:
     - Entra: commodity agrícola/pecuária principal.
     - Não entra: derivado, processado, industrializado ou insumo.
     Exemplos excluídos: óleo de soja, fubá de milho, flocos de milho,
-    semente de feijão, farelo e farinha.
+    semente de feijão, farelo, farinha, inoculante, beneficiamento e serviços.
     """
     if produto_eh_derivado_ou_industrializado(produto):
         return False
@@ -1120,70 +1214,26 @@ def extrair_linhas_widget_cepea(html: str) -> list[dict[str, str]]:
 
 def coletar_cepea_widget(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """
-    Coleta o widget oficial da CEPEA/ESALQ.
-    Diferente das páginas de indicador, o widget foi feito para uso em sites externos.
-    Os dados entram no JSON como indicador de mercado, sem substituir preço local.
+    CEPEA/ESALQ:
+    - O widget oficial funciona corretamente no navegador do visitante dentro do HTML.
+    - No GitHub Actions, o servidor da CEPEA pode retornar 403 para a tentativa de coleta.
+    - Portanto, o coletor não baixa o widget para o JSON.
+    - A página mantém a seção visual CEPEA/ESALQ via script oficial no WordPress.
     """
-    cotacoes = []
+    status_fontes.append(
+        {
+            "fonte": "CEPEA/ESALQ Widget",
+            "url": CEPEA_WIDGET_URL,
+            "status": "widget_frontend",
+            "total_registros": 0,
+            "observacao": (
+                "Widget oficial mantido no HTML/WordPress. Não coletado pelo GitHub Actions "
+                "para evitar erro 403 e duplicidade na tabela principal."
+            ),
+        }
+    )
 
-    try:
-        js = baixar_texto(CEPEA_WIDGET_URL, timeout=90)
-        html = decodificar_html_widget_cepea(js)
-        linhas = extrair_linhas_widget_cepea(html)
-
-        for linha in linhas:
-            produto = linha["produto"]
-            unidade = linha["unidade"]
-            preco = linha["preco"]
-            valor_texto = linha["valor_texto"]
-            data_ref = parse_data(linha["data"])
-
-            cotacoes.append(
-                criar_item(
-                    produto_original=f"{produto} — CEPEA/ESALQ",
-                    uf="REF",
-                    estado_nome="Referência CEPEA/ESALQ",
-                    praca=f"Indicador CEPEA/ESALQ — {produto}",
-                    unidade=unidade,
-                    preco=preco,
-                    variacao_percentual=None,
-                    data_referencia=data_ref,
-                    fonte="CEPEA/ESALQ Widget",
-                    fonte_url=CEPEA_WIDGET_URL,
-                    tipo_fonte="referencia_mercado",
-                    nivel_comercializacao="Indicador CEPEA/ESALQ",
-                    categoria="indicador_mercado",
-                    converter_unidade=False,
-                    preco_formatado_override=valor_texto,
-                    observacao=(
-                        "Indicador CEPEA/ESALQ carregado a partir do widget oficial. "
-                        "Não representa necessariamente preço local de praça produtora."
-                    ),
-                )
-            )
-
-        status_fontes.append(
-            {
-                "fonte": "CEPEA/ESALQ Widget",
-                "url": CEPEA_WIDGET_URL,
-                "status": "ok",
-                "total_registros": len(cotacoes),
-                "observacao": "Widget oficial CEPEA/ESALQ integrado ao JSON como indicador de mercado.",
-            }
-        )
-
-    except Exception as erro:
-        status_fontes.append(
-            {
-                "fonte": "CEPEA/ESALQ Widget",
-                "url": CEPEA_WIDGET_URL,
-                "status": "erro",
-                "erro": str(erro),
-            }
-        )
-
-    return cotacoes
-
+    return []
 
 
 def coletar_cepea(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -1277,7 +1327,7 @@ def consolidar_mais_recentes(
     """
     Consolida a base para uso no site.
 
-    Regra v1.0.8:
+    Regra v1.0.9:
     - Agrupa todos os registros brutos por fonte + produto + UF + praça + unidade.
     - Dentro de cada grupo, mantém apenas o item mais recente.
     - Se o item mais recente do grupo for mais antigo que data_corte_iso, o grupo inteiro
@@ -1427,7 +1477,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.0.8",
+        "versao": "1.0.9",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -1437,7 +1487,7 @@ def main() -> None:
         "data_limite_cotacoes_ativas": data_corte_iso,
         "politica_atualidade": "A tabela principal exibe somente cotações com data dentro dos últimos 90 dias.",
         "fonte_principal": "CONAB/AIBA",
-        "fontes_complementares": ["CEPEA/ESALQ Widget", "B3 - referência de mercado futuro"],
+        "fontes_complementares": ["CEPEA/ESALQ Widget no HTML", "B3 - referência de mercado futuro"],
         "politica_classificacao_preco": (
             "Os preços da CONAB são classificados por nível de comercialização quando a fonte permite: "
             "produtor, atacado, varejo, média UF ou não informado. Indicadores CEPEA/ESALQ entram como "
@@ -1470,8 +1520,10 @@ def main() -> None:
             "da página principal de commodities. A tabela principal mostra apenas cotações com data "
             "dentro dos últimos 90 dias, evitando a exibição de preços antigos como se fossem atuais. "
             "Os dados da CONAB são classificados por nível de comercialização quando possível, como produtor, "
-            "atacado, varejo ou média UF. Os indicadores CEPEA/ESALQ são carregados pelo widget oficial e "
-            "tratados como referência de mercado. O gráfico usa as observações históricas recentes disponíveis. "
+            "atacado, varejo ou média UF. Insumos, serviços e derivados são removidos para evitar que "
+            "itens como inoculante para milho, inoculante para soja e beneficiamento de algodão apareçam "
+            "como commodity. Os indicadores CEPEA/ESALQ ficam em seção própria do HTML via widget oficial. "
+            "O gráfico usa as observações históricas recentes disponíveis. "
             "Os valores podem variar conforme praça "
             "de negociação, qualidade do produto, volume negociado, frete, forma de pagamento, "
             "logística e data de atualização. B3 e CEPEA/ESALQ podem representar referências "
