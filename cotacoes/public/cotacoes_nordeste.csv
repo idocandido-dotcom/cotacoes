@@ -1,0 +1,9 @@
+﻿produto;produto_slug;uf;estado;praca;unidade;preco;moeda;variacao_percentual;data_referencia;fonte;fonte_url;tipo;categoria;observacao
+Soja;soja;BA;Bahia;Oeste Baiano;Saca 60kg;112.13;BRL;-1.64;2026-05-07;AIBA;https://aiba.org.br/cotacoes/;regional;commodity_agricola;Cotação regional do Oeste Baiano/MATOPIBA.
+Soja;soja;BA;Bahia;Oeste Baiano;Saca 60kg;110.67;BRL;0.0;2026-05-07;AIBA;https://aiba.org.br/cotacoes/;regional;commodity_agricola;Cotação regional do Oeste Baiano/MATOPIBA.
+Arroz;arroz;BA;Bahia;Oeste Baiano;Saca 60kg;78.5;BRL;0.64;2026-05-07;AIBA;https://aiba.org.br/cotacoes/;regional;commodity_agricola;Cotação regional do Oeste Baiano/MATOPIBA.
+Sorgo;sorgo;BA;Bahia;Oeste Baiano;Saca 60kg;42.0;BRL;0.0;2026-05-07;AIBA;https://aiba.org.br/cotacoes/;regional;commodity_agricola;Cotação regional do Oeste Baiano/MATOPIBA.
+Milho;milho;BA;Bahia;Oeste Baiano;Saca 60kg;55.5;BRL;0.0;2026-05-07;AIBA;https://aiba.org.br/cotacoes/;regional;commodity_agricola;Cotação regional do Oeste Baiano/MATOPIBA.
+Feijão Carioca;feijao-carioca;BA;Bahia;Oeste Baiano;Saca 60kg;402.5;BRL;3.87;2026-05-07;AIBA;https://aiba.org.br/cotacoes/;regional;commodity_agricola;Cotação regional do Oeste Baiano/MATOPIBA.
+Algodão;algodao;BA;Bahia;Oeste Baiano;Arroba (@);134.0;BRL;0.37;2026-05-07;AIBA;https://aiba.org.br/cotacoes/;regional;commodity_agricola;Cotação regional do Oeste Baiano/MATOPIBA.
+Algodão;algodao;BA;Bahia;Oeste Baiano;Tonelada;1100.0;BRL;-4.35;2026-05-07;AIBA;https://aiba.org.br/cotacoes/;regional;commodity_agricola;Cotação regional do Oeste Baiano/MATOPIBA.
