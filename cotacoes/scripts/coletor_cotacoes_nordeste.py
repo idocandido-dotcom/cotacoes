@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.1.0
+Nordeste Agro — Coletor Automático de Cotações v1.1.1
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -40,6 +40,11 @@ Melhorias desta versão:
   * remove valores absurdos ou incompatíveis com a unidade.
   * exemplo: milho acima de R$ 200/saca ou algodão abaixo de R$ 50/@ sai da tabela.
   * registra no JSON quantas cotações foram descartadas e por qual motivo.
+- Corrige histórico do gráfico:
+  * remove datas duplicadas dentro de cada praça/produto.
+  * mantém apenas um valor por data no historico_30_dias.
+- Melhora classificação visual:
+  * reforça Regional, Atacado, Produtor e Média UF para o HTML.
 - Gera:
   * cotacoes/public/cotacoes_nordeste.json
   * cotacoes/public/cotacoes_regionais.json
@@ -1510,12 +1515,13 @@ def consolidar_mais_recentes(
     """
     Consolida a base para uso no site.
 
-    Regra v1.1.0:
+    Regra v1.1.1:
     - Agrupa todos os registros brutos por fonte + produto + UF + praça + unidade.
     - Dentro de cada grupo, mantém apenas o item mais recente.
     - Se o item mais recente do grupo for mais antigo que data_corte_iso, o grupo inteiro
       fica fora da tabela principal.
     - O histórico do gráfico também fica limitado ao período recente.
+    - O histórico é deduplicado por data para evitar datas repetidas no gráfico.
     """
     grupos: dict[tuple[str, ...], list[dict[str, Any]]] = {}
 
@@ -1541,19 +1547,26 @@ def consolidar_mais_recentes(
             grupos_descartados_por_data += 1
             continue
 
-        historico = []
+        historico_por_data: dict[str, float] = {}
 
-        for p in itens_recentes[-30:]:
+        for p in itens_recentes:
             valor = p.get("preco")
-            if valor is None:
+            data_item = p.get("data_referencia")
+
+            if valor is None or not data_item:
                 continue
 
-            historico.append(
-                {
-                    "data": p.get("data_referencia"),
-                    "valor": valor,
-                }
-            )
+            # Mantém apenas um valor por data. Como a lista está ordenada,
+            # se houver repetição da mesma data, o último valor substitui o anterior.
+            historico_por_data[str(data_item)] = valor
+
+        historico = [
+            {
+                "data": data,
+                "valor": valor,
+            }
+            for data, valor in sorted(historico_por_data.items(), key=lambda par: par[0])
+        ][-30:]
 
         mais_recente = dict(itens_recentes[-1])
         mais_recente["historico_30_dias"] = historico
@@ -1563,6 +1576,7 @@ def consolidar_mais_recentes(
     consolidadas.sort(
         key=lambda item: (
             item.get("prioridade_nivel_preco", 99),
+            0 if "AIBA" in str(item.get("fonte", "")) else 1,
             item.get("uf", ""),
             item.get("praca", ""),
             item.get("produto_base", ""),
@@ -1664,7 +1678,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.1.0",
+        "versao": "1.1.1",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -1691,7 +1705,9 @@ def main() -> None:
             "grupos_descartados_por_data_antiga": grupos_descartados_por_data,
             "total_indicadores_cepea_widget": len([item for item in cotacoes_tabela if item.get("fonte") == "CEPEA/ESALQ Widget"]),
             "total_precos_produtor": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "preco_produtor"]),
+            "total_precos_regionais": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "preco_regional"]),
             "total_precos_atacado": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "preco_atacado"]),
+            "total_precos_media_uf": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "media_uf"]),
             "total_indicadores_mercado": len([item for item in cotacoes_tabela if item.get("categoria") == "indicador_mercado"]),
             "fontes_com_sucesso": fontes_ok,
             "total_fontes_com_erro": len(fontes_erro),
@@ -1760,7 +1776,9 @@ def main() -> None:
     print(f"Total de dados HTML: {len(dados_html)}")
     print(f"Total CEPEA Widget: {len([item for item in cotacoes_tabela if item.get('fonte') == 'CEPEA/ESALQ Widget'])}")
     print(f"Total Preço Produtor: {len([item for item in cotacoes_tabela if item.get('nivel_comercializacao_chave') == 'preco_produtor'])}")
+    print(f"Total Preço Regional: {len([item for item in cotacoes_tabela if item.get('nivel_comercializacao_chave') == 'preco_regional'])}")
     print(f"Total Preço Atacado: {len([item for item in cotacoes_tabela if item.get('nivel_comercializacao_chave') == 'preco_atacado'])}")
+    print(f"Total Média UF: {len([item for item in cotacoes_tabela if item.get('nivel_comercializacao_chave') == 'media_uf'])}")
     print(f"JSON principal: {OUTPUT_JSON}")
     print(f"JSON regional: {OUTPUT_JSON_REGIONAL}")
     print(f"CSV: {OUTPUT_CSV}")
