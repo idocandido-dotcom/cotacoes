@@ -1,13 +1,63 @@
 {
   "ok": true,
-  "ultima_sincronizacao": "2026-05-07 12:55:32",
-  "total_cotacoes": 8,
+  "ultima_sincronizacao": "2026-05-07 13:26:55",
+  "total_cotacoes": 20084,
+  "total_dados_html": 20084,
   "fontes": [
     {
       "fonte": "AIBA",
       "url": "https://aiba.org.br/cotacoes/",
       "status": "ok",
       "total_registros": 8
+    },
+    {
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "status": "ok",
+      "total_registros": 9245
+    },
+    {
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "status": "ok",
+      "total_registros": 11054
+    },
+    {
+      "fonte": "CEPEA/ESALQ - Soja",
+      "url": "https://cepea.org.br/br/indicador/soja.aspx",
+      "status": "erro",
+      "erro": "403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/soja.aspx"
+    },
+    {
+      "fonte": "CEPEA/ESALQ - Milho",
+      "url": "https://cepea.org.br/br/indicador/milho.aspx",
+      "status": "erro",
+      "erro": "403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/milho.aspx"
+    },
+    {
+      "fonte": "CEPEA/ESALQ - Arroz",
+      "url": "https://cepea.org.br/br/indicador/arroz.aspx",
+      "status": "erro",
+      "erro": "403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/arroz.aspx"
+    },
+    {
+      "fonte": "CEPEA/ESALQ - Algodão",
+      "url": "https://cepea.org.br/br/indicador/algodao.aspx",
+      "status": "erro",
+      "erro": "403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/algodao.aspx"
+    },
+    {
+      "fonte": "CEPEA/ESALQ - Boi Gordo",
+      "url": "https://cepea.org.br/br/indicador/boi-gordo.aspx",
+      "status": "erro",
+      "erro": "403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/boi-gordo.aspx"
+    },
+    {
+      "fonte": "B3 - Commodities",
+      "url": "https://www.b3.com.br/pt_br/produtos-e-servicos/negociacao/commodities/",
+      "status": "referencia",
+      "total_registros": 0,
+      "observacao": "Fonte de referência para mercado futuro. Não foram criados preços por praça/estado para evitar dados simulados."
     }
   ]
 }
