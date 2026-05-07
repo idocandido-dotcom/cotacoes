@@ -72,7 +72,7 @@ def produto_eh_alvo(produto: Any) -> bool:
     return any(remover_acentos(p).lower() in produto_norm for p in PRODUTOS_ALVO)
 
 
-def normalizar_produto(produto: Any) -> str:
+def normalizar_produto_base(produto: Any) -> str:
     p = limpar_texto(produto)
     p_norm = remover_acentos(p).lower()
 
@@ -85,7 +85,7 @@ def normalizar_produto(produto: Any) -> str:
     if "sorgo" in p_norm:
         return "Sorgo"
     if "feijao" in p_norm:
-        return "Feijão Carioca" if "carioca" in p_norm else "Feijão"
+        return "Feijão"
     if "arroz" in p_norm:
         return "Arroz"
     if "leite" in p_norm:
@@ -96,6 +96,55 @@ def normalizar_produto(produto: Any) -> str:
         return "Carne Bovina"
 
     return p.title()
+
+
+def identificar_tipo_produto(produto_original: Any, unidade: Any) -> str:
+    original = limpar_texto(produto_original)
+    unidade_limpa = limpar_texto(unidade)
+
+    texto = remover_acentos(original).lower()
+
+    regras = [
+        ("disponivel", "Disponível"),
+        ("disponível", "Disponível"),
+        ("balcao", "Balcão"),
+        ("balcão", "Balcão"),
+        ("futuro", "Futuro"),
+        ("spot", "Spot"),
+        ("pluma", "Pluma"),
+        ("caroco", "Caroço"),
+        ("caroço", "Caroço"),
+        ("carioca", "Carioca"),
+        ("preto", "Preto"),
+        ("verde", "Verde"),
+        ("irrigado", "Irrigado"),
+        ("sequeiro", "Sequeiro"),
+        ("gordo", "Gordo"),
+    ]
+
+    for chave, tipo in regras:
+        if remover_acentos(chave).lower() in texto:
+            return tipo
+
+    # Quando a fonte não informa o subtipo no nome, usamos a unidade
+    # para evitar que dois preços diferentes apareçam com o mesmo rótulo.
+    if unidade_limpa:
+        return unidade_limpa
+
+    return "Padrão"
+
+
+def montar_nome_produto(produto_base: str, tipo_produto: str) -> str:
+    tipo = limpar_texto(tipo_produto)
+
+    if not tipo or tipo.lower() == "padrão":
+        return produto_base
+
+    # Evita repetição, por exemplo: "Boi Gordo — Gordo"
+    if remover_acentos(tipo).lower() in remover_acentos(produto_base).lower():
+        return produto_base
+
+    return f"{produto_base} — {tipo}"
 
 
 def parse_preco(valor: Any) -> Optional[float]:
@@ -163,7 +212,7 @@ def coletar_aiba(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
         ]
 
         for i in range(0, len(linhas) - 3):
-            produto = linhas[i]
+            produto_original = linhas[i]
             unidade = linhas[i + 1]
             preco_texto = linhas[i + 2]
             detalhe = linhas[i + 3]
@@ -171,7 +220,7 @@ def coletar_aiba(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
             if not preco_texto.startswith("R$"):
                 continue
 
-            if not produto_eh_alvo(produto):
+            if not produto_eh_alvo(produto_original):
                 continue
 
             preco = parse_preco(preco_texto)
@@ -179,11 +228,16 @@ def coletar_aiba(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
             if preco is None:
                 continue
 
-            produto_nome = normalizar_produto(produto)
+            produto_base = normalizar_produto_base(produto_original)
+            tipo_produto = identificar_tipo_produto(produto_original, unidade)
+            produto_nome = montar_nome_produto(produto_base, tipo_produto)
 
             cotacoes.append(
                 {
                     "produto": produto_nome,
+                    "produto_base": produto_base,
+                    "produto_original": limpar_texto(produto_original),
+                    "tipo_produto": tipo_produto,
                     "produto_slug": slugify(produto_nome),
                     "uf": "BA",
                     "estado": "Bahia",
@@ -224,11 +278,47 @@ def coletar_aiba(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return cotacoes
 
 
+def deduplicar_cotacoes(cotacoes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    vistos = set()
+    resultado = []
+
+    for cotacao in cotacoes:
+        chave = (
+            cotacao.get("produto_slug"),
+            cotacao.get("uf"),
+            cotacao.get("praca"),
+            cotacao.get("unidade"),
+            cotacao.get("preco"),
+            cotacao.get("data_referencia"),
+            cotacao.get("fonte"),
+        )
+
+        if chave in vistos:
+            continue
+
+        vistos.add(chave)
+        resultado.append(cotacao)
+
+    resultado.sort(
+        key=lambda item: (
+            item.get("estado", ""),
+            item.get("praca", ""),
+            item.get("produto_base", ""),
+            item.get("tipo_produto", ""),
+        )
+    )
+
+    return resultado
+
+
 def salvar_csv(cotacoes: list[dict[str, Any]]) -> None:
     PUBLIC_DIR.mkdir(parents=True, exist_ok=True)
 
     campos = [
         "produto",
+        "produto_base",
+        "produto_original",
+        "tipo_produto",
         "produto_slug",
         "uf",
         "estado",
@@ -256,7 +346,9 @@ def salvar_csv(cotacoes: list[dict[str, Any]]) -> None:
 def main() -> None:
     inicio = agora_local()
     status_fontes = []
+
     cotacoes = coletar_aiba(status_fontes)
+    cotacoes = deduplicar_cotacoes(cotacoes)
 
     PUBLIC_DIR.mkdir(parents=True, exist_ok=True)
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
@@ -266,7 +358,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.0.1",
+        "versao": "1.0.2",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "fuso_horario": TIMEZONE,
