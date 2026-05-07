@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.1.1
+Nordeste Agro — Coletor Automático de Cotações v1.1.2
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -45,6 +45,10 @@ Melhorias desta versão:
   * mantém apenas um valor por data no historico_30_dias.
 - Melhora classificação visual:
   * reforça Regional, Atacado, Produtor e Média UF para o HTML.
+- Corrige pecuária:
+  * quando a CONAB informa BOI/BOI GORDO em Kg, converte para Arroba (@) usando 15 kg.
+  * carne bovina permanece em Kg.
+  * isso permite que o card Carne bovina exiba Boi Gordo quando houver dado recente.
 - Gera:
   * cotacoes/public/cotacoes_nordeste.json
   * cotacoes/public/cotacoes_regionais.json
@@ -586,24 +590,38 @@ def inferir_unidade(produto_original: Any, produto_base: str, unidade: Any, font
     base_norm = remover_acentos(produto_base).lower()
     fonte_norm = remover_acentos(fonte).lower()
 
-    # CONAB frequentemente retorna preço unitário quando a coluna de unidade não está clara.
-    # Para grãos, tratamos a base como Kg e convertemos depois para Saca 60 kg.
+    # CONAB usa a coluna valor_produto_kg.
+    # Para grãos, isso será convertido para Saca 60 kg.
+    # Para BOI/BOI GORDO, isso será convertido de Kg para Arroba (@), fator 15.
+    # Para CARNE BOVINA, permanece Kg.
     if "conab" in fonte_norm:
         if "leite" in base_norm:
             return "Litro"
-        if "boi" in base_norm or "bov" in produto_norm:
-            return "@"
+
+        if produto_base == "Boi Gordo" or produto_norm == "boi" or "boi gordo" in produto_norm:
+            return "Kg"
+
+        if produto_base == "Carne Bovina" or "carne bovina" in produto_norm:
+            return "Kg"
+
         if produto_usa_saca_60kg(produto_base):
             return "Kg"
+
         if "algodao" in base_norm:
             return "@"
 
     if "leite" in base_norm:
         return "Litro"
-    if "boi" in base_norm:
-        return "@"
+
+    if produto_base == "Boi Gordo":
+        return "Arroba (@)"
+
+    if produto_base == "Carne Bovina":
+        return "Kg"
+
     if produto_usa_saca_60kg(produto_base):
         return "Saca 60 kg"
+
     if "algodao" in base_norm:
         return "@"
 
@@ -617,26 +635,57 @@ def aplicar_conversao_unidade_comercial(
     unidade: str,
 ) -> tuple[float, str, float, bool]:
     """
-    Converte produtos comercializados em saca para Saca 60 kg.
+    Conversões comerciais do Nordeste Agro.
 
-    Regra:
-    - Soja, milho, sorgo, arroz e feijão devem aparecer em Saca 60 kg.
-    - Se a fonte vier em Kg, multiplica por 60.
-    - Se já vier em saca, mantém o preço.
-    - Retorna: preco_convertido, unidade_convertida, fator_conversao, conversao_aplicada.
+    - Soja, milho, sorgo, arroz e feijão:
+      Kg -> Saca 60 kg, fator 60.
+    - BOI/BOI GORDO:
+      Kg -> Arroba (@), fator 15.
+    - Carne bovina:
+      mantém Kg.
     """
-    if not produto_usa_saca_60kg(produto_base):
-        return preco, unidade, 1.0, False
+    unidade_limpa = limpar_texto(unidade)
+    unidade_norm = remover_acentos(unidade_limpa).lower()
 
-    if unidade_indica_saca(unidade):
-        return preco, "Saca 60 kg", 1.0, False
+    if produto_usa_saca_60kg(produto_base):
+        if unidade_indica_saca(unidade):
+            return round(preco, 2), "Saca 60 kg", 1.0, False
 
-    if unidade_indica_kg(unidade) or unidade.lower() in {"unidade", "unidade informada pela fonte"}:
-        return round(preco * 60, 4), "Saca 60 kg", 60.0, True
+        if unidade_indica_kg(unidade) or unidade_norm in {"unidade", "unidade informada pela fonte", ""}:
+            return round(preco * 60, 2), "Saca 60 kg", 60.0, True
 
-    # Se a unidade estiver desconhecida para grãos, padronizamos visualmente como saca,
-    # mas sem multiplicar para evitar distorção quando a fonte já trouxer preço por saca.
-    return preco, "Saca 60 kg", 1.0, False
+        # Se estiver incerto, mantém o valor e padroniza visualmente para evitar multiplicação indevida.
+        return round(preco, 2), "Saca 60 kg", 1.0, False
+
+    if produto_base == "Boi Gordo":
+        if unidade_norm in {"@", "arroba", "arrobas"} or "arroba" in unidade_norm:
+            return round(preco, 2), "Arroba (@)", 1.0, False
+
+        if unidade_indica_kg(unidade) or unidade_norm in {"unidade", "unidade informada pela fonte", ""}:
+            return round(preco * 15, 2), "Arroba (@)", 15.0, True
+
+        return round(preco, 2), unidade_limpa or "Unidade informada pela fonte", 1.0, False
+
+    if produto_base == "Carne Bovina":
+        if unidade_indica_kg(unidade) or unidade_norm in {"unidade", "unidade informada pela fonte", ""}:
+            return round(preco, 2), "Kg", 1.0, False
+
+        return round(preco, 2), unidade_limpa or "Kg", 1.0, False
+
+    if produto_base == "Leite":
+        if "litro" in unidade_norm or unidade_norm in {"l", "lt", "litros", "unidade", "unidade informada pela fonte", ""}:
+            return round(preco, 2), "Litro", 1.0, False
+
+        return round(preco, 2), unidade_limpa or "Litro", 1.0, False
+
+    if produto_base == "Algodão":
+        if unidade_norm in {"@", "arroba", "arrobas"} or "arroba" in unidade_norm:
+            return round(preco, 2), "Arroba (@)", 1.0, False
+
+        if "tonelada" in unidade_norm or unidade_norm in {"t", "ton"}:
+            return round(preco, 2), "Tonelada", 1.0, False
+
+    return round(preco, 2), unidade_limpa or "Unidade informada pela fonte", 1.0, False
 
 
 def parse_preco(valor: Any) -> Optional[float]:
@@ -1515,7 +1564,7 @@ def consolidar_mais_recentes(
     """
     Consolida a base para uso no site.
 
-    Regra v1.1.1:
+    Regra v1.1.2:
     - Agrupa todos os registros brutos por fonte + produto + UF + praça + unidade.
     - Dentro de cada grupo, mantém apenas o item mais recente.
     - Se o item mais recente do grupo for mais antigo que data_corte_iso, o grupo inteiro
@@ -1678,7 +1727,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.1.1",
+        "versao": "1.1.2",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -1708,6 +1757,8 @@ def main() -> None:
             "total_precos_regionais": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "preco_regional"]),
             "total_precos_atacado": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "preco_atacado"]),
             "total_precos_media_uf": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "media_uf"]),
+            "total_cotacoes_boi_gordo": len([item for item in cotacoes_tabela if item.get("produto_base") == "Boi Gordo"]),
+            "total_cotacoes_carne_bovina": len([item for item in cotacoes_tabela if item.get("produto_base") == "Carne Bovina"]),
             "total_indicadores_mercado": len([item for item in cotacoes_tabela if item.get("categoria") == "indicador_mercado"]),
             "fontes_com_sucesso": fontes_ok,
             "total_fontes_com_erro": len(fontes_erro),
@@ -1740,7 +1791,9 @@ def main() -> None:
             "itens como inoculante para milho, inoculante para soja e beneficiamento de algodão apareçam "
             "como commodity. Além disso, o coletor aplica validação por faixa de preço e unidade para bloquear "
             "valores incompatíveis, como milho com preço exorbitante por saca ou algodão com preço muito baixo "
-            "por arroba. Os indicadores CEPEA/ESALQ ficam em seção própria do HTML via widget oficial. "
+            "por arroba. Para BOI/BOI GORDO informado em Kg pela CONAB, o sistema converte para Arroba (@) "
+            "usando o fator de 15 kg. Carne bovina permanece em Kg. Os indicadores CEPEA/ESALQ ficam "
+            "em seção própria do HTML via widget oficial. "
             "O gráfico usa as observações históricas recentes disponíveis. "
             "Os valores podem variar conforme praça "
             "de negociação, qualidade do produto, volume negociado, frete, forma de pagamento, "
@@ -1779,6 +1832,8 @@ def main() -> None:
     print(f"Total Preço Regional: {len([item for item in cotacoes_tabela if item.get('nivel_comercializacao_chave') == 'preco_regional'])}")
     print(f"Total Preço Atacado: {len([item for item in cotacoes_tabela if item.get('nivel_comercializacao_chave') == 'preco_atacado'])}")
     print(f"Total Média UF: {len([item for item in cotacoes_tabela if item.get('nivel_comercializacao_chave') == 'media_uf'])}")
+    print(f"Total Boi Gordo: {len([item for item in cotacoes_tabela if item.get('produto_base') == 'Boi Gordo'])}")
+    print(f"Total Carne Bovina: {len([item for item in cotacoes_tabela if item.get('produto_base') == 'Carne Bovina'])}")
     print(f"JSON principal: {OUTPUT_JSON}")
     print(f"JSON regional: {OUTPUT_JSON_REGIONAL}")
     print(f"CSV: {OUTPUT_CSV}")
