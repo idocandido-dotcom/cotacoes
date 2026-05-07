@@ -18,6 +18,13 @@ jobs:
       - name: Baixar repositório
         uses: actions/checkout@v4
 
+      - name: Mostrar estrutura do repositório
+        run: |
+          echo "Pasta atual:"
+          pwd
+          echo "Arquivos encontrados:"
+          find . -maxdepth 6 -type f | sort
+
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
@@ -30,20 +37,33 @@ jobs:
 
       - name: Rodar coletor de cotações
         run: |
-          python cotacoes/scripts/coletor_cotacoes_nordeste.py
+          echo "Verificando caminho do coletor..."
+
+          if [ -f "cotacoes/scripts/coletor_cotacoes_nordeste.py" ]; then
+            echo "Coletor encontrado no caminho correto."
+            python cotacoes/scripts/coletor_cotacoes_nordeste.py
+          else
+            echo "Coletor não encontrado no caminho esperado."
+            echo "Arquivos Python encontrados:"
+            find . -name "*.py" -type f | sort
+            exit 1
+          fi
 
       - name: Verificar arquivos gerados
         run: |
-          ls -lah cotacoes/public || true
-          ls -lah cotacoes/logs || true
+          echo "Verificando arquivos gerados..."
+          find . -maxdepth 6 -type f | sort
+
           python -m json.tool cotacoes/public/cotacoes_nordeste.json > /dev/null
 
       - name: Salvar atualização no repositório
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+
           git add cotacoes/public/cotacoes_nordeste.json
           git add cotacoes/public/cotacoes_nordeste.csv
           git add cotacoes/logs/status_ultima_execucao.json
+
           git commit -m "Atualizar cotações Nordeste Agro" || echo "Sem alterações para commit"
           git push
