@@ -2,19 +2,26 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.0.3
+Nordeste Agro — Coletor Automático de Cotações v1.0.5
 
-Fontes:
-- AIBA
-- CONAB
-- CEPEA/ESALQ
-- B3 como referência de mercado futuro
-
-Saídas:
-- cotacoes/public/cotacoes_nordeste.json
-- cotacoes/public/cotacoes_regionais.json
-- cotacoes/public/cotacoes_nordeste.csv
-- cotacoes/logs/status_ultima_execucao.json
+Melhorias desta versão:
+- Mantém AIBA funcionando.
+- Mantém CONAB para estados do Nordeste.
+- Mantém CEPEA/ESALQ como tentativa de referência, sem travar se houver 403.
+- Mantém B3 como referência de mercado futuro, sem criar preço falso por praça.
+- Reduz o JSON final:
+  * coleta todos os registros brutos;
+  * agrupa por produto + estado + praça + unidade + fonte;
+  * mostra apenas o preço mais recente na tabela;
+  * guarda as observações anteriores em "historico_30d" para o gráfico.
+- Converte grãos comercializados em saco para preço por Saca 60 kg:
+  * soja, milho, sorgo, arroz e feijão.
+  * Exemplo: preço CONAB em Kg x 60 = preço por Saca 60 kg.
+- Gera:
+  * cotacoes/public/cotacoes_nordeste.json
+  * cotacoes/public/cotacoes_regionais.json
+  * cotacoes/public/cotacoes_nordeste.csv
+  * cotacoes/logs/status_ultima_execucao.json
 """
 
 import csv
@@ -103,7 +110,9 @@ CEPEA_INDICADORES = [
 B3_COMMODITIES_URL = "https://www.b3.com.br/pt_br/produtos-e-servicos/negociacao/commodities/"
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; NordesteAgroBot/1.0; +https://nordesteagro.com)"
+    "User-Agent": "Mozilla/5.0 (compatible; NordesteAgroBot/1.0; +https://nordesteagro.com)",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "pt-BR,pt;q=0.9,en;q=0.8",
 }
 
 UFS_NORDESTE = {
@@ -133,6 +142,24 @@ PRODUTOS_ALVO = [
     "carne bovina",
 ]
 
+TIPOS_REAIS = {
+    "disponivel",
+    "balcao",
+    "futuro",
+    "spot",
+    "pluma",
+    "caroco",
+    "carioca",
+    "preto",
+    "verde",
+    "irrigado",
+    "sequeiro",
+    "gordo",
+    "vaca",
+}
+
+PRODUTOS_SACA_60KG = {"Soja", "Milho", "Sorgo", "Arroz", "Feijão"}
+
 
 def agora_local() -> datetime:
     return datetime.now(ZoneInfo(TIMEZONE))
@@ -153,6 +180,10 @@ def slugify(valor: Any) -> str:
     texto = remover_acentos(valor).lower()
     texto = re.sub(r"[^a-z0-9]+", "-", texto)
     return texto.strip("-")
+
+
+def chave_normalizada(valor: Any) -> str:
+    return slugify(limpar_texto(valor))
 
 
 def produto_eh_alvo(produto: Any) -> bool:
@@ -186,8 +217,7 @@ def normalizar_produto_base(produto: Any) -> str:
     return p.title()
 
 
-def identificar_tipo_produto(produto_original: Any, unidade: Any) -> str:
-    unidade_limpa = limpar_texto(unidade)
+def identificar_tipo_produto(produto_original: Any) -> str:
     texto = remover_acentos(produto_original).lower()
 
     regras = [
@@ -203,14 +233,12 @@ def identificar_tipo_produto(produto_original: Any, unidade: Any) -> str:
         ("irrigado", "Irrigado"),
         ("sequeiro", "Sequeiro"),
         ("gordo", "Gordo"),
+        ("vaca", "Vaca"),
     ]
 
     for chave, tipo in regras:
         if chave in texto:
             return tipo
-
-    if unidade_limpa:
-        return unidade_limpa
 
     return "Padrão"
 
@@ -225,6 +253,81 @@ def montar_nome_produto(produto_base: str, tipo_produto: str) -> str:
         return produto_base
 
     return f"{produto_base} — {tipo}"
+
+
+def produto_usa_saca_60kg(produto_base: str) -> bool:
+    return produto_base in PRODUTOS_SACA_60KG
+
+
+def unidade_indica_kg(unidade: Any) -> bool:
+    u = remover_acentos(unidade).lower().strip()
+    return (
+        u in {"kg", "quilo", "quilograma", "quilogramas"}
+        or " kg" in f" {u} "
+        or "quilo" in u
+        or "quilograma" in u
+    )
+
+
+def unidade_indica_saca(unidade: Any) -> bool:
+    u = remover_acentos(unidade).lower()
+    return "saca" in u or "sc" == u.strip() or "sc " in f"{u} "
+
+
+def inferir_unidade(produto_original: Any, produto_base: str, unidade: Any, fonte: str, preco: Optional[float] = None) -> str:
+    unidade_limpa = limpar_texto(unidade)
+
+    if unidade_limpa and unidade_limpa.lower() not in {
+        "unidade informada pela fonte",
+        "unidade",
+        "nan",
+        "none",
+        "-",
+    }:
+        return unidade_limpa
+
+    produto_norm = remover_acentos(produto_original).lower()
+    base_norm = remover_acentos(produto_base).lower()
+    fonte_norm = remover_acentos(fonte).lower()
+
+    if "conab" in fonte_norm:
+        if "leite" in base_norm:
+            return "Litro"
+        if "boi" in base_norm or "bov" in produto_norm:
+            return "@"
+        if produto_usa_saca_60kg(produto_base):
+            return "Kg"
+        if "algodao" in base_norm:
+            return "@"
+
+    if "leite" in base_norm:
+        return "Litro"
+    if "boi" in base_norm:
+        return "@"
+    if produto_usa_saca_60kg(produto_base):
+        return "Saca 60 kg"
+    if "algodao" in base_norm:
+        return "@"
+
+    return "Unidade"
+
+
+def aplicar_conversao_unidade_comercial(
+    *,
+    produto_base: str,
+    preco: float,
+    unidade: str,
+) -> tuple[float, str, float, bool]:
+    if not produto_usa_saca_60kg(produto_base):
+        return preco, unidade, 1.0, False
+
+    if unidade_indica_saca(unidade):
+        return preco, "Saca 60 kg", 1.0, False
+
+    if unidade_indica_kg(unidade) or unidade.lower() in {"unidade", "unidade informada pela fonte"}:
+        return round(preco * 60, 4), "Saca 60 kg", 60.0, True
+
+    return preco, "Saca 60 kg", 1.0, False
 
 
 def parse_preco(valor: Any) -> Optional[float]:
@@ -267,6 +370,10 @@ def parse_data(valor: Any) -> str:
         dia, mes, ano = match.groups()
         return f"{ano}-{mes}-{dia}"
 
+    match = re.search(r"(\d{4})-(\d{2})-(\d{2})", texto)
+    if match:
+        return match.group(0)
+
     return agora_local().date().isoformat()
 
 
@@ -281,6 +388,10 @@ def data_para_br(data_iso: Any) -> str:
     return f"{dia}/{mes}/{ano}"
 
 
+def data_ordenavel(data_iso: Any) -> str:
+    return parse_data(data_iso)
+
+
 def baixar_texto(url: str, timeout: int = 60) -> str:
     resposta = requests.get(url, headers=HEADERS, timeout=timeout)
     resposta.raise_for_status()
@@ -292,6 +403,16 @@ def baixar_texto(url: str, timeout: int = 60) -> str:
             continue
 
     return resposta.content.decode("latin1", errors="ignore")
+
+
+def formatar_preco(preco: Optional[float], unidade: str) -> str:
+    if preco is None:
+        return ""
+
+    if unidade.lower() == "litro":
+        return f"R$ {preco:.4f}".replace(".", ",")
+
+    return f"R$ {preco:.2f}".replace(".", ",")
 
 
 def criar_item(
@@ -310,13 +431,17 @@ def criar_item(
     observacao: str,
 ) -> dict[str, Any]:
     produto_base = normalizar_produto_base(produto_original)
-    tipo_produto = identificar_tipo_produto(produto_original, unidade)
+    tipo_produto = identificar_tipo_produto(produto_original)
     produto_nome = montar_nome_produto(produto_base, tipo_produto)
 
-    if "litro" in unidade.lower():
-        preco_txt = f"R$ {preco:.4f}".replace(".", ",")
-    else:
-        preco_txt = f"R$ {preco:.2f}".replace(".", ",")
+    unidade_original = inferir_unidade(produto_original, produto_base, unidade, fonte, preco)
+    preco_original = preco
+
+    preco_final, unidade_final, fator_conversao, conversao_aplicada = aplicar_conversao_unidade_comercial(
+        produto_base=produto_base,
+        preco=preco,
+        unidade=unidade_original,
+    )
 
     return {
         "produto": produto_nome,
@@ -327,12 +452,16 @@ def criar_item(
         "uf": uf,
         "estado": estado_nome,
         "praca": limpar_texto(praca),
-        "unidade": limpar_texto(unidade),
-        "preco": preco,
-        "preco_formatado": preco_txt,
+        "unidade": unidade_final,
+        "unidade_original": unidade_original,
+        "preco": preco_final,
+        "preco_original": preco_original,
+        "preco_formatado": formatar_preco(preco_final, unidade_final),
+        "fator_conversao": fator_conversao,
+        "conversao_aplicada": conversao_aplicada,
         "moeda": "BRL",
         "variacao_percentual": variacao_percentual,
-        "data_referencia": data_referencia,
+        "data_referencia": parse_data(data_referencia),
         "fonte": fonte,
         "fonte_url": fonte_url,
         "tipo": tipo_fonte,
@@ -353,12 +482,24 @@ def cotacao_para_dado_html(item: dict[str, Any]) -> dict[str, Any]:
         "tipo_produto": item.get("tipo_produto") or "",
         "valor": item.get("preco"),
         "preco": item.get("preco_formatado") or "",
+        "preco_original": item.get("preco_original"),
         "unidade": item.get("unidade") or "",
+        "unidade_original": item.get("unidade_original") or "",
+        "fator_conversao": item.get("fator_conversao", 1),
+        "conversao_aplicada": item.get("conversao_aplicada", False),
         "data": data_para_br(item.get("data_referencia")),
         "data_iso": item.get("data_referencia") or "",
         "fonte": item.get("fonte") or "",
         "fonte_url": item.get("fonte_url") or "",
-        "historico_30d": item.get("historico_30_dias") or [],
+        "historico_30d": [
+            {
+                "data": data_para_br(p.get("data")),
+                "data_iso": p.get("data"),
+                "valor": p.get("valor"),
+                "preco": formatar_preco(p.get("valor"), item.get("unidade") or ""),
+            }
+            for p in item.get("historico_30_dias", [])
+        ],
     }
 
 
@@ -496,7 +637,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
             col_uf = encontrar_coluna(colunas, ["uf", "sigla_uf", "estado"])
             col_praca = encontrar_coluna(colunas, ["municipio", "município", "cidade", "praca", "praça"])
             col_preco = encontrar_coluna(colunas, ["preco", "preço", "valor", "vlr"])
-            col_unidade = encontrar_coluna(colunas, ["unidade", "unid"])
+            col_unidade = encontrar_coluna(colunas, ["unidade", "unid", "medida"])
             col_data = encontrar_coluna(colunas, ["data", "dt", "referencia", "referência", "semana"])
 
             if not col_produto or not col_uf or not col_preco:
@@ -523,7 +664,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 if col_praca:
                     praca = limpar_texto(linha.get(col_praca, "")) or "Média UF"
 
-                unidade = limpar_texto(linha.get(col_unidade, "")) if col_unidade else "Unidade informada pela fonte"
+                unidade = limpar_texto(linha.get(col_unidade, "")) if col_unidade else ""
                 data_ref = parse_data(linha.get(col_data, "")) if col_data else agora_local().date().isoformat()
 
                 cotacoes.append(
@@ -657,38 +798,61 @@ def registrar_b3(status_fontes: list[dict[str, Any]]) -> None:
     )
 
 
-def deduplicar_cotacoes(cotacoes: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    vistos = set()
-    resultado = []
+def chave_agrupamento(item: dict[str, Any]) -> tuple[str, ...]:
+    return (
+        chave_normalizada(item.get("fonte")),
+        chave_normalizada(item.get("produto_base")),
+        chave_normalizada(item.get("produto_original")),
+        chave_normalizada(item.get("uf")),
+        chave_normalizada(item.get("praca")),
+        chave_normalizada(item.get("unidade")),
+    )
 
-    for cotacao in cotacoes:
-        chave = (
-            cotacao.get("produto_slug"),
-            cotacao.get("uf"),
-            cotacao.get("praca"),
-            cotacao.get("unidade"),
-            cotacao.get("preco"),
-            cotacao.get("data_referencia"),
-            cotacao.get("fonte"),
+
+def consolidar_mais_recentes(cotacoes_brutas: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    grupos: dict[tuple[str, ...], list[dict[str, Any]]] = {}
+
+    for item in cotacoes_brutas:
+        grupos.setdefault(chave_agrupamento(item), []).append(item)
+
+    consolidadas = []
+
+    for _, itens in grupos.items():
+        itens_ordenados = sorted(
+            itens,
+            key=lambda x: data_ordenavel(x.get("data_referencia")),
         )
 
-        if chave in vistos:
-            continue
+        historico = []
 
-        vistos.add(chave)
-        resultado.append(cotacao)
+        for p in itens_ordenados[-30:]:
+            valor = p.get("preco")
+            if valor is None:
+                continue
 
-    resultado.sort(
+            historico.append(
+                {
+                    "data": p.get("data_referencia"),
+                    "valor": valor,
+                }
+            )
+
+        mais_recente = dict(itens_ordenados[-1])
+        mais_recente["historico_30_dias"] = historico
+
+        consolidadas.append(mais_recente)
+
+    consolidadas.sort(
         key=lambda item: (
             item.get("uf", ""),
             item.get("praca", ""),
             item.get("produto_base", ""),
-            item.get("tipo_produto", ""),
+            item.get("produto_original", ""),
             item.get("fonte", ""),
         )
     )
 
-    return resultado
+    return consolidadas
 
 
 def salvar_csv(cotacoes: list[dict[str, Any]]) -> None:
@@ -704,8 +868,12 @@ def salvar_csv(cotacoes: list[dict[str, Any]]) -> None:
         "estado",
         "praca",
         "unidade",
+        "unidade_original",
         "preco",
+        "preco_original",
         "preco_formatado",
+        "fator_conversao",
+        "conversao_aplicada",
         "moeda",
         "variacao_percentual",
         "data_referencia",
@@ -730,7 +898,8 @@ def salvar_log(payload: dict[str, Any]) -> None:
     log = {
         "ok": payload.get("ok"),
         "ultima_sincronizacao": payload.get("ultima_sincronizacao"),
-        "total_cotacoes": payload.get("resumo", {}).get("total_cotacoes"),
+        "total_cotacoes_tabela": payload.get("resumo", {}).get("total_cotacoes_tabela"),
+        "total_cotacoes_brutas": payload.get("resumo", {}).get("total_cotacoes_brutas"),
         "total_dados_html": payload.get("resumo", {}).get("total_dados_html"),
         "fontes": payload.get("fontes"),
     }
@@ -745,14 +914,14 @@ def main() -> None:
     inicio = agora_local()
     status_fontes: list[dict[str, Any]] = []
 
-    cotacoes: list[dict[str, Any]] = []
-    cotacoes.extend(coletar_aiba(status_fontes))
-    cotacoes.extend(coletar_conab(status_fontes))
-    cotacoes.extend(coletar_cepea(status_fontes))
+    cotacoes_brutas: list[dict[str, Any]] = []
+    cotacoes_brutas.extend(coletar_aiba(status_fontes))
+    cotacoes_brutas.extend(coletar_conab(status_fontes))
+    cotacoes_brutas.extend(coletar_cepea(status_fontes))
     registrar_b3(status_fontes)
 
-    cotacoes = deduplicar_cotacoes(cotacoes)
-    dados_html = [cotacao_para_dado_html(item) for item in cotacoes]
+    cotacoes_tabela = consolidar_mais_recentes(cotacoes_brutas)
+    dados_html = [cotacao_para_dado_html(item) for item in cotacoes_tabela]
 
     fontes_ok = [f["fonte"] for f in status_fontes if f.get("status") == "ok"]
     fontes_erro = [f for f in status_fontes if f.get("status") == "erro"]
@@ -762,7 +931,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.0.3",
+        "versao": "1.0.5",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -771,22 +940,26 @@ def main() -> None:
         "fonte_principal": "CONAB/AIBA",
         "fontes_complementares": ["CEPEA/ESALQ", "B3 - referência de mercado futuro"],
         "resumo": {
-            "total_cotacoes": len(cotacoes),
+            "total_cotacoes_tabela": len(cotacoes_tabela),
+            "total_cotacoes_brutas": len(cotacoes_brutas),
             "total_dados_html": len(dados_html),
             "fontes_com_sucesso": fontes_ok,
             "total_fontes_com_erro": len(fontes_erro),
             "tempo_execucao_segundos": round((agora_local() - inicio).total_seconds(), 2),
         },
         "fontes": status_fontes,
-        "cotacoes": cotacoes,
+        "cotacoes": cotacoes_tabela,
         "dados": dados_html,
         "historico_30_dias": {},
         "aviso_legal": (
             "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas "
-            "a partir de fontes regionais, oficiais e indicadores de mercado. Os valores "
-            "podem variar conforme praça de negociação, qualidade do produto, volume negociado, "
-            "frete, forma de pagamento, logística e data de atualização. B3 e CEPEA/ESALQ "
-            "podem representar referências de mercado e não necessariamente preço local de praça."
+            "a partir de fontes regionais, oficiais e indicadores de mercado. A tabela exibe "
+            "o registro mais recente por produto, praça, unidade e fonte. Soja, milho, sorgo, arroz "
+            "e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg, enquanto "
+            "o gráfico usa as observações históricas disponíveis. Os valores podem variar conforme praça "
+            "de negociação, qualidade do produto, volume negociado, frete, forma de pagamento, "
+            "logística e data de atualização. B3 e CEPEA/ESALQ podem representar referências "
+            "de mercado e não necessariamente preço local de praça."
         ),
     }
 
@@ -802,11 +975,12 @@ def main() -> None:
         encoding="utf-8",
     )
 
-    salvar_csv(cotacoes)
+    salvar_csv(cotacoes_tabela)
     salvar_log(payload)
 
     print("Coleta finalizada.")
-    print(f"Total de cotações: {len(cotacoes)}")
+    print(f"Total de cotações brutas: {len(cotacoes_brutas)}")
+    print(f"Total de cotações para tabela: {len(cotacoes_tabela)}")
     print(f"Total de dados HTML: {len(dados_html)}")
     print(f"JSON principal: {OUTPUT_JSON}")
     print(f"JSON regional: {OUTPUT_JSON_REGIONAL}")
