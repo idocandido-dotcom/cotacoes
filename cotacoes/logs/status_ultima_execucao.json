@@ -1,8 +1,9 @@
 {
   "ok": true,
-  "ultima_sincronizacao": "2026-05-07 13:26:55",
-  "total_cotacoes": 20084,
-  "total_dados_html": 20084,
+  "ultima_sincronizacao": "2026-05-07 13:41:59",
+  "total_cotacoes_tabela": 331,
+  "total_cotacoes_brutas": 20307,
+  "total_dados_html": 331,
   "fontes": [
     {
       "fonte": "AIBA",
