@@ -3,10 +3,10 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "repositorio": "idocandido-dotcom/cotacoes",
-  "versao": "1.1.1",
-  "ultima_sincronizacao": "2026-05-07 15:40:13",
-  "ultima_sincronizacao_iso": "2026-05-07T15:40:13.226866-03:00",
-  "gerado_em": "07/05/2026 15:40",
+  "versao": "1.1.2",
+  "ultima_sincronizacao": "2026-05-07 15:50:47",
+  "ultima_sincronizacao_iso": "2026-05-07T15:50:47.269281-03:00",
+  "gerado_em": "07/05/2026 15:50",
   "fuso_horario": "America/Fortaleza",
   "frequencia_atualizacao": "diaria",
   "dias_maximos_cotacao_ativa": 90,
@@ -19,23 +19,24 @@
   ],
   "politica_classificacao_preco": "Os preços da CONAB são classificados por nível de comercialização quando a fonte permite: produtor, atacado, varejo, média UF ou não informado. Indicadores CEPEA/ESALQ entram como indicador de mercado e não como preço local.",
   "resumo": {
-    "total_cotacoes_tabela": 108,
+    "total_cotacoes_tabela": 127,
     "total_cotacoes_brutas": 15479,
-    "total_cotacoes_validas_apos_validacao": 10714,
-    "total_cotacoes_descartadas_por_validacao": 4765,
+    "total_cotacoes_validas_apos_validacao": 12966,
+    "total_cotacoes_descartadas_por_validacao": 2513,
     "resumo_descartes_validacao": {
-      "preco_abaixo_da_faixa": 373,
-      "preco_acima_da_faixa": 2260,
-      "unidade_insegura": 2132
+      "preco_abaixo_da_faixa": 253,
+      "preco_acima_da_faixa": 2260
     },
-    "total_dados_html": 108,
-    "total_grupos_brutos": 263,
-    "grupos_descartados_por_data_antiga": 155,
+    "total_dados_html": 127,
+    "total_grupos_brutos": 286,
+    "grupos_descartados_por_data_antiga": 159,
     "total_indicadores_cepea_widget": 0,
     "total_precos_produtor": 0,
     "total_precos_regionais": 8,
     "total_precos_atacado": 31,
-    "total_precos_media_uf": 29,
+    "total_precos_media_uf": 30,
+    "total_cotacoes_boi_gordo": 1,
+    "total_cotacoes_carne_bovina": 18,
     "total_indicadores_mercado": 0,
     "fontes_com_sucesso": [
       "AIBA",
@@ -43,7 +44,7 @@
       "CONAB - Preços Agropecuários Semanal Município"
     ],
     "total_fontes_com_erro": 0,
-    "tempo_execucao_segundos": 22.63
+    "tempo_execucao_segundos": 20.87
   },
   "fontes": [
     {
@@ -2810,6 +2811,85 @@
       "validacao_publicacao": "ok"
     },
     {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "AL",
+      "estado": "Alagoas",
+      "praca": "MACEIÓ-AL",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 48.62,
+      "preco_original": 48.62,
+      "preco_formatado": "R$ 48,62",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 46.64
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 46.64
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 46.64
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 48.06
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 48.06
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 44.52
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 48.06
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 48.72
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 48.62
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 48.62
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 48.62
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 48.62
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -2968,6 +3048,85 @@
       "validacao_publicacao": "ok"
     },
     {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "AL",
+      "estado": "Alagoas",
+      "praca": "Média UF",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 47.34,
+      "preco_original": 47.34,
+      "preco_formatado": "R$ 47,34",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 45.65
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 45.65
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 45.65
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 48.88
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 48.88
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 44.52
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 44.52
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 47.63
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 47.34
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 47.34
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 47.34
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 47.34
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -3121,6 +3280,85 @@
         {
           "data": "2026-04-27",
           "valor": 6.22
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Média UF",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 45.16,
+      "preco_original": 45.16,
+      "preco_formatado": "R$ 45,16",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 40.44
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 40.44
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 40.44
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 45.91
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 45.91
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 45.91
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 42.28
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 45.52
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 45.04
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 45.04
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 45.04
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 45.16
         }
       ],
       "validacao_publicacao": "ok"
@@ -3284,6 +3522,85 @@
       "validacao_publicacao": "ok"
     },
     {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "SALVADOR-BA",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 41.87,
+      "preco_original": 41.87,
+      "preco_formatado": "R$ 41,87",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 40.44
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 40.44
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 43.92
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 45.91
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 45.91
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 45.91
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 45.91
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 42.03
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 45.16
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 45.16
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 45.16
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 41.87
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -3437,6 +3754,85 @@
         {
           "data": "2026-04-27",
           "valor": 7.06
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "CE",
+      "estado": "Ceará",
+      "praca": "FORTALEZA-CE",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 55.92,
+      "preco_original": 55.92,
+      "preco_formatado": "R$ 55,92",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 52.12
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 52.12
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 52.12
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 47.86
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 47.86
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 47.86
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 47.86
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 54.37
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 55.92
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 55.92
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 55.92
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 55.92
         }
       ],
       "validacao_publicacao": "ok"
@@ -3595,6 +3991,85 @@
         {
           "data": "2026-04-27",
           "valor": 6.62
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "CE",
+      "estado": "Ceará",
+      "praca": "Média UF",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 55.92,
+      "preco_original": 55.92,
+      "preco_formatado": "R$ 55,92",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 52.12
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 52.12
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 52.12
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 52.05
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 47.86
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 52.05
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 53.05
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 54.37
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 54.04
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 55.92
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 49.59
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 55.92
         }
       ],
       "validacao_publicacao": "ok"
@@ -3837,6 +4312,85 @@
       "validacao_publicacao": "ok"
     },
     {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "MA",
+      "estado": "Maranhão",
+      "praca": "Média UF",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 38.71,
+      "preco_original": 38.71,
+      "preco_formatado": "R$ 38,71",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 38.83
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 38.83
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 38.83
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 43.42
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 43.42
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 38.85
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 43.42
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 38.77
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 42.43
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 42.43
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 42.43
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 38.71
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -4074,6 +4628,85 @@
       "validacao_publicacao": "ok"
     },
     {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "MA",
+      "estado": "Maranhão",
+      "praca": "SÃO LUÍS-MA",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 38.71,
+      "preco_original": 38.71,
+      "preco_formatado": "R$ 38,71",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 43.48
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 43.48
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 43.48
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 43.3
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 43.3
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 43.3
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 43.3
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 43.37
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 38.71
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 43.33
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 38.71
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 38.71
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -4275,6 +4908,85 @@
       "validacao_publicacao": "ok"
     },
     {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "PB",
+      "estado": "Paraíba",
+      "praca": "JOÃO PESSOA-PB",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 47.68,
+      "preco_original": 47.68,
+      "preco_formatado": "R$ 47,68",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 45.87
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 45.87
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 45.87
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 44.27
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 44.27
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 44.27
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 44.27
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 47.17
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 47.68
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 47.68
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 47.68
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 47.68
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -4476,6 +5188,85 @@
       "validacao_publicacao": "ok"
     },
     {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "PB",
+      "estado": "Paraíba",
+      "praca": "Média UF",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 48.4,
+      "preco_original": 48.4,
+      "preco_formatado": "R$ 48,40",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 46.23
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 46.23
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 46.23
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 47.26
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 47.26
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 47.26
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 47.26
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 45.15
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 48.4
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 45.73
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 45.73
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 48.4
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -4634,6 +5425,85 @@
       "validacao_publicacao": "ok"
     },
     {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "PE",
+      "estado": "Pernambuco",
+      "praca": "Média UF",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 43.28,
+      "preco_original": 43.28,
+      "preco_formatado": "R$ 43,28",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 42.76
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 46.04
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 46.04
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 43.37
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 46.87
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 46.87
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 43.37
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 43.32
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 47.66
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 47.84
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 47.84
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 43.28
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -4787,6 +5657,85 @@
         {
           "data": "2026-04-27",
           "valor": 5.93
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "PE",
+      "estado": "Pernambuco",
+      "praca": "RECIFE-PE",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 43.28,
+      "preco_original": 43.28,
+      "preco_formatado": "R$ 43,28",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 42.76
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 42.76
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 42.76
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 46.98
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 46.98
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 46.98
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 46.98
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 43.32
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 43.28
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 43.28
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 43.28
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 43.28
         }
       ],
       "validacao_publicacao": "ok"
@@ -4950,6 +5899,85 @@
       "validacao_publicacao": "ok"
     },
     {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "PI",
+      "estado": "Piauí",
+      "praca": "Média UF",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 46.01,
+      "preco_original": 46.01,
+      "preco_formatado": "R$ 46,01",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 43.86
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 43.86
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 43.86
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 44.06
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 44.64
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 44.64
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 44.64
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 45.23
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 46.01
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 46.01
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 46.01
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 46.01
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -5103,6 +6131,85 @@
         {
           "data": "2026-04-27",
           "valor": 6.56
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "PI",
+      "estado": "Piauí",
+      "praca": "TERESINA-PI",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 46.4,
+      "preco_original": 46.4,
+      "preco_formatado": "R$ 46,40",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 43.86
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 43.84
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 43.84
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 42.61
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 42.61
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 42.61
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 42.61
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 45.23
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 46.4
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 46.4
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 46.01
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 46.4
         }
       ],
       "validacao_publicacao": "ok"
@@ -5266,6 +6373,85 @@
       "validacao_publicacao": "ok"
     },
     {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "RN",
+      "estado": "Rio Grande do Norte",
+      "praca": "Média UF",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 47.86,
+      "preco_original": 47.86,
+      "preco_formatado": "R$ 47,86",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 46.64
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 45.63
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 42.62
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 42.86
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 46.53
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 46.53
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 45.01
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 46.72
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 47.86
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 47.86
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 47.86
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 47.86
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -5424,6 +6610,85 @@
       "validacao_publicacao": "ok"
     },
     {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "RN",
+      "estado": "Rio Grande do Norte",
+      "praca": "NATAL-RN",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 44.41,
+      "preco_original": 44.41,
+      "preco_formatado": "R$ 44,41",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 42.62
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 42.62
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 42.62
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 46.53
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 46.53
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 46.53
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 46.53
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 43.79
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 44.41
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 44.41
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 44.41
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 44.41
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -5577,6 +6842,85 @@
         {
           "data": "2026-04-27",
           "valor": 6.51
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "SE",
+      "estado": "Sergipe",
+      "praca": "ARACAJU-SE",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 44.41,
+      "preco_original": 44.41,
+      "preco_formatado": "R$ 44,41",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 43.56
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 43.53
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 43.53
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 42.37
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 42.37
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 42.37
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 42.37
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 45.11
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 45.29
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 45.29
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 45.29
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 44.41
         }
       ],
       "validacao_publicacao": "ok"
@@ -5735,6 +7079,85 @@
         {
           "data": "2026-04-27",
           "valor": 5.95
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "carne-bovina-varejo",
+      "uf": "SE",
+      "estado": "Sergipe",
+      "praca": "Média UF",
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "preco": 42.17,
+      "preco_original": 42.17,
+      "preco_formatado": "R$ 42,17",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Varejo.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 43.56
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 43.56
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 41.13
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 42.37
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 42.37
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 44.85
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 44.85
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 42.25
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 42.17
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 45.29
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 45.29
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 42.17
         }
       ],
       "validacao_publicacao": "ok"
@@ -6181,6 +7604,85 @@
         {
           "data": "2026-04-27",
           "valor": 79.8
+        }
+      ],
+      "validacao_publicacao": "ok"
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_base": "Boi Gordo",
+      "produto_original": "BOI",
+      "tipo_produto": "Padrão",
+      "produto_slug": "boi-gordo",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Média UF",
+      "unidade": "Arroba (@)",
+      "unidade_original": "Kg",
+      "preco": 338.85,
+      "preco_original": 22.59,
+      "preco_formatado": "R$ 338,85",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Média UF",
+      "nivel_comercializacao_chave": "media_uf",
+      "prioridade_nivel_preco": 5,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Nível identificado: Média UF.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 318.9
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 318.9
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 324.3
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 333.3
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 341.7
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 336.6
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 325.5
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 331.65
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 338.85
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 338.85
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 341.7
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 338.85
         }
       ],
       "validacao_publicacao": "ok"
@@ -11368,6 +12870,104 @@
       "estado": "AL",
       "cidade": "MACEIÓ-AL",
       "regiao": "Alagoas",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 48.62,
+      "preco": "R$ 48,62",
+      "preco_original": 48.62,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 46.64,
+          "preco": "R$ 46,64"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 46.64,
+          "preco": "R$ 46,64"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 46.64,
+          "preco": "R$ 46,64"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 48.06,
+          "preco": "R$ 48,06"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 48.06,
+          "preco": "R$ 48,06"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 44.52,
+          "preco": "R$ 44,52"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 48.06,
+          "preco": "R$ 48,06"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 48.72,
+          "preco": "R$ 48,72"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 48.62,
+          "preco": "R$ 48,62"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 48.62,
+          "preco": "R$ 48,62"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 48.62,
+          "preco": "R$ 48,62"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 48.62,
+          "preco": "R$ 48,62"
+        }
+      ]
+    },
+    {
+      "estado": "AL",
+      "cidade": "MACEIÓ-AL",
+      "regiao": "Alagoas",
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -11564,6 +13164,104 @@
       "estado": "AL",
       "cidade": "Média UF",
       "regiao": "Alagoas",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 47.34,
+      "preco": "R$ 47,34",
+      "preco_original": 47.34,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 45.65,
+          "preco": "R$ 45,65"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 45.65,
+          "preco": "R$ 45,65"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 45.65,
+          "preco": "R$ 45,65"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 48.88,
+          "preco": "R$ 48,88"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 48.88,
+          "preco": "R$ 48,88"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 44.52,
+          "preco": "R$ 44,52"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 44.52,
+          "preco": "R$ 44,52"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 47.63,
+          "preco": "R$ 47,63"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 47.34,
+          "preco": "R$ 47,34"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 47.34,
+          "preco": "R$ 47,34"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 47.34,
+          "preco": "R$ 47,34"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 47.34,
+          "preco": "R$ 47,34"
+        }
+      ]
+    },
+    {
+      "estado": "AL",
+      "cidade": "Média UF",
+      "regiao": "Alagoas",
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -11760,6 +13458,104 @@
       "estado": "BA",
       "cidade": "Média UF",
       "regiao": "Bahia",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 45.16,
+      "preco": "R$ 45,16",
+      "preco_original": 45.16,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 40.44,
+          "preco": "R$ 40,44"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 40.44,
+          "preco": "R$ 40,44"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 40.44,
+          "preco": "R$ 40,44"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 45.91,
+          "preco": "R$ 45,91"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 45.91,
+          "preco": "R$ 45,91"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 45.91,
+          "preco": "R$ 45,91"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 42.28,
+          "preco": "R$ 42,28"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 45.52,
+          "preco": "R$ 45,52"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 45.04,
+          "preco": "R$ 45,04"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 45.04,
+          "preco": "R$ 45,04"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 45.04,
+          "preco": "R$ 45,04"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 45.16,
+          "preco": "R$ 45,16"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Média UF",
+      "regiao": "Bahia",
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -11956,6 +13752,104 @@
       "estado": "BA",
       "cidade": "SALVADOR-BA",
       "regiao": "Bahia",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 41.87,
+      "preco": "R$ 41,87",
+      "preco_original": 41.87,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 40.44,
+          "preco": "R$ 40,44"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 40.44,
+          "preco": "R$ 40,44"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 43.92,
+          "preco": "R$ 43,92"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 45.91,
+          "preco": "R$ 45,91"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 45.91,
+          "preco": "R$ 45,91"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 45.91,
+          "preco": "R$ 45,91"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 45.91,
+          "preco": "R$ 45,91"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 42.03,
+          "preco": "R$ 42,03"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 45.16,
+          "preco": "R$ 45,16"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 45.16,
+          "preco": "R$ 45,16"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 45.16,
+          "preco": "R$ 45,16"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 41.87,
+          "preco": "R$ 41,87"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "SALVADOR-BA",
+      "regiao": "Bahia",
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -12152,6 +14046,104 @@
       "estado": "CE",
       "cidade": "FORTALEZA-CE",
       "regiao": "Ceará",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 55.92,
+      "preco": "R$ 55,92",
+      "preco_original": 55.92,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 52.12,
+          "preco": "R$ 52,12"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 52.12,
+          "preco": "R$ 52,12"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 52.12,
+          "preco": "R$ 52,12"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 47.86,
+          "preco": "R$ 47,86"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 47.86,
+          "preco": "R$ 47,86"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 47.86,
+          "preco": "R$ 47,86"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 47.86,
+          "preco": "R$ 47,86"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 54.37,
+          "preco": "R$ 54,37"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 55.92,
+          "preco": "R$ 55,92"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 55.92,
+          "preco": "R$ 55,92"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 55.92,
+          "preco": "R$ 55,92"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 55.92,
+          "preco": "R$ 55,92"
+        }
+      ]
+    },
+    {
+      "estado": "CE",
+      "cidade": "FORTALEZA-CE",
+      "regiao": "Ceará",
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -12341,6 +14333,104 @@
           "data_iso": "2026-04-27",
           "valor": 6.62,
           "preco": "R$ 6,6200"
+        }
+      ]
+    },
+    {
+      "estado": "CE",
+      "cidade": "Média UF",
+      "regiao": "Ceará",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 55.92,
+      "preco": "R$ 55,92",
+      "preco_original": 55.92,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 52.12,
+          "preco": "R$ 52,12"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 52.12,
+          "preco": "R$ 52,12"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 52.12,
+          "preco": "R$ 52,12"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 52.05,
+          "preco": "R$ 52,05"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 47.86,
+          "preco": "R$ 47,86"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 52.05,
+          "preco": "R$ 52,05"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 53.05,
+          "preco": "R$ 53,05"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 54.37,
+          "preco": "R$ 54,37"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 54.04,
+          "preco": "R$ 54,04"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 55.92,
+          "preco": "R$ 55,92"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 49.59,
+          "preco": "R$ 49,59"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 55.92,
+          "preco": "R$ 55,92"
         }
       ]
     },
@@ -12642,6 +14732,104 @@
       "estado": "MA",
       "cidade": "Média UF",
       "regiao": "Maranhão",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 38.71,
+      "preco": "R$ 38,71",
+      "preco_original": 38.71,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 38.83,
+          "preco": "R$ 38,83"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 38.83,
+          "preco": "R$ 38,83"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 38.83,
+          "preco": "R$ 38,83"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 43.42,
+          "preco": "R$ 43,42"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 43.42,
+          "preco": "R$ 43,42"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 38.85,
+          "preco": "R$ 38,85"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 43.42,
+          "preco": "R$ 43,42"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 38.77,
+          "preco": "R$ 38,77"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 42.43,
+          "preco": "R$ 42,43"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 42.43,
+          "preco": "R$ 42,43"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 42.43,
+          "preco": "R$ 42,43"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 38.71,
+          "preco": "R$ 38,71"
+        }
+      ]
+    },
+    {
+      "estado": "MA",
+      "cidade": "Média UF",
+      "regiao": "Maranhão",
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -12936,6 +15124,104 @@
       "estado": "MA",
       "cidade": "SÃO LUÍS-MA",
       "regiao": "Maranhão",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 38.71,
+      "preco": "R$ 38,71",
+      "preco_original": 38.71,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 43.48,
+          "preco": "R$ 43,48"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 43.48,
+          "preco": "R$ 43,48"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 43.48,
+          "preco": "R$ 43,48"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 43.3,
+          "preco": "R$ 43,30"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 43.3,
+          "preco": "R$ 43,30"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 43.3,
+          "preco": "R$ 43,30"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 43.3,
+          "preco": "R$ 43,30"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 43.37,
+          "preco": "R$ 43,37"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 38.71,
+          "preco": "R$ 38,71"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 43.33,
+          "preco": "R$ 43,33"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 38.71,
+          "preco": "R$ 38,71"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 38.71,
+          "preco": "R$ 38,71"
+        }
+      ]
+    },
+    {
+      "estado": "MA",
+      "cidade": "SÃO LUÍS-MA",
+      "regiao": "Maranhão",
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -13176,6 +15462,104 @@
       "estado": "PB",
       "cidade": "JOÃO PESSOA-PB",
       "regiao": "Paraíba",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 47.68,
+      "preco": "R$ 47,68",
+      "preco_original": 47.68,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 45.87,
+          "preco": "R$ 45,87"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 45.87,
+          "preco": "R$ 45,87"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 45.87,
+          "preco": "R$ 45,87"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 44.27,
+          "preco": "R$ 44,27"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 44.27,
+          "preco": "R$ 44,27"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 44.27,
+          "preco": "R$ 44,27"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 44.27,
+          "preco": "R$ 44,27"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 47.17,
+          "preco": "R$ 47,17"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 47.68,
+          "preco": "R$ 47,68"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 47.68,
+          "preco": "R$ 47,68"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 47.68,
+          "preco": "R$ 47,68"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 47.68,
+          "preco": "R$ 47,68"
+        }
+      ]
+    },
+    {
+      "estado": "PB",
+      "cidade": "JOÃO PESSOA-PB",
+      "regiao": "Paraíba",
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -13416,6 +15800,104 @@
       "estado": "PB",
       "cidade": "Média UF",
       "regiao": "Paraíba",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 48.4,
+      "preco": "R$ 48,40",
+      "preco_original": 48.4,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 46.23,
+          "preco": "R$ 46,23"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 46.23,
+          "preco": "R$ 46,23"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 46.23,
+          "preco": "R$ 46,23"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 47.26,
+          "preco": "R$ 47,26"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 47.26,
+          "preco": "R$ 47,26"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 47.26,
+          "preco": "R$ 47,26"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 47.26,
+          "preco": "R$ 47,26"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 45.15,
+          "preco": "R$ 45,15"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 48.4,
+          "preco": "R$ 48,40"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 45.73,
+          "preco": "R$ 45,73"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 45.73,
+          "preco": "R$ 45,73"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 48.4,
+          "preco": "R$ 48,40"
+        }
+      ]
+    },
+    {
+      "estado": "PB",
+      "cidade": "Média UF",
+      "regiao": "Paraíba",
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -13612,6 +16094,104 @@
       "estado": "PE",
       "cidade": "Média UF",
       "regiao": "Pernambuco",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 43.28,
+      "preco": "R$ 43,28",
+      "preco_original": 43.28,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 42.76,
+          "preco": "R$ 42,76"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 46.04,
+          "preco": "R$ 46,04"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 46.04,
+          "preco": "R$ 46,04"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 43.37,
+          "preco": "R$ 43,37"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 46.87,
+          "preco": "R$ 46,87"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 46.87,
+          "preco": "R$ 46,87"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 43.37,
+          "preco": "R$ 43,37"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 43.32,
+          "preco": "R$ 43,32"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 47.66,
+          "preco": "R$ 47,66"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 47.84,
+          "preco": "R$ 47,84"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 47.84,
+          "preco": "R$ 47,84"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 43.28,
+          "preco": "R$ 43,28"
+        }
+      ]
+    },
+    {
+      "estado": "PE",
+      "cidade": "Média UF",
+      "regiao": "Pernambuco",
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -13801,6 +16381,104 @@
           "data_iso": "2026-04-27",
           "valor": 5.93,
           "preco": "R$ 5,9300"
+        }
+      ]
+    },
+    {
+      "estado": "PE",
+      "cidade": "RECIFE-PE",
+      "regiao": "Pernambuco",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 43.28,
+      "preco": "R$ 43,28",
+      "preco_original": 43.28,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 42.76,
+          "preco": "R$ 42,76"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 42.76,
+          "preco": "R$ 42,76"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 42.76,
+          "preco": "R$ 42,76"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 46.98,
+          "preco": "R$ 46,98"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 46.98,
+          "preco": "R$ 46,98"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 46.98,
+          "preco": "R$ 46,98"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 46.98,
+          "preco": "R$ 46,98"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 43.32,
+          "preco": "R$ 43,32"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 43.28,
+          "preco": "R$ 43,28"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 43.28,
+          "preco": "R$ 43,28"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 43.28,
+          "preco": "R$ 43,28"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 43.28,
+          "preco": "R$ 43,28"
         }
       ]
     },
@@ -14004,6 +16682,104 @@
       "estado": "PI",
       "cidade": "Média UF",
       "regiao": "Piauí",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 46.01,
+      "preco": "R$ 46,01",
+      "preco_original": 46.01,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 43.86,
+          "preco": "R$ 43,86"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 43.86,
+          "preco": "R$ 43,86"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 43.86,
+          "preco": "R$ 43,86"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 44.06,
+          "preco": "R$ 44,06"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 44.64,
+          "preco": "R$ 44,64"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 44.64,
+          "preco": "R$ 44,64"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 44.64,
+          "preco": "R$ 44,64"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 45.23,
+          "preco": "R$ 45,23"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 46.01,
+          "preco": "R$ 46,01"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 46.01,
+          "preco": "R$ 46,01"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 46.01,
+          "preco": "R$ 46,01"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 46.01,
+          "preco": "R$ 46,01"
+        }
+      ]
+    },
+    {
+      "estado": "PI",
+      "cidade": "Média UF",
+      "regiao": "Piauí",
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -14193,6 +16969,104 @@
           "data_iso": "2026-04-27",
           "valor": 6.56,
           "preco": "R$ 6,5600"
+        }
+      ]
+    },
+    {
+      "estado": "PI",
+      "cidade": "TERESINA-PI",
+      "regiao": "Piauí",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 46.4,
+      "preco": "R$ 46,40",
+      "preco_original": 46.4,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 43.86,
+          "preco": "R$ 43,86"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 43.84,
+          "preco": "R$ 43,84"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 43.84,
+          "preco": "R$ 43,84"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 42.61,
+          "preco": "R$ 42,61"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 42.61,
+          "preco": "R$ 42,61"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 42.61,
+          "preco": "R$ 42,61"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 42.61,
+          "preco": "R$ 42,61"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 45.23,
+          "preco": "R$ 45,23"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 46.4,
+          "preco": "R$ 46,40"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 46.4,
+          "preco": "R$ 46,40"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 46.01,
+          "preco": "R$ 46,01"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 46.4,
+          "preco": "R$ 46,40"
         }
       ]
     },
@@ -14396,6 +17270,104 @@
       "estado": "RN",
       "cidade": "Média UF",
       "regiao": "Rio Grande do Norte",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 47.86,
+      "preco": "R$ 47,86",
+      "preco_original": 47.86,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 46.64,
+          "preco": "R$ 46,64"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 45.63,
+          "preco": "R$ 45,63"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 42.62,
+          "preco": "R$ 42,62"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 42.86,
+          "preco": "R$ 42,86"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 46.53,
+          "preco": "R$ 46,53"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 46.53,
+          "preco": "R$ 46,53"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 45.01,
+          "preco": "R$ 45,01"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 46.72,
+          "preco": "R$ 46,72"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 47.86,
+          "preco": "R$ 47,86"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 47.86,
+          "preco": "R$ 47,86"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 47.86,
+          "preco": "R$ 47,86"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 47.86,
+          "preco": "R$ 47,86"
+        }
+      ]
+    },
+    {
+      "estado": "RN",
+      "cidade": "Média UF",
+      "regiao": "Rio Grande do Norte",
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -14592,6 +17564,104 @@
       "estado": "RN",
       "cidade": "NATAL-RN",
       "regiao": "Rio Grande do Norte",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 44.41,
+      "preco": "R$ 44,41",
+      "preco_original": 44.41,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 42.62,
+          "preco": "R$ 42,62"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 42.62,
+          "preco": "R$ 42,62"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 42.62,
+          "preco": "R$ 42,62"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 46.53,
+          "preco": "R$ 46,53"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 46.53,
+          "preco": "R$ 46,53"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 46.53,
+          "preco": "R$ 46,53"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 46.53,
+          "preco": "R$ 46,53"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 43.79,
+          "preco": "R$ 43,79"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 44.41,
+          "preco": "R$ 44,41"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 44.41,
+          "preco": "R$ 44,41"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 44.41,
+          "preco": "R$ 44,41"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 44.41,
+          "preco": "R$ 44,41"
+        }
+      ]
+    },
+    {
+      "estado": "RN",
+      "cidade": "NATAL-RN",
+      "regiao": "Rio Grande do Norte",
       "produto": "Feijão — Varejo",
       "produto_base": "Feijão",
       "produto_original": "FEIJAO",
@@ -14781,6 +17851,104 @@
           "data_iso": "2026-04-27",
           "valor": 6.51,
           "preco": "R$ 6,5100"
+        }
+      ]
+    },
+    {
+      "estado": "SE",
+      "cidade": "ARACAJU-SE",
+      "regiao": "Sergipe",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 44.41,
+      "preco": "R$ 44,41",
+      "preco_original": 44.41,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal Município",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 43.56,
+          "preco": "R$ 43,56"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 43.53,
+          "preco": "R$ 43,53"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 43.53,
+          "preco": "R$ 43,53"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 42.37,
+          "preco": "R$ 42,37"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 42.37,
+          "preco": "R$ 42,37"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 42.37,
+          "preco": "R$ 42,37"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 42.37,
+          "preco": "R$ 42,37"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 45.11,
+          "preco": "R$ 45,11"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 45.29,
+          "preco": "R$ 45,29"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 45.29,
+          "preco": "R$ 45,29"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 45.29,
+          "preco": "R$ 45,29"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 44.41,
+          "preco": "R$ 44,41"
         }
       ]
     },
@@ -14977,6 +18145,104 @@
           "data_iso": "2026-04-27",
           "valor": 5.95,
           "preco": "R$ 5,9500"
+        }
+      ]
+    },
+    {
+      "estado": "SE",
+      "cidade": "Média UF",
+      "regiao": "Sergipe",
+      "produto": "Carne Bovina — Varejo",
+      "produto_base": "Carne Bovina",
+      "produto_original": "CARNE BOVINA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Varejo",
+      "nivel_comercializacao_chave": "preco_varejo",
+      "prioridade_nivel_preco": 4,
+      "categoria": "commodity_agricola",
+      "valor": 42.17,
+      "preco": "R$ 42,17",
+      "preco_original": 42.17,
+      "unidade": "Kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 43.56,
+          "preco": "R$ 43,56"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 43.56,
+          "preco": "R$ 43,56"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 41.13,
+          "preco": "R$ 41,13"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 42.37,
+          "preco": "R$ 42,37"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 42.37,
+          "preco": "R$ 42,37"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 44.85,
+          "preco": "R$ 44,85"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 44.85,
+          "preco": "R$ 44,85"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 42.25,
+          "preco": "R$ 42,25"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 42.17,
+          "preco": "R$ 42,17"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 45.29,
+          "preco": "R$ 45,29"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 45.29,
+          "preco": "R$ 45,29"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 42.17,
+          "preco": "R$ 42,17"
         }
       ]
     },
@@ -15523,6 +18789,104 @@
           "data_iso": "2026-04-27",
           "valor": 79.8,
           "preco": "R$ 79,80"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Média UF",
+      "regiao": "Bahia",
+      "produto": "Boi Gordo",
+      "produto_base": "Boi Gordo",
+      "produto_original": "BOI",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Média UF",
+      "nivel_comercializacao_chave": "media_uf",
+      "prioridade_nivel_preco": 5,
+      "categoria": "commodity_agricola",
+      "valor": 338.85,
+      "preco": "R$ 338,85",
+      "preco_original": 22.59,
+      "unidade": "Arroba (@)",
+      "unidade_original": "Kg",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 318.9,
+          "preco": "R$ 318,90"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 318.9,
+          "preco": "R$ 318,90"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 324.3,
+          "preco": "R$ 324,30"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 333.3,
+          "preco": "R$ 333,30"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 341.7,
+          "preco": "R$ 341,70"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 336.6,
+          "preco": "R$ 336,60"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 325.5,
+          "preco": "R$ 325,50"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 331.65,
+          "preco": "R$ 331,65"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 338.85,
+          "preco": "R$ 338,85"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 338.85,
+          "preco": "R$ 338,85"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 341.7,
+          "preco": "R$ 341,70"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 338.85,
+          "preco": "R$ 338,85"
         }
       ]
     },
@@ -17928,11 +21292,10 @@
         ]
       }
     },
-    "total_descartadas": 4765,
+    "total_descartadas": 2513,
     "resumo_descartes": {
-      "preco_abaixo_da_faixa": 373,
-      "preco_acima_da_faixa": 2260,
-      "unidade_insegura": 2132
+      "preco_abaixo_da_faixa": 253,
+      "preco_acima_da_faixa": 2260
     },
     "amostra_descartadas": [
       {
@@ -17942,13 +21305,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.04,
         "preco_original": 9.04,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-05-05",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.04"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.04"
       },
       {
         "produto": "Algodão — Pluma",
@@ -17957,13 +21320,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.02,
         "preco_original": 9.02,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-05-12",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.02"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.02"
       },
       {
         "produto": "Algodão — Pluma",
@@ -17972,13 +21335,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.07,
         "preco_original": 9.07,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-05-26",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.07"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.07"
       },
       {
         "produto": "Algodão — Pluma",
@@ -17987,13 +21350,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.04,
         "preco_original": 9.04,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-05-19",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.04"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.04"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18002,13 +21365,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.63,
         "preco_original": 9.63,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-05-05",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.63"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.63"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18017,13 +21380,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.78,
         "preco_original": 9.78,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-05-12",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.78"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.78"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18032,13 +21395,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.74,
         "preco_original": 9.74,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-05-26",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.74"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.74"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18047,13 +21410,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.67,
         "preco_original": 9.67,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-05-19",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.67"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.67"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18062,13 +21425,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.02,
         "preco_original": 9.02,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-06-23",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.02"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.02"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18077,13 +21440,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.02,
         "preco_original": 9.02,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-06-02",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.02"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.02"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18092,13 +21455,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.04,
         "preco_original": 9.04,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-06-16",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.04"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.04"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18107,13 +21470,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.09,
         "preco_original": 9.09,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-06-09",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.09"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.09"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18122,13 +21485,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.31,
         "preco_original": 9.31,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-06-23",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.31"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.31"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18137,13 +21500,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.71,
         "preco_original": 9.71,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-06-09",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.71"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.71"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18152,13 +21515,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.62,
         "preco_original": 9.62,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-06-16",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.62"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.62"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18167,13 +21530,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.7,
         "preco_original": 9.7,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-06-02",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.7"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.7"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18182,13 +21545,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.0,
         "preco_original": 9.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-07-28",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.0"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.0"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18197,13 +21560,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.02,
         "preco_original": 9.02,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-07-21",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.02"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.02"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18212,13 +21575,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.0,
         "preco_original": 9.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-07-07",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.0"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.0"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18227,13 +21590,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.04,
         "preco_original": 9.04,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-06-30",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.04"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.04"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18242,13 +21605,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.02,
         "preco_original": 9.02,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-07-14",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.02"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.02"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18257,13 +21620,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.03,
         "preco_original": 9.03,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-07-28",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.03"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.03"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18272,13 +21635,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.11,
         "preco_original": 9.11,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-07-14",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.11"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.11"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18287,13 +21650,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.1,
         "preco_original": 9.1,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-07-07",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.1"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.1"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18302,13 +21665,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.08,
         "preco_original": 9.08,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-06-30",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.08"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.08"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18317,13 +21680,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.09,
         "preco_original": 9.09,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-07-21",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.09"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.09"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18332,13 +21695,13 @@
         "uf": "PI",
         "estado": "Piauí",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 8.33,
         "preco_original": 8.33,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-07-14",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_8.33"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_8.33"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18347,13 +21710,13 @@
         "uf": "PI",
         "estado": "Piauí",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 8.33,
         "preco_original": 8.33,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-07-07",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_8.33"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_8.33"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18362,13 +21725,13 @@
         "uf": "PI",
         "estado": "Piauí",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.0,
         "preco_original": 9.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-07-21",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.0"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.0"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18377,13 +21740,13 @@
         "uf": "PI",
         "estado": "Piauí",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.0,
         "preco_original": 9.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-07-28",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.0"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.0"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18392,13 +21755,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.04,
         "preco_original": 9.04,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-08-18",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.04"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.04"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18407,13 +21770,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.04,
         "preco_original": 9.04,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-08-25",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.04"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.04"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18422,13 +21785,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.0,
         "preco_original": 9.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-08-04",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.0"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.0"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18437,13 +21800,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.0,
         "preco_original": 9.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-08-11",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.0"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.0"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18452,13 +21815,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 8.77,
         "preco_original": 8.77,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-08-18",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_8.77"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_8.77"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18467,13 +21830,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 8.84,
         "preco_original": 8.84,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-08-11",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_8.84"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_8.84"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18482,13 +21845,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 8.87,
         "preco_original": 8.87,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-08-04",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_8.87"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_8.87"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18497,13 +21860,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 8.61,
         "preco_original": 8.61,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-08-25",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_8.61"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_8.61"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18512,13 +21875,13 @@
         "uf": "PI",
         "estado": "Piauí",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.0,
         "preco_original": 9.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-08-04",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.0"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.0"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18527,13 +21890,13 @@
         "uf": "PI",
         "estado": "Piauí",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.0,
         "preco_original": 9.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-08-11",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.0"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.0"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18542,13 +21905,13 @@
         "uf": "PI",
         "estado": "Piauí",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.0,
         "preco_original": 9.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-08-18",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.0"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.0"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18557,13 +21920,13 @@
         "uf": "PI",
         "estado": "Piauí",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 8.67,
         "preco_original": 8.67,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-08-25",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_8.67"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_8.67"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18572,13 +21935,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.0,
         "preco_original": 9.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-09-15",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.0"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.0"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18587,13 +21950,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.0,
         "preco_original": 9.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-09-22",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.0"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.0"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18602,13 +21965,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.07,
         "preco_original": 9.07,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-09-01",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.07"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.07"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18617,13 +21980,13 @@
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 9.04,
         "preco_original": 9.04,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-09-08",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_9.04"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_9.04"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18632,13 +21995,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 8.25,
         "preco_original": 8.25,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-09-08",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_8.25"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_8.25"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18647,13 +22010,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 8.09,
         "preco_original": 8.09,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-09-15",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_8.09"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_8.09"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18662,13 +22025,13 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 8.11,
         "preco_original": 8.11,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-09-22",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_8.11"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_8.11"
       },
       {
         "produto": "Algodão — Pluma",
@@ -18677,15 +22040,15 @@
         "uf": "MA",
         "estado": "Maranhão",
         "praca": "Média UF",
-        "unidade": "@",
+        "unidade": "Arroba (@)",
         "unidade_original": "@",
         "preco": 8.56,
         "preco_original": 8.56,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-09-01",
-        "motivo": "preco_abaixo_da_faixa:Algodão:@:min_50.0:valor_8.56"
+        "motivo": "preco_abaixo_da_faixa:Algodão:Arroba (@):min_50.0:valor_8.56"
       }
     ]
   },
-  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A tabela exibe o registro mais recente por produto, praça, unidade e fonte. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados ou industrializados, como óleo de soja, fubá, flocos e sementes, são removidos da página principal de commodities. A tabela principal mostra apenas cotações com data dentro dos últimos 90 dias, evitando a exibição de preços antigos como se fossem atuais. Os dados da CONAB são classificados por nível de comercialização quando possível, como produtor, atacado, varejo ou média UF. Insumos, serviços e derivados são removidos para evitar que itens como inoculante para milho, inoculante para soja e beneficiamento de algodão apareçam como commodity. Além disso, o coletor aplica validação por faixa de preço e unidade para bloquear valores incompatíveis, como milho com preço exorbitante por saca ou algodão com preço muito baixo por arroba. Os indicadores CEPEA/ESALQ ficam em seção própria do HTML via widget oficial. O gráfico usa as observações históricas recentes disponíveis. Os valores podem variar conforme praça de negociação, qualidade do produto, volume negociado, frete, forma de pagamento, logística e data de atualização. B3 e CEPEA/ESALQ podem representar referências de mercado e não necessariamente preço local de praça."
+  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A tabela exibe o registro mais recente por produto, praça, unidade e fonte. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados ou industrializados, como óleo de soja, fubá, flocos e sementes, são removidos da página principal de commodities. A tabela principal mostra apenas cotações com data dentro dos últimos 90 dias, evitando a exibição de preços antigos como se fossem atuais. Os dados da CONAB são classificados por nível de comercialização quando possível, como produtor, atacado, varejo ou média UF. Insumos, serviços e derivados são removidos para evitar que itens como inoculante para milho, inoculante para soja e beneficiamento de algodão apareçam como commodity. Além disso, o coletor aplica validação por faixa de preço e unidade para bloquear valores incompatíveis, como milho com preço exorbitante por saca ou algodão com preço muito baixo por arroba. Para BOI/BOI GORDO informado em Kg pela CONAB, o sistema converte para Arroba (@) usando o fator de 15 kg. Carne bovina permanece em Kg. Os indicadores CEPEA/ESALQ ficam em seção própria do HTML via widget oficial. O gráfico usa as observações históricas recentes disponíveis. Os valores podem variar conforme praça de negociação, qualidade do produto, volume negociado, frete, forma de pagamento, logística e data de atualização. B3 e CEPEA/ESALQ podem representar referências de mercado e não necessariamente preço local de praça."
 }
