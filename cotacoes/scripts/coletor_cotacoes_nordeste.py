@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.1.3
+Nordeste Agro — Coletor Automático de Cotações v1.1.5
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -45,10 +45,11 @@ Melhorias desta versão:
   * mantém apenas um valor por data no historico_30_dias.
 - Melhora classificação visual:
   * reforça Regional, Atacado, Produtor e Média UF para o HTML.
-- Corrige pecuária:
-  * quando a CONAB informa BOI/BOI GORDO em Kg, converte para Arroba (@) usando 15 kg.
-  * quando a CONAB informa CARNE BOVINA em Kg, também converte para Arroba equivalente (@) usando 15 kg.
-  * isso padroniza a tabela da aba Carne bovina em Arroba (@).
+- Política de publicação v1.1.5:
+  * publica somente preço ao produtor ou cotação regional produtiva.
+  * remove Varejo, Atacado e Média UF da tabela principal.
+  * CEPEA/ESALQ permanece como widget/indicador de mercado separado no HTML.
+  * isso evita que valores de varejo sejam confundidos com preço pago ao produtor.
 - Gera:
   * cotacoes/public/cotacoes_nordeste.json
   * cotacoes/public/cotacoes_regionais.json
@@ -920,6 +921,82 @@ def resumir_descartes(descartadas: list[dict[str, Any]]) -> dict[str, int]:
     return dict(sorted(resumo.items(), key=lambda par: par[0]))
 
 
+def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
+    """
+    Política v1.1.5:
+    - Publicar somente preço pago ao produtor ou cotação regional produtiva.
+    - Não publicar varejo.
+    - Não publicar atacado.
+    - Não publicar média UF.
+    - Não publicar indicador de mercado nem mercado futuro.
+    """
+    nivel = limpar_texto(item.get("nivel_comercializacao_chave"))
+    fonte = limpar_texto(item.get("fonte"))
+
+    if nivel == "preco_produtor":
+        return True, "ok_preco_produtor"
+
+    # AIBA é a principal referência regional de praça produtora do Oeste Baiano/MATOPIBA.
+    # Mantemos como regional produtiva, pois não é varejo nem atacado.
+    if nivel == "preco_regional" and "AIBA" in fonte:
+        return True, "ok_preco_regional_aiba"
+
+    if nivel == "preco_regional":
+        return True, "ok_preco_regional"
+
+    if nivel == "preco_varejo":
+        return False, "nivel_bloqueado_varejo"
+
+    if nivel == "preco_atacado":
+        return False, "nivel_bloqueado_atacado"
+
+    if nivel == "media_uf":
+        return False, "nivel_bloqueado_media_uf"
+
+    if nivel == "indicador_mercado":
+        return False, "nivel_bloqueado_indicador_mercado"
+
+    if nivel == "mercado_futuro":
+        return False, "nivel_bloqueado_mercado_futuro"
+
+    return False, f"nivel_bloqueado_{nivel or 'nao_informado'}"
+
+
+def filtrar_cotacoes_produtor_regional(
+    cotacoes: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    publicaveis = []
+    descartadas = []
+
+    for item in cotacoes:
+        ok, motivo = nivel_publicavel_produtor(item)
+
+        if ok:
+            item["politica_publicacao"] = "somente_produtor_ou_regional"
+            publicaveis.append(item)
+            continue
+
+        descartadas.append(
+            {
+                "produto": item.get("produto"),
+                "produto_base": item.get("produto_base"),
+                "produto_original": item.get("produto_original"),
+                "uf": item.get("uf"),
+                "estado": item.get("estado"),
+                "praca": item.get("praca"),
+                "unidade": item.get("unidade"),
+                "preco": item.get("preco"),
+                "fonte": item.get("fonte"),
+                "data_referencia": item.get("data_referencia"),
+                "nivel_comercializacao": item.get("nivel_comercializacao"),
+                "nivel_comercializacao_chave": item.get("nivel_comercializacao_chave"),
+                "motivo": motivo,
+            }
+        )
+
+    return publicaveis, descartadas
+
+
 
 def formatar_preco(preco: Optional[float], unidade: str) -> str:
     if preco is None:
@@ -1572,7 +1649,7 @@ def consolidar_mais_recentes(
     """
     Consolida a base para uso no site.
 
-    Regra v1.1.3:
+    Regra v1.1.5:
     - Agrupa todos os registros brutos por fonte + produto + UF + praça + unidade.
     - Dentro de cada grupo, mantém apenas o item mais recente.
     - Se o item mais recente do grupo for mais antigo que data_corte_iso, o grupo inteiro
@@ -1695,7 +1772,9 @@ def salvar_log(payload: dict[str, Any]) -> None:
         "total_cotacoes_brutas": payload.get("resumo", {}).get("total_cotacoes_brutas"),
         "total_dados_html": payload.get("resumo", {}).get("total_dados_html"),
         "total_cotacoes_descartadas_por_validacao": payload.get("resumo", {}).get("total_cotacoes_descartadas_por_validacao"),
+        "total_cotacoes_descartadas_por_nivel": payload.get("resumo", {}).get("total_cotacoes_descartadas_por_nivel"),
         "resumo_descartes_validacao": payload.get("resumo", {}).get("resumo_descartes_validacao"),
+        "resumo_descartes_nivel": payload.get("resumo", {}).get("resumo_descartes_nivel"),
         "data_limite_cotacoes_ativas": payload.get("data_limite_cotacoes_ativas"),
         "dias_maximos_cotacao_ativa": payload.get("dias_maximos_cotacao_ativa"),
         "grupos_descartados_por_data_antiga": payload.get("resumo", {}).get("grupos_descartados_por_data_antiga"),
@@ -1719,10 +1798,11 @@ def main() -> None:
     registrar_b3(status_fontes)
 
     cotacoes_validas, cotacoes_descartadas_validacao = filtrar_cotacoes_publicaveis(cotacoes_brutas)
+    cotacoes_produtor_regional, cotacoes_descartadas_nivel = filtrar_cotacoes_produtor_regional(cotacoes_validas)
 
     data_corte_iso = data_corte_cotacoes_ativas()
     cotacoes_tabela, total_grupos_brutos, grupos_descartados_por_data = consolidar_mais_recentes(
-        cotacoes_validas,
+        cotacoes_produtor_regional,
         data_corte_iso,
     )
     dados_html = [cotacao_para_dado_html(item) for item in cotacoes_tabela]
@@ -1735,7 +1815,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.1.3",
+        "versao": "1.1.5",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -1744,19 +1824,22 @@ def main() -> None:
         "dias_maximos_cotacao_ativa": DIAS_MAXIMOS_COTACAO_ATIVA,
         "data_limite_cotacoes_ativas": data_corte_iso,
         "politica_atualidade": "A tabela principal exibe somente cotações com data dentro dos últimos 90 dias.",
-        "fonte_principal": "CONAB/AIBA",
+        "fonte_principal": "AIBA/CONAB produtor",
         "fontes_complementares": ["CEPEA/ESALQ Widget no HTML", "B3 - referência de mercado futuro"],
         "politica_classificacao_preco": (
-            "Os preços da CONAB são classificados por nível de comercialização quando a fonte permite: "
-            "produtor, atacado, varejo, média UF ou não informado. Indicadores CEPEA/ESALQ entram como "
-            "indicador de mercado e não como preço local."
+            "Política v1.1.5: a tabela principal publica somente preço pago ao produtor "
+            "ou cotação regional produtiva. Varejo, atacado, média UF, indicador de mercado "
+            "e mercado futuro ficam fora da tabela principal para evitar confusão com preço recebido pelo produtor."
         ),
         "resumo": {
             "total_cotacoes_tabela": len(cotacoes_tabela),
             "total_cotacoes_brutas": len(cotacoes_brutas),
             "total_cotacoes_validas_apos_validacao": len(cotacoes_validas),
+            "total_cotacoes_publicaveis_produtor_regional": len(cotacoes_produtor_regional),
             "total_cotacoes_descartadas_por_validacao": len(cotacoes_descartadas_validacao),
+            "total_cotacoes_descartadas_por_nivel": len(cotacoes_descartadas_nivel),
             "resumo_descartes_validacao": resumir_descartes(cotacoes_descartadas_validacao),
+            "resumo_descartes_nivel": resumir_descartes(cotacoes_descartadas_nivel),
             "total_dados_html": len(dados_html),
             "total_grupos_brutos": total_grupos_brutos,
             "grupos_descartados_por_data_antiga": grupos_descartados_por_data,
@@ -1786,28 +1869,27 @@ def main() -> None:
             "resumo_descartes": resumir_descartes(cotacoes_descartadas_validacao),
             "amostra_descartadas": cotacoes_descartadas_validacao[:50],
         },
+        "filtro_nivel_comercializacao": {
+            "descricao": (
+                "Filtro final de publicação. A tabela principal publica somente preço pago ao produtor "
+                "ou cotação regional produtiva. Varejo, atacado e média UF são removidos."
+            ),
+            "niveis_permitidos": ["preco_produtor", "preco_regional"],
+            "niveis_bloqueados": ["preco_varejo", "preco_atacado", "media_uf", "indicador_mercado", "mercado_futuro", "nao_informado"],
+            "total_descartadas": len(cotacoes_descartadas_nivel),
+            "resumo_descartes": resumir_descartes(cotacoes_descartadas_nivel),
+            "amostra_descartadas": cotacoes_descartadas_nivel[:50],
+        },
         "aviso_legal": (
             "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas "
-            "a partir de fontes regionais, oficiais e indicadores de mercado. A tabela exibe "
-            "o registro mais recente por produto, praça, unidade e fonte. Soja, milho, sorgo, arroz "
-            "e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos "
-            "derivados ou industrializados, como óleo de soja, fubá, flocos e sementes, são removidos "
-            "da página principal de commodities. A tabela principal mostra apenas cotações com data "
-            "dentro dos últimos 90 dias, evitando a exibição de preços antigos como se fossem atuais. "
-            "Os dados da CONAB são classificados por nível de comercialização quando possível, como produtor, "
-            "atacado, varejo ou média UF. Insumos, serviços e derivados são removidos para evitar que "
-            "itens como inoculante para milho, inoculante para soja e beneficiamento de algodão apareçam "
-            "como commodity. Além disso, o coletor aplica validação por faixa de preço e unidade para bloquear "
-            "valores incompatíveis, como milho com preço exorbitante por saca ou algodão com preço muito baixo "
-            "por arroba. Para BOI/BOI GORDO e CARNE BOVINA informados em Kg pela CONAB, o sistema converte para Arroba (@) "
-            "usando o fator de 15 kg. Quando o dado for de varejo, a arroba exibida é uma equivalência matemática "
-            "para padronização visual, e não necessariamente preço recebido pelo produtor. Os indicadores CEPEA/ESALQ "
-            "ficam em seção própria do HTML via widget oficial. "
-            "O gráfico usa as observações históricas recentes disponíveis. "
-            "Os valores podem variar conforme praça "
-            "de negociação, qualidade do produto, volume negociado, frete, forma de pagamento, "
-            "logística e data de atualização. B3 e CEPEA/ESALQ podem representar referências "
-            "de mercado e não necessariamente preço local de praça."
+            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.1.5, "
+            "a tabela principal publica somente preço pago ao produtor ou cotação regional produtiva. "
+            "Cotações de varejo, atacado e média UF são removidas para evitar confusão com preço recebido "
+            "pelo produtor rural. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg "
+            "quando a fonte vier em Kg. Produtos derivados, industrializados, insumos e serviços são removidos. "
+            "CEPEA/ESALQ permanece em seção própria do HTML como indicador de mercado, e B3 permanece apenas como "
+            "referência de mercado futuro. Os valores podem variar conforme praça, qualidade, volume, frete, "
+            "forma de pagamento, logística e data de atualização."
         ),
     }
 
@@ -1829,8 +1911,11 @@ def main() -> None:
     print("Coleta finalizada.")
     print(f"Total de cotações brutas: {len(cotacoes_brutas)}")
     print(f"Total de cotações válidas após validação: {len(cotacoes_validas)}")
+    print(f"Total de cotações publicáveis produtor/regional: {len(cotacoes_produtor_regional)}")
     print(f"Total de cotações descartadas por validação: {len(cotacoes_descartadas_validacao)}")
+    print(f"Total de cotações descartadas por nível: {len(cotacoes_descartadas_nivel)}")
     print(f"Resumo descartes validação: {resumir_descartes(cotacoes_descartadas_validacao)}")
+    print(f"Resumo descartes nível: {resumir_descartes(cotacoes_descartadas_nivel)}")
     print(f"Total de grupos brutos: {total_grupos_brutos}")
     print(f"Grupos descartados por data antiga: {grupos_descartados_por_data}")
     print(f"Data limite para tabela: {data_corte_iso}")
