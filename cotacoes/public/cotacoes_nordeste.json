@@ -3,10 +3,10 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "repositorio": "idocandido-dotcom/cotacoes",
-  "versao": "1.1.2",
-  "ultima_sincronizacao": "2026-05-07 15:50:47",
-  "ultima_sincronizacao_iso": "2026-05-07T15:50:47.269281-03:00",
-  "gerado_em": "07/05/2026 15:50",
+  "versao": "1.1.3",
+  "ultima_sincronizacao": "2026-05-07 16:02:31",
+  "ultima_sincronizacao_iso": "2026-05-07T16:02:31.145104-03:00",
+  "gerado_em": "07/05/2026 16:02",
   "fuso_horario": "America/Fortaleza",
   "frequencia_atualizacao": "diaria",
   "dias_maximos_cotacao_ativa": 90,
@@ -44,7 +44,7 @@
       "CONAB - Preços Agropecuários Semanal Município"
     ],
     "total_fontes_com_erro": 0,
-    "tempo_execucao_segundos": 20.87
+    "tempo_execucao_segundos": 21.14
   },
   "fontes": [
     {
@@ -2819,13 +2819,13 @@
       "uf": "AL",
       "estado": "Alagoas",
       "praca": "MACEIÓ-AL",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 48.62,
+      "preco": 729.3,
       "preco_original": 48.62,
-      "preco_formatado": "R$ 48,62",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 729,30",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -2840,51 +2840,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 46.64
+          "valor": 699.6
         },
         {
           "data": "2026-02-16",
-          "valor": 46.64
+          "valor": 699.6
         },
         {
           "data": "2026-02-23",
-          "valor": 46.64
+          "valor": 699.6
         },
         {
           "data": "2026-03-02",
-          "valor": 48.06
+          "valor": 720.9
         },
         {
           "data": "2026-03-09",
-          "valor": 48.06
+          "valor": 720.9
         },
         {
           "data": "2026-03-16",
-          "valor": 44.52
+          "valor": 667.8
         },
         {
           "data": "2026-03-23",
-          "valor": 48.06
+          "valor": 720.9
         },
         {
           "data": "2026-03-30",
-          "valor": 48.72
+          "valor": 730.8
         },
         {
           "data": "2026-04-06",
-          "valor": 48.62
+          "valor": 729.3
         },
         {
           "data": "2026-04-13",
-          "valor": 48.62
+          "valor": 729.3
         },
         {
           "data": "2026-04-20",
-          "valor": 48.62
+          "valor": 729.3
         },
         {
           "data": "2026-04-27",
-          "valor": 48.62
+          "valor": 729.3
         }
       ],
       "validacao_publicacao": "ok"
@@ -3056,13 +3056,13 @@
       "uf": "AL",
       "estado": "Alagoas",
       "praca": "Média UF",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 47.34,
+      "preco": 710.1,
       "preco_original": 47.34,
-      "preco_formatado": "R$ 47,34",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 710,10",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -3077,51 +3077,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 45.65
+          "valor": 684.75
         },
         {
           "data": "2026-02-16",
-          "valor": 45.65
+          "valor": 684.75
         },
         {
           "data": "2026-02-23",
-          "valor": 45.65
+          "valor": 684.75
         },
         {
           "data": "2026-03-02",
-          "valor": 48.88
+          "valor": 733.2
         },
         {
           "data": "2026-03-09",
-          "valor": 48.88
+          "valor": 733.2
         },
         {
           "data": "2026-03-16",
-          "valor": 44.52
+          "valor": 667.8
         },
         {
           "data": "2026-03-23",
-          "valor": 44.52
+          "valor": 667.8
         },
         {
           "data": "2026-03-30",
-          "valor": 47.63
+          "valor": 714.45
         },
         {
           "data": "2026-04-06",
-          "valor": 47.34
+          "valor": 710.1
         },
         {
           "data": "2026-04-13",
-          "valor": 47.34
+          "valor": 710.1
         },
         {
           "data": "2026-04-20",
-          "valor": 47.34
+          "valor": 710.1
         },
         {
           "data": "2026-04-27",
-          "valor": 47.34
+          "valor": 710.1
         }
       ],
       "validacao_publicacao": "ok"
@@ -3293,13 +3293,13 @@
       "uf": "BA",
       "estado": "Bahia",
       "praca": "Média UF",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 45.16,
+      "preco": 677.4,
       "preco_original": 45.16,
-      "preco_formatado": "R$ 45,16",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 677,40",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -3314,51 +3314,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 40.44
+          "valor": 606.6
         },
         {
           "data": "2026-02-16",
-          "valor": 40.44
+          "valor": 606.6
         },
         {
           "data": "2026-02-23",
-          "valor": 40.44
+          "valor": 606.6
         },
         {
           "data": "2026-03-02",
-          "valor": 45.91
+          "valor": 688.65
         },
         {
           "data": "2026-03-09",
-          "valor": 45.91
+          "valor": 688.65
         },
         {
           "data": "2026-03-16",
-          "valor": 45.91
+          "valor": 688.65
         },
         {
           "data": "2026-03-23",
-          "valor": 42.28
+          "valor": 634.2
         },
         {
           "data": "2026-03-30",
-          "valor": 45.52
+          "valor": 682.8
         },
         {
           "data": "2026-04-06",
-          "valor": 45.04
+          "valor": 675.6
         },
         {
           "data": "2026-04-13",
-          "valor": 45.04
+          "valor": 675.6
         },
         {
           "data": "2026-04-20",
-          "valor": 45.04
+          "valor": 675.6
         },
         {
           "data": "2026-04-27",
-          "valor": 45.16
+          "valor": 677.4
         }
       ],
       "validacao_publicacao": "ok"
@@ -3530,13 +3530,13 @@
       "uf": "BA",
       "estado": "Bahia",
       "praca": "SALVADOR-BA",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 41.87,
+      "preco": 628.05,
       "preco_original": 41.87,
-      "preco_formatado": "R$ 41,87",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 628,05",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -3551,51 +3551,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 40.44
+          "valor": 606.6
         },
         {
           "data": "2026-02-16",
-          "valor": 40.44
+          "valor": 606.6
         },
         {
           "data": "2026-02-23",
-          "valor": 43.92
+          "valor": 658.8
         },
         {
           "data": "2026-03-02",
-          "valor": 45.91
+          "valor": 688.65
         },
         {
           "data": "2026-03-09",
-          "valor": 45.91
+          "valor": 688.65
         },
         {
           "data": "2026-03-16",
-          "valor": 45.91
+          "valor": 688.65
         },
         {
           "data": "2026-03-23",
-          "valor": 45.91
+          "valor": 688.65
         },
         {
           "data": "2026-03-30",
-          "valor": 42.03
+          "valor": 630.45
         },
         {
           "data": "2026-04-06",
-          "valor": 45.16
+          "valor": 677.4
         },
         {
           "data": "2026-04-13",
-          "valor": 45.16
+          "valor": 677.4
         },
         {
           "data": "2026-04-20",
-          "valor": 45.16
+          "valor": 677.4
         },
         {
           "data": "2026-04-27",
-          "valor": 41.87
+          "valor": 628.05
         }
       ],
       "validacao_publicacao": "ok"
@@ -3767,13 +3767,13 @@
       "uf": "CE",
       "estado": "Ceará",
       "praca": "FORTALEZA-CE",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 55.92,
+      "preco": 838.8,
       "preco_original": 55.92,
-      "preco_formatado": "R$ 55,92",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 838,80",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -3788,51 +3788,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 52.12
+          "valor": 781.8
         },
         {
           "data": "2026-02-16",
-          "valor": 52.12
+          "valor": 781.8
         },
         {
           "data": "2026-02-23",
-          "valor": 52.12
+          "valor": 781.8
         },
         {
           "data": "2026-03-02",
-          "valor": 47.86
+          "valor": 717.9
         },
         {
           "data": "2026-03-09",
-          "valor": 47.86
+          "valor": 717.9
         },
         {
           "data": "2026-03-16",
-          "valor": 47.86
+          "valor": 717.9
         },
         {
           "data": "2026-03-23",
-          "valor": 47.86
+          "valor": 717.9
         },
         {
           "data": "2026-03-30",
-          "valor": 54.37
+          "valor": 815.55
         },
         {
           "data": "2026-04-06",
-          "valor": 55.92
+          "valor": 838.8
         },
         {
           "data": "2026-04-13",
-          "valor": 55.92
+          "valor": 838.8
         },
         {
           "data": "2026-04-20",
-          "valor": 55.92
+          "valor": 838.8
         },
         {
           "data": "2026-04-27",
-          "valor": 55.92
+          "valor": 838.8
         }
       ],
       "validacao_publicacao": "ok"
@@ -4004,13 +4004,13 @@
       "uf": "CE",
       "estado": "Ceará",
       "praca": "Média UF",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 55.92,
+      "preco": 838.8,
       "preco_original": 55.92,
-      "preco_formatado": "R$ 55,92",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 838,80",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -4025,51 +4025,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 52.12
+          "valor": 781.8
         },
         {
           "data": "2026-02-16",
-          "valor": 52.12
+          "valor": 781.8
         },
         {
           "data": "2026-02-23",
-          "valor": 52.12
+          "valor": 781.8
         },
         {
           "data": "2026-03-02",
-          "valor": 52.05
+          "valor": 780.75
         },
         {
           "data": "2026-03-09",
-          "valor": 47.86
+          "valor": 717.9
         },
         {
           "data": "2026-03-16",
-          "valor": 52.05
+          "valor": 780.75
         },
         {
           "data": "2026-03-23",
-          "valor": 53.05
+          "valor": 795.75
         },
         {
           "data": "2026-03-30",
-          "valor": 54.37
+          "valor": 815.55
         },
         {
           "data": "2026-04-06",
-          "valor": 54.04
+          "valor": 810.6
         },
         {
           "data": "2026-04-13",
-          "valor": 55.92
+          "valor": 838.8
         },
         {
           "data": "2026-04-20",
-          "valor": 49.59
+          "valor": 743.85
         },
         {
           "data": "2026-04-27",
-          "valor": 55.92
+          "valor": 838.8
         }
       ],
       "validacao_publicacao": "ok"
@@ -4320,13 +4320,13 @@
       "uf": "MA",
       "estado": "Maranhão",
       "praca": "Média UF",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 38.71,
+      "preco": 580.65,
       "preco_original": 38.71,
-      "preco_formatado": "R$ 38,71",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 580,65",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -4341,51 +4341,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 38.83
+          "valor": 582.45
         },
         {
           "data": "2026-02-16",
-          "valor": 38.83
+          "valor": 582.45
         },
         {
           "data": "2026-02-23",
-          "valor": 38.83
+          "valor": 582.45
         },
         {
           "data": "2026-03-02",
-          "valor": 43.42
+          "valor": 651.3
         },
         {
           "data": "2026-03-09",
-          "valor": 43.42
+          "valor": 651.3
         },
         {
           "data": "2026-03-16",
-          "valor": 38.85
+          "valor": 582.75
         },
         {
           "data": "2026-03-23",
-          "valor": 43.42
+          "valor": 651.3
         },
         {
           "data": "2026-03-30",
-          "valor": 38.77
+          "valor": 581.55
         },
         {
           "data": "2026-04-06",
-          "valor": 42.43
+          "valor": 636.45
         },
         {
           "data": "2026-04-13",
-          "valor": 42.43
+          "valor": 636.45
         },
         {
           "data": "2026-04-20",
-          "valor": 42.43
+          "valor": 636.45
         },
         {
           "data": "2026-04-27",
-          "valor": 38.71
+          "valor": 580.65
         }
       ],
       "validacao_publicacao": "ok"
@@ -4636,13 +4636,13 @@
       "uf": "MA",
       "estado": "Maranhão",
       "praca": "SÃO LUÍS-MA",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 38.71,
+      "preco": 580.65,
       "preco_original": 38.71,
-      "preco_formatado": "R$ 38,71",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 580,65",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -4657,51 +4657,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 43.48
+          "valor": 652.2
         },
         {
           "data": "2026-02-16",
-          "valor": 43.48
+          "valor": 652.2
         },
         {
           "data": "2026-02-23",
-          "valor": 43.48
+          "valor": 652.2
         },
         {
           "data": "2026-03-02",
-          "valor": 43.3
+          "valor": 649.5
         },
         {
           "data": "2026-03-09",
-          "valor": 43.3
+          "valor": 649.5
         },
         {
           "data": "2026-03-16",
-          "valor": 43.3
+          "valor": 649.5
         },
         {
           "data": "2026-03-23",
-          "valor": 43.3
+          "valor": 649.5
         },
         {
           "data": "2026-03-30",
-          "valor": 43.37
+          "valor": 650.55
         },
         {
           "data": "2026-04-06",
-          "valor": 38.71
+          "valor": 580.65
         },
         {
           "data": "2026-04-13",
-          "valor": 43.33
+          "valor": 649.95
         },
         {
           "data": "2026-04-20",
-          "valor": 38.71
+          "valor": 580.65
         },
         {
           "data": "2026-04-27",
-          "valor": 38.71
+          "valor": 580.65
         }
       ],
       "validacao_publicacao": "ok"
@@ -4916,13 +4916,13 @@
       "uf": "PB",
       "estado": "Paraíba",
       "praca": "JOÃO PESSOA-PB",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 47.68,
+      "preco": 715.2,
       "preco_original": 47.68,
-      "preco_formatado": "R$ 47,68",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 715,20",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -4937,51 +4937,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 45.87
+          "valor": 688.05
         },
         {
           "data": "2026-02-16",
-          "valor": 45.87
+          "valor": 688.05
         },
         {
           "data": "2026-02-23",
-          "valor": 45.87
+          "valor": 688.05
         },
         {
           "data": "2026-03-02",
-          "valor": 44.27
+          "valor": 664.05
         },
         {
           "data": "2026-03-09",
-          "valor": 44.27
+          "valor": 664.05
         },
         {
           "data": "2026-03-16",
-          "valor": 44.27
+          "valor": 664.05
         },
         {
           "data": "2026-03-23",
-          "valor": 44.27
+          "valor": 664.05
         },
         {
           "data": "2026-03-30",
-          "valor": 47.17
+          "valor": 707.55
         },
         {
           "data": "2026-04-06",
-          "valor": 47.68
+          "valor": 715.2
         },
         {
           "data": "2026-04-13",
-          "valor": 47.68
+          "valor": 715.2
         },
         {
           "data": "2026-04-20",
-          "valor": 47.68
+          "valor": 715.2
         },
         {
           "data": "2026-04-27",
-          "valor": 47.68
+          "valor": 715.2
         }
       ],
       "validacao_publicacao": "ok"
@@ -5196,13 +5196,13 @@
       "uf": "PB",
       "estado": "Paraíba",
       "praca": "Média UF",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 48.4,
+      "preco": 726.0,
       "preco_original": 48.4,
-      "preco_formatado": "R$ 48,40",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 726,00",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -5217,51 +5217,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 46.23
+          "valor": 693.45
         },
         {
           "data": "2026-02-16",
-          "valor": 46.23
+          "valor": 693.45
         },
         {
           "data": "2026-02-23",
-          "valor": 46.23
+          "valor": 693.45
         },
         {
           "data": "2026-03-02",
-          "valor": 47.26
+          "valor": 708.9
         },
         {
           "data": "2026-03-09",
-          "valor": 47.26
+          "valor": 708.9
         },
         {
           "data": "2026-03-16",
-          "valor": 47.26
+          "valor": 708.9
         },
         {
           "data": "2026-03-23",
-          "valor": 47.26
+          "valor": 708.9
         },
         {
           "data": "2026-03-30",
-          "valor": 45.15
+          "valor": 677.25
         },
         {
           "data": "2026-04-06",
-          "valor": 48.4
+          "valor": 726.0
         },
         {
           "data": "2026-04-13",
-          "valor": 45.73
+          "valor": 685.95
         },
         {
           "data": "2026-04-20",
-          "valor": 45.73
+          "valor": 685.95
         },
         {
           "data": "2026-04-27",
-          "valor": 48.4
+          "valor": 726.0
         }
       ],
       "validacao_publicacao": "ok"
@@ -5433,13 +5433,13 @@
       "uf": "PE",
       "estado": "Pernambuco",
       "praca": "Média UF",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 43.28,
+      "preco": 649.2,
       "preco_original": 43.28,
-      "preco_formatado": "R$ 43,28",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 649,20",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -5454,51 +5454,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 42.76
+          "valor": 641.4
         },
         {
           "data": "2026-02-16",
-          "valor": 46.04
+          "valor": 690.6
         },
         {
           "data": "2026-02-23",
-          "valor": 46.04
+          "valor": 690.6
         },
         {
           "data": "2026-03-02",
-          "valor": 43.37
+          "valor": 650.55
         },
         {
           "data": "2026-03-09",
-          "valor": 46.87
+          "valor": 703.05
         },
         {
           "data": "2026-03-16",
-          "valor": 46.87
+          "valor": 703.05
         },
         {
           "data": "2026-03-23",
-          "valor": 43.37
+          "valor": 650.55
         },
         {
           "data": "2026-03-30",
-          "valor": 43.32
+          "valor": 649.8
         },
         {
           "data": "2026-04-06",
-          "valor": 47.66
+          "valor": 714.9
         },
         {
           "data": "2026-04-13",
-          "valor": 47.84
+          "valor": 717.6
         },
         {
           "data": "2026-04-20",
-          "valor": 47.84
+          "valor": 717.6
         },
         {
           "data": "2026-04-27",
-          "valor": 43.28
+          "valor": 649.2
         }
       ],
       "validacao_publicacao": "ok"
@@ -5670,13 +5670,13 @@
       "uf": "PE",
       "estado": "Pernambuco",
       "praca": "RECIFE-PE",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 43.28,
+      "preco": 649.2,
       "preco_original": 43.28,
-      "preco_formatado": "R$ 43,28",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 649,20",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -5691,51 +5691,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 42.76
+          "valor": 641.4
         },
         {
           "data": "2026-02-16",
-          "valor": 42.76
+          "valor": 641.4
         },
         {
           "data": "2026-02-23",
-          "valor": 42.76
+          "valor": 641.4
         },
         {
           "data": "2026-03-02",
-          "valor": 46.98
+          "valor": 704.7
         },
         {
           "data": "2026-03-09",
-          "valor": 46.98
+          "valor": 704.7
         },
         {
           "data": "2026-03-16",
-          "valor": 46.98
+          "valor": 704.7
         },
         {
           "data": "2026-03-23",
-          "valor": 46.98
+          "valor": 704.7
         },
         {
           "data": "2026-03-30",
-          "valor": 43.32
+          "valor": 649.8
         },
         {
           "data": "2026-04-06",
-          "valor": 43.28
+          "valor": 649.2
         },
         {
           "data": "2026-04-13",
-          "valor": 43.28
+          "valor": 649.2
         },
         {
           "data": "2026-04-20",
-          "valor": 43.28
+          "valor": 649.2
         },
         {
           "data": "2026-04-27",
-          "valor": 43.28
+          "valor": 649.2
         }
       ],
       "validacao_publicacao": "ok"
@@ -5907,13 +5907,13 @@
       "uf": "PI",
       "estado": "Piauí",
       "praca": "Média UF",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 46.01,
+      "preco": 690.15,
       "preco_original": 46.01,
-      "preco_formatado": "R$ 46,01",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 690,15",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -5928,51 +5928,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 43.86
+          "valor": 657.9
         },
         {
           "data": "2026-02-16",
-          "valor": 43.86
+          "valor": 657.9
         },
         {
           "data": "2026-02-23",
-          "valor": 43.86
+          "valor": 657.9
         },
         {
           "data": "2026-03-02",
-          "valor": 44.06
+          "valor": 660.9
         },
         {
           "data": "2026-03-09",
-          "valor": 44.64
+          "valor": 669.6
         },
         {
           "data": "2026-03-16",
-          "valor": 44.64
+          "valor": 669.6
         },
         {
           "data": "2026-03-23",
-          "valor": 44.64
+          "valor": 669.6
         },
         {
           "data": "2026-03-30",
-          "valor": 45.23
+          "valor": 678.45
         },
         {
           "data": "2026-04-06",
-          "valor": 46.01
+          "valor": 690.15
         },
         {
           "data": "2026-04-13",
-          "valor": 46.01
+          "valor": 690.15
         },
         {
           "data": "2026-04-20",
-          "valor": 46.01
+          "valor": 690.15
         },
         {
           "data": "2026-04-27",
-          "valor": 46.01
+          "valor": 690.15
         }
       ],
       "validacao_publicacao": "ok"
@@ -6144,13 +6144,13 @@
       "uf": "PI",
       "estado": "Piauí",
       "praca": "TERESINA-PI",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 46.4,
+      "preco": 696.0,
       "preco_original": 46.4,
-      "preco_formatado": "R$ 46,40",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 696,00",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -6165,51 +6165,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 43.86
+          "valor": 657.9
         },
         {
           "data": "2026-02-16",
-          "valor": 43.84
+          "valor": 657.6
         },
         {
           "data": "2026-02-23",
-          "valor": 43.84
+          "valor": 657.6
         },
         {
           "data": "2026-03-02",
-          "valor": 42.61
+          "valor": 639.15
         },
         {
           "data": "2026-03-09",
-          "valor": 42.61
+          "valor": 639.15
         },
         {
           "data": "2026-03-16",
-          "valor": 42.61
+          "valor": 639.15
         },
         {
           "data": "2026-03-23",
-          "valor": 42.61
+          "valor": 639.15
         },
         {
           "data": "2026-03-30",
-          "valor": 45.23
+          "valor": 678.45
         },
         {
           "data": "2026-04-06",
-          "valor": 46.4
+          "valor": 696.0
         },
         {
           "data": "2026-04-13",
-          "valor": 46.4
+          "valor": 696.0
         },
         {
           "data": "2026-04-20",
-          "valor": 46.01
+          "valor": 690.15
         },
         {
           "data": "2026-04-27",
-          "valor": 46.4
+          "valor": 696.0
         }
       ],
       "validacao_publicacao": "ok"
@@ -6381,13 +6381,13 @@
       "uf": "RN",
       "estado": "Rio Grande do Norte",
       "praca": "Média UF",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 47.86,
+      "preco": 717.9,
       "preco_original": 47.86,
-      "preco_formatado": "R$ 47,86",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 717,90",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -6402,51 +6402,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 46.64
+          "valor": 699.6
         },
         {
           "data": "2026-02-16",
-          "valor": 45.63
+          "valor": 684.45
         },
         {
           "data": "2026-02-23",
-          "valor": 42.62
+          "valor": 639.3
         },
         {
           "data": "2026-03-02",
-          "valor": 42.86
+          "valor": 642.9
         },
         {
           "data": "2026-03-09",
-          "valor": 46.53
+          "valor": 697.95
         },
         {
           "data": "2026-03-16",
-          "valor": 46.53
+          "valor": 697.95
         },
         {
           "data": "2026-03-23",
-          "valor": 45.01
+          "valor": 675.15
         },
         {
           "data": "2026-03-30",
-          "valor": 46.72
+          "valor": 700.8
         },
         {
           "data": "2026-04-06",
-          "valor": 47.86
+          "valor": 717.9
         },
         {
           "data": "2026-04-13",
-          "valor": 47.86
+          "valor": 717.9
         },
         {
           "data": "2026-04-20",
-          "valor": 47.86
+          "valor": 717.9
         },
         {
           "data": "2026-04-27",
-          "valor": 47.86
+          "valor": 717.9
         }
       ],
       "validacao_publicacao": "ok"
@@ -6618,13 +6618,13 @@
       "uf": "RN",
       "estado": "Rio Grande do Norte",
       "praca": "NATAL-RN",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 44.41,
+      "preco": 666.15,
       "preco_original": 44.41,
-      "preco_formatado": "R$ 44,41",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 666,15",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -6639,51 +6639,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 42.62
+          "valor": 639.3
         },
         {
           "data": "2026-02-16",
-          "valor": 42.62
+          "valor": 639.3
         },
         {
           "data": "2026-02-23",
-          "valor": 42.62
+          "valor": 639.3
         },
         {
           "data": "2026-03-02",
-          "valor": 46.53
+          "valor": 697.95
         },
         {
           "data": "2026-03-09",
-          "valor": 46.53
+          "valor": 697.95
         },
         {
           "data": "2026-03-16",
-          "valor": 46.53
+          "valor": 697.95
         },
         {
           "data": "2026-03-23",
-          "valor": 46.53
+          "valor": 697.95
         },
         {
           "data": "2026-03-30",
-          "valor": 43.79
+          "valor": 656.85
         },
         {
           "data": "2026-04-06",
-          "valor": 44.41
+          "valor": 666.15
         },
         {
           "data": "2026-04-13",
-          "valor": 44.41
+          "valor": 666.15
         },
         {
           "data": "2026-04-20",
-          "valor": 44.41
+          "valor": 666.15
         },
         {
           "data": "2026-04-27",
-          "valor": 44.41
+          "valor": 666.15
         }
       ],
       "validacao_publicacao": "ok"
@@ -6855,13 +6855,13 @@
       "uf": "SE",
       "estado": "Sergipe",
       "praca": "ARACAJU-SE",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 44.41,
+      "preco": 666.15,
       "preco_original": 44.41,
-      "preco_formatado": "R$ 44,41",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 666,15",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -6876,51 +6876,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 43.56
+          "valor": 653.4
         },
         {
           "data": "2026-02-16",
-          "valor": 43.53
+          "valor": 652.95
         },
         {
           "data": "2026-02-23",
-          "valor": 43.53
+          "valor": 652.95
         },
         {
           "data": "2026-03-02",
-          "valor": 42.37
+          "valor": 635.55
         },
         {
           "data": "2026-03-09",
-          "valor": 42.37
+          "valor": 635.55
         },
         {
           "data": "2026-03-16",
-          "valor": 42.37
+          "valor": 635.55
         },
         {
           "data": "2026-03-23",
-          "valor": 42.37
+          "valor": 635.55
         },
         {
           "data": "2026-03-30",
-          "valor": 45.11
+          "valor": 676.65
         },
         {
           "data": "2026-04-06",
-          "valor": 45.29
+          "valor": 679.35
         },
         {
           "data": "2026-04-13",
-          "valor": 45.29
+          "valor": 679.35
         },
         {
           "data": "2026-04-20",
-          "valor": 45.29
+          "valor": 679.35
         },
         {
           "data": "2026-04-27",
-          "valor": 44.41
+          "valor": 666.15
         }
       ],
       "validacao_publicacao": "ok"
@@ -7092,13 +7092,13 @@
       "uf": "SE",
       "estado": "Sergipe",
       "praca": "Média UF",
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "preco": 42.17,
+      "preco": 632.55,
       "preco_original": 42.17,
-      "preco_formatado": "R$ 42,17",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "preco_formatado": "R$ 632,55",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
       "data_referencia": "2026-04-27",
@@ -7113,51 +7113,51 @@
       "historico_30_dias": [
         {
           "data": "2026-02-09",
-          "valor": 43.56
+          "valor": 653.4
         },
         {
           "data": "2026-02-16",
-          "valor": 43.56
+          "valor": 653.4
         },
         {
           "data": "2026-02-23",
-          "valor": 41.13
+          "valor": 616.95
         },
         {
           "data": "2026-03-02",
-          "valor": 42.37
+          "valor": 635.55
         },
         {
           "data": "2026-03-09",
-          "valor": 42.37
+          "valor": 635.55
         },
         {
           "data": "2026-03-16",
-          "valor": 44.85
+          "valor": 672.75
         },
         {
           "data": "2026-03-23",
-          "valor": 44.85
+          "valor": 672.75
         },
         {
           "data": "2026-03-30",
-          "valor": 42.25
+          "valor": 633.75
         },
         {
           "data": "2026-04-06",
-          "valor": 42.17
+          "valor": 632.55
         },
         {
           "data": "2026-04-13",
-          "valor": 45.29
+          "valor": 679.35
         },
         {
           "data": "2026-04-20",
-          "valor": 45.29
+          "valor": 679.35
         },
         {
           "data": "2026-04-27",
-          "valor": 42.17
+          "valor": 632.55
         }
       ],
       "validacao_publicacao": "ok"
@@ -12878,13 +12878,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 48.62,
-      "preco": "R$ 48,62",
+      "valor": 729.3,
+      "preco": "R$ 729,30",
       "preco_original": 48.62,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -12893,74 +12893,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 46.64,
-          "preco": "R$ 46,64"
+          "valor": 699.6,
+          "preco": "R$ 699,60"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 46.64,
-          "preco": "R$ 46,64"
+          "valor": 699.6,
+          "preco": "R$ 699,60"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 46.64,
-          "preco": "R$ 46,64"
+          "valor": 699.6,
+          "preco": "R$ 699,60"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 48.06,
-          "preco": "R$ 48,06"
+          "valor": 720.9,
+          "preco": "R$ 720,90"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 48.06,
-          "preco": "R$ 48,06"
+          "valor": 720.9,
+          "preco": "R$ 720,90"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 44.52,
-          "preco": "R$ 44,52"
+          "valor": 667.8,
+          "preco": "R$ 667,80"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 48.06,
-          "preco": "R$ 48,06"
+          "valor": 720.9,
+          "preco": "R$ 720,90"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 48.72,
-          "preco": "R$ 48,72"
+          "valor": 730.8,
+          "preco": "R$ 730,80"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 48.62,
-          "preco": "R$ 48,62"
+          "valor": 729.3,
+          "preco": "R$ 729,30"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 48.62,
-          "preco": "R$ 48,62"
+          "valor": 729.3,
+          "preco": "R$ 729,30"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 48.62,
-          "preco": "R$ 48,62"
+          "valor": 729.3,
+          "preco": "R$ 729,30"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 48.62,
-          "preco": "R$ 48,62"
+          "valor": 729.3,
+          "preco": "R$ 729,30"
         }
       ]
     },
@@ -13172,13 +13172,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 47.34,
-      "preco": "R$ 47,34",
+      "valor": 710.1,
+      "preco": "R$ 710,10",
       "preco_original": 47.34,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
@@ -13187,74 +13187,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 45.65,
-          "preco": "R$ 45,65"
+          "valor": 684.75,
+          "preco": "R$ 684,75"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 45.65,
-          "preco": "R$ 45,65"
+          "valor": 684.75,
+          "preco": "R$ 684,75"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 45.65,
-          "preco": "R$ 45,65"
+          "valor": 684.75,
+          "preco": "R$ 684,75"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 48.88,
-          "preco": "R$ 48,88"
+          "valor": 733.2,
+          "preco": "R$ 733,20"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 48.88,
-          "preco": "R$ 48,88"
+          "valor": 733.2,
+          "preco": "R$ 733,20"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 44.52,
-          "preco": "R$ 44,52"
+          "valor": 667.8,
+          "preco": "R$ 667,80"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 44.52,
-          "preco": "R$ 44,52"
+          "valor": 667.8,
+          "preco": "R$ 667,80"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 47.63,
-          "preco": "R$ 47,63"
+          "valor": 714.45,
+          "preco": "R$ 714,45"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 47.34,
-          "preco": "R$ 47,34"
+          "valor": 710.1,
+          "preco": "R$ 710,10"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 47.34,
-          "preco": "R$ 47,34"
+          "valor": 710.1,
+          "preco": "R$ 710,10"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 47.34,
-          "preco": "R$ 47,34"
+          "valor": 710.1,
+          "preco": "R$ 710,10"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 47.34,
-          "preco": "R$ 47,34"
+          "valor": 710.1,
+          "preco": "R$ 710,10"
         }
       ]
     },
@@ -13466,13 +13466,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 45.16,
-      "preco": "R$ 45,16",
+      "valor": 677.4,
+      "preco": "R$ 677,40",
       "preco_original": 45.16,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
@@ -13481,74 +13481,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 40.44,
-          "preco": "R$ 40,44"
+          "valor": 606.6,
+          "preco": "R$ 606,60"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 40.44,
-          "preco": "R$ 40,44"
+          "valor": 606.6,
+          "preco": "R$ 606,60"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 40.44,
-          "preco": "R$ 40,44"
+          "valor": 606.6,
+          "preco": "R$ 606,60"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 45.91,
-          "preco": "R$ 45,91"
+          "valor": 688.65,
+          "preco": "R$ 688,65"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 45.91,
-          "preco": "R$ 45,91"
+          "valor": 688.65,
+          "preco": "R$ 688,65"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 45.91,
-          "preco": "R$ 45,91"
+          "valor": 688.65,
+          "preco": "R$ 688,65"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 42.28,
-          "preco": "R$ 42,28"
+          "valor": 634.2,
+          "preco": "R$ 634,20"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 45.52,
-          "preco": "R$ 45,52"
+          "valor": 682.8,
+          "preco": "R$ 682,80"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 45.04,
-          "preco": "R$ 45,04"
+          "valor": 675.6,
+          "preco": "R$ 675,60"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 45.04,
-          "preco": "R$ 45,04"
+          "valor": 675.6,
+          "preco": "R$ 675,60"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 45.04,
-          "preco": "R$ 45,04"
+          "valor": 675.6,
+          "preco": "R$ 675,60"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 45.16,
-          "preco": "R$ 45,16"
+          "valor": 677.4,
+          "preco": "R$ 677,40"
         }
       ]
     },
@@ -13760,13 +13760,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 41.87,
-      "preco": "R$ 41,87",
+      "valor": 628.05,
+      "preco": "R$ 628,05",
       "preco_original": 41.87,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -13775,74 +13775,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 40.44,
-          "preco": "R$ 40,44"
+          "valor": 606.6,
+          "preco": "R$ 606,60"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 40.44,
-          "preco": "R$ 40,44"
+          "valor": 606.6,
+          "preco": "R$ 606,60"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 43.92,
-          "preco": "R$ 43,92"
+          "valor": 658.8,
+          "preco": "R$ 658,80"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 45.91,
-          "preco": "R$ 45,91"
+          "valor": 688.65,
+          "preco": "R$ 688,65"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 45.91,
-          "preco": "R$ 45,91"
+          "valor": 688.65,
+          "preco": "R$ 688,65"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 45.91,
-          "preco": "R$ 45,91"
+          "valor": 688.65,
+          "preco": "R$ 688,65"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 45.91,
-          "preco": "R$ 45,91"
+          "valor": 688.65,
+          "preco": "R$ 688,65"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 42.03,
-          "preco": "R$ 42,03"
+          "valor": 630.45,
+          "preco": "R$ 630,45"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 45.16,
-          "preco": "R$ 45,16"
+          "valor": 677.4,
+          "preco": "R$ 677,40"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 45.16,
-          "preco": "R$ 45,16"
+          "valor": 677.4,
+          "preco": "R$ 677,40"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 45.16,
-          "preco": "R$ 45,16"
+          "valor": 677.4,
+          "preco": "R$ 677,40"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 41.87,
-          "preco": "R$ 41,87"
+          "valor": 628.05,
+          "preco": "R$ 628,05"
         }
       ]
     },
@@ -14054,13 +14054,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 55.92,
-      "preco": "R$ 55,92",
+      "valor": 838.8,
+      "preco": "R$ 838,80",
       "preco_original": 55.92,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -14069,74 +14069,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 52.12,
-          "preco": "R$ 52,12"
+          "valor": 781.8,
+          "preco": "R$ 781,80"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 52.12,
-          "preco": "R$ 52,12"
+          "valor": 781.8,
+          "preco": "R$ 781,80"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 52.12,
-          "preco": "R$ 52,12"
+          "valor": 781.8,
+          "preco": "R$ 781,80"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 47.86,
-          "preco": "R$ 47,86"
+          "valor": 717.9,
+          "preco": "R$ 717,90"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 47.86,
-          "preco": "R$ 47,86"
+          "valor": 717.9,
+          "preco": "R$ 717,90"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 47.86,
-          "preco": "R$ 47,86"
+          "valor": 717.9,
+          "preco": "R$ 717,90"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 47.86,
-          "preco": "R$ 47,86"
+          "valor": 717.9,
+          "preco": "R$ 717,90"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 54.37,
-          "preco": "R$ 54,37"
+          "valor": 815.55,
+          "preco": "R$ 815,55"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 55.92,
-          "preco": "R$ 55,92"
+          "valor": 838.8,
+          "preco": "R$ 838,80"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 55.92,
-          "preco": "R$ 55,92"
+          "valor": 838.8,
+          "preco": "R$ 838,80"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 55.92,
-          "preco": "R$ 55,92"
+          "valor": 838.8,
+          "preco": "R$ 838,80"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 55.92,
-          "preco": "R$ 55,92"
+          "valor": 838.8,
+          "preco": "R$ 838,80"
         }
       ]
     },
@@ -14348,13 +14348,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 55.92,
-      "preco": "R$ 55,92",
+      "valor": 838.8,
+      "preco": "R$ 838,80",
       "preco_original": 55.92,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
@@ -14363,74 +14363,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 52.12,
-          "preco": "R$ 52,12"
+          "valor": 781.8,
+          "preco": "R$ 781,80"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 52.12,
-          "preco": "R$ 52,12"
+          "valor": 781.8,
+          "preco": "R$ 781,80"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 52.12,
-          "preco": "R$ 52,12"
+          "valor": 781.8,
+          "preco": "R$ 781,80"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 52.05,
-          "preco": "R$ 52,05"
+          "valor": 780.75,
+          "preco": "R$ 780,75"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 47.86,
-          "preco": "R$ 47,86"
+          "valor": 717.9,
+          "preco": "R$ 717,90"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 52.05,
-          "preco": "R$ 52,05"
+          "valor": 780.75,
+          "preco": "R$ 780,75"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 53.05,
-          "preco": "R$ 53,05"
+          "valor": 795.75,
+          "preco": "R$ 795,75"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 54.37,
-          "preco": "R$ 54,37"
+          "valor": 815.55,
+          "preco": "R$ 815,55"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 54.04,
-          "preco": "R$ 54,04"
+          "valor": 810.6,
+          "preco": "R$ 810,60"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 55.92,
-          "preco": "R$ 55,92"
+          "valor": 838.8,
+          "preco": "R$ 838,80"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 49.59,
-          "preco": "R$ 49,59"
+          "valor": 743.85,
+          "preco": "R$ 743,85"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 55.92,
-          "preco": "R$ 55,92"
+          "valor": 838.8,
+          "preco": "R$ 838,80"
         }
       ]
     },
@@ -14740,13 +14740,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 38.71,
-      "preco": "R$ 38,71",
+      "valor": 580.65,
+      "preco": "R$ 580,65",
       "preco_original": 38.71,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
@@ -14755,74 +14755,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 38.83,
-          "preco": "R$ 38,83"
+          "valor": 582.45,
+          "preco": "R$ 582,45"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 38.83,
-          "preco": "R$ 38,83"
+          "valor": 582.45,
+          "preco": "R$ 582,45"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 38.83,
-          "preco": "R$ 38,83"
+          "valor": 582.45,
+          "preco": "R$ 582,45"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 43.42,
-          "preco": "R$ 43,42"
+          "valor": 651.3,
+          "preco": "R$ 651,30"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 43.42,
-          "preco": "R$ 43,42"
+          "valor": 651.3,
+          "preco": "R$ 651,30"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 38.85,
-          "preco": "R$ 38,85"
+          "valor": 582.75,
+          "preco": "R$ 582,75"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 43.42,
-          "preco": "R$ 43,42"
+          "valor": 651.3,
+          "preco": "R$ 651,30"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 38.77,
-          "preco": "R$ 38,77"
+          "valor": 581.55,
+          "preco": "R$ 581,55"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 42.43,
-          "preco": "R$ 42,43"
+          "valor": 636.45,
+          "preco": "R$ 636,45"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 42.43,
-          "preco": "R$ 42,43"
+          "valor": 636.45,
+          "preco": "R$ 636,45"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 42.43,
-          "preco": "R$ 42,43"
+          "valor": 636.45,
+          "preco": "R$ 636,45"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 38.71,
-          "preco": "R$ 38,71"
+          "valor": 580.65,
+          "preco": "R$ 580,65"
         }
       ]
     },
@@ -15132,13 +15132,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 38.71,
-      "preco": "R$ 38,71",
+      "valor": 580.65,
+      "preco": "R$ 580,65",
       "preco_original": 38.71,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -15147,74 +15147,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 43.48,
-          "preco": "R$ 43,48"
+          "valor": 652.2,
+          "preco": "R$ 652,20"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 43.48,
-          "preco": "R$ 43,48"
+          "valor": 652.2,
+          "preco": "R$ 652,20"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 43.48,
-          "preco": "R$ 43,48"
+          "valor": 652.2,
+          "preco": "R$ 652,20"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 43.3,
-          "preco": "R$ 43,30"
+          "valor": 649.5,
+          "preco": "R$ 649,50"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 43.3,
-          "preco": "R$ 43,30"
+          "valor": 649.5,
+          "preco": "R$ 649,50"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 43.3,
-          "preco": "R$ 43,30"
+          "valor": 649.5,
+          "preco": "R$ 649,50"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 43.3,
-          "preco": "R$ 43,30"
+          "valor": 649.5,
+          "preco": "R$ 649,50"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 43.37,
-          "preco": "R$ 43,37"
+          "valor": 650.55,
+          "preco": "R$ 650,55"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 38.71,
-          "preco": "R$ 38,71"
+          "valor": 580.65,
+          "preco": "R$ 580,65"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 43.33,
-          "preco": "R$ 43,33"
+          "valor": 649.95,
+          "preco": "R$ 649,95"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 38.71,
-          "preco": "R$ 38,71"
+          "valor": 580.65,
+          "preco": "R$ 580,65"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 38.71,
-          "preco": "R$ 38,71"
+          "valor": 580.65,
+          "preco": "R$ 580,65"
         }
       ]
     },
@@ -15470,13 +15470,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 47.68,
-      "preco": "R$ 47,68",
+      "valor": 715.2,
+      "preco": "R$ 715,20",
       "preco_original": 47.68,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -15485,74 +15485,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 45.87,
-          "preco": "R$ 45,87"
+          "valor": 688.05,
+          "preco": "R$ 688,05"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 45.87,
-          "preco": "R$ 45,87"
+          "valor": 688.05,
+          "preco": "R$ 688,05"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 45.87,
-          "preco": "R$ 45,87"
+          "valor": 688.05,
+          "preco": "R$ 688,05"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 44.27,
-          "preco": "R$ 44,27"
+          "valor": 664.05,
+          "preco": "R$ 664,05"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 44.27,
-          "preco": "R$ 44,27"
+          "valor": 664.05,
+          "preco": "R$ 664,05"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 44.27,
-          "preco": "R$ 44,27"
+          "valor": 664.05,
+          "preco": "R$ 664,05"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 44.27,
-          "preco": "R$ 44,27"
+          "valor": 664.05,
+          "preco": "R$ 664,05"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 47.17,
-          "preco": "R$ 47,17"
+          "valor": 707.55,
+          "preco": "R$ 707,55"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 47.68,
-          "preco": "R$ 47,68"
+          "valor": 715.2,
+          "preco": "R$ 715,20"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 47.68,
-          "preco": "R$ 47,68"
+          "valor": 715.2,
+          "preco": "R$ 715,20"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 47.68,
-          "preco": "R$ 47,68"
+          "valor": 715.2,
+          "preco": "R$ 715,20"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 47.68,
-          "preco": "R$ 47,68"
+          "valor": 715.2,
+          "preco": "R$ 715,20"
         }
       ]
     },
@@ -15808,13 +15808,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 48.4,
-      "preco": "R$ 48,40",
+      "valor": 726.0,
+      "preco": "R$ 726,00",
       "preco_original": 48.4,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
@@ -15823,74 +15823,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 46.23,
-          "preco": "R$ 46,23"
+          "valor": 693.45,
+          "preco": "R$ 693,45"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 46.23,
-          "preco": "R$ 46,23"
+          "valor": 693.45,
+          "preco": "R$ 693,45"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 46.23,
-          "preco": "R$ 46,23"
+          "valor": 693.45,
+          "preco": "R$ 693,45"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 47.26,
-          "preco": "R$ 47,26"
+          "valor": 708.9,
+          "preco": "R$ 708,90"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 47.26,
-          "preco": "R$ 47,26"
+          "valor": 708.9,
+          "preco": "R$ 708,90"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 47.26,
-          "preco": "R$ 47,26"
+          "valor": 708.9,
+          "preco": "R$ 708,90"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 47.26,
-          "preco": "R$ 47,26"
+          "valor": 708.9,
+          "preco": "R$ 708,90"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 45.15,
-          "preco": "R$ 45,15"
+          "valor": 677.25,
+          "preco": "R$ 677,25"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 48.4,
-          "preco": "R$ 48,40"
+          "valor": 726.0,
+          "preco": "R$ 726,00"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 45.73,
-          "preco": "R$ 45,73"
+          "valor": 685.95,
+          "preco": "R$ 685,95"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 45.73,
-          "preco": "R$ 45,73"
+          "valor": 685.95,
+          "preco": "R$ 685,95"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 48.4,
-          "preco": "R$ 48,40"
+          "valor": 726.0,
+          "preco": "R$ 726,00"
         }
       ]
     },
@@ -16102,13 +16102,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 43.28,
-      "preco": "R$ 43,28",
+      "valor": 649.2,
+      "preco": "R$ 649,20",
       "preco_original": 43.28,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
@@ -16117,74 +16117,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 42.76,
-          "preco": "R$ 42,76"
+          "valor": 641.4,
+          "preco": "R$ 641,40"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 46.04,
-          "preco": "R$ 46,04"
+          "valor": 690.6,
+          "preco": "R$ 690,60"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 46.04,
-          "preco": "R$ 46,04"
+          "valor": 690.6,
+          "preco": "R$ 690,60"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 43.37,
-          "preco": "R$ 43,37"
+          "valor": 650.55,
+          "preco": "R$ 650,55"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 46.87,
-          "preco": "R$ 46,87"
+          "valor": 703.05,
+          "preco": "R$ 703,05"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 46.87,
-          "preco": "R$ 46,87"
+          "valor": 703.05,
+          "preco": "R$ 703,05"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 43.37,
-          "preco": "R$ 43,37"
+          "valor": 650.55,
+          "preco": "R$ 650,55"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 43.32,
-          "preco": "R$ 43,32"
+          "valor": 649.8,
+          "preco": "R$ 649,80"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 47.66,
-          "preco": "R$ 47,66"
+          "valor": 714.9,
+          "preco": "R$ 714,90"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 47.84,
-          "preco": "R$ 47,84"
+          "valor": 717.6,
+          "preco": "R$ 717,60"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 47.84,
-          "preco": "R$ 47,84"
+          "valor": 717.6,
+          "preco": "R$ 717,60"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 43.28,
-          "preco": "R$ 43,28"
+          "valor": 649.2,
+          "preco": "R$ 649,20"
         }
       ]
     },
@@ -16396,13 +16396,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 43.28,
-      "preco": "R$ 43,28",
+      "valor": 649.2,
+      "preco": "R$ 649,20",
       "preco_original": 43.28,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -16411,74 +16411,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 42.76,
-          "preco": "R$ 42,76"
+          "valor": 641.4,
+          "preco": "R$ 641,40"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 42.76,
-          "preco": "R$ 42,76"
+          "valor": 641.4,
+          "preco": "R$ 641,40"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 42.76,
-          "preco": "R$ 42,76"
+          "valor": 641.4,
+          "preco": "R$ 641,40"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 46.98,
-          "preco": "R$ 46,98"
+          "valor": 704.7,
+          "preco": "R$ 704,70"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 46.98,
-          "preco": "R$ 46,98"
+          "valor": 704.7,
+          "preco": "R$ 704,70"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 46.98,
-          "preco": "R$ 46,98"
+          "valor": 704.7,
+          "preco": "R$ 704,70"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 46.98,
-          "preco": "R$ 46,98"
+          "valor": 704.7,
+          "preco": "R$ 704,70"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 43.32,
-          "preco": "R$ 43,32"
+          "valor": 649.8,
+          "preco": "R$ 649,80"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 43.28,
-          "preco": "R$ 43,28"
+          "valor": 649.2,
+          "preco": "R$ 649,20"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 43.28,
-          "preco": "R$ 43,28"
+          "valor": 649.2,
+          "preco": "R$ 649,20"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 43.28,
-          "preco": "R$ 43,28"
+          "valor": 649.2,
+          "preco": "R$ 649,20"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 43.28,
-          "preco": "R$ 43,28"
+          "valor": 649.2,
+          "preco": "R$ 649,20"
         }
       ]
     },
@@ -16690,13 +16690,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 46.01,
-      "preco": "R$ 46,01",
+      "valor": 690.15,
+      "preco": "R$ 690,15",
       "preco_original": 46.01,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
@@ -16705,74 +16705,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 43.86,
-          "preco": "R$ 43,86"
+          "valor": 657.9,
+          "preco": "R$ 657,90"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 43.86,
-          "preco": "R$ 43,86"
+          "valor": 657.9,
+          "preco": "R$ 657,90"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 43.86,
-          "preco": "R$ 43,86"
+          "valor": 657.9,
+          "preco": "R$ 657,90"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 44.06,
-          "preco": "R$ 44,06"
+          "valor": 660.9,
+          "preco": "R$ 660,90"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 44.64,
-          "preco": "R$ 44,64"
+          "valor": 669.6,
+          "preco": "R$ 669,60"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 44.64,
-          "preco": "R$ 44,64"
+          "valor": 669.6,
+          "preco": "R$ 669,60"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 44.64,
-          "preco": "R$ 44,64"
+          "valor": 669.6,
+          "preco": "R$ 669,60"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 45.23,
-          "preco": "R$ 45,23"
+          "valor": 678.45,
+          "preco": "R$ 678,45"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 46.01,
-          "preco": "R$ 46,01"
+          "valor": 690.15,
+          "preco": "R$ 690,15"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 46.01,
-          "preco": "R$ 46,01"
+          "valor": 690.15,
+          "preco": "R$ 690,15"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 46.01,
-          "preco": "R$ 46,01"
+          "valor": 690.15,
+          "preco": "R$ 690,15"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 46.01,
-          "preco": "R$ 46,01"
+          "valor": 690.15,
+          "preco": "R$ 690,15"
         }
       ]
     },
@@ -16984,13 +16984,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 46.4,
-      "preco": "R$ 46,40",
+      "valor": 696.0,
+      "preco": "R$ 696,00",
       "preco_original": 46.4,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -16999,74 +16999,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 43.86,
-          "preco": "R$ 43,86"
+          "valor": 657.9,
+          "preco": "R$ 657,90"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 43.84,
-          "preco": "R$ 43,84"
+          "valor": 657.6,
+          "preco": "R$ 657,60"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 43.84,
-          "preco": "R$ 43,84"
+          "valor": 657.6,
+          "preco": "R$ 657,60"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 42.61,
-          "preco": "R$ 42,61"
+          "valor": 639.15,
+          "preco": "R$ 639,15"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 42.61,
-          "preco": "R$ 42,61"
+          "valor": 639.15,
+          "preco": "R$ 639,15"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 42.61,
-          "preco": "R$ 42,61"
+          "valor": 639.15,
+          "preco": "R$ 639,15"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 42.61,
-          "preco": "R$ 42,61"
+          "valor": 639.15,
+          "preco": "R$ 639,15"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 45.23,
-          "preco": "R$ 45,23"
+          "valor": 678.45,
+          "preco": "R$ 678,45"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 46.4,
-          "preco": "R$ 46,40"
+          "valor": 696.0,
+          "preco": "R$ 696,00"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 46.4,
-          "preco": "R$ 46,40"
+          "valor": 696.0,
+          "preco": "R$ 696,00"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 46.01,
-          "preco": "R$ 46,01"
+          "valor": 690.15,
+          "preco": "R$ 690,15"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 46.4,
-          "preco": "R$ 46,40"
+          "valor": 696.0,
+          "preco": "R$ 696,00"
         }
       ]
     },
@@ -17278,13 +17278,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 47.86,
-      "preco": "R$ 47,86",
+      "valor": 717.9,
+      "preco": "R$ 717,90",
       "preco_original": 47.86,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
@@ -17293,74 +17293,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 46.64,
-          "preco": "R$ 46,64"
+          "valor": 699.6,
+          "preco": "R$ 699,60"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 45.63,
-          "preco": "R$ 45,63"
+          "valor": 684.45,
+          "preco": "R$ 684,45"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 42.62,
-          "preco": "R$ 42,62"
+          "valor": 639.3,
+          "preco": "R$ 639,30"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 42.86,
-          "preco": "R$ 42,86"
+          "valor": 642.9,
+          "preco": "R$ 642,90"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 46.53,
-          "preco": "R$ 46,53"
+          "valor": 697.95,
+          "preco": "R$ 697,95"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 46.53,
-          "preco": "R$ 46,53"
+          "valor": 697.95,
+          "preco": "R$ 697,95"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 45.01,
-          "preco": "R$ 45,01"
+          "valor": 675.15,
+          "preco": "R$ 675,15"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 46.72,
-          "preco": "R$ 46,72"
+          "valor": 700.8,
+          "preco": "R$ 700,80"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 47.86,
-          "preco": "R$ 47,86"
+          "valor": 717.9,
+          "preco": "R$ 717,90"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 47.86,
-          "preco": "R$ 47,86"
+          "valor": 717.9,
+          "preco": "R$ 717,90"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 47.86,
-          "preco": "R$ 47,86"
+          "valor": 717.9,
+          "preco": "R$ 717,90"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 47.86,
-          "preco": "R$ 47,86"
+          "valor": 717.9,
+          "preco": "R$ 717,90"
         }
       ]
     },
@@ -17572,13 +17572,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 44.41,
-      "preco": "R$ 44,41",
+      "valor": 666.15,
+      "preco": "R$ 666,15",
       "preco_original": 44.41,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -17587,74 +17587,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 42.62,
-          "preco": "R$ 42,62"
+          "valor": 639.3,
+          "preco": "R$ 639,30"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 42.62,
-          "preco": "R$ 42,62"
+          "valor": 639.3,
+          "preco": "R$ 639,30"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 42.62,
-          "preco": "R$ 42,62"
+          "valor": 639.3,
+          "preco": "R$ 639,30"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 46.53,
-          "preco": "R$ 46,53"
+          "valor": 697.95,
+          "preco": "R$ 697,95"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 46.53,
-          "preco": "R$ 46,53"
+          "valor": 697.95,
+          "preco": "R$ 697,95"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 46.53,
-          "preco": "R$ 46,53"
+          "valor": 697.95,
+          "preco": "R$ 697,95"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 46.53,
-          "preco": "R$ 46,53"
+          "valor": 697.95,
+          "preco": "R$ 697,95"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 43.79,
-          "preco": "R$ 43,79"
+          "valor": 656.85,
+          "preco": "R$ 656,85"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 44.41,
-          "preco": "R$ 44,41"
+          "valor": 666.15,
+          "preco": "R$ 666,15"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 44.41,
-          "preco": "R$ 44,41"
+          "valor": 666.15,
+          "preco": "R$ 666,15"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 44.41,
-          "preco": "R$ 44,41"
+          "valor": 666.15,
+          "preco": "R$ 666,15"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 44.41,
-          "preco": "R$ 44,41"
+          "valor": 666.15,
+          "preco": "R$ 666,15"
         }
       ]
     },
@@ -17866,13 +17866,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 44.41,
-      "preco": "R$ 44,41",
+      "valor": 666.15,
+      "preco": "R$ 666,15",
       "preco_original": 44.41,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -17881,74 +17881,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 43.56,
-          "preco": "R$ 43,56"
+          "valor": 653.4,
+          "preco": "R$ 653,40"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 43.53,
-          "preco": "R$ 43,53"
+          "valor": 652.95,
+          "preco": "R$ 652,95"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 43.53,
-          "preco": "R$ 43,53"
+          "valor": 652.95,
+          "preco": "R$ 652,95"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 42.37,
-          "preco": "R$ 42,37"
+          "valor": 635.55,
+          "preco": "R$ 635,55"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 42.37,
-          "preco": "R$ 42,37"
+          "valor": 635.55,
+          "preco": "R$ 635,55"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 42.37,
-          "preco": "R$ 42,37"
+          "valor": 635.55,
+          "preco": "R$ 635,55"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 42.37,
-          "preco": "R$ 42,37"
+          "valor": 635.55,
+          "preco": "R$ 635,55"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 45.11,
-          "preco": "R$ 45,11"
+          "valor": 676.65,
+          "preco": "R$ 676,65"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 45.29,
-          "preco": "R$ 45,29"
+          "valor": 679.35,
+          "preco": "R$ 679,35"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 45.29,
-          "preco": "R$ 45,29"
+          "valor": 679.35,
+          "preco": "R$ 679,35"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 45.29,
-          "preco": "R$ 45,29"
+          "valor": 679.35,
+          "preco": "R$ 679,35"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 44.41,
-          "preco": "R$ 44,41"
+          "valor": 666.15,
+          "preco": "R$ 666,15"
         }
       ]
     },
@@ -18160,13 +18160,13 @@
       "nivel_comercializacao_chave": "preco_varejo",
       "prioridade_nivel_preco": 4,
       "categoria": "commodity_agricola",
-      "valor": 42.17,
-      "preco": "R$ 42,17",
+      "valor": 632.55,
+      "preco": "R$ 632,55",
       "preco_original": 42.17,
-      "unidade": "Kg",
+      "unidade": "Arroba (@)",
       "unidade_original": "Kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
       "data": "27/04/2026",
       "data_iso": "2026-04-27",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
@@ -18175,74 +18175,74 @@
         {
           "data": "09/02/2026",
           "data_iso": "2026-02-09",
-          "valor": 43.56,
-          "preco": "R$ 43,56"
+          "valor": 653.4,
+          "preco": "R$ 653,40"
         },
         {
           "data": "16/02/2026",
           "data_iso": "2026-02-16",
-          "valor": 43.56,
-          "preco": "R$ 43,56"
+          "valor": 653.4,
+          "preco": "R$ 653,40"
         },
         {
           "data": "23/02/2026",
           "data_iso": "2026-02-23",
-          "valor": 41.13,
-          "preco": "R$ 41,13"
+          "valor": 616.95,
+          "preco": "R$ 616,95"
         },
         {
           "data": "02/03/2026",
           "data_iso": "2026-03-02",
-          "valor": 42.37,
-          "preco": "R$ 42,37"
+          "valor": 635.55,
+          "preco": "R$ 635,55"
         },
         {
           "data": "09/03/2026",
           "data_iso": "2026-03-09",
-          "valor": 42.37,
-          "preco": "R$ 42,37"
+          "valor": 635.55,
+          "preco": "R$ 635,55"
         },
         {
           "data": "16/03/2026",
           "data_iso": "2026-03-16",
-          "valor": 44.85,
-          "preco": "R$ 44,85"
+          "valor": 672.75,
+          "preco": "R$ 672,75"
         },
         {
           "data": "23/03/2026",
           "data_iso": "2026-03-23",
-          "valor": 44.85,
-          "preco": "R$ 44,85"
+          "valor": 672.75,
+          "preco": "R$ 672,75"
         },
         {
           "data": "30/03/2026",
           "data_iso": "2026-03-30",
-          "valor": 42.25,
-          "preco": "R$ 42,25"
+          "valor": 633.75,
+          "preco": "R$ 633,75"
         },
         {
           "data": "06/04/2026",
           "data_iso": "2026-04-06",
-          "valor": 42.17,
-          "preco": "R$ 42,17"
+          "valor": 632.55,
+          "preco": "R$ 632,55"
         },
         {
           "data": "13/04/2026",
           "data_iso": "2026-04-13",
-          "valor": 45.29,
-          "preco": "R$ 45,29"
+          "valor": 679.35,
+          "preco": "R$ 679,35"
         },
         {
           "data": "20/04/2026",
           "data_iso": "2026-04-20",
-          "valor": 45.29,
-          "preco": "R$ 45,29"
+          "valor": 679.35,
+          "preco": "R$ 679,35"
         },
         {
           "data": "27/04/2026",
           "data_iso": "2026-04-27",
-          "valor": 42.17,
-          "preco": "R$ 42,17"
+          "valor": 632.55,
+          "preco": "R$ 632,55"
         }
       ]
     },
@@ -21286,6 +21286,14 @@
         ]
       },
       "Carne Bovina": {
+        "Arroba (@)": [
+          100.0,
+          1000.0
+        ],
+        "@": [
+          100.0,
+          1000.0
+        ],
         "Kg": [
           5.0,
           80.0
@@ -22050,5 +22058,5 @@
       }
     ]
   },
-  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A tabela exibe o registro mais recente por produto, praça, unidade e fonte. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados ou industrializados, como óleo de soja, fubá, flocos e sementes, são removidos da página principal de commodities. A tabela principal mostra apenas cotações com data dentro dos últimos 90 dias, evitando a exibição de preços antigos como se fossem atuais. Os dados da CONAB são classificados por nível de comercialização quando possível, como produtor, atacado, varejo ou média UF. Insumos, serviços e derivados são removidos para evitar que itens como inoculante para milho, inoculante para soja e beneficiamento de algodão apareçam como commodity. Além disso, o coletor aplica validação por faixa de preço e unidade para bloquear valores incompatíveis, como milho com preço exorbitante por saca ou algodão com preço muito baixo por arroba. Para BOI/BOI GORDO informado em Kg pela CONAB, o sistema converte para Arroba (@) usando o fator de 15 kg. Carne bovina permanece em Kg. Os indicadores CEPEA/ESALQ ficam em seção própria do HTML via widget oficial. O gráfico usa as observações históricas recentes disponíveis. Os valores podem variar conforme praça de negociação, qualidade do produto, volume negociado, frete, forma de pagamento, logística e data de atualização. B3 e CEPEA/ESALQ podem representar referências de mercado e não necessariamente preço local de praça."
+  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A tabela exibe o registro mais recente por produto, praça, unidade e fonte. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados ou industrializados, como óleo de soja, fubá, flocos e sementes, são removidos da página principal de commodities. A tabela principal mostra apenas cotações com data dentro dos últimos 90 dias, evitando a exibição de preços antigos como se fossem atuais. Os dados da CONAB são classificados por nível de comercialização quando possível, como produtor, atacado, varejo ou média UF. Insumos, serviços e derivados são removidos para evitar que itens como inoculante para milho, inoculante para soja e beneficiamento de algodão apareçam como commodity. Além disso, o coletor aplica validação por faixa de preço e unidade para bloquear valores incompatíveis, como milho com preço exorbitante por saca ou algodão com preço muito baixo por arroba. Para BOI/BOI GORDO e CARNE BOVINA informados em Kg pela CONAB, o sistema converte para Arroba (@) usando o fator de 15 kg. Quando o dado for de varejo, a arroba exibida é uma equivalência matemática para padronização visual, e não necessariamente preço recebido pelo produtor. Os indicadores CEPEA/ESALQ ficam em seção própria do HTML via widget oficial. O gráfico usa as observações históricas recentes disponíveis. Os valores podem variar conforme praça de negociação, qualidade do produto, volume negociado, frete, forma de pagamento, logística e data de atualização. B3 e CEPEA/ESALQ podem representar referências de mercado e não necessariamente preço local de praça."
 }
