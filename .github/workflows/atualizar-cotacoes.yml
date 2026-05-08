@@ -29,12 +29,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip
 
-          if [ -f "cotacoes/requirements.txt" ]; then
-            echo "Instalando dependências de cotacoes/requirements.txt"
-            pip install -r cotacoes/requirements.txt
-          elif [ -f "requirements.txt" ]; then
+          if [ -f "requirements.txt" ]; then
             echo "Instalando dependências de requirements.txt"
             pip install -r requirements.txt
+          elif [ -f "cotacoes/requirements.txt" ]; then
+            echo "Instalando dependências de cotacoes/requirements.txt"
+            pip install -r cotacoes/requirements.txt
           else
             echo "requirements.txt não encontrado. Instalando dependências mínimas."
             pip install requests beautifulsoup4 lxml python-dateutil playwright==1.44.0
@@ -46,23 +46,43 @@ jobs:
         run: |
           python -m playwright install chromium
 
+      - name: Localizar coletor
+        run: |
+          echo "Arquivos do repositório:"
+          find . -maxdepth 3 -type f | sort
+
       - name: Rodar coletor de cotações
         run: |
-          python cotacoes/scripts/coletor_cotacoes.py
+          if [ -f "scripts/coletor_cotacoes.py" ]; then
+            echo "Rodando scripts/coletor_cotacoes.py"
+            python scripts/coletor_cotacoes.py
+          elif [ -f "cotacoes/scripts/coletor_cotacoes.py" ]; then
+            echo "Rodando cotacoes/scripts/coletor_cotacoes.py"
+            python cotacoes/scripts/coletor_cotacoes.py
+          else
+            echo "ERRO: coletor_cotacoes.py não encontrado."
+            find . -maxdepth 4 -type f | sort
+            exit 1
+          fi
 
       - name: Conferir arquivos gerados
         run: |
-          echo "Arquivos gerados em cotacoes/public:"
-          find cotacoes/public -maxdepth 2 -type f | sort
+          echo "Arquivos public:"
+          find . -path "*/public/*" -type f | sort || true
 
           echo ""
-          echo "Arquivos gerados em cotacoes/logs:"
-          find cotacoes/logs -maxdepth 2 -type f | sort || true
+          echo "Arquivos logs:"
+          find . -path "*/logs/*" -type f | sort || true
 
       - name: Salvar alterações no GitHub
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+
+          git add public/cotacoes_nordeste.json || true
+          git add public/cotacoes_regionais.json || true
+          git add public/cotacoes_nordeste.csv || true
+          git add logs/status_ultima_execucao.json || true
 
           git add cotacoes/public/cotacoes_nordeste.json || true
           git add cotacoes/public/cotacoes_regionais.json || true
