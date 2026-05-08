@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.2.4
+Nordeste Agro — Coletor Automático de Cotações v1.2.6
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -45,7 +45,7 @@ Melhorias desta versão:
   * mantém apenas um valor por data no historico_30_dias.
 - Melhora classificação visual:
   * reforça Regional, Atacado, Produtor e Média UF para o HTML.
-- Política de publicação v1.2.4:
+- Política de publicação v1.2.6:
   * publica preço ao produtor, cotação regional produtiva ou referência oficial CONAB.
   * usa CONAB Produtos 360º como fonte para Soja, Milho e Algodão.
   * usa arquivos semanais da CONAB apenas para Feijão e Sorgo.
@@ -88,6 +88,7 @@ OUTPUT_JSON_REGIONAL = PUBLIC_DIR / "cotacoes_regionais.json"
 OUTPUT_CSV = PUBLIC_DIR / "cotacoes_nordeste.csv"
 OUTPUT_LOG = LOGS_DIR / "status_ultima_execucao.json"
 OUTPUT_DEBUG_CONAB_360 = LOGS_DIR / "debug_conab_produtos_360.json"
+OUTPUT_DEBUG_SORGO_CONAB = LOGS_DIR / "debug_sorgo_conab.json"
 
 AIBA_URL = "https://aiba.org.br/cotacoes/"
 
@@ -163,7 +164,7 @@ HEADERS = {
 
 # UFs monitoradas pela página de Cotações.
 # Mantemos o nome da constante por compatibilidade com o restante do código,
-# mas a partir da v1.2.4 incluímos também Pará e Tocantins por relevância
+# mas a partir da v1.2.6 incluímos também Pará e Tocantins por relevância
 # agrícola no MATOPIBA/Norte e para complementar as referências da CONAB 360º.
 UFS_NORDESTE = {
     "AL": "Alagoas",
@@ -215,18 +216,18 @@ TIPOS_REAIS = {
 # soja, milho, sorgo, arroz e feijão devem aparecer por saca de 60 kg.
 PRODUTOS_SACA_60KG = {"Soja", "Milho", "Sorgo", "Arroz", "Feijão"}
 
-# Regra v1.2.4: na CONAB vamos publicar somente os 5 produtos definidos
+# Regra v1.2.6: na CONAB vamos publicar somente os 5 produtos definidos
 # para esta etapa da página Cotações. Isso evita que leite/carne/boi entrem
 # pela CONAB com unidade ou nível de comercialização inadequado.
 PRODUTOS_CONAB_OFICIAIS = {"Soja", "Milho", "Algodão", "Feijão", "Sorgo"}
 
-# v1.2.4: soja, milho e algodão não devem mais sair dos arquivos semanais,
+# v1.2.6: soja, milho e algodão não devem mais sair dos arquivos semanais,
 # porque esses arquivos trouxeram datas antigas. Para esses três produtos,
 # a fonte operacional passa a ser o painel CONAB Produtos 360º.
 PRODUTOS_CONAB_360 = {"Soja", "Milho", "Algodão"}
 
 # Feijão e sorgo continuam nos arquivos semanais/Preços Agropecuários.
-# A partir da v1.2.4, leite e carnes também são lidos desses arquivos,
+# A partir da v1.2.6, leite e carnes também são lidos desses arquivos,
 # mas com regra mais rígida: só entram na tabela se a linha vier claramente
 # como preço ao produtor. Varejo, atacado e nível não informado continuam fora.
 PRODUTOS_CONAB_TXT = {"Feijão", "Sorgo", "Leite", "Boi Gordo", "Carne Bovina"}
@@ -1075,7 +1076,7 @@ def forcar_referencia_conab(item: dict[str, Any]) -> bool:
 
 def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     """
-    Política v1.2.4:
+    Política v1.2.6:
     - Publicar preço pago ao produtor quando a fonte informar claramente.
     - Publicar cotação regional produtiva, como AIBA.
     - Publicar referência oficial CONAB para soja, milho, algodão, feijão e sorgo
@@ -1111,7 +1112,7 @@ def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     if nivel == "preco_regional":
         return True, "ok_preco_regional"
 
-    # Correção v1.2.4: CONAB sem nível claro, média UF ou não informado
+    # Correção v1.2.6: CONAB sem nível claro, média UF ou não informado
     # entra como Referência CONAB, desde que não seja atacado/varejo/indicador.
     if forcar_referencia_conab(item):
         return True, "ok_referencia_oficial_conab_forcada"
@@ -1469,14 +1470,14 @@ def detectar_nivel_conab(
         return texto
 
     if produto_base in PRODUTOS_CONAB_OFICIAIS and tipo_fonte_conab == "semanal_municipio":
-        # Regra v1.2.4: quando a base semanal por município da CONAB não informa
+        # Regra v1.2.6: quando a base semanal por município da CONAB não informa
         # explicitamente atacado, varejo ou produtor, ela entra como referência
         # oficial CONAB por praça. Não rotulamos como "Produtor" para não criar
         # uma informação que a própria linha não informou.
         return "referencia conab municipal"
 
     if produto_base in PRODUTOS_CONAB_OFICIAIS and tipo_fonte_conab == "semanal_uf":
-        # Regra v1.2.4: quando a base semanal por UF da CONAB não informa nível
+        # Regra v1.2.6: quando a base semanal por UF da CONAB não informa nível
         # de comercialização, ela entra como referência oficial estadual CONAB.
         # Atacado e varejo continuam bloqueados acima.
         return "referencia conab estadual"
@@ -1578,6 +1579,14 @@ def resumir_json_cda(texto: str) -> dict[str, Any]:
 def salvar_debug_conab_360(debug: dict[str, Any]) -> None:
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
     OUTPUT_DEBUG_CONAB_360.write_text(
+        json.dumps(debug, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+def salvar_debug_sorgo_conab(debug: dict[str, Any]) -> None:
+    LOGS_DIR.mkdir(parents=True, exist_ok=True)
+    OUTPUT_DEBUG_SORGO_CONAB.write_text(
         json.dumps(debug, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
@@ -2235,7 +2244,7 @@ def coletar_conab_360_direto_cda() -> tuple[list[dict[str, Any]], list[dict[str,
     """
     Coleta do CONAB Produtos 360º.
 
-    v1.2.4:
+    v1.2.6:
     - primeiro abre o generatedContent para criar sessão Pentaho;
     - tenta POST direto com cookies da sessão;
     - se o endpoint responder 401 ou não retornar dados, usa fallback Playwright
@@ -2408,7 +2417,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     """
     Coleta preferencial para Soja, Milho e Algodão no painel CONAB Produtos 360º.
 
-    v1.2.4:
+    v1.2.6:
     - usa chamada direta ao CDA identificada no debug;
     - publica dados por UF do Nordeste;
     - mantém debug para conferência.
@@ -2460,7 +2469,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     debug_payload = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
-        "versao": "1.2.4",
+        "versao": "1.2.6",
         "gerado_em": agora_local().isoformat(),
         "objetivo": (
             "Coletar diretamente do CONAB Produtos 360º/Pentaho a consulta CDA "
@@ -2489,7 +2498,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
             "produtos_extraidos": produtos_extraidos,
             "ufs_extraidas": ufs_extraidas,
             "observacao": (
-                "Fonte preferencial para Soja, Milho e Algodão. v1.2.4 usa chamada direta "
+                "Fonte preferencial para Soja, Milho e Algodão. v1.2.6 usa chamada direta "
                 "ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto."
             ),
             "arquivo_debug_conab_360": str(OUTPUT_DEBUG_CONAB_360),
@@ -2571,7 +2580,16 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     praca = limpar_texto(linha.get(col_praca, "")) or "Média UF"
 
                 unidade = limpar_texto(linha.get(col_unidade, "")) if col_unidade else ""
-                data_ref = parse_data(linha.get(col_data, "")) if col_data else agora_local().date().isoformat()
+
+                # v1.2.6: os arquivos CONAB Preços Agropecuários são semanais.
+                # Quando a fonte trouxer apenas uma data, mostramos como "Semana de DD/MM/AAAA"
+                # para não dar a impressão de preço diário.
+                data_original_conab = linha.get(col_data, "") if col_data else agora_local().date().isoformat()
+                periodo_conab = extrair_periodo_semanal(data_original_conab)
+                data_ref = periodo_conab.get("data_fim") or parse_data(data_original_conab)
+                data_inicio_conab = periodo_conab.get("data_inicio") or data_ref
+                data_fim_conab = periodo_conab.get("data_fim") or data_ref
+                periodo_referencia_conab = periodo_conab.get("periodo_referencia") or f"Semana de {data_para_br(data_ref)}"
 
                 for col_preco in colunas_preco:
                     preco = parse_preco(linha.get(col_preco, ""))
@@ -2590,7 +2608,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
                     nivel_chave, nivel_label, _ = normalizar_nivel_preco(nivel_texto)
 
-                    # Correção v1.2.4: quando a CONAB não informar claramente
+                    # Correção v1.2.6: quando a CONAB não informar claramente
                     # o nível, publicamos como Referência CONAB, sem chamar de
                     # preço ao produtor. Atacado e varejo continuam bloqueados.
                     if nivel_chave in {"nao_informado", "media_uf"}:
@@ -2612,6 +2630,9 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                             preco=preco,
                             variacao_percentual=None,
                             data_referencia=data_ref,
+                            data_referencia_inicio=data_inicio_conab,
+                            data_referencia_fim=data_fim_conab,
+                            periodo_referencia=periodo_referencia_conab,
                             fonte=nome,
                             fonte_url=url,
                             tipo_fonte="oficial",
@@ -2635,7 +2656,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "colunas_preco_identificadas": colunas_preco,
                     "coluna_nivel_identificada": col_nivel,
                     "produtos_conab_publicaveis": sorted(PRODUTOS_CONAB_TXT),
-                    "observacao": "v1.2.4: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º.",
+                    "observacao": "v1.2.6: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º.",
                 }
             )
 
@@ -2881,7 +2902,7 @@ def consolidar_mais_recentes(
     """
     Consolida a base para uso no site.
 
-    Regra v1.2.4:
+    Regra v1.2.6:
     - Agrupa todos os registros brutos por fonte + produto + UF + praça + unidade.
     - Dentro de cada grupo, mantém apenas o item mais recente.
     - Se o item mais recente do grupo for mais antigo que data_corte_iso, o grupo inteiro
@@ -2997,6 +3018,123 @@ def salvar_csv(cotacoes: list[dict[str, Any]]) -> None:
             escritor.writerow({campo: cotacao.get(campo, "") for campo in campos})
 
 
+
+def diagnosticar_sorgo_conab(
+    *,
+    cotacoes_brutas: list[dict[str, Any]],
+    cotacoes_validas: list[dict[str, Any]],
+    cotacoes_descartadas_validacao: list[dict[str, Any]],
+    cotacoes_produtor_regional: list[dict[str, Any]],
+    cotacoes_descartadas_nivel: list[dict[str, Any]],
+    cotacoes_tabela: list[dict[str, Any]],
+    data_corte_iso: str,
+) -> dict[str, Any]:
+    """Diagnóstico específico para entender por que o sorgo CONAB aparece ou não aparece no site."""
+
+    def eh_sorgo_conab(item: dict[str, Any]) -> bool:
+        return limpar_texto(item.get("produto_base")) == "Sorgo" and "CONAB" in limpar_texto(item.get("fonte"))
+
+    brutas = [item for item in cotacoes_brutas if eh_sorgo_conab(item)]
+    validas = [item for item in cotacoes_validas if eh_sorgo_conab(item)]
+    descartadas_validacao = [item for item in cotacoes_descartadas_validacao if eh_sorgo_conab(item)]
+    nivel_ok = [item for item in cotacoes_produtor_regional if eh_sorgo_conab(item)]
+    descartadas_nivel = [item for item in cotacoes_descartadas_nivel if eh_sorgo_conab(item)]
+    tabela = [item for item in cotacoes_tabela if eh_sorgo_conab(item)]
+
+    grupos: dict[tuple[str, ...], list[dict[str, Any]]] = {}
+    for item in nivel_ok:
+        grupos.setdefault(chave_agrupamento(item), []).append(item)
+
+    grupos_antigos = []
+    grupos_recentes = []
+    for chave, itens in grupos.items():
+        itens_ordenados = sorted(itens, key=lambda x: data_ordenavel(x.get("data_referencia")))
+        mais_recente = itens_ordenados[-1] if itens_ordenados else {}
+        entrada = {
+            "chave": list(chave),
+            "total_itens": len(itens_ordenados),
+            "mais_recente": {
+                "produto": mais_recente.get("produto"),
+                "uf": mais_recente.get("uf"),
+                "estado": mais_recente.get("estado"),
+                "praca": mais_recente.get("praca"),
+                "unidade": mais_recente.get("unidade"),
+                "preco": mais_recente.get("preco"),
+                "preco_original": mais_recente.get("preco_original"),
+                "data_referencia": mais_recente.get("data_referencia"),
+                "periodo_referencia": mais_recente.get("periodo_referencia"),
+                "fonte": mais_recente.get("fonte"),
+                "nivel_comercializacao": mais_recente.get("nivel_comercializacao"),
+                "nivel_comercializacao_chave": mais_recente.get("nivel_comercializacao_chave"),
+                "observacao": mais_recente.get("observacao"),
+            },
+        }
+        if mais_recente and not data_dentro_do_limite(mais_recente.get("data_referencia"), data_corte_iso):
+            grupos_antigos.append(entrada)
+        else:
+            grupos_recentes.append(entrada)
+
+    def amostra(lista: list[dict[str, Any]], limite: int = 80) -> list[dict[str, Any]]:
+        campos = [
+            "produto", "produto_base", "produto_original", "uf", "estado", "praca", "unidade",
+            "unidade_original", "preco", "preco_original", "preco_formatado", "data_referencia",
+            "periodo_referencia", "fonte", "nivel_comercializacao", "nivel_comercializacao_chave",
+            "motivo", "validacao_publicacao", "observacao",
+        ]
+        return [{campo: item.get(campo) for campo in campos if campo in item} for item in lista[:limite]]
+
+    motivos_validacao: dict[str, int] = {}
+    for item in descartadas_validacao:
+        motivo = limpar_texto(item.get("motivo", "motivo_nao_informado"))
+        motivos_validacao[motivo] = motivos_validacao.get(motivo, 0) + 1
+
+    motivos_nivel: dict[str, int] = {}
+    for item in descartadas_nivel:
+        motivo = limpar_texto(item.get("motivo", "motivo_nao_informado"))
+        motivos_nivel[motivo] = motivos_nivel.get(motivo, 0) + 1
+
+    conclusao = ""
+    if tabela:
+        conclusao = "Sorgo CONAB entrou na tabela final."
+    elif not brutas:
+        conclusao = "Nenhum registro bruto de Sorgo foi encontrado nos arquivos semanais da CONAB para os estados monitorados."
+    elif descartadas_validacao and not validas:
+        conclusao = "Sorgo CONAB foi coletado, mas caiu na validação comercial/unidade/preço."
+    elif descartadas_nivel and not nivel_ok:
+        conclusao = "Sorgo CONAB foi coletado, mas foi bloqueado pelo nível de comercialização, provavelmente atacado/varejo/nível não permitido."
+    elif grupos_antigos and not grupos_recentes:
+        conclusao = "Sorgo CONAB foi coletado e aprovado, mas o grupo mais recente ficou fora por data antiga."
+    elif nivel_ok and not tabela:
+        conclusao = "Sorgo CONAB foi aprovado antes da consolidação, mas não apareceu na tabela final; verificar agrupamento/consolidação."
+    else:
+        conclusao = "Sorgo CONAB requer revisão manual: há registros, mas não foi possível classificar o ponto de bloqueio automaticamente."
+
+    return {
+        "produto": "Sorgo",
+        "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
+        "data_corte_cotacoes_ativas": data_corte_iso,
+        "conclusao": conclusao,
+        "totais": {
+            "brutas_sorgo_conab": len(brutas),
+            "validas_apos_validacao": len(validas),
+            "descartadas_por_validacao": len(descartadas_validacao),
+            "publicaveis_apos_filtro_nivel": len(nivel_ok),
+            "descartadas_por_nivel": len(descartadas_nivel),
+            "grupos_publicaveis": len(grupos),
+            "grupos_antigos": len(grupos_antigos),
+            "grupos_recentes": len(grupos_recentes),
+            "na_tabela_final": len(tabela),
+        },
+        "motivos_descartes_validacao": motivos_validacao,
+        "motivos_descartes_nivel": motivos_nivel,
+        "grupos_recentes": grupos_recentes[:80],
+        "grupos_antigos": grupos_antigos[:80],
+        "amostra_brutas": amostra(brutas),
+        "amostra_descartadas_validacao": amostra(descartadas_validacao),
+        "amostra_descartadas_nivel": amostra(descartadas_nivel),
+        "amostra_tabela_final": amostra(tabela),
+    }
+
 def salvar_log(payload: dict[str, Any]) -> None:
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -3015,6 +3153,8 @@ def salvar_log(payload: dict[str, Any]) -> None:
         "grupos_descartados_por_data_antiga": payload.get("resumo", {}).get("grupos_descartados_por_data_antiga"),
         "fontes": payload.get("fontes"),
         "debug_conab_produtos_360": str(OUTPUT_DEBUG_CONAB_360),
+        "debug_sorgo_conab": str(OUTPUT_DEBUG_SORGO_CONAB),
+        "diagnostico_sorgo_conab": payload.get("diagnostico_sorgo_conab", {}),
     }
 
     OUTPUT_LOG.write_text(
@@ -3044,6 +3184,17 @@ def main() -> None:
     )
     dados_html = [cotacao_para_dado_html(item) for item in cotacoes_tabela]
 
+    diagnostico_sorgo_conab = diagnosticar_sorgo_conab(
+        cotacoes_brutas=cotacoes_brutas,
+        cotacoes_validas=cotacoes_validas,
+        cotacoes_descartadas_validacao=cotacoes_descartadas_validacao,
+        cotacoes_produtor_regional=cotacoes_produtor_regional,
+        cotacoes_descartadas_nivel=cotacoes_descartadas_nivel,
+        cotacoes_tabela=cotacoes_tabela,
+        data_corte_iso=data_corte_iso,
+    )
+    salvar_debug_sorgo_conab(diagnostico_sorgo_conab)
+
     fontes_ok = [f["fonte"] for f in status_fontes if f.get("status") == "ok"]
     fontes_erro = [f for f in status_fontes if f.get("status") == "erro"]
 
@@ -3052,7 +3203,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.2.4",
+        "versao": "1.2.6",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -3064,7 +3215,7 @@ def main() -> None:
         "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; CONAB Preços Agropecuários para feijão, sorgo, leite e carnes somente quando forem preço ao produtor",
         "fontes_complementares": ["CEPEA/ESALQ Widget no HTML", "B3 - referência de mercado futuro"],
         "politica_classificacao_preco": (
-            "Política v1.2.4: a tabela principal publica preço pago ao produtor quando a fonte informar, "
+            "Política v1.2.6: a tabela principal publica preço pago ao produtor quando a fonte informar, "
             "cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
             "Leite e carnes entram somente quando a fonte informar preço ao produtor. "
             "Varejo, atacado, indicador de mercado e mercado futuro ficam fora da tabela principal. "
@@ -3092,12 +3243,19 @@ def main() -> None:
             "total_cotacoes_leite": len([item for item in cotacoes_tabela if item.get("produto_base") == "Leite"]),
             "total_cotacoes_boi_gordo": len([item for item in cotacoes_tabela if item.get("produto_base") == "Boi Gordo"]),
             "total_cotacoes_carne_bovina": len([item for item in cotacoes_tabela if item.get("produto_base") == "Carne Bovina"]),
+            "total_sorgo_conab_tabela": diagnostico_sorgo_conab.get("totais", {}).get("na_tabela_final", 0),
+            "total_sorgo_conab_bruto": diagnostico_sorgo_conab.get("totais", {}).get("brutas_sorgo_conab", 0),
+            "total_sorgo_conab_descartado_nivel": diagnostico_sorgo_conab.get("totais", {}).get("descartadas_por_nivel", 0),
+            "total_sorgo_conab_descartado_validacao": diagnostico_sorgo_conab.get("totais", {}).get("descartadas_por_validacao", 0),
+            "total_sorgo_conab_grupos_antigos": diagnostico_sorgo_conab.get("totais", {}).get("grupos_antigos", 0),
             "total_indicadores_mercado": len([item for item in cotacoes_tabela if item.get("categoria") == "indicador_mercado"]),
             "fontes_com_sucesso": fontes_ok,
             "total_fontes_com_erro": len(fontes_erro),
             "tempo_execucao_segundos": round((agora_local() - inicio).total_seconds(), 2),
         },
         "fontes": status_fontes,
+        "diagnostico_sorgo_conab": diagnostico_sorgo_conab,
+        "debug_sorgo_conab": str(OUTPUT_DEBUG_SORGO_CONAB),
         "cotacoes": cotacoes_tabela,
         "dados": dados_html,
         "historico_30_dias": {},
@@ -3125,7 +3283,7 @@ def main() -> None:
         },
         "aviso_legal": (
             "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas "
-            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.2.4, "
+            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.2.6, "
             "a tabela principal publica preço pago ao produtor quando a fonte informar claramente, "
             "cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
             "Leite e carnes só são publicados quando a fonte indicar preço ao produtor. "
@@ -3179,6 +3337,8 @@ def main() -> None:
     print(f"CSV: {OUTPUT_CSV}")
     print(f"LOG: {OUTPUT_LOG}")
     print(f"DEBUG CONAB 360: {OUTPUT_DEBUG_CONAB_360}")
+    print(f"DEBUG SORGO CONAB: {OUTPUT_DEBUG_SORGO_CONAB}")
+    print(f"Diagnóstico Sorgo CONAB: {diagnostico_sorgo_conab.get('conclusao')}")
 
     if fontes_erro:
         print("Atenção: algumas fontes apresentaram erro:")
