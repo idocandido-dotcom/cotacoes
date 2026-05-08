@@ -1,19 +1,22 @@
 {
   "ok": true,
-  "ultima_sincronizacao": "2026-05-08 11:46:07",
-  "total_cotacoes_tabela": 23,
-  "total_cotacoes_brutas": 3870,
-  "total_dados_html": 23,
-  "total_cotacoes_descartadas_por_validacao": 0,
-  "total_cotacoes_descartadas_por_nivel": 3208,
-  "resumo_descartes_validacao": {},
+  "ultima_sincronizacao": "2026-05-08 12:06:23",
+  "total_cotacoes_tabela": 30,
+  "total_cotacoes_brutas": 12753,
+  "total_dados_html": 30,
+  "total_cotacoes_descartadas_por_validacao": 1112,
+  "total_cotacoes_descartadas_por_nivel": 10653,
+  "resumo_descartes_validacao": {
+    "preco_acima_da_faixa": 1112
+  },
   "resumo_descartes_nivel": {
-    "nivel_bloqueado_atacado": 1762,
-    "nivel_bloqueado_varejo": 1446
+    "nivel_bloqueado_atacado": 2981,
+    "nivel_bloqueado_varejo": 5278,
+    "nivel_conab_referencia_fonte_invalida": 2394
   },
   "data_limite_cotacoes_ativas": "2026-02-07",
   "dias_maximos_cotacao_ativa": 90,
-  "grupos_descartados_por_data_antiga": 28,
+  "grupos_descartados_por_data_antiga": 34,
   "fontes": [
     {
       "fonte": "AIBA",
@@ -25,7 +28,7 @@
       "fonte": "CONAB - Produtos 360º",
       "url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
       "status": "ok",
-      "total_registros": 14,
+      "total_registros": 19,
       "produtos_conab_360": [
         "Algodão",
         "Milho",
@@ -41,12 +44,14 @@
         "BA",
         "CE",
         "MA",
+        "PA",
         "PB",
         "PE",
         "PI",
-        "SE"
+        "SE",
+        "TO"
       ],
-      "observacao": "Fonte preferencial para Soja, Milho e Algodão. v1.2.2 usa chamada direta ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto.",
+      "observacao": "Fonte preferencial para Soja, Milho e Algodão. v1.2.4 usa chamada direta ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto.",
       "arquivo_debug_conab_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json",
       "total_chamadas_doquery": 3,
       "chamadas_promissoras_preview": [
@@ -63,7 +68,7 @@
             "pageStart": "0",
             "paramsearchBox": ""
           },
-          "itens_extraidos_pelo_parser_atual": 3,
+          "itens_extraidos_pelo_parser_atual": 5,
           "resumo_cda": {
             "json_valido": true,
             "metadata_colunas": [
@@ -244,7 +249,7 @@
             "pageStart": "0",
             "paramsearchBox": ""
           },
-          "itens_extraidos_pelo_parser_atual": 8,
+          "itens_extraidos_pelo_parser_atual": 10,
           "resumo_cda": {
             "json_valido": true,
             "metadata_colunas": [
@@ -425,7 +430,7 @@
             "pageStart": "0",
             "paramsearchBox": ""
           },
-          "itens_extraidos_pelo_parser_atual": 3,
+          "itens_extraidos_pelo_parser_atual": 4,
           "resumo_cda": {
             "json_valido": true,
             "metadata_colunas": [
@@ -624,7 +629,7 @@
             "DescricaoSemanal"
           ],
           "total_linhas_resultset": 16,
-          "itens_extraidos": 3,
+          "itens_extraidos": 5,
           "preview_resultset": [
             [
               "BA",
@@ -801,7 +806,7 @@
             "DescricaoSemanal"
           ],
           "total_linhas_resultset": 25,
-          "itens_extraidos": 8,
+          "itens_extraidos": 10,
           "preview_resultset": [
             [
               "AC",
@@ -978,7 +983,7 @@
             "DescricaoSemanal"
           ],
           "total_linhas_resultset": 9,
-          "itens_extraidos": 3,
+          "itens_extraidos": 4,
           "preview_resultset": [
             [
               "BA",
@@ -1114,31 +1119,37 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 1882,
+      "total_registros": 5830,
       "colunas_preco_identificadas": [
         "valor_produto_kg"
       ],
       "coluna_nivel_identificada": "dsc_nivel_comercializacao",
       "produtos_conab_publicaveis": [
+        "Boi Gordo",
+        "Carne Bovina",
         "Feijão",
+        "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.2.2: arquivos semanais usados apenas para Feijão e Sorgo; Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.2.4: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
       "status": "ok",
-      "total_registros": 1966,
+      "total_registros": 6896,
       "colunas_preco_identificadas": [
         "valor_produto_kg"
       ],
       "coluna_nivel_identificada": "dsc_nivel_comercializacao",
       "produtos_conab_publicaveis": [
+        "Boi Gordo",
+        "Carne Bovina",
         "Feijão",
+        "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.2.2: arquivos semanais usados apenas para Feijão e Sorgo; Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.2.4: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
     },
     {
       "fonte": "CEPEA/ESALQ Widget",
