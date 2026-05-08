@@ -1,59 +1,188 @@
 {
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes_produtor",
-  "versao": "2.0.0",
-  "ultima_atualizacao": "2026-05-08T13:00:00-03:00",
+  "versao": "2.0.2",
+  "ultima_atualizacao": "2026-05-08T13:30:00-03:00",
   "politica": "Usar somente preco pago ao produtor ou referencia agropecuaria identificada. Nao misturar CEASA, atacado, varejo, supermercado ou consumidor final.",
   "fontes_prioritarias": [
     {
       "nome": "CONAB",
       "uso": "Fonte principal para cotacao estadual ou local quando houver dado validado.",
-      "url": "https://www.gov.br/conab/pt-br/atuacao/informacoes-agropecuarias/precos-agropecuarios"
+      "url": "https://www.gov.br/conab/pt-br/atuacao/informacoes-agropecuarias/precos-agropecuarios",
+      "observacao": "A CONAB sera usada como base principal para precos estaduais/locais quando o coletor estiver conectado a uma base tabular ou API validada."
     },
     {
       "nome": "CEPEA/ESALQ",
       "uso": "Referencia de mercado. Nao deve ser exibida como preco local quando nao houver praca especifica.",
-      "url_boi_gordo": "https://www.cepea.esalq.usp.br/br/indicador/boi-gordo.aspx",
-      "url_leite": "https://www.cepea.esalq.usp.br/br/indicador/leite.aspx"
+      "url_boi_gordo": "https://www.cepea.org.br/br/indicador/boi-gordo.aspx",
+      "url_leite": "https://www.cepea.org.br/br/indicador/leite.aspx",
+      "observacao": "O CEPEA entra como referencia tecnica e comparativa, nao como cotacao local de PI, MA ou PA quando nao houver dado especifico."
     }
   ],
   "regras": {
-    "permitido": ["preco_produtor", "preco_mercado_agropecuario", "referencia_mercado"],
-    "bloqueado": ["ceasa", "atacado", "varejo", "supermercado", "consumidor_final"],
+    "permitido": [
+      "preco_produtor",
+      "preco_mercado_agropecuario",
+      "referencia_mercado",
+      "referencia_regional"
+    ],
+    "bloqueado": [
+      "ceasa",
+      "hortifruti",
+      "atacado",
+      "varejo",
+      "supermercado",
+      "consumidor_final",
+      "acougue"
+    ],
     "exibicao": {
       "cotacao_estadual": "Cotacao estadual/local validada",
       "referencia_mercado": "Referencia de mercado - nao e preco local",
+      "referencia_regional": "Referencia regional - nao e preco local da praca",
       "sem_dado_validado": "Dado indisponivel no momento"
     }
   },
+  "avisos": [
+    "Os valores do CEPEA/ESALQ sao exibidos como referencia de mercado.",
+    "PI, MA e PA nao devem receber preco local simulado quando nao houver dado estadual validado.",
+    "CEASA, atacado, varejo, supermercado e consumidor final estao bloqueados para leite e boi gordo.",
+    "A pagina do CEPEA consultada em 2026-05-08 exibiu boi gordo com referencia de 28/01/2026 e leite ao produtor com referencia de nov/25."
+  ],
   "dados": [
     {
       "produto": "boi_gordo",
       "nome": "Boi gordo",
       "uf": "BR",
       "praca": "Referencia CEPEA/ESALQ",
-      "preco": null,
+      "preco": 326.0,
       "unidade": "R$/@",
-      "data": null,
+      "data": "28/01/2026",
       "fonte": "CEPEA/ESALQ",
+      "url_fonte": "https://www.cepea.org.br/br/indicador/boi-gordo.aspx",
       "tipo_preco": "referencia_mercado",
       "classificacao": "referencia_mercado",
-      "status": "aguardando_coleta",
-      "observacao": "Referencia de mercado. Nao representa necessariamente preco local da praca selecionada."
+      "status": "ok",
+      "observacao": "Indicador do Boi Gordo CEPEA/ESALQ. Valor a vista por arroba de 15 kg, sem Funrural. Referencia de mercado, nao preco local da praca selecionada."
     },
     {
       "produto": "leite",
       "nome": "Leite ao produtor",
       "uf": "BR",
-      "praca": "Referencia CEPEA/ESALQ",
+      "praca": "Media Brasil CEPEA/ESALQ",
+      "preco": 2.1122,
+      "unidade": "R$/litro",
+      "data": "nov/25",
+      "fonte": "CEPEA/ESALQ",
+      "url_fonte": "https://www.cepea.org.br/br/indicador/leite.aspx",
+      "tipo_preco": "referencia_mercado",
+      "classificacao": "referencia_mercado",
+      "status": "ok",
+      "observacao": "Preco medio do leite ao produtor CEPEA/ESALQ para Brasil. Nao representa preco local de PI, MA ou PA."
+    },
+    {
+      "produto": "leite",
+      "nome": "Leite ao produtor",
+      "uf": "BA",
+      "praca": "Bahia - Referencia CEPEA/ESALQ",
+      "preco": 2.2011,
+      "unidade": "R$/litro",
+      "data": "nov/25",
+      "fonte": "CEPEA/ESALQ",
+      "url_fonte": "https://www.cepea.org.br/br/indicador/leite.aspx",
+      "tipo_preco": "referencia_regional",
+      "classificacao": "referencia_regional",
+      "status": "ok",
+      "observacao": "Referencia regional disponivel para Bahia. Nao deve ser exibida como preco local de PI, MA ou PA."
+    },
+    {
+      "produto": "boi_gordo",
+      "nome": "Boi gordo",
+      "uf": "PI",
+      "praca": "Piaui",
+      "preco": null,
+      "unidade": "R$/@",
+      "data": null,
+      "fonte": "CONAB",
+      "url_fonte": "https://www.gov.br/conab/pt-br/atuacao/informacoes-agropecuarias/precos-agropecuarios",
+      "tipo_preco": "preco_produtor",
+      "classificacao": "sem_dado_validado",
+      "status": "sem_dado_validado",
+      "observacao": "Aguardando cotacao estadual/local validada. Nao usar referencia nacional como preco local."
+    },
+    {
+      "produto": "boi_gordo",
+      "nome": "Boi gordo",
+      "uf": "MA",
+      "praca": "Maranhao",
+      "preco": null,
+      "unidade": "R$/@",
+      "data": null,
+      "fonte": "CONAB",
+      "url_fonte": "https://www.gov.br/conab/pt-br/atuacao/informacoes-agropecuarias/precos-agropecuarios",
+      "tipo_preco": "preco_produtor",
+      "classificacao": "sem_dado_validado",
+      "status": "sem_dado_validado",
+      "observacao": "Aguardando cotacao estadual/local validada. Nao usar referencia nacional como preco local."
+    },
+    {
+      "produto": "boi_gordo",
+      "nome": "Boi gordo",
+      "uf": "PA",
+      "praca": "Para",
+      "preco": null,
+      "unidade": "R$/@",
+      "data": null,
+      "fonte": "CONAB",
+      "url_fonte": "https://www.gov.br/conab/pt-br/atuacao/informacoes-agropecuarias/precos-agropecuarios",
+      "tipo_preco": "preco_produtor",
+      "classificacao": "sem_dado_validado",
+      "status": "sem_dado_validado",
+      "observacao": "Aguardando cotacao estadual/local validada. Nao usar referencia nacional como preco local."
+    },
+    {
+      "produto": "leite",
+      "nome": "Leite ao produtor",
+      "uf": "PI",
+      "praca": "Piaui",
       "preco": null,
       "unidade": "R$/litro",
       "data": null,
-      "fonte": "CEPEA/ESALQ",
-      "tipo_preco": "referencia_mercado",
-      "classificacao": "referencia_mercado",
-      "status": "aguardando_coleta",
-      "observacao": "Referencia de mercado. Nao representa necessariamente preco local da praca selecionada."
+      "fonte": "CONAB",
+      "url_fonte": "https://www.gov.br/conab/pt-br/atuacao/informacoes-agropecuarias/precos-agropecuarios",
+      "tipo_preco": "preco_produtor",
+      "classificacao": "sem_dado_validado",
+      "status": "sem_dado_validado",
+      "observacao": "Aguardando cotacao estadual/local validada. Nao usar referencia Brasil ou Bahia como preco local do Piaui."
+    },
+    {
+      "produto": "leite",
+      "nome": "Leite ao produtor",
+      "uf": "MA",
+      "praca": "Maranhao",
+      "preco": null,
+      "unidade": "R$/litro",
+      "data": null,
+      "fonte": "CONAB",
+      "url_fonte": "https://www.gov.br/conab/pt-br/atuacao/informacoes-agropecuarias/precos-agropecuarios",
+      "tipo_preco": "preco_produtor",
+      "classificacao": "sem_dado_validado",
+      "status": "sem_dado_validado",
+      "observacao": "Aguardando cotacao estadual/local validada. Nao usar referencia Brasil ou Bahia como preco local do Maranhao."
+    },
+    {
+      "produto": "leite",
+      "nome": "Leite ao produtor",
+      "uf": "PA",
+      "praca": "Para",
+      "preco": null,
+      "unidade": "R$/litro",
+      "data": null,
+      "fonte": "CONAB",
+      "url_fonte": "https://www.gov.br/conab/pt-br/atuacao/informacoes-agropecuarias/precos-agropecuarios",
+      "tipo_preco": "preco_produtor",
+      "classificacao": "sem_dado_validado",
+      "status": "sem_dado_validado",
+      "observacao": "Aguardando cotacao estadual/local validada. Nao usar referencia Brasil ou Bahia como preco local do Para."
     }
   ]
 }
