@@ -2,8 +2,10 @@ name: Atualizar Cotações Nordeste Agro
 
 on:
   schedule:
-    # 11:00 UTC = 08:00 no horário de Fortaleza
-    - cron: "0 11 * * *"
+    # Roda uma vez por dia.
+    # GitHub usa horário UTC.
+    # 11:20 UTC = 08:20 no horário de Fortaleza/Brasília.
+    - cron: "20 11 * * *"
 
   workflow_dispatch:
 
@@ -18,20 +20,12 @@ jobs:
       - name: Baixar repositório
         uses: actions/checkout@v4
 
-      - name: Mostrar estrutura do repositório
-        run: |
-          echo "Pasta atual:"
-          pwd
-          echo ""
-          echo "Arquivos encontrados no repositório:"
-          find . -maxdepth 8 -type f | sort
-
       - name: Configurar Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Instalar dependências
+      - name: Instalar dependências Python
         run: |
           python -m pip install --upgrade pip
 
@@ -42,75 +36,43 @@ jobs:
             echo "Instalando dependências de requirements.txt"
             pip install -r requirements.txt
           else
-            echo "requirements.txt não encontrado. Instalando dependências padrão."
-            pip install requests==2.32.3 beautifulsoup4==4.12.3
+            echo "requirements.txt não encontrado. Instalando dependências mínimas."
+            pip install requests beautifulsoup4 python-dateutil playwright
           fi
 
-      - name: Localizar coletor de cotações
+          # Garante o Playwright para leitura do CONAB Produtos 360º.
+          pip install playwright==1.44.0
+
+      - name: Instalar navegador Chromium do Playwright
         run: |
-          echo "Procurando coletor..."
-
-          COLETOR_PATH=""
-
-          if [ -f "cotacoes/scripts/coletor_cotacoes_nordeste.py" ]; then
-            COLETOR_PATH="cotacoes/scripts/coletor_cotacoes_nordeste.py"
-          else
-            COLETOR_PATH=$(find . -type f -name "coletor_cotacoes_nordeste*.py" | head -n 1)
-          fi
-
-          if [ -z "$COLETOR_PATH" ]; then
-            echo "ERRO: coletor não encontrado."
-            echo "Arquivos Python encontrados:"
-            find . -type f -name "*.py" | sort
-            exit 1
-          fi
-
-          echo "Coletor encontrado em: $COLETOR_PATH"
-          echo "COLETOR_PATH=$COLETOR_PATH" >> "$GITHUB_ENV"
+          python -m playwright install --with-deps chromium
 
       - name: Rodar coletor de cotações
         run: |
-          echo "Rodando coletor:"
-          echo "$COLETOR_PATH"
-          python "$COLETOR_PATH"
+          python cotacoes/scripts/coletor_cotacoes.py
 
-      - name: Verificar arquivos gerados
+      - name: Conferir arquivos gerados
         run: |
-          echo "Verificando arquivos gerados..."
+          echo "Arquivos gerados em cotacoes/public:"
+          find cotacoes/public -maxdepth 2 -type f | sort
 
           echo ""
-          echo "Arquivos JSON encontrados:"
-          find . -type f -name "*.json" | sort
+          echo "Arquivos gerados em cotacoes/logs:"
+          find cotacoes/logs -maxdepth 2 -type f | sort || true
 
-          echo ""
-          echo "Arquivos CSV encontrados:"
-          find . -type f -name "*.csv" | sort
-
-          if [ -f "cotacoes/public/cotacoes_nordeste.json" ]; then
-            python -m json.tool cotacoes/public/cotacoes_nordeste.json > /dev/null
-            echo "cotacoes/public/cotacoes_nordeste.json OK"
-          else
-            echo "Aviso: cotacoes/public/cotacoes_nordeste.json não encontrado."
-          fi
-
-          if [ -f "cotacoes/public/cotacoes_regionais.json" ]; then
-            python -m json.tool cotacoes/public/cotacoes_regionais.json > /dev/null
-            echo "cotacoes/public/cotacoes_regionais.json OK"
-          else
-            echo "Aviso: cotacoes/public/cotacoes_regionais.json não encontrado."
-          fi
-
-      - name: Salvar atualização no repositório
+      - name: Salvar alterações no GitHub
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          git add cotacoes/public/*.json || true
-          git add cotacoes/public/*.csv || true
-          git add cotacoes/logs/*.json || true
+          git add cotacoes/public/cotacoes_nordeste.json || true
+          git add cotacoes/public/cotacoes_regionais.json || true
+          git add cotacoes/public/cotacoes_nordeste.csv || true
+          git add cotacoes/logs/status_ultima_execucao.json || true
 
-          git commit -m "Atualizar cotações Nordeste Agro" || echo "Sem alterações para commit"
-          git push
-          - name: Instalar navegador Chromium do Playwright
-  run: |
-    python -m playwright install --with-deps chromium
+          if git diff --cached --quiet; then
+            echo "Nenhuma alteração para salvar."
+          else
+            git commit -m "Atualizar cotações Nordeste Agro"
+            git push
+          fi
