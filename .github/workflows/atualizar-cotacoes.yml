@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   atualizar-cotacoes:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Baixar repositório
@@ -37,15 +37,14 @@ jobs:
             pip install -r requirements.txt
           else
             echo "requirements.txt não encontrado. Instalando dependências mínimas."
-            pip install requests beautifulsoup4 python-dateutil playwright
+            pip install requests beautifulsoup4 lxml python-dateutil playwright==1.44.0
           fi
 
-          # Garante o Playwright para leitura do CONAB Produtos 360º.
           pip install playwright==1.44.0
 
       - name: Instalar navegador Chromium do Playwright
         run: |
-          python -m playwright install --with-deps chromium
+          python -m playwright install chromium
 
       - name: Rodar coletor de cotações
         run: |
