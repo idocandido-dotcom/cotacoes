@@ -1,0 +1,59 @@
+{
+  "projeto": "Nordeste Agro",
+  "modulo": "cotacoes_produtor",
+  "versao": "2.0.0",
+  "ultima_atualizacao": "2026-05-08T13:00:00-03:00",
+  "politica": "Usar somente preco pago ao produtor ou referencia agropecuaria identificada. Nao misturar CEASA, atacado, varejo, supermercado ou consumidor final.",
+  "fontes_prioritarias": [
+    {
+      "nome": "CONAB",
+      "uso": "Fonte principal para cotacao estadual ou local quando houver dado validado.",
+      "url": "https://www.gov.br/conab/pt-br/atuacao/informacoes-agropecuarias/precos-agropecuarios"
+    },
+    {
+      "nome": "CEPEA/ESALQ",
+      "uso": "Referencia de mercado. Nao deve ser exibida como preco local quando nao houver praca especifica.",
+      "url_boi_gordo": "https://www.cepea.esalq.usp.br/br/indicador/boi-gordo.aspx",
+      "url_leite": "https://www.cepea.esalq.usp.br/br/indicador/leite.aspx"
+    }
+  ],
+  "regras": {
+    "permitido": ["preco_produtor", "preco_mercado_agropecuario", "referencia_mercado"],
+    "bloqueado": ["ceasa", "atacado", "varejo", "supermercado", "consumidor_final"],
+    "exibicao": {
+      "cotacao_estadual": "Cotacao estadual/local validada",
+      "referencia_mercado": "Referencia de mercado - nao e preco local",
+      "sem_dado_validado": "Dado indisponivel no momento"
+    }
+  },
+  "dados": [
+    {
+      "produto": "boi_gordo",
+      "nome": "Boi gordo",
+      "uf": "BR",
+      "praca": "Referencia CEPEA/ESALQ",
+      "preco": null,
+      "unidade": "R$/@",
+      "data": null,
+      "fonte": "CEPEA/ESALQ",
+      "tipo_preco": "referencia_mercado",
+      "classificacao": "referencia_mercado",
+      "status": "aguardando_coleta",
+      "observacao": "Referencia de mercado. Nao representa necessariamente preco local da praca selecionada."
+    },
+    {
+      "produto": "leite",
+      "nome": "Leite ao produtor",
+      "uf": "BR",
+      "praca": "Referencia CEPEA/ESALQ",
+      "preco": null,
+      "unidade": "R$/litro",
+      "data": null,
+      "fonte": "CEPEA/ESALQ",
+      "tipo_preco": "referencia_mercado",
+      "classificacao": "referencia_mercado",
+      "status": "aguardando_coleta",
+      "observacao": "Referencia de mercado. Nao representa necessariamente preco local da praca selecionada."
+    }
+  ]
+}
