@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.2.9
+Nordeste Agro — Coletor Automático de Cotações v1.3.0
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -45,7 +45,7 @@ Melhorias desta versão:
   * mantém apenas um valor por data no historico_30_dias.
 - Melhora classificação visual:
   * reforça Regional, Atacado, Produtor e Média UF para o HTML.
-- Política de publicação v1.2.9:
+- Política de publicação v1.3.0:
   * publica preço ao produtor, cotação regional produtiva ou referência oficial CONAB.
   * usa CONAB Produtos 360º como fonte para Soja, Milho e Algodão.
   * usa arquivos semanais da CONAB apenas para Feijão e Sorgo.
@@ -92,10 +92,16 @@ OUTPUT_LOG = LOGS_DIR / "status_ultima_execucao.json"
 OUTPUT_DEBUG_CONAB_360 = LOGS_DIR / "debug_conab_produtos_360.json"
 OUTPUT_DEBUG_SORGO_CONAB = LOGS_DIR / "debug_sorgo_conab.json"
 OUTPUT_DEBUG_LEITE_CARNE_CONAB = LOGS_DIR / "debug_leite_carne_conab.json"
+OUTPUT_DEBUG_PECUARIA = LOGS_DIR / "debug_pecuaria_fontes.json"
 OUTPUT_DEBUG_CEASAS = LOGS_DIR / "debug_ceasas.json"
 
 AIBA_URL = "https://aiba.org.br/cotacoes/"
 SEAGRI_BA_COTACOES_URL = "https://www.ba.gov.br/seagri/cotacao"
+CEPEA_LEITE_URL = "https://cepea.org.br/br/indicador/leite.aspx"
+CEPEA_BOI_GORDO_URL = "https://cepea.org.br/br/indicador/boi-gordo.aspx"
+ACRIOESTE_URL = "https://acrioeste.org.br/"
+AGROLINK_MA_IMPERATRIZ_URL = "https://www.agrolink.com.br/regional/ma/imperatriz/cotacoes"
+AGROLINK_PA_MARABA_URL = "https://www.agrolink.com.br/regional/pa/maraba/cotacoes"
 
 PROHORT_PRECO_DIA_URL = "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/%3Ahome%3APROHORT%3AprecoDia.wcdf/generatedContent?password=password&userid=pentaho"
 CEASA_CE_BOLETIM_URL = "https://files.ceasa-ce.com.br/unsima/boletim_diario/boletim.php"
@@ -173,7 +179,7 @@ HEADERS = {
 
 # UFs monitoradas pela página de Cotações.
 # Mantemos o nome da constante por compatibilidade com o restante do código,
-# mas a partir da v1.2.9 incluímos também Pará e Tocantins por relevância
+# mas a partir da v1.3.0 incluímos também Pará e Tocantins por relevância
 # agrícola no MATOPIBA/Norte e para complementar as referências da CONAB 360º.
 UFS_NORDESTE = {
     "AL": "Alagoas",
@@ -225,18 +231,18 @@ TIPOS_REAIS = {
 # soja, milho, sorgo, arroz e feijão devem aparecer por saca de 60 kg.
 PRODUTOS_SACA_60KG = {"Soja", "Milho", "Sorgo", "Arroz", "Feijão"}
 
-# Regra v1.2.9: na CONAB vamos publicar somente os 5 produtos definidos
+# Regra v1.3.0: na CONAB vamos publicar somente os 5 produtos definidos
 # para esta etapa da página Cotações. Isso evita que leite/carne/boi entrem
 # pela CONAB com unidade ou nível de comercialização inadequado.
 PRODUTOS_CONAB_OFICIAIS = {"Soja", "Milho", "Algodão", "Feijão", "Sorgo"}
 
-# v1.2.9: soja, milho e algodão não devem mais sair dos arquivos semanais,
+# v1.3.0: soja, milho e algodão não devem mais sair dos arquivos semanais,
 # porque esses arquivos trouxeram datas antigas. Para esses três produtos,
 # a fonte operacional passa a ser o painel CONAB Produtos 360º.
 PRODUTOS_CONAB_360 = {"Soja", "Milho", "Algodão"}
 
 # Feijão e sorgo continuam nos arquivos semanais/Preços Agropecuários.
-# A partir da v1.2.9, leite e carnes também são lidos desses arquivos,
+# A partir da v1.3.0, leite e carnes também são lidos desses arquivos,
 # mas com regra mais rígida: só entram na tabela se a linha vier claramente
 # como preço ao produtor. Varejo, atacado e nível não informado continuam fora.
 PRODUTOS_CONAB_TXT = {"Feijão", "Sorgo", "Leite", "Boi Gordo", "Carne Bovina"}
@@ -982,7 +988,8 @@ def validar_item_publicavel(item: dict[str, Any]) -> tuple[bool, str]:
     categoria = limpar_texto(item.get("categoria"))
     fonte = limpar_texto(item.get("fonte"))
 
-    if categoria and categoria not in {"commodity_agricola", "hortifruti_ceasa"}:
+    categorias_publicaveis = {"commodity_agricola", "hortifruti_ceasa", "pecuaria_leite", "pecuaria_corte"}
+    if categoria and categoria not in categorias_publicaveis:
         return False, f"categoria_nao_publicavel:{categoria}"
 
     if categoria == "hortifruti_ceasa":
@@ -1126,7 +1133,7 @@ def forcar_referencia_conab(item: dict[str, Any]) -> bool:
 
 def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     """
-    Política v1.2.9:
+    Política v1.3.0:
     - Publicar preço pago ao produtor quando a fonte informar claramente.
     - Publicar cotação regional produtiva, como AIBA.
     - Publicar referência oficial CONAB para soja, milho, algodão, feijão e sorgo
@@ -1165,7 +1172,7 @@ def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     if nivel == "preco_regional":
         return True, "ok_preco_regional"
 
-    # Correção v1.2.9: CONAB sem nível claro, média UF ou não informado
+    # Correção v1.3.0: CONAB sem nível claro, média UF ou não informado
     # entra como Referência CONAB, desde que não seja atacado/varejo/indicador.
     if forcar_referencia_conab(item):
         return True, "ok_referencia_oficial_conab_forcada"
@@ -1523,14 +1530,14 @@ def detectar_nivel_conab(
         return texto
 
     if produto_base in PRODUTOS_CONAB_OFICIAIS and tipo_fonte_conab == "semanal_municipio":
-        # Regra v1.2.9: quando a base semanal por município da CONAB não informa
+        # Regra v1.3.0: quando a base semanal por município da CONAB não informa
         # explicitamente atacado, varejo ou produtor, ela entra como referência
         # oficial CONAB por praça. Não rotulamos como "Produtor" para não criar
         # uma informação que a própria linha não informou.
         return "referencia conab municipal"
 
     if produto_base in PRODUTOS_CONAB_OFICIAIS and tipo_fonte_conab == "semanal_uf":
-        # Regra v1.2.9: quando a base semanal por UF da CONAB não informa nível
+        # Regra v1.3.0: quando a base semanal por UF da CONAB não informa nível
         # de comercialização, ela entra como referência oficial estadual CONAB.
         # Atacado e varejo continuam bloqueados acima.
         return "referencia conab estadual"
@@ -2305,7 +2312,7 @@ def coletar_conab_360_direto_cda() -> tuple[list[dict[str, Any]], list[dict[str,
     """
     Coleta do CONAB Produtos 360º.
 
-    v1.2.9:
+    v1.3.0:
     - primeiro abre o generatedContent para criar sessão Pentaho;
     - tenta POST direto com cookies da sessão;
     - se o endpoint responder 401 ou não retornar dados, usa fallback Playwright
@@ -2478,7 +2485,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     """
     Coleta preferencial para Soja, Milho e Algodão no painel CONAB Produtos 360º.
 
-    v1.2.9:
+    v1.3.0:
     - usa chamada direta ao CDA identificada no debug;
     - publica dados por UF do Nordeste;
     - mantém debug para conferência.
@@ -2530,7 +2537,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     debug_payload = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
-        "versao": "1.2.9",
+        "versao": "1.3.0",
         "gerado_em": agora_local().isoformat(),
         "objetivo": (
             "Coletar diretamente do CONAB Produtos 360º/Pentaho a consulta CDA "
@@ -2559,7 +2566,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
             "produtos_extraidos": produtos_extraidos,
             "ufs_extraidas": ufs_extraidas,
             "observacao": (
-                "Fonte preferencial para Soja, Milho e Algodão. v1.2.9 usa chamada direta "
+                "Fonte preferencial para Soja, Milho e Algodão. v1.3.0 usa chamada direta "
                 "ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto."
             ),
             "arquivo_debug_conab_360": str(OUTPUT_DEBUG_CONAB_360),
@@ -2574,7 +2581,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
 
 def produto_seagri_ba_interessa(produto: Any) -> bool:
     produto_base = normalizar_produto_base(produto)
-    return produto_base in {"Feijão", "Sorgo"}
+    return produto_base in {"Feijão", "Sorgo", "Leite", "Boi Gordo"}
 
 
 def montar_url_debug_seagri_ba(params: dict[str, Any]) -> str:
@@ -2635,7 +2642,7 @@ def extrair_linhas_seagri_ba_html(html: str) -> list[dict[str, str]]:
 
     padrao = re.compile(
         r"(\d{2}/\d{2}/\d{4})\s+"
-        r"(Feij[aã]o|Sorgo)\s+"
+        r"(Feij[aã]o|Sorgo|Leite|Boi\s+Gordo)\s+"
         r"([A-ZÁÀÂÃÉÊÍÓÔÕÚÇ0-9' ./-]{2,80})\s+"
         r"([A-Za-zÀ-ÿ0-9ªº()/ .-]{2,50})\s+"
         r"(sc\s*60\s*kg|saca\s*60\s*kg|saca 60 kg|quilo|kg|litro|arroba|@)\s+"
@@ -2665,7 +2672,7 @@ def extrair_linhas_seagri_ba_html(html: str) -> list[dict[str, str]]:
 
 def coletar_seagri_ba(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """
-    SEAGRI-BA — fonte complementar para Feijão e Sorgo.
+    SEAGRI-BA — fonte complementar para Feijão, Sorgo, Leite e Boi Gordo.
 
     Uso na página:
     - entra como Referência SEAGRI-BA / Regional;
@@ -2749,7 +2756,7 @@ def coletar_seagri_ba(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any
                     produto_original = produto
 
                 produto_base = normalizar_produto_base(produto_original)
-                if produto_base not in {"Feijão", "Sorgo"}:
+                if produto_base not in {"Feijão", "Sorgo", "Leite", "Boi Gordo"}:
                     continue
 
                 praca = limpar_texto(linha.get("praca")) or "Bahia"
@@ -2772,7 +2779,7 @@ def coletar_seagri_ba(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any
                         nivel_comercializacao="referencia seagri ba",
                         observacao=(
                             "Cotação regional publicada pela SEAGRI-BA. "
-                            "Fonte complementar para Feijão e Sorgo; linhas 'Sem cotação' são ignoradas."
+                            "Fonte complementar para Feijão, Sorgo, Leite e Boi Gordo; linhas 'Sem cotação' são ignoradas."
                         ),
                     )
                 )
@@ -2807,7 +2814,7 @@ def coletar_seagri_ba(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any
             "url": SEAGRI_BA_COTACOES_URL,
             "status": status,
             "total_registros": len(cotacoes_finais),
-            "produtos_monitorados": ["Feijão", "Sorgo"],
+            "produtos_monitorados": ["Feijão", "Sorgo", "Leite", "Boi Gordo"],
             "periodo_consultado": f"{data_inicio.isoformat()} a {data_fim.isoformat()}",
             "paginas_lidas": paginas_lidas,
             "linhas_encontradas_feijao_sorgo": linhas_encontradas,
@@ -2815,13 +2822,383 @@ def coletar_seagri_ba(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any
             "linhas_preco_invalido_ignoradas": linhas_preco_invalido,
             "erros_paginas": erros_paginas[:10],
             "observacao": (
-                "Fonte complementar estadual para Feijão e Sorgo. "
+                "Fonte complementar estadual para Feijão, Sorgo, Leite e Boi Gordo. "
                 "Publicada como Referência SEAGRI-BA/Regional, sem misturar com CONAB 360."
             ),
         }
     )
 
     return cotacoes_finais
+
+
+
+def salvar_debug_pecuaria(debug: dict[str, Any]) -> None:
+    LOGS_DIR.mkdir(parents=True, exist_ok=True)
+    OUTPUT_DEBUG_PECUARIA.write_text(
+        json.dumps(debug, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+def extrair_data_mensal_ou_diaria(texto: str) -> str:
+    """Extrai data diária ou referência mensal de textos de indicadores."""
+    texto_limpo = limpar_texto(texto)
+
+    match = re.search(r"(\d{2}/\d{2}/\d{4}|\d{2}-\d{2}-\d{4}|\d{4}-\d{2}-\d{2})", texto_limpo)
+    if match:
+        return parse_data(match.group(1))
+
+    meses = {
+        "jan": "01", "janeiro": "01",
+        "fev": "02", "fevereiro": "02",
+        "mar": "03", "marco": "03", "março": "03",
+        "abr": "04", "abril": "04",
+        "mai": "05", "maio": "05",
+        "jun": "06", "junho": "06",
+        "jul": "07", "julho": "07",
+        "ago": "08", "agosto": "08",
+        "set": "09", "setembro": "09",
+        "out": "10", "outubro": "10",
+        "nov": "11", "novembro": "11",
+        "dez": "12", "dezembro": "12",
+    }
+
+    texto_norm = remover_acentos(texto_limpo).lower()
+    match = re.search(r"\b(jan(?:eiro)?|fev(?:ereiro)?|mar(?:co)?|abr(?:il)?|mai(?:o)?|jun(?:ho)?|jul(?:ho)?|ago(?:sto)?|set(?:embro)?|out(?:ubro)?|nov(?:embro)?|dez(?:embro)?)[./ -]*(\d{2}|\d{4})\b", texto_norm)
+    if match:
+        mes_raw, ano_raw = match.groups()
+        mes = meses.get(mes_raw[:3], "01")
+        ano = int(ano_raw)
+        if ano < 100:
+            ano += 2000
+        return f"{ano:04d}-{mes}-01"
+
+    return agora_local().date().isoformat()
+
+
+def extrair_precos_por_intervalo(texto: str, minimo: float, maximo: float) -> list[float]:
+    candidatos = []
+    for bruto in re.findall(r"\b\d{1,4}(?:\.\d{3})*,\d{2,4}\b|\b\d{1,4}\.\d{2,4}\b", texto):
+        valor = parse_preco(bruto)
+        if valor is not None and minimo <= valor <= maximo:
+            candidatos.append(valor)
+    return candidatos
+
+
+def extrair_cepea_leite(html: str) -> list[dict[str, Any]]:
+    """
+    Extrai o indicador CEPEA/ESALQ de leite ao produtor.
+    Publica com segurança apenas linhas de Brasil/BA quando forem encontradas.
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    texto_total = soup.get_text(" ", strip=True)
+    data_ref = extrair_data_mensal_ou_diaria(texto_total)
+    periodo = "Referência mensal CEPEA/ESALQ"
+    itens: list[dict[str, Any]] = []
+
+    linhas_candidatas: list[list[str]] = []
+    for tr in soup.find_all("tr"):
+        celulas = [limpar_texto(td.get_text(" ", strip=True)) for td in tr.find_all(["td", "th"])]
+        celulas = [c for c in celulas if c]
+        if celulas:
+            linhas_candidatas.append(celulas)
+
+    # Fallback: quebra texto em linhas visíveis.
+    if not linhas_candidatas:
+        linhas_candidatas = [[linha] for linha in soup.get_text("\n", strip=True).splitlines() if limpar_texto(linha)]
+
+    alvos = {
+        "BA": ("BA", "Bahia", "Bahia"),
+        "BR": ("REF", "Referência CEPEA", "Brasil"),
+    }
+
+    vistos: set[str] = set()
+    for celulas in linhas_candidatas:
+        linha = " | ".join(celulas)
+        linha_norm = remover_acentos(linha).lower()
+
+        alvo_key = None
+        if re.search(r"\bba\b", linha_norm) or "bahia" in linha_norm:
+            alvo_key = "BA"
+        elif "brasil" in linha_norm or re.search(r"\bmedia brasil\b", linha_norm):
+            alvo_key = "BR"
+
+        if not alvo_key or alvo_key in vistos:
+            continue
+
+        precos = extrair_precos_por_intervalo(linha, 0.5, 8.0)
+        if not precos:
+            continue
+
+        preco = precos[0]
+        uf, estado, praca = alvos[alvo_key]
+        item = criar_item(
+            produto_original="Leite — Preço ao Produtor CEPEA/ESALQ",
+            uf=uf,
+            estado_nome=estado,
+            praca=praca,
+            unidade="Litro",
+            preco=preco,
+            variacao_percentual=None,
+            data_referencia=data_ref,
+            fonte="CEPEA/ESALQ",
+            fonte_url=CEPEA_LEITE_URL,
+            tipo_fonte="oficial",
+            nivel_comercializacao="preço recebido pelo produtor cepea",
+            categoria="pecuaria_leite",
+            observacao=(
+                "Indicador CEPEA/ESALQ de leite ao produtor. "
+                "Referência mensal em R$/litro; não é cotação diária."
+            ),
+        )
+        item["periodo_referencia"] = periodo
+        itens.append(item)
+        vistos.add(alvo_key)
+
+    # Fallback final: quando a página trouxer apenas um valor geral do indicador.
+    if not itens:
+        precos = extrair_precos_por_intervalo(texto_total, 0.5, 8.0)
+        if precos:
+            item = criar_item(
+                produto_original="Leite — Preço ao Produtor CEPEA/ESALQ",
+                uf="REF",
+                estado_nome="Referência CEPEA",
+                praca="Brasil",
+                unidade="Litro",
+                preco=precos[0],
+                variacao_percentual=None,
+                data_referencia=data_ref,
+                fonte="CEPEA/ESALQ",
+                fonte_url=CEPEA_LEITE_URL,
+                tipo_fonte="oficial",
+                nivel_comercializacao="preço recebido pelo produtor cepea",
+                categoria="pecuaria_leite",
+                observacao=(
+                    "Indicador CEPEA/ESALQ de leite ao produtor. "
+                    "Referência mensal em R$/litro; não é cotação diária."
+                ),
+            )
+            item["periodo_referencia"] = periodo
+            itens.append(item)
+
+    return itens
+
+
+def extrair_cepea_boi_gordo(html: str) -> Optional[dict[str, Any]]:
+    soup = BeautifulSoup(html, "html.parser")
+    texto = soup.get_text(" ", strip=True)
+    extraido = extrair_primeiro_indicador_cepea(texto)
+
+    if extraido:
+        data_ref, preco, variacao = extraido
+    else:
+        precos = extrair_precos_por_intervalo(texto, 100.0, 500.0)
+        if not precos:
+            return None
+        data_ref = extrair_data_mensal_ou_diaria(texto)
+        preco = precos[0]
+        variacao = None
+
+    item = criar_item(
+        produto_original="Boi Gordo — Indicador CEPEA/ESALQ",
+        uf="REF",
+        estado_nome="Referência CEPEA",
+        praca="Indicador CEPEA/ESALQ",
+        unidade="Arroba (@)",
+        preco=preco,
+        variacao_percentual=variacao,
+        data_referencia=data_ref,
+        fonte="CEPEA/ESALQ",
+        fonte_url=CEPEA_BOI_GORDO_URL,
+        tipo_fonte="oficial",
+        nivel_comercializacao="referência de preço ao produtor cepea",
+        categoria="pecuaria_corte",
+        observacao=(
+            "Indicador CEPEA/ESALQ do Boi Gordo. "
+            "Referência institucional de mercado físico em R$/arroba."
+        ),
+    )
+    return item
+
+
+def diagnosticar_acrioeste() -> dict[str, Any]:
+    debug: dict[str, Any] = {
+        "fonte": "ACRIOESTE",
+        "url": ACRIOESTE_URL,
+        "status": "nao_testado",
+        "publicacao_automatica": False,
+        "observacao": "Diagnóstico de fonte regional do Oeste Baiano para leite e boi; não publica até parser ficar estável.",
+    }
+    try:
+        html = baixar_texto(ACRIOESTE_URL, timeout=90)
+        texto = BeautifulSoup(html, "html.parser").get_text(" ", strip=True)
+        debug.update(
+            {
+                "status": "ok" if texto else "sem_conteudo",
+                "tem_boi": "boi" in remover_acentos(texto).lower(),
+                "tem_leite": "leite" in remover_acentos(texto).lower(),
+                "precos_boi_candidatos": extrair_precos_por_intervalo(texto, 100.0, 500.0)[:20],
+                "precos_leite_candidatos": extrair_precos_por_intervalo(texto, 0.5, 8.0)[:20],
+                "preview": limitar_texto_debug(texto, 2500),
+            }
+        )
+    except Exception as erro:
+        debug.update({"status": "erro", "erro": str(erro)})
+    return debug
+
+
+def diagnosticar_agrolink_pecuaria() -> list[dict[str, Any]]:
+    resultados = []
+    for nome, url in [
+        ("Agrolink MA - Imperatriz", AGROLINK_MA_IMPERATRIZ_URL),
+        ("Agrolink PA - Marabá", AGROLINK_PA_MARABA_URL),
+    ]:
+        debug: dict[str, Any] = {
+            "fonte": nome,
+            "url": url,
+            "status": "nao_testado",
+            "publicacao_automatica": False,
+            "observacao": "Diagnóstico de referência de mercado para boi gordo por praça; não publica automaticamente nesta versão.",
+        }
+        try:
+            html = baixar_texto(url, timeout=90)
+            texto = BeautifulSoup(html, "html.parser").get_text(" ", strip=True)
+            debug.update(
+                {
+                    "status": "ok" if texto else "sem_conteudo",
+                    "tem_boi_gordo": "boi gordo" in remover_acentos(texto).lower(),
+                    "precos_boi_candidatos": extrair_precos_por_intervalo(texto, 100.0, 500.0)[:20],
+                    "preview": limitar_texto_debug(texto, 2500),
+                }
+            )
+        except Exception as erro:
+            debug.update({"status": "erro", "erro": str(erro)})
+        resultados.append(debug)
+    return resultados
+
+
+def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """
+    Pecuária v1.3.0:
+    - publica CEPEA/ESALQ para Leite ao Produtor e Boi Gordo;
+    - mantém ACRIOESTE e Agrolink como diagnóstico, sem publicação automática;
+    - não publica Carne Bovina, pois costuma ser varejo/atacado em kg.
+    """
+    cotacoes: list[dict[str, Any]] = []
+    debug: dict[str, Any] = {
+        "projeto": "Nordeste Agro",
+        "modulo": "pecuaria_leite_boi",
+        "versao": "1.3.0",
+        "gerado_em": agora_local().isoformat(),
+        "politica": "Leite e Boi Gordo entram por fontes institucionais/regionais seguras. Carne bovina em kg não é publicada na tabela principal.",
+        "fontes": [],
+    }
+
+    # CEPEA Leite ao Produtor.
+    try:
+        html = baixar_texto(CEPEA_LEITE_URL, timeout=90)
+        itens_leite = extrair_cepea_leite(html)
+        cotacoes.extend(itens_leite)
+        status_fontes.append(
+            {
+                "fonte": "CEPEA/ESALQ - Leite ao Produtor",
+                "url": CEPEA_LEITE_URL,
+                "status": "ok" if itens_leite else "sem_registros_extraidos",
+                "total_registros": len(itens_leite),
+                "categoria": "pecuaria_leite",
+                "observacao": "Indicador institucional de leite ao produtor em R$/litro. Referência mensal.",
+            }
+        )
+        debug["fontes"].append(
+            {
+                "fonte": "CEPEA/ESALQ - Leite ao Produtor",
+                "url": CEPEA_LEITE_URL,
+                "status": "ok" if itens_leite else "sem_registros_extraidos",
+                "total_registros": len(itens_leite),
+                "amostra": itens_leite[:5],
+            }
+        )
+    except Exception as erro:
+        status_fontes.append(
+            {
+                "fonte": "CEPEA/ESALQ - Leite ao Produtor",
+                "url": CEPEA_LEITE_URL,
+                "status": "erro",
+                "erro": str(erro),
+                "categoria": "pecuaria_leite",
+            }
+        )
+        debug["fontes"].append({"fonte": "CEPEA/ESALQ - Leite ao Produtor", "url": CEPEA_LEITE_URL, "status": "erro", "erro": str(erro)})
+
+    # CEPEA Boi Gordo.
+    try:
+        html = baixar_texto(CEPEA_BOI_GORDO_URL, timeout=90)
+        item_boi = extrair_cepea_boi_gordo(html)
+        itens_boi = [item_boi] if item_boi else []
+        cotacoes.extend(itens_boi)
+        status_fontes.append(
+            {
+                "fonte": "CEPEA/ESALQ - Boi Gordo",
+                "url": CEPEA_BOI_GORDO_URL,
+                "status": "ok" if itens_boi else "sem_registros_extraidos",
+                "total_registros": len(itens_boi),
+                "categoria": "pecuaria_corte",
+                "observacao": "Indicador institucional do Boi Gordo em R$/arroba.",
+            }
+        )
+        debug["fontes"].append(
+            {
+                "fonte": "CEPEA/ESALQ - Boi Gordo",
+                "url": CEPEA_BOI_GORDO_URL,
+                "status": "ok" if itens_boi else "sem_registros_extraidos",
+                "total_registros": len(itens_boi),
+                "amostra": itens_boi[:5],
+            }
+        )
+    except Exception as erro:
+        status_fontes.append(
+            {
+                "fonte": "CEPEA/ESALQ - Boi Gordo",
+                "url": CEPEA_BOI_GORDO_URL,
+                "status": "erro",
+                "erro": str(erro),
+                "categoria": "pecuaria_corte",
+            }
+        )
+        debug["fontes"].append({"fonte": "CEPEA/ESALQ - Boi Gordo", "url": CEPEA_BOI_GORDO_URL, "status": "erro", "erro": str(erro)})
+
+    # Diagnósticos regionais sem publicação automática.
+    acrioeste_debug = diagnosticar_acrioeste()
+    debug["fontes"].append(acrioeste_debug)
+    status_fontes.append(
+        {
+            "fonte": "ACRIOESTE",
+            "url": ACRIOESTE_URL,
+            "status": acrioeste_debug.get("status"),
+            "total_registros": 0,
+            "categoria": "diagnostico_pecuaria",
+            "observacao": "Diagnóstico regional do Oeste Baiano para leite/boi. Não publicado automaticamente nesta versão.",
+        }
+    )
+
+    for agrolink_debug in diagnosticar_agrolink_pecuaria():
+        debug["fontes"].append(agrolink_debug)
+        status_fontes.append(
+            {
+                "fonte": agrolink_debug.get("fonte"),
+                "url": agrolink_debug.get("url"),
+                "status": agrolink_debug.get("status"),
+                "total_registros": 0,
+                "categoria": "diagnostico_pecuaria",
+                "observacao": "Diagnóstico de referência de mercado para boi por praça. Não publicado automaticamente nesta versão.",
+            }
+        )
+
+    debug["total_cotacoes_publicaveis_extraidas"] = len(cotacoes)
+    debug["produtos_extraidos"] = sorted({item.get("produto_base") for item in cotacoes if item.get("produto_base")})
+    debug["ufs_extraidas"] = sorted({item.get("uf") for item in cotacoes if item.get("uf")})
+    salvar_debug_pecuaria(debug)
+    return cotacoes
 
 
 def salvar_debug_ceasas(debug: dict[str, Any]) -> None:
@@ -3148,7 +3525,7 @@ def diagnosticar_prohort(status_fontes: list[dict[str, Any]]) -> dict[str, Any]:
             "status": debug.get("status"),
             "total_registros": 0,
             "categoria": "hortifruti_ceasa",
-            "observacao": "Fonte nacional prioritária para CEASAS. v1.2.9 mantém diagnóstico; publicação será ativada após mapear a CDA do painel.",
+            "observacao": "Fonte nacional prioritária para CEASAS. v1.3.0 mantém diagnóstico; publicação será ativada após mapear a CDA do painel.",
         }
     )
     return debug
@@ -3165,7 +3542,7 @@ def coletar_ceasas(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     debug = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes_ceasas",
-        "versao": "1.2.9",
+        "versao": "1.3.0",
         "gerado_em": agora_local().isoformat(),
         "politica": "CEASA/Hortifruti é preço de atacado. Não misturar com preço ao produtor.",
         "fontes": [],
@@ -3261,7 +3638,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
                 unidade = limpar_texto(linha.get(col_unidade, "")) if col_unidade else ""
 
-                # v1.2.9: os arquivos CONAB Preços Agropecuários são semanais.
+                # v1.3.0: os arquivos CONAB Preços Agropecuários são semanais.
                 # Quando a fonte trouxer apenas uma data, mostramos como "Semana de DD/MM/AAAA"
                 # para não dar a impressão de preço diário.
                 data_original_conab = linha.get(col_data, "") if col_data else agora_local().date().isoformat()
@@ -3288,7 +3665,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
                     nivel_chave, nivel_label, _ = normalizar_nivel_preco(nivel_texto)
 
-                    # Correção v1.2.9: quando a CONAB não informar claramente
+                    # Correção v1.3.0: quando a CONAB não informar claramente
                     # o nível, publicamos como Referência CONAB, sem chamar de
                     # preço ao produtor. Atacado e varejo continuam bloqueados.
                     if nivel_chave in {"nao_informado", "media_uf"}:
@@ -3336,7 +3713,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "colunas_preco_identificadas": colunas_preco,
                     "coluna_nivel_identificada": col_nivel,
                     "produtos_conab_publicaveis": sorted(PRODUTOS_CONAB_TXT),
-                    "observacao": "v1.2.9: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º.",
+                    "observacao": "v1.3.0: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º.",
                 }
             )
 
@@ -3582,7 +3959,7 @@ def consolidar_mais_recentes(
     """
     Consolida a base para uso no site.
 
-    Regra v1.2.9:
+    Regra v1.3.0:
     - Agrupa todos os registros brutos por fonte + produto + UF + praça + unidade.
     - Dentro de cada grupo, mantém apenas o item mais recente.
     - Se o item mais recente do grupo for mais antigo que data_corte_iso, o grupo inteiro
@@ -3992,7 +4369,7 @@ def salvar_log(payload: dict[str, Any]) -> None:
         "debug_conab_produtos_360": str(OUTPUT_DEBUG_CONAB_360),
         "debug_sorgo_conab": str(OUTPUT_DEBUG_SORGO_CONAB),
         "debug_leite_carne_conab": str(OUTPUT_DEBUG_LEITE_CARNE_CONAB),
-        "debug_ceasas": str(OUTPUT_DEBUG_CEASAS),
+        "debug_pecuaria": str(OUTPUT_DEBUG_PECUARIA),
         "diagnostico_sorgo_conab": payload.get("diagnostico_sorgo_conab", {}),
         "diagnostico_leite_carne_conab": payload.get("diagnostico_leite_carne_conab", {}),
     }
@@ -4010,7 +4387,7 @@ def main() -> None:
     cotacoes_brutas: list[dict[str, Any]] = []
     cotacoes_brutas.extend(coletar_aiba(status_fontes))
     cotacoes_brutas.extend(coletar_seagri_ba(status_fontes))
-    cotacoes_brutas.extend(coletar_ceasas(status_fontes))
+    cotacoes_brutas.extend(coletar_pecuaria_leite_boi(status_fontes))
     cotacoes_brutas.extend(coletar_conab_produtos_360(status_fontes))
     cotacoes_brutas.extend(coletar_conab(status_fontes))
     cotacoes_brutas.extend(coletar_cepea_widget(status_fontes))
@@ -4056,7 +4433,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.2.9",
+        "versao": "1.3.0",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -4065,13 +4442,13 @@ def main() -> None:
         "dias_maximos_cotacao_ativa": DIAS_MAXIMOS_COTACAO_ATIVA,
         "data_limite_cotacoes_ativas": data_corte_iso,
         "politica_atualidade": "A tabela principal exibe somente cotações com data dentro dos últimos 90 dias. No CONAB Produtos 360º, a data exibida é o período semanal publicado, não preço diário.",
-        "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; AIBA/SEAGRI-BA/CONAB semanal para feijão e sorgo; CONAB semanal para leite e carnes somente quando forem preço ao produtor; CEASAS/PROHORT para hortifruti em atacado",
-        "fontes_complementares": ["CEPEA/ESALQ Widget no HTML", "B3 - referência de mercado futuro", "PROHORT/CONAB e CEASAS estaduais para hortifruti/atacado"],
+        "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; AIBA/SEAGRI-BA/CONAB semanal para feijão e sorgo; CEPEA/ESALQ e SEAGRI-BA para leite e boi gordo",
+        "fontes_complementares": ["CEPEA/ESALQ para Leite e Boi Gordo", "SEAGRI-BA como referência estadual", "ACRIOESTE e Agrolink em diagnóstico"],
         "politica_classificacao_preco": (
-            "Política v1.2.9: a tabela principal publica preço pago ao produtor quando a fonte informar, "
+            "Política v1.3.0: a tabela principal publica preço pago ao produtor quando a fonte informar, "
             "cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
             "Leite e carnes entram somente quando a fonte informar preço ao produtor. "
-            "Hortifruti de CEASA entra como categoria separada de atacado CEASA, sem misturar com preço ao produtor. "
+            ""
             "Varejo, atacado comum, indicador de mercado e mercado futuro ficam fora da tabela principal. "
             "Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação."
         ),
@@ -4091,10 +4468,9 @@ def main() -> None:
             "total_precos_produtor": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "preco_produtor"]),
             "total_precos_regionais": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "preco_regional"]),
             "total_referencias_seagri_ba": len([item for item in cotacoes_tabela if item.get("fonte") == "SEAGRI-BA"]),
-            "total_hortifruti_ceasa": len([item for item in cotacoes_tabela if item.get("categoria") == "hortifruti_ceasa"]),
-            "total_ceasa_ce": len([item for item in cotacoes_tabela if item.get("fonte") == "CEASA-CE"]),
-            "total_ceasa_pe": len([item for item in cotacoes_tabela if item.get("fonte") == "CEASA-PE"]),
-            "total_prohort_conab": len([item for item in cotacoes_tabela if item.get("fonte") == "PROHORT/CONAB"]),
+            "total_pecuaria_leite": len([item for item in cotacoes_tabela if item.get("categoria") == "pecuaria_leite"]),
+            "total_pecuaria_corte": len([item for item in cotacoes_tabela if item.get("categoria") == "pecuaria_corte"]),
+            "total_cepea_pecuaria": len([item for item in cotacoes_tabela if item.get("fonte") == "CEPEA/ESALQ" and item.get("categoria") in {"pecuaria_leite", "pecuaria_corte"}]),
             "total_referencias_conab": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "preco_referencia_conab"]),
             "total_referencias_conab_360": len([item for item in cotacoes_tabela if item.get("fonte") == "CONAB - Produtos 360º"]),
             "total_precos_atacado": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "preco_atacado"]),
@@ -4123,7 +4499,7 @@ def main() -> None:
         "diagnostico_leite_carne_conab": diagnostico_leite_carne_conab,
         "debug_sorgo_conab": str(OUTPUT_DEBUG_SORGO_CONAB),
         "debug_leite_carne_conab": str(OUTPUT_DEBUG_LEITE_CARNE_CONAB),
-        "debug_ceasas": str(OUTPUT_DEBUG_CEASAS),
+        "debug_pecuaria": str(OUTPUT_DEBUG_PECUARIA),
         "cotacoes": cotacoes_tabela,
         "dados": dados_html,
         "historico_30_dias": {},
@@ -4151,14 +4527,14 @@ def main() -> None:
         },
         "aviso_legal": (
             "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas "
-            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.2.9, "
+            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.3.0, "
             "a tabela principal publica preço pago ao produtor quando a fonte informar claramente, "
             "cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
             "Leite e carnes só são publicados quando a fonte indicar preço ao produtor. "
             "Cotações de varejo e atacado são removidas para evitar confusão com preço recebido "
             "pelo produtor rural. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg "
             "quando a fonte vier em Kg. Produtos derivados, industrializados, insumos e serviços são removidos. "
-            "CEPEA/ESALQ permanece em seção própria do HTML como indicador de mercado, e B3 permanece apenas como "
+            "CEPEA/ESALQ pode ser publicado como referência institucional para leite e boi gordo, e B3 permanece apenas como "
             "referência de mercado futuro. Os valores podem variar conforme praça, qualidade, volume, frete, "
             "forma de pagamento, logística e data de atualização."
         ),
