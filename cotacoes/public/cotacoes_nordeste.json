@@ -3,21 +3,21 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "repositorio": "idocandido-dotcom/cotacoes",
-  "versao": "1.2.6",
-  "ultima_sincronizacao": "2026-05-08 12:28:31",
-  "ultima_sincronizacao_iso": "2026-05-08T12:28:31.343915-03:00",
-  "gerado_em": "08/05/2026 12:28",
+  "versao": "1.2.7",
+  "ultima_sincronizacao": "2026-05-08 12:39:45",
+  "ultima_sincronizacao_iso": "2026-05-08T12:39:45.347653-03:00",
+  "gerado_em": "08/05/2026 12:39",
   "fuso_horario": "America/Fortaleza",
   "frequencia_atualizacao": "diaria",
   "dias_maximos_cotacao_ativa": 90,
   "data_limite_cotacoes_ativas": "2026-02-07",
   "politica_atualidade": "A tabela principal exibe somente cotações com data dentro dos últimos 90 dias. No CONAB Produtos 360º, a data exibida é o período semanal publicado, não preço diário.",
-  "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; CONAB Preços Agropecuários para feijão, sorgo, leite e carnes somente quando forem preço ao produtor",
+  "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; AIBA/SEAGRI-BA/CONAB semanal para feijão e sorgo; CONAB semanal para leite e carnes somente quando forem preço ao produtor",
   "fontes_complementares": [
     "CEPEA/ESALQ Widget no HTML",
     "B3 - referência de mercado futuro"
   ],
-  "politica_classificacao_preco": "Política v1.2.6: a tabela principal publica preço pago ao produtor quando a fonte informar, cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Leite e carnes entram somente quando a fonte informar preço ao produtor. Varejo, atacado, indicador de mercado e mercado futuro ficam fora da tabela principal. Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação.",
+  "politica_classificacao_preco": "Política v1.2.7: a tabela principal publica preço pago ao produtor quando a fonte informar, cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Leite e carnes entram somente quando a fonte informar preço ao produtor. Varejo, atacado, indicador de mercado e mercado futuro ficam fora da tabela principal. Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação.",
   "resumo": {
     "total_cotacoes_tabela": 30,
     "total_cotacoes_brutas": 12753,
@@ -39,6 +39,7 @@
     "total_indicadores_cepea_widget": 0,
     "total_precos_produtor": 0,
     "total_precos_regionais": 8,
+    "total_referencias_seagri_ba": 0,
     "total_referencias_conab": 22,
     "total_referencias_conab_360": 16,
     "total_precos_atacado": 0,
@@ -59,7 +60,7 @@
       "CONAB - Preços Agropecuários Semanal Município"
     ],
     "total_fontes_com_erro": 0,
-    "tempo_execucao_segundos": 22.79
+    "tempo_execucao_segundos": 32.67
   },
   "fontes": [
     {
@@ -67,6 +68,23 @@
       "url": "https://aiba.org.br/cotacoes/",
       "status": "ok",
       "total_registros": 8
+    },
+    {
+      "fonte": "SEAGRI-BA",
+      "url": "https://www.ba.gov.br/seagri/cotacao",
+      "status": "sem_registros_extraidos",
+      "total_registros": 0,
+      "produtos_monitorados": [
+        "Feijão",
+        "Sorgo"
+      ],
+      "periodo_consultado": "2026-02-07 a 2026-05-08",
+      "paginas_lidas": 2,
+      "linhas_encontradas_feijao_sorgo": 0,
+      "linhas_sem_cotacao_ignoradas": 0,
+      "linhas_preco_invalido_ignoradas": 0,
+      "erros_paginas": [],
+      "observacao": "Fonte complementar estadual para Feijão e Sorgo. Publicada como Referência SEAGRI-BA/Regional, sem misturar com CONAB 360."
     },
     {
       "fonte": "CONAB - Produtos 360º",
@@ -95,7 +113,7 @@
         "SE",
         "TO"
       ],
-      "observacao": "Fonte preferencial para Soja, Milho e Algodão. v1.2.6 usa chamada direta ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto.",
+      "observacao": "Fonte preferencial para Soja, Milho e Algodão. v1.2.7 usa chamada direta ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto.",
       "arquivo_debug_conab_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json",
       "total_chamadas_doquery": 3,
       "chamadas_promissoras_preview": [
@@ -1175,7 +1193,7 @@
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.2.6: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.2.7: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -1193,7 +1211,7 @@
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.2.6: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.2.7: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
     },
     {
       "fonte": "CEPEA/ESALQ Widget",
@@ -5550,5 +5568,5 @@
       }
     ]
   },
-  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.2.6, a tabela principal publica preço pago ao produtor quando a fonte informar claramente, cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Leite e carnes só são publicados quando a fonte indicar preço ao produtor. Cotações de varejo e atacado são removidas para evitar confusão com preço recebido pelo produtor rural. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados, industrializados, insumos e serviços são removidos. CEPEA/ESALQ permanece em seção própria do HTML como indicador de mercado, e B3 permanece apenas como referência de mercado futuro. Os valores podem variar conforme praça, qualidade, volume, frete, forma de pagamento, logística e data de atualização."
+  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.2.7, a tabela principal publica preço pago ao produtor quando a fonte informar claramente, cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Leite e carnes só são publicados quando a fonte indicar preço ao produtor. Cotações de varejo e atacado são removidas para evitar confusão com preço recebido pelo produtor rural. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados, industrializados, insumos e serviços são removidos. CEPEA/ESALQ permanece em seção própria do HTML como indicador de mercado, e B3 permanece apenas como referência de mercado futuro. Os valores podem variar conforme praça, qualidade, volume, frete, forma de pagamento, logística e data de atualização."
 }
