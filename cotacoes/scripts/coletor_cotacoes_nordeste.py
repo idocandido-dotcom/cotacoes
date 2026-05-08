@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.3.1
+Nordeste Agro — Coletor Automático de Cotações v1.3.2
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -59,6 +59,10 @@ Melhorias desta versão:
   * Leite ao Produtor CEPEA/ESALQ Brasil como referência de mercado em R$/litro.
   * Leite ao Produtor CEPEA/ESALQ Bahia como referência regional em R$/litro.
   * Esses registros só entram como referência; não são preço local de PI, MA ou PA.
+- v1.3.2: corrige o filtro final de publicação para permitir Leite e Boi Gordo CEPEA/ESALQ:
+  * CEPEA/ESALQ entra como Referência CEPEA/ESALQ, não como preço local.
+  * A exceção de data vale apenas para referência CEPEA pecuária quando o período oficial é mensal/indicador.
+  * PI, MA e PA continuam sem preço simulado quando não houver dado local validado.
 - Gera:
   * cotacoes/public/cotacoes_nordeste.json
   * cotacoes/public/cotacoes_regionais.json
@@ -1202,17 +1206,21 @@ def forcar_referencia_conab(item: dict[str, Any]) -> bool:
 
 def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     """
-    Política v1.3.0:
+    Política v1.3.2:
     - Publicar preço pago ao produtor quando a fonte informar claramente.
-    - Publicar cotação regional produtiva, como AIBA.
+    - Publicar cotação regional produtiva, como AIBA/SEAGRI-BA.
     - Publicar referência oficial CONAB para soja, milho, algodão, feijão e sorgo
       quando a base não informar atacado nem varejo.
+    - Publicar CEPEA/ESALQ para Leite e Boi Gordo como referência de mercado,
+      sem tratar como preço local de praça/estado.
     - Não publicar varejo.
     - Não publicar atacado.
-    - Não publicar indicador de mercado nem mercado futuro.
+    - Não publicar mercado futuro.
     """
     nivel = limpar_texto(item.get("nivel_comercializacao_chave"))
     fonte = limpar_texto(item.get("fonte"))
+    produto_base = limpar_texto(item.get("produto_base"))
+    categoria = limpar_texto(item.get("categoria"))
 
     # Bloqueios absolutos: nunca entram na tabela principal.
     if nivel == "preco_varejo":
@@ -1221,14 +1229,33 @@ def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     if nivel == "preco_atacado":
         return False, "nivel_bloqueado_atacado"
 
-    if nivel == "indicador_mercado":
-        return False, "nivel_bloqueado_indicador_mercado"
-
     if nivel == "mercado_futuro":
         return False, "nivel_bloqueado_mercado_futuro"
 
-    if nivel == "preco_atacado_ceasa" and limpar_texto(item.get("categoria")) == "hortifruti_ceasa":
+    # CEASA só entra no módulo hortifruti/atacado, separado de leite e boi.
+    if nivel == "preco_atacado_ceasa" and categoria == "hortifruti_ceasa":
         return True, "ok_atacado_ceasa_hortifruti"
+
+    # CEPEA/ESALQ para leite e boi gordo entra como referência de mercado,
+    # não como preço local. Isso corrige o caso em que o fallback CEPEA é coletado,
+    # mas total_cotacoes_leite e total_cotacoes_boi_gordo ficavam zerados.
+    if "CEPEA" in fonte or "ESALQ" in fonte:
+        if produto_base in {"Leite", "Boi Gordo"} or categoria in {"pecuaria_leite", "pecuaria_corte"}:
+            item["nivel_comercializacao"] = "Referência CEPEA/ESALQ"
+            item["nivel_comercializacao_chave"] = "referencia_cepea_pecuaria"
+            item["prioridade_nivel_preco"] = NIVEIS_PRECO_PRIORIDADE.get("indicador_mercado", 7)
+            item["politica_publicacao"] = "referencia_cepea_pecuaria"
+            item["observacao"] = (
+                limpar_texto(item.get("observacao"))
+                + " Referência CEPEA/ESALQ publicada de forma transparente: não é preço local da praça selecionada."
+            ).strip()
+            return True, "ok_referencia_cepea_pecuaria"
+
+        return False, "nivel_bloqueado_indicador_mercado"
+
+    # Indicadores de mercado genéricos continuam bloqueados.
+    if nivel == "indicador_mercado":
+        return False, "nivel_bloqueado_indicador_mercado"
 
     if nivel == "preco_produtor":
         return True, "ok_preco_produtor"
@@ -1241,13 +1268,12 @@ def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     if nivel == "preco_regional":
         return True, "ok_preco_regional"
 
-    # Correção v1.3.0: CONAB sem nível claro, média UF ou não informado
-    # entra como Referência CONAB, desde que não seja atacado/varejo/indicador.
+    # CONAB sem nível claro, média UF ou não informado entra como Referência CONAB,
+    # desde que não seja atacado/varejo/indicador.
     if forcar_referencia_conab(item):
         return True, "ok_referencia_oficial_conab_forcada"
 
     if nivel == "preco_referencia_conab":
-        produto_base = limpar_texto(item.get("produto_base"))
         if "CONAB" in fonte and produto_base in PRODUTOS_CONAB_OFICIAIS:
             return True, "ok_referencia_oficial_conab"
         return False, "nivel_conab_referencia_fonte_invalida"
@@ -2606,7 +2632,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     debug_payload = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
-        "versao": "1.3.0",
+        "versao": "1.3.2",
         "gerado_em": agora_local().isoformat(),
         "objetivo": (
             "Coletar diretamente do CONAB Produtos 360º/Pentaho a consulta CDA "
@@ -3219,7 +3245,7 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
     debug: dict[str, Any] = {
         "projeto": "Nordeste Agro",
         "modulo": "pecuaria_leite_boi",
-        "versao": "1.3.1",
+        "versao": "1.3.2",
         "gerado_em": agora_local().isoformat(),
         "politica": "Leite e Boi Gordo entram por CEPEA/ESALQ como referência segura e por CONAB apenas quando a linha for preço ao produtor. Carne bovina em kg não é publicada na tabela principal.",
         "fontes": [],
@@ -3695,7 +3721,7 @@ def coletar_ceasas(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     debug = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes_ceasas",
-        "versao": "1.3.0",
+        "versao": "1.3.2",
         "gerado_em": agora_local().isoformat(),
         "politica": "CEASA/Hortifruti é preço de atacado. Não misturar com preço ao produtor.",
         "fontes": [],
@@ -4140,9 +4166,35 @@ def consolidar_mais_recentes(
             if data_dentro_do_limite(item.get("data_referencia"), data_corte_iso)
         ]
 
+        # Exceção controlada v1.3.2:
+        # Leite e Boi Gordo CEPEA/ESALQ são referências institucionais/mensais.
+        # Quando a página do CEPEA bloqueia o GitHub Actions ou retorna fallback,
+        # o dado pode ter período oficial anterior ao limite de 90 dias.
+        # Nesse caso, mantemos apenas a referência CEPEA mais recente do grupo,
+        # sempre rotulada como referência de mercado, nunca como preço local.
         if not itens_recentes:
-            grupos_descartados_por_data += 1
-            continue
+            referencias_cepea_pecuaria = [
+                item
+                for item in itens_ordenados
+                if (
+                    ("CEPEA" in limpar_texto(item.get("fonte")) or "ESALQ" in limpar_texto(item.get("fonte")))
+                    and item.get("categoria") in {"pecuaria_leite", "pecuaria_corte"}
+                    and item.get("produto_base") in {"Leite", "Boi Gordo"}
+                    and item.get("preco") is not None
+                )
+            ]
+
+            if referencias_cepea_pecuaria:
+                item_cepea = dict(referencias_cepea_pecuaria[-1])
+                item_cepea["referencia_fora_janela_90d"] = True
+                item_cepea["observacao"] = (
+                    limpar_texto(item_cepea.get("observacao"))
+                    + " Exceção de atualidade: referência CEPEA/ESALQ mantida na tabela mesmo fora da janela de 90 dias, por ser indicador institucional/mensal e não preço local."
+                ).strip()
+                itens_recentes = [item_cepea]
+            else:
+                grupos_descartados_por_data += 1
+                continue
 
         historico_por_data: dict[str, float] = {}
 
@@ -4586,7 +4638,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.3.0",
+        "versao": "1.3.2",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -4598,11 +4650,11 @@ def main() -> None:
         "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; AIBA/SEAGRI-BA/CONAB semanal para feijão e sorgo; CEPEA/ESALQ e SEAGRI-BA para leite e boi gordo",
         "fontes_complementares": ["CEPEA/ESALQ para Leite e Boi Gordo", "SEAGRI-BA como referência estadual", "ACRIOESTE e Agrolink em diagnóstico"],
         "politica_classificacao_preco": (
-            "Política v1.3.0: a tabela principal publica preço pago ao produtor quando a fonte informar, "
+            "Política v1.3.2: a tabela principal publica preço pago ao produtor quando a fonte informar, "
             "cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
-            "Leite e carnes entram somente quando a fonte informar preço ao produtor. "
-            ""
-            "Varejo, atacado comum, indicador de mercado e mercado futuro ficam fora da tabela principal. "
+            "Leite e Boi Gordo CEPEA/ESALQ entram como referência de mercado, sem serem tratados como preço local de praça/estado. "
+            "Leite, Boi Gordo e Carne Bovina da CONAB entram somente quando a fonte informar preço ao produtor. "
+            "Varejo, atacado comum, indicadores genéricos e mercado futuro ficam fora da tabela principal. "
             "Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação."
         ),
         "resumo": {
@@ -4669,10 +4721,11 @@ def main() -> None:
         "filtro_nivel_comercializacao": {
             "descricao": (
                 "Filtro final de publicação. A tabela principal publica preço pago ao produtor, "
-                "cotação regional produtiva e referência oficial CONAB para os produtos principais. "
-                "Varejo, atacado, indicador de mercado e mercado futuro são removidos."
+                "cotação regional produtiva, referência oficial CONAB para os produtos principais "
+                "e referência CEPEA/ESALQ para Leite e Boi Gordo. "
+                "Varejo, atacado, indicadores genéricos e mercado futuro são removidos."
             ),
-            "niveis_permitidos": ["preco_produtor", "preco_regional", "preco_referencia_conab"],
+            "niveis_permitidos": ["preco_produtor", "preco_regional", "preco_referencia_conab", "referencia_cepea_pecuaria"],
             "niveis_bloqueados": ["preco_varejo", "preco_atacado", "indicador_mercado", "mercado_futuro", "nao_informado", "media_uf"],
             "total_descartadas": len(cotacoes_descartadas_nivel),
             "resumo_descartes": resumir_descartes(cotacoes_descartadas_nivel),
@@ -4680,10 +4733,11 @@ def main() -> None:
         },
         "aviso_legal": (
             "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas "
-            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.3.0, "
+            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.3.2, "
             "a tabela principal publica preço pago ao produtor quando a fonte informar claramente, "
-            "cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
-            "Leite e carnes só são publicados quando a fonte indicar preço ao produtor. "
+            "cotação regional produtiva, referência SEAGRI-BA, referência oficial CONAB para soja, milho, algodão, feijão e sorgo, "
+            "e referência CEPEA/ESALQ para Leite e Boi Gordo. "
+            "Leite, Boi Gordo e Carne Bovina da CONAB só são publicados quando a fonte indicar preço ao produtor. "
             "Cotações de varejo e atacado são removidas para evitar confusão com preço recebido "
             "pelo produtor rural. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg "
             "quando a fonte vier em Kg. Produtos derivados, industrializados, insumos e serviços são removidos. "
