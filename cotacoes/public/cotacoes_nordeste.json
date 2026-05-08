@@ -3,27 +3,27 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "repositorio": "idocandido-dotcom/cotacoes",
-  "versao": "1.2.9",
-  "ultima_sincronizacao": "2026-05-08 13:12:27",
-  "ultima_sincronizacao_iso": "2026-05-08T13:12:27.112251-03:00",
-  "gerado_em": "08/05/2026 13:12",
+  "versao": "1.3.0",
+  "ultima_sincronizacao": "2026-05-08 13:46:11",
+  "ultima_sincronizacao_iso": "2026-05-08T13:46:11.408082-03:00",
+  "gerado_em": "08/05/2026 13:46",
   "fuso_horario": "America/Fortaleza",
   "frequencia_atualizacao": "diaria",
   "dias_maximos_cotacao_ativa": 90,
   "data_limite_cotacoes_ativas": "2026-02-07",
   "politica_atualidade": "A tabela principal exibe somente cotações com data dentro dos últimos 90 dias. No CONAB Produtos 360º, a data exibida é o período semanal publicado, não preço diário.",
-  "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; AIBA/SEAGRI-BA/CONAB semanal para feijão e sorgo; CONAB semanal para leite e carnes somente quando forem preço ao produtor; CEASAS/PROHORT para hortifruti em atacado",
+  "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; AIBA/SEAGRI-BA/CONAB semanal para feijão e sorgo; CEPEA/ESALQ e SEAGRI-BA para leite e boi gordo",
   "fontes_complementares": [
-    "CEPEA/ESALQ Widget no HTML",
-    "B3 - referência de mercado futuro",
-    "PROHORT/CONAB e CEASAS estaduais para hortifruti/atacado"
+    "CEPEA/ESALQ para Leite e Boi Gordo",
+    "SEAGRI-BA como referência estadual",
+    "ACRIOESTE e Agrolink em diagnóstico"
   ],
-  "politica_classificacao_preco": "Política v1.2.9: a tabela principal publica preço pago ao produtor quando a fonte informar, cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Leite e carnes entram somente quando a fonte informar preço ao produtor. Hortifruti de CEASA entra como categoria separada de atacado CEASA, sem misturar com preço ao produtor. Varejo, atacado comum, indicador de mercado e mercado futuro ficam fora da tabela principal. Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação.",
+  "politica_classificacao_preco": "Política v1.3.0: a tabela principal publica preço pago ao produtor quando a fonte informar, cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Leite e carnes entram somente quando a fonte informar preço ao produtor. Varejo, atacado comum, indicador de mercado e mercado futuro ficam fora da tabela principal. Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação.",
   "resumo": {
-    "total_cotacoes_tabela": 22,
-    "total_cotacoes_brutas": 12745,
-    "total_cotacoes_validas_apos_validacao": 11633,
-    "total_cotacoes_publicaveis_produtor_regional": 980,
+    "total_cotacoes_tabela": 30,
+    "total_cotacoes_brutas": 12753,
+    "total_cotacoes_validas_apos_validacao": 11641,
+    "total_cotacoes_publicaveis_produtor_regional": 988,
     "total_cotacoes_descartadas_por_validacao": 1112,
     "total_cotacoes_descartadas_por_nivel": 10653,
     "resumo_descartes_validacao": {
@@ -34,17 +34,16 @@
       "nivel_bloqueado_varejo": 5278,
       "nivel_conab_referencia_fonte_invalida": 2394
     },
-    "total_dados_html": 22,
-    "total_grupos_brutos": 56,
+    "total_dados_html": 30,
+    "total_grupos_brutos": 64,
     "grupos_descartados_por_data_antiga": 34,
     "total_indicadores_cepea_widget": 0,
     "total_precos_produtor": 0,
-    "total_precos_regionais": 0,
+    "total_precos_regionais": 8,
     "total_referencias_seagri_ba": 0,
-    "total_hortifruti_ceasa": 0,
-    "total_ceasa_ce": 0,
-    "total_ceasa_pe": 0,
-    "total_prohort_conab": 0,
+    "total_pecuaria_leite": 0,
+    "total_pecuaria_corte": 0,
+    "total_cepea_pecuaria": 0,
     "total_referencias_conab": 22,
     "total_referencias_conab_360": 16,
     "total_precos_atacado": 0,
@@ -65,20 +64,23 @@
     "total_sorgo_conab_grupos_antigos": 0,
     "total_indicadores_mercado": 0,
     "fontes_com_sucesso": [
-      "PROHORT/CONAB",
+      "AIBA",
+      "ACRIOESTE",
+      "Agrolink MA - Imperatriz",
+      "Agrolink PA - Marabá",
       "CONAB - Produtos 360º",
       "CONAB - Preços Agropecuários Semanal UF",
       "CONAB - Preços Agropecuários Semanal Município"
     ],
     "total_fontes_com_erro": 2,
-    "tempo_execucao_segundos": 29.61
+    "tempo_execucao_segundos": 33.11
   },
   "fontes": [
     {
       "fonte": "AIBA",
       "url": "https://aiba.org.br/cotacoes/",
-      "status": "erro",
-      "erro": "403 Client Error: Forbidden for url: https://aiba.org.br/cotacoes/"
+      "status": "ok",
+      "total_registros": 8
     },
     {
       "fonte": "SEAGRI-BA",
@@ -87,7 +89,9 @@
       "total_registros": 0,
       "produtos_monitorados": [
         "Feijão",
-        "Sorgo"
+        "Sorgo",
+        "Leite",
+        "Boi Gordo"
       ],
       "periodo_consultado": "2026-02-07 a 2026-05-08",
       "paginas_lidas": 2,
@@ -95,41 +99,45 @@
       "linhas_sem_cotacao_ignoradas": 0,
       "linhas_preco_invalido_ignoradas": 0,
       "erros_paginas": [],
-      "observacao": "Fonte complementar estadual para Feijão e Sorgo. Publicada como Referência SEAGRI-BA/Regional, sem misturar com CONAB 360."
+      "observacao": "Fonte complementar estadual para Feijão, Sorgo, Leite e Boi Gordo. Publicada como Referência SEAGRI-BA/Regional, sem misturar com CONAB 360."
     },
     {
-      "fonte": "PROHORT/CONAB",
-      "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/%3Ahome%3APROHORT%3AprecoDia.wcdf/generatedContent?password=password&userid=pentaho",
+      "fonte": "CEPEA/ESALQ - Leite ao Produtor",
+      "url": "https://cepea.org.br/br/indicador/leite.aspx",
+      "status": "erro",
+      "erro": "403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/leite.aspx",
+      "categoria": "pecuaria_leite"
+    },
+    {
+      "fonte": "CEPEA/ESALQ - Boi Gordo",
+      "url": "https://cepea.org.br/br/indicador/boi-gordo.aspx",
+      "status": "erro",
+      "erro": "403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/boi-gordo.aspx",
+      "categoria": "pecuaria_corte"
+    },
+    {
+      "fonte": "ACRIOESTE",
+      "url": "https://acrioeste.org.br/",
       "status": "ok",
       "total_registros": 0,
-      "categoria": "hortifruti_ceasa",
-      "observacao": "Fonte nacional prioritária para CEASAS. v1.2.9 mantém diagnóstico; publicação será ativada após mapear a CDA do painel."
+      "categoria": "diagnostico_pecuaria",
+      "observacao": "Diagnóstico regional do Oeste Baiano para leite/boi. Não publicado automaticamente nesta versão."
     },
     {
-      "fonte": "CEASA-CE",
-      "url": "https://files.ceasa-ce.com.br/unsima/boletim_diario/boletim.php",
-      "status": "sem_registros_extraidos",
+      "fonte": "Agrolink MA - Imperatriz",
+      "url": "https://www.agrolink.com.br/regional/ma/imperatriz/cotacoes",
+      "status": "ok",
       "total_registros": 0,
-      "categoria": "hortifruti_ceasa",
-      "observacao": "Fonte diária de hortifruti/atacado. Publicada como Atacado CEASA, separada de preço ao produtor.",
-      "debug": {
-        "fonte": "CEASA-CE",
-        "url": "https://files.ceasa-ce.com.br/unsima/boletim_diario/boletim.php",
-        "linhas_tabela_lidas": 0,
-        "linhas_com_produto_monitorado": 0,
-        "linhas_preco_invalido": 0,
-        "linhas_publicadas": 0,
-        "amostra_linhas": [],
-        "linhas_publicadas_unicas": 0
-      }
+      "categoria": "diagnostico_pecuaria",
+      "observacao": "Diagnóstico de referência de mercado para boi por praça. Não publicado automaticamente nesta versão."
     },
     {
-      "fonte": "CEASA-PE",
-      "url": "https://www.ceasape.org.br/cotacao",
-      "status": "erro",
-      "erro": "403 Client Error: Forbidden for url: https://www.ceasape.org.br/cotacao",
+      "fonte": "Agrolink PA - Marabá",
+      "url": "https://www.agrolink.com.br/regional/pa/maraba/cotacoes",
+      "status": "ok",
       "total_registros": 0,
-      "categoria": "hortifruti_ceasa"
+      "categoria": "diagnostico_pecuaria",
+      "observacao": "Diagnóstico de referência de mercado para boi por praça. Não publicado automaticamente nesta versão."
     },
     {
       "fonte": "CONAB - Produtos 360º",
@@ -158,7 +166,7 @@
         "SE",
         "TO"
       ],
-      "observacao": "Fonte preferencial para Soja, Milho e Algodão. v1.2.9 usa chamada direta ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto.",
+      "observacao": "Fonte preferencial para Soja, Milho e Algodão. v1.3.0 usa chamada direta ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto.",
       "arquivo_debug_conab_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json",
       "total_chamadas_doquery": 3,
       "chamadas_promissoras_preview": [
@@ -1238,7 +1246,7 @@
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.2.9: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.3.0: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -1256,7 +1264,7 @@
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.2.9: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.3.0: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
     },
     {
       "fonte": "CEPEA/ESALQ Widget",
@@ -17476,8 +17484,320 @@
   },
   "debug_sorgo_conab": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_sorgo_conab.json",
   "debug_leite_carne_conab": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_leite_carne_conab.json",
-  "debug_ceasas": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_ceasas.json",
+  "debug_pecuaria": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_pecuaria_fontes.json",
   "cotacoes": [
+    {
+      "produto": "Algodão — Caroço — Regional",
+      "produto_base": "Algodão",
+      "produto_original": "Algodão Caroço",
+      "tipo_produto": "Caroço",
+      "produto_slug": "algodao-caroco-regional",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Oeste Baiano",
+      "unidade": "Tonelada",
+      "unidade_original": "Tonelada",
+      "preco": 1100.0,
+      "preco_original": 1100.0,
+      "preco_formatado": "R$ 1100,00",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": 0.0,
+      "data_referencia": "2026-05-08",
+      "data_referencia_inicio": "2026-05-08",
+      "data_referencia_fim": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
+      "historico_30_dias": [
+        {
+          "data": "2026-05-08",
+          "valor": 1100.0
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Algodão — Pluma — Regional",
+      "produto_base": "Algodão",
+      "produto_original": "Algodão Pluma",
+      "tipo_produto": "Pluma",
+      "produto_slug": "algodao-pluma-regional",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Oeste Baiano",
+      "unidade": "Arroba (@)",
+      "unidade_original": "Arroba (@)",
+      "preco": 135.0,
+      "preco_original": 135.0,
+      "preco_formatado": "R$ 135,00",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": 0.75,
+      "data_referencia": "2026-05-08",
+      "data_referencia_inicio": "2026-05-08",
+      "data_referencia_fim": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
+      "historico_30_dias": [
+        {
+          "data": "2026-05-08",
+          "valor": 135.0
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Arroz — Regional",
+      "produto_base": "Arroz",
+      "produto_original": "Arroz em Casca",
+      "tipo_produto": "Padrão",
+      "produto_slug": "arroz-regional",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Oeste Baiano",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "preco": 78.5,
+      "preco_original": 78.5,
+      "preco_formatado": "R$ 78,50",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": 0.0,
+      "data_referencia": "2026-05-08",
+      "data_referencia_inicio": "2026-05-08",
+      "data_referencia_fim": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
+      "historico_30_dias": [
+        {
+          "data": "2026-05-08",
+          "valor": 78.5
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Feijão — Carioca — Regional",
+      "produto_base": "Feijão",
+      "produto_original": "Feijão Carioca",
+      "tipo_produto": "Carioca",
+      "produto_slug": "feijao-carioca-regional",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Oeste Baiano",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "preco": 402.5,
+      "preco_original": 402.5,
+      "preco_formatado": "R$ 402,50",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": 0.0,
+      "data_referencia": "2026-05-08",
+      "data_referencia_inicio": "2026-05-08",
+      "data_referencia_fim": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
+      "historico_30_dias": [
+        {
+          "data": "2026-05-08",
+          "valor": 402.5
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Milho — Regional",
+      "produto_base": "Milho",
+      "produto_original": "Milho",
+      "tipo_produto": "Padrão",
+      "produto_slug": "milho-regional",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Oeste Baiano",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "preco": 54.5,
+      "preco_original": 54.5,
+      "preco_formatado": "R$ 54,50",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": -1.8,
+      "data_referencia": "2026-05-08",
+      "data_referencia_inicio": "2026-05-08",
+      "data_referencia_fim": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
+      "historico_30_dias": [
+        {
+          "data": "2026-05-08",
+          "valor": 54.5
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Soja — Balcão — Regional",
+      "produto_base": "Soja",
+      "produto_original": "Soja Balcão",
+      "tipo_produto": "Balcão",
+      "produto_slug": "soja-balcao-regional",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Oeste Baiano",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "preco": 110.33,
+      "preco_original": 110.33,
+      "preco_formatado": "R$ 110,33",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": -0.31,
+      "data_referencia": "2026-05-08",
+      "data_referencia_inicio": "2026-05-08",
+      "data_referencia_fim": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
+      "historico_30_dias": [
+        {
+          "data": "2026-05-08",
+          "valor": 110.33
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Soja — Disponível — Regional",
+      "produto_base": "Soja",
+      "produto_original": "Soja Disponível",
+      "tipo_produto": "Disponível",
+      "produto_slug": "soja-disponivel-regional",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Oeste Baiano",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "preco": 112.75,
+      "preco_original": 112.75,
+      "preco_formatado": "R$ 112,75",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": 0.55,
+      "data_referencia": "2026-05-08",
+      "data_referencia_inicio": "2026-05-08",
+      "data_referencia_fim": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
+      "historico_30_dias": [
+        {
+          "data": "2026-05-08",
+          "valor": 112.75
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Sorgo — Regional",
+      "produto_base": "Sorgo",
+      "produto_original": "Sorgo",
+      "tipo_produto": "Padrão",
+      "produto_slug": "sorgo-regional",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Oeste Baiano",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "preco": 42.0,
+      "preco_original": 42.0,
+      "preco_formatado": "R$ 42,00",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "moeda": "BRL",
+      "variacao_percentual": 0.0,
+      "data_referencia": "2026-05-08",
+      "data_referencia_inicio": "2026-05-08",
+      "data_referencia_fim": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "tipo": "regional",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
+      "historico_30_dias": [
+        {
+          "data": "2026-05-08",
+          "valor": 42.0
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
     {
       "produto": "Feijão — Referência CONAB",
       "produto_base": "Feijão",
@@ -18530,6 +18850,286 @@
     }
   ],
   "dados": [
+    {
+      "estado": "BA",
+      "cidade": "Oeste Baiano",
+      "regiao": "Bahia",
+      "produto": "Algodão — Caroço — Regional",
+      "produto_base": "Algodão",
+      "produto_original": "Algodão Caroço",
+      "tipo_produto": "Caroço",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "valor": 1100.0,
+      "preco": "R$ 1100,00",
+      "preco_original": 1100.0,
+      "unidade": "Tonelada",
+      "unidade_original": "Tonelada",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "08/05/2026",
+      "data_iso": "2026-05-08",
+      "data_inicio_iso": "2026-05-08",
+      "data_fim_iso": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "historico_30d": [
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 1100.0,
+          "preco": "R$ 1100,00"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Oeste Baiano",
+      "regiao": "Bahia",
+      "produto": "Algodão — Pluma — Regional",
+      "produto_base": "Algodão",
+      "produto_original": "Algodão Pluma",
+      "tipo_produto": "Pluma",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "valor": 135.0,
+      "preco": "R$ 135,00",
+      "preco_original": 135.0,
+      "unidade": "Arroba (@)",
+      "unidade_original": "Arroba (@)",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "08/05/2026",
+      "data_iso": "2026-05-08",
+      "data_inicio_iso": "2026-05-08",
+      "data_fim_iso": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "historico_30d": [
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 135.0,
+          "preco": "R$ 135,00"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Oeste Baiano",
+      "regiao": "Bahia",
+      "produto": "Arroz — Regional",
+      "produto_base": "Arroz",
+      "produto_original": "Arroz em Casca",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "valor": 78.5,
+      "preco": "R$ 78,50",
+      "preco_original": 78.5,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "08/05/2026",
+      "data_iso": "2026-05-08",
+      "data_inicio_iso": "2026-05-08",
+      "data_fim_iso": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "historico_30d": [
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 78.5,
+          "preco": "R$ 78,50"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Oeste Baiano",
+      "regiao": "Bahia",
+      "produto": "Feijão — Carioca — Regional",
+      "produto_base": "Feijão",
+      "produto_original": "Feijão Carioca",
+      "tipo_produto": "Carioca",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "valor": 402.5,
+      "preco": "R$ 402,50",
+      "preco_original": 402.5,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "08/05/2026",
+      "data_iso": "2026-05-08",
+      "data_inicio_iso": "2026-05-08",
+      "data_fim_iso": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "historico_30d": [
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 402.5,
+          "preco": "R$ 402,50"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Oeste Baiano",
+      "regiao": "Bahia",
+      "produto": "Milho — Regional",
+      "produto_base": "Milho",
+      "produto_original": "Milho",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "valor": 54.5,
+      "preco": "R$ 54,50",
+      "preco_original": 54.5,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "08/05/2026",
+      "data_iso": "2026-05-08",
+      "data_inicio_iso": "2026-05-08",
+      "data_fim_iso": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "historico_30d": [
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 54.5,
+          "preco": "R$ 54,50"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Oeste Baiano",
+      "regiao": "Bahia",
+      "produto": "Soja — Balcão — Regional",
+      "produto_base": "Soja",
+      "produto_original": "Soja Balcão",
+      "tipo_produto": "Balcão",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "valor": 110.33,
+      "preco": "R$ 110,33",
+      "preco_original": 110.33,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "08/05/2026",
+      "data_iso": "2026-05-08",
+      "data_inicio_iso": "2026-05-08",
+      "data_fim_iso": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "historico_30d": [
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 110.33,
+          "preco": "R$ 110,33"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Oeste Baiano",
+      "regiao": "Bahia",
+      "produto": "Soja — Disponível — Regional",
+      "produto_base": "Soja",
+      "produto_original": "Soja Disponível",
+      "tipo_produto": "Disponível",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "valor": 112.75,
+      "preco": "R$ 112,75",
+      "preco_original": 112.75,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "08/05/2026",
+      "data_iso": "2026-05-08",
+      "data_inicio_iso": "2026-05-08",
+      "data_fim_iso": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "historico_30d": [
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 112.75,
+          "preco": "R$ 112,75"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Oeste Baiano",
+      "regiao": "Bahia",
+      "produto": "Sorgo — Regional",
+      "produto_base": "Sorgo",
+      "produto_original": "Sorgo",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Regional",
+      "nivel_comercializacao_chave": "preco_regional",
+      "prioridade_nivel_preco": 2,
+      "categoria": "commodity_agricola",
+      "valor": 42.0,
+      "preco": "R$ 42,00",
+      "preco_original": 42.0,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "08/05/2026",
+      "data_iso": "2026-05-08",
+      "data_inicio_iso": "2026-05-08",
+      "data_fim_iso": "2026-05-08",
+      "periodo_referencia": "",
+      "fonte": "AIBA",
+      "fonte_url": "https://aiba.org.br/cotacoes/",
+      "historico_30d": [
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 42.0,
+          "preco": "R$ 42,00"
+        }
+      ]
+    },
     {
       "estado": "AL",
       "cidade": "Média UF",
@@ -21199,5 +21799,5 @@
       }
     ]
   },
-  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.2.9, a tabela principal publica preço pago ao produtor quando a fonte informar claramente, cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Leite e carnes só são publicados quando a fonte indicar preço ao produtor. Cotações de varejo e atacado são removidas para evitar confusão com preço recebido pelo produtor rural. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados, industrializados, insumos e serviços são removidos. CEPEA/ESALQ permanece em seção própria do HTML como indicador de mercado, e B3 permanece apenas como referência de mercado futuro. Os valores podem variar conforme praça, qualidade, volume, frete, forma de pagamento, logística e data de atualização."
+  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.3.0, a tabela principal publica preço pago ao produtor quando a fonte informar claramente, cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Leite e carnes só são publicados quando a fonte indicar preço ao produtor. Cotações de varejo e atacado são removidas para evitar confusão com preço recebido pelo produtor rural. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados, industrializados, insumos e serviços são removidos. CEPEA/ESALQ pode ser publicado como referência institucional para leite e boi gordo, e B3 permanece apenas como referência de mercado futuro. Os valores podem variar conforme praça, qualidade, volume, frete, forma de pagamento, logística e data de atualização."
 }
