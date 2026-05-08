@@ -78,6 +78,7 @@ jobs:
           git add cotacoes/logs/debug_conab_produtos_360.json || true
           git add cotacoes/logs/debug_sorgo_conab.json || true
           git add cotacoes/logs/debug_leite_carne_conab.json || true
+          git add cotacoes/logs/debug_ceasas.json || true
 
           if git diff --cached --quiet; then
             echo "Nenhuma alteração para salvar."
