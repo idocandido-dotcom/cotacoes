@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.2.7
+Nordeste Agro — Coletor Automático de Cotações v1.2.8
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -45,7 +45,7 @@ Melhorias desta versão:
   * mantém apenas um valor por data no historico_30_dias.
 - Melhora classificação visual:
   * reforça Regional, Atacado, Produtor e Média UF para o HTML.
-- Política de publicação v1.2.7:
+- Política de publicação v1.2.8:
   * publica preço ao produtor, cotação regional produtiva ou referência oficial CONAB.
   * usa CONAB Produtos 360º como fonte para Soja, Milho e Algodão.
   * usa arquivos semanais da CONAB apenas para Feijão e Sorgo.
@@ -59,6 +59,7 @@ Melhorias desta versão:
   * cotacoes/public/cotacoes_regionais.json
   * cotacoes/public/cotacoes_nordeste.csv
   * cotacoes/logs/status_ultima_execucao.json
+  * cotacoes/logs/debug_leite_carne_conab.json
 """
 
 import asyncio
@@ -89,6 +90,7 @@ OUTPUT_CSV = PUBLIC_DIR / "cotacoes_nordeste.csv"
 OUTPUT_LOG = LOGS_DIR / "status_ultima_execucao.json"
 OUTPUT_DEBUG_CONAB_360 = LOGS_DIR / "debug_conab_produtos_360.json"
 OUTPUT_DEBUG_SORGO_CONAB = LOGS_DIR / "debug_sorgo_conab.json"
+OUTPUT_DEBUG_LEITE_CARNE_CONAB = LOGS_DIR / "debug_leite_carne_conab.json"
 
 AIBA_URL = "https://aiba.org.br/cotacoes/"
 SEAGRI_BA_COTACOES_URL = "https://www.ba.gov.br/seagri/cotacao"
@@ -165,7 +167,7 @@ HEADERS = {
 
 # UFs monitoradas pela página de Cotações.
 # Mantemos o nome da constante por compatibilidade com o restante do código,
-# mas a partir da v1.2.7 incluímos também Pará e Tocantins por relevância
+# mas a partir da v1.2.8 incluímos também Pará e Tocantins por relevância
 # agrícola no MATOPIBA/Norte e para complementar as referências da CONAB 360º.
 UFS_NORDESTE = {
     "AL": "Alagoas",
@@ -217,18 +219,18 @@ TIPOS_REAIS = {
 # soja, milho, sorgo, arroz e feijão devem aparecer por saca de 60 kg.
 PRODUTOS_SACA_60KG = {"Soja", "Milho", "Sorgo", "Arroz", "Feijão"}
 
-# Regra v1.2.7: na CONAB vamos publicar somente os 5 produtos definidos
+# Regra v1.2.8: na CONAB vamos publicar somente os 5 produtos definidos
 # para esta etapa da página Cotações. Isso evita que leite/carne/boi entrem
 # pela CONAB com unidade ou nível de comercialização inadequado.
 PRODUTOS_CONAB_OFICIAIS = {"Soja", "Milho", "Algodão", "Feijão", "Sorgo"}
 
-# v1.2.7: soja, milho e algodão não devem mais sair dos arquivos semanais,
+# v1.2.8: soja, milho e algodão não devem mais sair dos arquivos semanais,
 # porque esses arquivos trouxeram datas antigas. Para esses três produtos,
 # a fonte operacional passa a ser o painel CONAB Produtos 360º.
 PRODUTOS_CONAB_360 = {"Soja", "Milho", "Algodão"}
 
 # Feijão e sorgo continuam nos arquivos semanais/Preços Agropecuários.
-# A partir da v1.2.7, leite e carnes também são lidos desses arquivos,
+# A partir da v1.2.8, leite e carnes também são lidos desses arquivos,
 # mas com regra mais rígida: só entram na tabela se a linha vier claramente
 # como preço ao produtor. Varejo, atacado e nível não informado continuam fora.
 PRODUTOS_CONAB_TXT = {"Feijão", "Sorgo", "Leite", "Boi Gordo", "Carne Bovina"}
@@ -1080,7 +1082,7 @@ def forcar_referencia_conab(item: dict[str, Any]) -> bool:
 
 def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     """
-    Política v1.2.7:
+    Política v1.2.8:
     - Publicar preço pago ao produtor quando a fonte informar claramente.
     - Publicar cotação regional produtiva, como AIBA.
     - Publicar referência oficial CONAB para soja, milho, algodão, feijão e sorgo
@@ -1116,7 +1118,7 @@ def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     if nivel == "preco_regional":
         return True, "ok_preco_regional"
 
-    # Correção v1.2.7: CONAB sem nível claro, média UF ou não informado
+    # Correção v1.2.8: CONAB sem nível claro, média UF ou não informado
     # entra como Referência CONAB, desde que não seja atacado/varejo/indicador.
     if forcar_referencia_conab(item):
         return True, "ok_referencia_oficial_conab_forcada"
@@ -1474,14 +1476,14 @@ def detectar_nivel_conab(
         return texto
 
     if produto_base in PRODUTOS_CONAB_OFICIAIS and tipo_fonte_conab == "semanal_municipio":
-        # Regra v1.2.7: quando a base semanal por município da CONAB não informa
+        # Regra v1.2.8: quando a base semanal por município da CONAB não informa
         # explicitamente atacado, varejo ou produtor, ela entra como referência
         # oficial CONAB por praça. Não rotulamos como "Produtor" para não criar
         # uma informação que a própria linha não informou.
         return "referencia conab municipal"
 
     if produto_base in PRODUTOS_CONAB_OFICIAIS and tipo_fonte_conab == "semanal_uf":
-        # Regra v1.2.7: quando a base semanal por UF da CONAB não informa nível
+        # Regra v1.2.8: quando a base semanal por UF da CONAB não informa nível
         # de comercialização, ela entra como referência oficial estadual CONAB.
         # Atacado e varejo continuam bloqueados acima.
         return "referencia conab estadual"
@@ -1591,6 +1593,14 @@ def salvar_debug_conab_360(debug: dict[str, Any]) -> None:
 def salvar_debug_sorgo_conab(debug: dict[str, Any]) -> None:
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
     OUTPUT_DEBUG_SORGO_CONAB.write_text(
+        json.dumps(debug, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+
+def salvar_debug_leite_carne_conab(debug: dict[str, Any]) -> None:
+    LOGS_DIR.mkdir(parents=True, exist_ok=True)
+    OUTPUT_DEBUG_LEITE_CARNE_CONAB.write_text(
         json.dumps(debug, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
@@ -2248,7 +2258,7 @@ def coletar_conab_360_direto_cda() -> tuple[list[dict[str, Any]], list[dict[str,
     """
     Coleta do CONAB Produtos 360º.
 
-    v1.2.7:
+    v1.2.8:
     - primeiro abre o generatedContent para criar sessão Pentaho;
     - tenta POST direto com cookies da sessão;
     - se o endpoint responder 401 ou não retornar dados, usa fallback Playwright
@@ -2421,7 +2431,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     """
     Coleta preferencial para Soja, Milho e Algodão no painel CONAB Produtos 360º.
 
-    v1.2.7:
+    v1.2.8:
     - usa chamada direta ao CDA identificada no debug;
     - publica dados por UF do Nordeste;
     - mantém debug para conferência.
@@ -2502,7 +2512,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
             "produtos_extraidos": produtos_extraidos,
             "ufs_extraidas": ufs_extraidas,
             "observacao": (
-                "Fonte preferencial para Soja, Milho e Algodão. v1.2.7 usa chamada direta "
+                "Fonte preferencial para Soja, Milho e Algodão. v1.2.8 usa chamada direta "
                 "ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto."
             ),
             "arquivo_debug_conab_360": str(OUTPUT_DEBUG_CONAB_360),
@@ -2837,7 +2847,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
                 unidade = limpar_texto(linha.get(col_unidade, "")) if col_unidade else ""
 
-                # v1.2.7: os arquivos CONAB Preços Agropecuários são semanais.
+                # v1.2.8: os arquivos CONAB Preços Agropecuários são semanais.
                 # Quando a fonte trouxer apenas uma data, mostramos como "Semana de DD/MM/AAAA"
                 # para não dar a impressão de preço diário.
                 data_original_conab = linha.get(col_data, "") if col_data else agora_local().date().isoformat()
@@ -2864,7 +2874,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
                     nivel_chave, nivel_label, _ = normalizar_nivel_preco(nivel_texto)
 
-                    # Correção v1.2.7: quando a CONAB não informar claramente
+                    # Correção v1.2.8: quando a CONAB não informar claramente
                     # o nível, publicamos como Referência CONAB, sem chamar de
                     # preço ao produtor. Atacado e varejo continuam bloqueados.
                     if nivel_chave in {"nao_informado", "media_uf"}:
@@ -2912,7 +2922,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "colunas_preco_identificadas": colunas_preco,
                     "coluna_nivel_identificada": col_nivel,
                     "produtos_conab_publicaveis": sorted(PRODUTOS_CONAB_TXT),
-                    "observacao": "v1.2.7: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º.",
+                    "observacao": "v1.2.8: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º.",
                 }
             )
 
@@ -3158,7 +3168,7 @@ def consolidar_mais_recentes(
     """
     Consolida a base para uso no site.
 
-    Regra v1.2.7:
+    Regra v1.2.8:
     - Agrupa todos os registros brutos por fonte + produto + UF + praça + unidade.
     - Dentro de cada grupo, mantém apenas o item mais recente.
     - Se o item mais recente do grupo for mais antigo que data_corte_iso, o grupo inteiro
@@ -3273,6 +3283,163 @@ def salvar_csv(cotacoes: list[dict[str, Any]]) -> None:
         for cotacao in cotacoes:
             escritor.writerow({campo: cotacao.get(campo, "") for campo in campos})
 
+
+
+
+def diagnosticar_produtos_pecuarios_conab(
+    *,
+    cotacoes_brutas: list[dict[str, Any]],
+    cotacoes_validas: list[dict[str, Any]],
+    cotacoes_descartadas_validacao: list[dict[str, Any]],
+    cotacoes_produtor_regional: list[dict[str, Any]],
+    cotacoes_descartadas_nivel: list[dict[str, Any]],
+    cotacoes_tabela: list[dict[str, Any]],
+    data_corte_iso: str,
+) -> dict[str, Any]:
+    """
+    Diagnóstico específico para Leite, Boi Gordo e Carne Bovina na CONAB semanal.
+
+    Objetivo:
+    - confirmar se a CONAB trouxe registros brutos;
+    - descobrir se caíram por validação de preço/unidade;
+    - descobrir se foram bloqueados por nível de comercialização;
+    - verificar se ficaram fora por data antiga ou consolidação.
+    """
+    produtos_alvo = ["Leite", "Boi Gordo", "Carne Bovina"]
+
+    def eh_produto_conab(item: dict[str, Any], produto: str) -> bool:
+        return limpar_texto(item.get("produto_base")) == produto and "CONAB" in limpar_texto(item.get("fonte"))
+
+    def amostra(lista: list[dict[str, Any]], limite: int = 80) -> list[dict[str, Any]]:
+        campos = [
+            "produto", "produto_base", "produto_original", "uf", "estado", "praca", "unidade",
+            "unidade_original", "preco", "preco_original", "preco_formatado", "fator_conversao",
+            "conversao_aplicada", "data_referencia", "periodo_referencia", "fonte",
+            "nivel_comercializacao", "nivel_comercializacao_chave", "prioridade_nivel_preco",
+            "motivo", "validacao_publicacao", "observacao",
+        ]
+        return [{campo: item.get(campo) for campo in campos if campo in item} for item in lista[:limite]]
+
+    diagnosticos: dict[str, Any] = {}
+    totais_gerais = {
+        "brutas_conab": 0,
+        "validas_apos_validacao": 0,
+        "descartadas_por_validacao": 0,
+        "publicaveis_apos_filtro_nivel": 0,
+        "descartadas_por_nivel": 0,
+        "grupos_publicaveis": 0,
+        "grupos_antigos": 0,
+        "grupos_recentes": 0,
+        "na_tabela_final": 0,
+    }
+
+    for produto in produtos_alvo:
+        brutas = [item for item in cotacoes_brutas if eh_produto_conab(item, produto)]
+        validas = [item for item in cotacoes_validas if eh_produto_conab(item, produto)]
+        descartadas_validacao = [item for item in cotacoes_descartadas_validacao if eh_produto_conab(item, produto)]
+        nivel_ok = [item for item in cotacoes_produtor_regional if eh_produto_conab(item, produto)]
+        descartadas_nivel = [item for item in cotacoes_descartadas_nivel if eh_produto_conab(item, produto)]
+        tabela = [item for item in cotacoes_tabela if eh_produto_conab(item, produto)]
+
+        grupos: dict[tuple[str, ...], list[dict[str, Any]]] = {}
+        for item in nivel_ok:
+            grupos.setdefault(chave_agrupamento(item), []).append(item)
+
+        grupos_antigos = []
+        grupos_recentes = []
+        for chave, itens in grupos.items():
+            itens_ordenados = sorted(itens, key=lambda x: data_ordenavel(x.get("data_referencia")))
+            mais_recente = itens_ordenados[-1] if itens_ordenados else {}
+            entrada = {
+                "chave": list(chave),
+                "total_itens": len(itens_ordenados),
+                "mais_recente": {
+                    "produto": mais_recente.get("produto"),
+                    "uf": mais_recente.get("uf"),
+                    "estado": mais_recente.get("estado"),
+                    "praca": mais_recente.get("praca"),
+                    "unidade": mais_recente.get("unidade"),
+                    "unidade_original": mais_recente.get("unidade_original"),
+                    "preco": mais_recente.get("preco"),
+                    "preco_original": mais_recente.get("preco_original"),
+                    "data_referencia": mais_recente.get("data_referencia"),
+                    "periodo_referencia": mais_recente.get("periodo_referencia"),
+                    "fonte": mais_recente.get("fonte"),
+                    "nivel_comercializacao": mais_recente.get("nivel_comercializacao"),
+                    "nivel_comercializacao_chave": mais_recente.get("nivel_comercializacao_chave"),
+                    "observacao": mais_recente.get("observacao"),
+                },
+            }
+            if mais_recente and not data_dentro_do_limite(mais_recente.get("data_referencia"), data_corte_iso):
+                grupos_antigos.append(entrada)
+            else:
+                grupos_recentes.append(entrada)
+
+        motivos_validacao: dict[str, int] = {}
+        for item in descartadas_validacao:
+            motivo = limpar_texto(item.get("motivo", "motivo_nao_informado"))
+            motivos_validacao[motivo] = motivos_validacao.get(motivo, 0) + 1
+
+        motivos_nivel: dict[str, int] = {}
+        for item in descartadas_nivel:
+            motivo = limpar_texto(item.get("motivo", "motivo_nao_informado"))
+            motivos_nivel[motivo] = motivos_nivel.get(motivo, 0) + 1
+
+        if tabela:
+            conclusao = f"{produto} CONAB entrou na tabela final."
+        elif not brutas:
+            conclusao = f"Nenhum registro bruto de {produto} foi encontrado nos arquivos semanais da CONAB para os estados monitorados."
+        elif descartadas_validacao and not validas:
+            conclusao = f"{produto} CONAB foi coletado, mas caiu na validação comercial/unidade/preço. Verificar unidade e faixa de validação."
+        elif descartadas_nivel and not nivel_ok:
+            conclusao = f"{produto} CONAB foi coletado, mas foi bloqueado pelo nível de comercialização. Provável atacado, varejo ou nível não permitido para tabela principal."
+        elif grupos_antigos and not grupos_recentes:
+            conclusao = f"{produto} CONAB foi coletado e aprovado, mas o grupo mais recente ficou fora por data antiga."
+        elif nivel_ok and not tabela:
+            conclusao = f"{produto} CONAB foi aprovado antes da consolidação, mas não apareceu na tabela final; verificar agrupamento/consolidação."
+        else:
+            conclusao = f"{produto} CONAB requer revisão manual: há registros, mas não foi possível classificar o ponto de bloqueio automaticamente."
+
+        totais = {
+            "brutas_conab": len(brutas),
+            "validas_apos_validacao": len(validas),
+            "descartadas_por_validacao": len(descartadas_validacao),
+            "publicaveis_apos_filtro_nivel": len(nivel_ok),
+            "descartadas_por_nivel": len(descartadas_nivel),
+            "grupos_publicaveis": len(grupos),
+            "grupos_antigos": len(grupos_antigos),
+            "grupos_recentes": len(grupos_recentes),
+            "na_tabela_final": len(tabela),
+        }
+
+        for chave, valor in totais.items():
+            totais_gerais[chave] += valor
+
+        diagnosticos[produto] = {
+            "produto": produto,
+            "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
+            "data_corte_cotacoes_ativas": data_corte_iso,
+            "conclusao": conclusao,
+            "totais": totais,
+            "motivos_descartes_validacao": motivos_validacao,
+            "motivos_descartes_nivel": motivos_nivel,
+            "grupos_recentes": grupos_recentes[:80],
+            "grupos_antigos": grupos_antigos[:80],
+            "amostra_brutas": amostra(brutas),
+            "amostra_validas": amostra(validas),
+            "amostra_descartadas_validacao": amostra(descartadas_validacao),
+            "amostra_descartadas_nivel": amostra(descartadas_nivel),
+            "amostra_tabela_final": amostra(tabela),
+        }
+
+    return {
+        "produtos": produtos_alvo,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
+        "data_corte_cotacoes_ativas": data_corte_iso,
+        "politica_publicacao": "Leite, Boi Gordo e Carne Bovina só entram na tabela principal quando a CONAB informa preço ao produtor. Varejo, atacado e nível não informado continuam bloqueados.",
+        "totais_gerais": totais_gerais,
+        "diagnosticos": diagnosticos,
+    }
 
 
 def diagnosticar_sorgo_conab(
@@ -3410,7 +3577,9 @@ def salvar_log(payload: dict[str, Any]) -> None:
         "fontes": payload.get("fontes"),
         "debug_conab_produtos_360": str(OUTPUT_DEBUG_CONAB_360),
         "debug_sorgo_conab": str(OUTPUT_DEBUG_SORGO_CONAB),
+        "debug_leite_carne_conab": str(OUTPUT_DEBUG_LEITE_CARNE_CONAB),
         "diagnostico_sorgo_conab": payload.get("diagnostico_sorgo_conab", {}),
+        "diagnostico_leite_carne_conab": payload.get("diagnostico_leite_carne_conab", {}),
     }
 
     OUTPUT_LOG.write_text(
@@ -3452,6 +3621,17 @@ def main() -> None:
     )
     salvar_debug_sorgo_conab(diagnostico_sorgo_conab)
 
+    diagnostico_leite_carne_conab = diagnosticar_produtos_pecuarios_conab(
+        cotacoes_brutas=cotacoes_brutas,
+        cotacoes_validas=cotacoes_validas,
+        cotacoes_descartadas_validacao=cotacoes_descartadas_validacao,
+        cotacoes_produtor_regional=cotacoes_produtor_regional,
+        cotacoes_descartadas_nivel=cotacoes_descartadas_nivel,
+        cotacoes_tabela=cotacoes_tabela,
+        data_corte_iso=data_corte_iso,
+    )
+    salvar_debug_leite_carne_conab(diagnostico_leite_carne_conab)
+
     fontes_ok = [f["fonte"] for f in status_fontes if f.get("status") == "ok"]
     fontes_erro = [f for f in status_fontes if f.get("status") == "erro"]
 
@@ -3472,7 +3652,7 @@ def main() -> None:
         "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; AIBA/SEAGRI-BA/CONAB semanal para feijão e sorgo; CONAB semanal para leite e carnes somente quando forem preço ao produtor",
         "fontes_complementares": ["CEPEA/ESALQ Widget no HTML", "B3 - referência de mercado futuro"],
         "politica_classificacao_preco": (
-            "Política v1.2.7: a tabela principal publica preço pago ao produtor quando a fonte informar, "
+            "Política v1.2.8: a tabela principal publica preço pago ao produtor quando a fonte informar, "
             "cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
             "Leite e carnes entram somente quando a fonte informar preço ao produtor. "
             "Varejo, atacado, indicador de mercado e mercado futuro ficam fora da tabela principal. "
@@ -3501,6 +3681,12 @@ def main() -> None:
             "total_cotacoes_leite": len([item for item in cotacoes_tabela if item.get("produto_base") == "Leite"]),
             "total_cotacoes_boi_gordo": len([item for item in cotacoes_tabela if item.get("produto_base") == "Boi Gordo"]),
             "total_cotacoes_carne_bovina": len([item for item in cotacoes_tabela if item.get("produto_base") == "Carne Bovina"]),
+            "total_leite_conab_bruto": diagnostico_leite_carne_conab.get("diagnosticos", {}).get("Leite", {}).get("totais", {}).get("brutas_conab", 0),
+            "total_leite_conab_tabela": diagnostico_leite_carne_conab.get("diagnosticos", {}).get("Leite", {}).get("totais", {}).get("na_tabela_final", 0),
+            "total_boi_gordo_conab_bruto": diagnostico_leite_carne_conab.get("diagnosticos", {}).get("Boi Gordo", {}).get("totais", {}).get("brutas_conab", 0),
+            "total_boi_gordo_conab_tabela": diagnostico_leite_carne_conab.get("diagnosticos", {}).get("Boi Gordo", {}).get("totais", {}).get("na_tabela_final", 0),
+            "total_carne_bovina_conab_bruto": diagnostico_leite_carne_conab.get("diagnosticos", {}).get("Carne Bovina", {}).get("totais", {}).get("brutas_conab", 0),
+            "total_carne_bovina_conab_tabela": diagnostico_leite_carne_conab.get("diagnosticos", {}).get("Carne Bovina", {}).get("totais", {}).get("na_tabela_final", 0),
             "total_sorgo_conab_tabela": diagnostico_sorgo_conab.get("totais", {}).get("na_tabela_final", 0),
             "total_sorgo_conab_bruto": diagnostico_sorgo_conab.get("totais", {}).get("brutas_sorgo_conab", 0),
             "total_sorgo_conab_descartado_nivel": diagnostico_sorgo_conab.get("totais", {}).get("descartadas_por_nivel", 0),
@@ -3513,7 +3699,9 @@ def main() -> None:
         },
         "fontes": status_fontes,
         "diagnostico_sorgo_conab": diagnostico_sorgo_conab,
+        "diagnostico_leite_carne_conab": diagnostico_leite_carne_conab,
         "debug_sorgo_conab": str(OUTPUT_DEBUG_SORGO_CONAB),
+        "debug_leite_carne_conab": str(OUTPUT_DEBUG_LEITE_CARNE_CONAB),
         "cotacoes": cotacoes_tabela,
         "dados": dados_html,
         "historico_30_dias": {},
@@ -3541,7 +3729,7 @@ def main() -> None:
         },
         "aviso_legal": (
             "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas "
-            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.2.7, "
+            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.2.8, "
             "a tabela principal publica preço pago ao produtor quando a fonte informar claramente, "
             "cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
             "Leite e carnes só são publicados quando a fonte indicar preço ao produtor. "
@@ -3597,7 +3785,10 @@ def main() -> None:
     print(f"LOG: {OUTPUT_LOG}")
     print(f"DEBUG CONAB 360: {OUTPUT_DEBUG_CONAB_360}")
     print(f"DEBUG SORGO CONAB: {OUTPUT_DEBUG_SORGO_CONAB}")
+    print(f"DEBUG LEITE/CARNE CONAB: {OUTPUT_DEBUG_LEITE_CARNE_CONAB}")
     print(f"Diagnóstico Sorgo CONAB: {diagnostico_sorgo_conab.get('conclusao')}")
+    for produto_diag, diag in diagnostico_leite_carne_conab.get("diagnosticos", {}).items():
+        print(f"Diagnóstico {produto_diag} CONAB: {diag.get('conclusao')}")
 
     if fontes_erro:
         print("Atenção: algumas fontes apresentaram erro:")
