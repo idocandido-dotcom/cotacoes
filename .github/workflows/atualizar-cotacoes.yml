@@ -30,27 +30,16 @@ jobs:
           pip install requests beautifulsoup4 pandas lxml html5lib
 
       - name: Localizar coletor de cotações
-        id: localizar_coletor
         shell: bash
         run: |
           echo "Procurando coletor atualizado..."
 
-          if [ -f "cotacoes/coletor_cotacoes_nordeste_v1_3_1_atualizado.py" ]; then
-            echo "COLETOR=cotacoes/coletor_cotacoes_nordeste_v1_3_1_atualizado.py" >> "$GITHUB_ENV"
-          elif [ -f "scripts/coletor_cotacoes_nordeste_v1_3_1_atualizado.py" ]; then
-            echo "COLETOR=scripts/coletor_cotacoes_nordeste_v1_3_1_atualizado.py" >> "$GITHUB_ENV"
-          elif [ -f "cotacoes/coletor_cotacoes_nordeste_v1_3_0.py" ]; then
-            echo "COLETOR=cotacoes/coletor_cotacoes_nordeste_v1_3_0.py" >> "$GITHUB_ENV"
-          elif [ -f "scripts/coletor_cotacoes_nordeste_v1_3_0.py" ]; then
-            echo "COLETOR=scripts/coletor_cotacoes_nordeste_v1_3_0.py" >> "$GITHUB_ENV"
-          elif [ -f "coletor_cotacoes_nordeste_v1_3_1_atualizado.py" ]; then
-            echo "COLETOR=coletor_cotacoes_nordeste_v1_3_1_atualizado.py" >> "$GITHUB_ENV"
-          elif [ -f "coletor_cotacoes_nordeste_v1_3_0.py" ]; then
-            echo "COLETOR=coletor_cotacoes_nordeste_v1_3_0.py" >> "$GITHUB_ENV"
+          if [ -f "cotacoes/scripts/coletor_cotacoes_nordeste.py" ]; then
+            echo "COLETOR=cotacoes/scripts/coletor_cotacoes_nordeste.py" >> "$GITHUB_ENV"
           else
-            echo "ERRO: nenhum coletor de cotações foi encontrado."
+            echo "ERRO: coletor principal não foi encontrado."
             echo "Arquivos Python encontrados:"
-            find . -name "*.py" -maxdepth 4
+            find . -maxdepth 5 -name "*.py" -print
             exit 1
           fi
 
@@ -66,19 +55,19 @@ jobs:
         run: |
           echo "Verificando arquivos principais..."
 
-          test -f public/cotacoes_nordeste.json
-          test -f public/cotacoes_regionais.json
-          test -f public/cotacoes_nordeste.csv
-          test -f logs/status_ultima_execucao.json
+          test -f cotacoes/public/cotacoes_nordeste.json
+          test -f cotacoes/public/cotacoes_regionais.json
+          test -f cotacoes/public/cotacoes_nordeste.csv
+          test -f cotacoes/logs/status_ultima_execucao.json
 
           echo "Validando JSON principal..."
-          python -m json.tool public/cotacoes_nordeste.json > /tmp/cotacoes_nordeste_validado.json
+          python -m json.tool cotacoes/public/cotacoes_nordeste.json > /tmp/cotacoes_nordeste_validado.json
 
           echo "Validando JSON regional..."
-          python -m json.tool public/cotacoes_regionais.json > /tmp/cotacoes_regionais_validado.json
+          python -m json.tool cotacoes/public/cotacoes_regionais.json > /tmp/cotacoes_regionais_validado.json
 
           echo "Validando log..."
-          python -m json.tool logs/status_ultima_execucao.json > /tmp/status_ultima_execucao_validado.json
+          python -m json.tool cotacoes/logs/status_ultima_execucao.json > /tmp/status_ultima_execucao_validado.json
 
       - name: Mostrar resumo da execução
         run: |
@@ -86,8 +75,8 @@ jobs:
           import json
           from pathlib import Path
 
-          log_path = Path("logs/status_ultima_execucao.json")
-          json_path = Path("public/cotacoes_nordeste.json")
+          log_path = Path("cotacoes/logs/status_ultima_execucao.json")
+          json_path = Path("cotacoes/public/cotacoes_nordeste.json")
 
           if log_path.exists():
               with log_path.open("r", encoding="utf-8") as f:
@@ -119,6 +108,7 @@ jobs:
               for item in lista:
                   produto = str(item.get("produto", "")).lower()
                   produto_base = str(item.get("produto_base", "")).lower()
+
                   if "leite" in produto or "leite" in produto_base or "boi" in produto or "boi" in produto_base:
                       print(
                           item.get("estado"),
@@ -136,15 +126,15 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add public/cotacoes_nordeste.json
-          git add public/cotacoes_regionais.json
-          git add public/cotacoes_nordeste.csv
-          git add logs/status_ultima_execucao.json
-          git add logs/debug_conab_produtos_360.json || true
-          git add logs/debug_sorgo_conab.json || true
-          git add logs/debug_leite_carne_conab.json || true
-          git add logs/debug_pecuaria_fontes.json || true
-          git add logs/debug_ceasas.json || true
+          git add cotacoes/public/cotacoes_nordeste.json
+          git add cotacoes/public/cotacoes_regionais.json
+          git add cotacoes/public/cotacoes_nordeste.csv
+          git add cotacoes/logs/status_ultima_execucao.json
+          git add cotacoes/logs/debug_conab_produtos_360.json || true
+          git add cotacoes/logs/debug_sorgo_conab.json || true
+          git add cotacoes/logs/debug_leite_carne_conab.json || true
+          git add cotacoes/logs/debug_pecuaria_fontes.json || true
+          git add cotacoes/logs/debug_ceasas.json || true
 
           if git diff --cached --quiet; then
             echo "Nenhuma alteração para commitar."
