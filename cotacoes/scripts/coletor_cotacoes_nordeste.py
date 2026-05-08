@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.3.0
+Nordeste Agro — Coletor Automático de Cotações v1.3.1
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -54,6 +54,11 @@ Melhorias desta versão:
   * isso evita que valores de varejo sejam confundidos com preço pago ao produtor.
 - Inclui Pará e Tocantins nas UFs monitoradas para complementar MATOPIBA/Norte.
 - Revisa leite e carne: não converte carne bovina em kg para arroba; leite/carnes da CONAB só entram como preço ao produtor.
+- v1.3.1: adiciona fallback CEPEA/ESALQ validado para Leite ao Produtor e Boi Gordo:
+  * Boi Gordo CEPEA/ESALQ como referência de mercado em R$/arroba.
+  * Leite ao Produtor CEPEA/ESALQ Brasil como referência de mercado em R$/litro.
+  * Leite ao Produtor CEPEA/ESALQ Bahia como referência regional em R$/litro.
+  * Esses registros só entram como referência; não são preço local de PI, MA ou PA.
 - Gera:
   * cotacoes/public/cotacoes_nordeste.json
   * cotacoes/public/cotacoes_regionais.json
@@ -99,6 +104,70 @@ AIBA_URL = "https://aiba.org.br/cotacoes/"
 SEAGRI_BA_COTACOES_URL = "https://www.ba.gov.br/seagri/cotacao"
 CEPEA_LEITE_URL = "https://cepea.org.br/br/indicador/leite.aspx"
 CEPEA_BOI_GORDO_URL = "https://cepea.org.br/br/indicador/boi-gordo.aspx"
+
+# Referências CEPEA/ESALQ validadas para fallback operacional.
+# Uso: somente quando a coleta automática da página CEPEA falhar ou não retornar linhas válidas.
+# Regra: são referências de mercado/regional, não preço local de PI, MA ou PA.
+CEPEA_FALLBACK_REFERENCIAS = {
+    "boi_gordo": {
+        "produto_original": "Boi Gordo — Indicador CEPEA/ESALQ",
+        "uf": "REF",
+        "estado_nome": "Referência CEPEA",
+        "praca": "Indicador CEPEA/ESALQ",
+        "unidade": "Arroba (@)",
+        "preco": 326.00,
+        "variacao_percentual": 0.90,
+        "data_referencia": "2026-01-28",
+        "periodo_referencia": "28/01/2026",
+        "fonte_url": CEPEA_BOI_GORDO_URL,
+        "tipo_fonte": "oficial",
+        "nivel_comercializacao": "referência de preço ao produtor cepea",
+        "categoria": "pecuaria_corte",
+        "observacao": (
+            "Indicador do Boi Gordo CEPEA/ESALQ. Valor à vista por arroba de 15 kg, sem Funrural. "
+            "Referência de mercado; não representa preço local da praça selecionada."
+        ),
+    },
+    "leite_brasil": {
+        "produto_original": "Leite — Preço ao Produtor CEPEA/ESALQ",
+        "uf": "REF",
+        "estado_nome": "Referência CEPEA",
+        "praca": "Brasil",
+        "unidade": "Litro",
+        "preco": 2.1122,
+        "variacao_percentual": None,
+        "data_referencia": "2025-11-01",
+        "periodo_referencia": "nov/25",
+        "fonte_url": CEPEA_LEITE_URL,
+        "tipo_fonte": "oficial",
+        "nivel_comercializacao": "preço recebido pelo produtor cepea",
+        "categoria": "pecuaria_leite",
+        "observacao": (
+            "Preço médio do leite ao produtor CEPEA/ESALQ para Brasil. "
+            "Referência mensal em R$/litro; não é cotação local de PI, MA ou PA."
+        ),
+    },
+    "leite_bahia": {
+        "produto_original": "Leite — Preço ao Produtor CEPEA/ESALQ",
+        "uf": "BA",
+        "estado_nome": "Bahia",
+        "praca": "Bahia",
+        "unidade": "Litro",
+        "preco": 2.2011,
+        "variacao_percentual": None,
+        "data_referencia": "2025-11-01",
+        "periodo_referencia": "nov/25",
+        "fonte_url": CEPEA_LEITE_URL,
+        "tipo_fonte": "oficial",
+        "nivel_comercializacao": "preço recebido pelo produtor cepea",
+        "categoria": "pecuaria_leite",
+        "observacao": (
+            "Referência regional CEPEA/ESALQ para Bahia. "
+            "Não deve ser exibida como preço local de PI, MA ou PA."
+        ),
+    },
+}
+
 ACRIOESTE_URL = "https://acrioeste.org.br/"
 AGROLINK_MA_IMPERATRIZ_URL = "https://www.agrolink.com.br/regional/ma/imperatriz/cotacoes"
 AGROLINK_PA_MARABA_URL = "https://www.agrolink.com.br/regional/pa/maraba/cotacoes"
@@ -3077,6 +3146,68 @@ def diagnosticar_agrolink_pecuaria() -> list[dict[str, Any]]:
     return resultados
 
 
+def criar_item_cepea_fallback(chave: str, motivo: str) -> dict[str, Any]:
+    """Cria item de referência CEPEA/ESALQ a partir da tabela fixa de fallback.
+
+    O fallback não substitui a coleta automática: ele só evita que leite e boi
+    desapareçam da página quando o GitHub Actions receber 403, HTML quebrado
+    ou página sem tabela legível.
+    """
+    ref = CEPEA_FALLBACK_REFERENCIAS[chave]
+
+    item = criar_item(
+        produto_original=ref["produto_original"],
+        uf=ref["uf"],
+        estado_nome=ref["estado_nome"],
+        praca=ref["praca"],
+        unidade=ref["unidade"],
+        preco=ref["preco"],
+        variacao_percentual=ref.get("variacao_percentual"),
+        data_referencia=ref["data_referencia"],
+        fonte="CEPEA/ESALQ",
+        fonte_url=ref["fonte_url"],
+        tipo_fonte=ref["tipo_fonte"],
+        nivel_comercializacao=ref["nivel_comercializacao"],
+        categoria=ref["categoria"],
+        observacao=f"{ref['observacao']} Fallback operacional usado porque: {motivo}",
+    )
+    item["periodo_referencia"] = ref["periodo_referencia"]
+    item["fallback_operacional"] = True
+    item["motivo_fallback"] = motivo
+    item["politica_publicacao"] = "referencia_cepea_sem_preco_local_simulado"
+    return item
+
+
+def criar_fallback_cepea_leite(motivo: str) -> list[dict[str, Any]]:
+    return [
+        criar_item_cepea_fallback("leite_brasil", motivo),
+        criar_item_cepea_fallback("leite_bahia", motivo),
+    ]
+
+
+def criar_fallback_cepea_boi_gordo(motivo: str) -> list[dict[str, Any]]:
+    return [criar_item_cepea_fallback("boi_gordo", motivo)]
+
+
+def remover_duplicados_cepea_pecuaria(itens: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Evita duplicidade entre coleta automática e fallback CEPEA."""
+    unicos: dict[tuple[str, str, str, str], dict[str, Any]] = {}
+    for item in itens:
+        chave = (
+            limpar_texto(item.get("produto_base")),
+            limpar_texto(item.get("uf")),
+            limpar_texto(item.get("praca")),
+            limpar_texto(item.get("fonte")),
+        )
+        # Mantém item automático quando existir; fallback só entra se não houver automático.
+        if chave not in unicos:
+            unicos[chave] = item
+            continue
+        if unicos[chave].get("fallback_operacional") and not item.get("fallback_operacional"):
+            unicos[chave] = item
+    return list(unicos.values())
+
+
 def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """
     Pecuária v1.3.0:
@@ -3088,9 +3219,9 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
     debug: dict[str, Any] = {
         "projeto": "Nordeste Agro",
         "modulo": "pecuaria_leite_boi",
-        "versao": "1.3.0",
+        "versao": "1.3.1",
         "gerado_em": agora_local().isoformat(),
-        "politica": "Leite e Boi Gordo entram por fontes institucionais/regionais seguras. Carne bovina em kg não é publicada na tabela principal.",
+        "politica": "Leite e Boi Gordo entram por CEPEA/ESALQ como referência segura e por CONAB apenas quando a linha for preço ao produtor. Carne bovina em kg não é publicada na tabela principal.",
         "fontes": [],
     }
 
@@ -3098,74 +3229,94 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
     try:
         html = baixar_texto(CEPEA_LEITE_URL, timeout=90)
         itens_leite = extrair_cepea_leite(html)
+        fallback_usado = False
+        if not itens_leite:
+            itens_leite = criar_fallback_cepea_leite("pagina_cepea_sem_registros_extraidos")
+            fallback_usado = True
         cotacoes.extend(itens_leite)
         status_fontes.append(
             {
                 "fonte": "CEPEA/ESALQ - Leite ao Produtor",
                 "url": CEPEA_LEITE_URL,
-                "status": "ok" if itens_leite else "sem_registros_extraidos",
+                "status": "ok_fallback" if fallback_usado else "ok",
                 "total_registros": len(itens_leite),
                 "categoria": "pecuaria_leite",
-                "observacao": "Indicador institucional de leite ao produtor em R$/litro. Referência mensal.",
+                "fallback_operacional": fallback_usado,
+                "observacao": "Indicador institucional de leite ao produtor em R$/litro. Referência mensal; não é preço local de PI, MA ou PA.",
             }
         )
         debug["fontes"].append(
             {
                 "fonte": "CEPEA/ESALQ - Leite ao Produtor",
                 "url": CEPEA_LEITE_URL,
-                "status": "ok" if itens_leite else "sem_registros_extraidos",
+                "status": "ok_fallback" if fallback_usado else "ok",
                 "total_registros": len(itens_leite),
+                "fallback_operacional": fallback_usado,
                 "amostra": itens_leite[:5],
             }
         )
     except Exception as erro:
+        itens_leite = criar_fallback_cepea_leite(f"erro_coleta_cepea_leite:{erro}")
+        cotacoes.extend(itens_leite)
         status_fontes.append(
             {
                 "fonte": "CEPEA/ESALQ - Leite ao Produtor",
                 "url": CEPEA_LEITE_URL,
-                "status": "erro",
+                "status": "ok_fallback_pos_erro",
                 "erro": str(erro),
+                "total_registros": len(itens_leite),
                 "categoria": "pecuaria_leite",
+                "fallback_operacional": True,
             }
         )
-        debug["fontes"].append({"fonte": "CEPEA/ESALQ - Leite ao Produtor", "url": CEPEA_LEITE_URL, "status": "erro", "erro": str(erro)})
+        debug["fontes"].append({"fonte": "CEPEA/ESALQ - Leite ao Produtor", "url": CEPEA_LEITE_URL, "status": "ok_fallback_pos_erro", "erro": str(erro), "amostra": itens_leite[:5]})
 
     # CEPEA Boi Gordo.
     try:
         html = baixar_texto(CEPEA_BOI_GORDO_URL, timeout=90)
         item_boi = extrair_cepea_boi_gordo(html)
         itens_boi = [item_boi] if item_boi else []
+        fallback_usado = False
+        if not itens_boi:
+            itens_boi = criar_fallback_cepea_boi_gordo("pagina_cepea_sem_registros_extraidos")
+            fallback_usado = True
         cotacoes.extend(itens_boi)
         status_fontes.append(
             {
                 "fonte": "CEPEA/ESALQ - Boi Gordo",
                 "url": CEPEA_BOI_GORDO_URL,
-                "status": "ok" if itens_boi else "sem_registros_extraidos",
+                "status": "ok_fallback" if fallback_usado else "ok",
                 "total_registros": len(itens_boi),
                 "categoria": "pecuaria_corte",
-                "observacao": "Indicador institucional do Boi Gordo em R$/arroba.",
+                "fallback_operacional": fallback_usado,
+                "observacao": "Indicador institucional do Boi Gordo em R$/arroba. Referência de mercado; não é preço local da praça selecionada.",
             }
         )
         debug["fontes"].append(
             {
                 "fonte": "CEPEA/ESALQ - Boi Gordo",
                 "url": CEPEA_BOI_GORDO_URL,
-                "status": "ok" if itens_boi else "sem_registros_extraidos",
+                "status": "ok_fallback" if fallback_usado else "ok",
                 "total_registros": len(itens_boi),
+                "fallback_operacional": fallback_usado,
                 "amostra": itens_boi[:5],
             }
         )
     except Exception as erro:
+        itens_boi = criar_fallback_cepea_boi_gordo(f"erro_coleta_cepea_boi:{erro}")
+        cotacoes.extend(itens_boi)
         status_fontes.append(
             {
                 "fonte": "CEPEA/ESALQ - Boi Gordo",
                 "url": CEPEA_BOI_GORDO_URL,
-                "status": "erro",
+                "status": "ok_fallback_pos_erro",
                 "erro": str(erro),
+                "total_registros": len(itens_boi),
                 "categoria": "pecuaria_corte",
+                "fallback_operacional": True,
             }
         )
-        debug["fontes"].append({"fonte": "CEPEA/ESALQ - Boi Gordo", "url": CEPEA_BOI_GORDO_URL, "status": "erro", "erro": str(erro)})
+        debug["fontes"].append({"fonte": "CEPEA/ESALQ - Boi Gordo", "url": CEPEA_BOI_GORDO_URL, "status": "ok_fallback_pos_erro", "erro": str(erro), "amostra": itens_boi[:5]})
 
     # Diagnósticos regionais sem publicação automática.
     acrioeste_debug = diagnosticar_acrioeste()
@@ -3193,6 +3344,8 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
                 "observacao": "Diagnóstico de referência de mercado para boi por praça. Não publicado automaticamente nesta versão.",
             }
         )
+
+    cotacoes = remover_duplicados_cepea_pecuaria(cotacoes)
 
     debug["total_cotacoes_publicaveis_extraidas"] = len(cotacoes)
     debug["produtos_extraidos"] = sorted({item.get("produto_base") for item in cotacoes if item.get("produto_base")})
