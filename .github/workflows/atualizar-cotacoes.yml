@@ -111,3 +111,6 @@ jobs:
 
           git commit -m "Atualizar cotações Nordeste Agro" || echo "Sem alterações para commit"
           git push
+          - name: Instalar navegador Chromium do Playwright
+  run: |
+    python -m playwright install --with-deps chromium
