@@ -40,6 +40,7 @@ jobs:
             pip install requests beautifulsoup4 lxml python-dateutil playwright==1.44.0
           fi
 
+          # Garante Playwright para leitura/diagnóstico do CONAB Produtos 360º.
           pip install playwright==1.44.0
 
       - name: Instalar navegador Chromium do Playwright
@@ -48,12 +49,12 @@ jobs:
 
       - name: Listar arquivos do projeto
         run: |
-          echo "Arquivos encontrados:"
+          echo "Arquivos encontrados no repositório:"
           find . -maxdepth 4 -type f | sort
 
       - name: Rodar coletor de cotações
         run: |
-          echo "Rodando coletor correto:"
+          echo "Rodando coletor:"
           python cotacoes/scripts/coletor_cotacoes_nordeste.py
 
       - name: Conferir arquivos gerados
@@ -74,6 +75,7 @@ jobs:
           git add cotacoes/public/cotacoes_regionais.json || true
           git add cotacoes/public/cotacoes_nordeste.csv || true
           git add cotacoes/logs/status_ultima_execucao.json || true
+          git add cotacoes/logs/debug_conab_produtos_360.json || true
 
           if git diff --cached --quiet; then
             echo "Nenhuma alteração para salvar."
