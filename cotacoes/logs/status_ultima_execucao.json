@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "ultima_sincronizacao": "2026-05-08 12:09:13",
+  "ultima_sincronizacao": "2026-05-08 12:28:31",
   "total_cotacoes_tabela": 30,
   "total_cotacoes_brutas": 12753,
   "total_dados_html": 30,
@@ -51,7 +51,7 @@
         "SE",
         "TO"
       ],
-      "observacao": "Fonte preferencial para Soja, Milho e Algodão. v1.2.4 usa chamada direta ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto.",
+      "observacao": "Fonte preferencial para Soja, Milho e Algodão. v1.2.6 usa chamada direta ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto.",
       "arquivo_debug_conab_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json",
       "total_chamadas_doquery": 3,
       "chamadas_promissoras_preview": [
@@ -1131,7 +1131,7 @@
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.2.4: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.2.6: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -1149,7 +1149,7 @@
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.2.4: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.2.6: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
     },
     {
       "fonte": "CEPEA/ESALQ Widget",
@@ -1166,5 +1166,31 @@
       "observacao": "Fonte de referência para mercado futuro. Não foram criados preços por praça/estado para evitar dados simulados."
     }
   ],
-  "debug_conab_produtos_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json"
+  "debug_conab_produtos_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json",
+  "debug_sorgo_conab": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_sorgo_conab.json",
+  "diagnostico_sorgo_conab": {
+    "produto": "Sorgo",
+    "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
+    "data_corte_cotacoes_ativas": "2026-02-07",
+    "conclusao": "Nenhum registro bruto de Sorgo foi encontrado nos arquivos semanais da CONAB para os estados monitorados.",
+    "totais": {
+      "brutas_sorgo_conab": 0,
+      "validas_apos_validacao": 0,
+      "descartadas_por_validacao": 0,
+      "publicaveis_apos_filtro_nivel": 0,
+      "descartadas_por_nivel": 0,
+      "grupos_publicaveis": 0,
+      "grupos_antigos": 0,
+      "grupos_recentes": 0,
+      "na_tabela_final": 0
+    },
+    "motivos_descartes_validacao": {},
+    "motivos_descartes_nivel": {},
+    "grupos_recentes": [],
+    "grupos_antigos": [],
+    "amostra_brutas": [],
+    "amostra_descartadas_validacao": [],
+    "amostra_descartadas_nivel": [],
+    "amostra_tabela_final": []
+  }
 }

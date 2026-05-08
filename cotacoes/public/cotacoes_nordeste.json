@@ -3,10 +3,10 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "repositorio": "idocandido-dotcom/cotacoes",
-  "versao": "1.2.4",
-  "ultima_sincronizacao": "2026-05-08 12:09:13",
-  "ultima_sincronizacao_iso": "2026-05-08T12:09:13.123738-03:00",
-  "gerado_em": "08/05/2026 12:09",
+  "versao": "1.2.6",
+  "ultima_sincronizacao": "2026-05-08 12:28:31",
+  "ultima_sincronizacao_iso": "2026-05-08T12:28:31.343915-03:00",
+  "gerado_em": "08/05/2026 12:28",
   "fuso_horario": "America/Fortaleza",
   "frequencia_atualizacao": "diaria",
   "dias_maximos_cotacao_ativa": 90,
@@ -17,7 +17,7 @@
     "CEPEA/ESALQ Widget no HTML",
     "B3 - referência de mercado futuro"
   ],
-  "politica_classificacao_preco": "Política v1.2.4: a tabela principal publica preço pago ao produtor quando a fonte informar, cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Leite e carnes entram somente quando a fonte informar preço ao produtor. Varejo, atacado, indicador de mercado e mercado futuro ficam fora da tabela principal. Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação.",
+  "politica_classificacao_preco": "Política v1.2.6: a tabela principal publica preço pago ao produtor quando a fonte informar, cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Leite e carnes entram somente quando a fonte informar preço ao produtor. Varejo, atacado, indicador de mercado e mercado futuro ficam fora da tabela principal. Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação.",
   "resumo": {
     "total_cotacoes_tabela": 30,
     "total_cotacoes_brutas": 12753,
@@ -46,6 +46,11 @@
     "total_cotacoes_leite": 0,
     "total_cotacoes_boi_gordo": 0,
     "total_cotacoes_carne_bovina": 0,
+    "total_sorgo_conab_tabela": 0,
+    "total_sorgo_conab_bruto": 0,
+    "total_sorgo_conab_descartado_nivel": 0,
+    "total_sorgo_conab_descartado_validacao": 0,
+    "total_sorgo_conab_grupos_antigos": 0,
     "total_indicadores_mercado": 0,
     "fontes_com_sucesso": [
       "AIBA",
@@ -54,7 +59,7 @@
       "CONAB - Preços Agropecuários Semanal Município"
     ],
     "total_fontes_com_erro": 0,
-    "tempo_execucao_segundos": 24.73
+    "tempo_execucao_segundos": 22.79
   },
   "fontes": [
     {
@@ -90,7 +95,7 @@
         "SE",
         "TO"
       ],
-      "observacao": "Fonte preferencial para Soja, Milho e Algodão. v1.2.4 usa chamada direta ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto.",
+      "observacao": "Fonte preferencial para Soja, Milho e Algodão. v1.2.6 usa chamada direta ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto.",
       "arquivo_debug_conab_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json",
       "total_chamadas_doquery": 3,
       "chamadas_promissoras_preview": [
@@ -1170,7 +1175,7 @@
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.2.4: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.2.6: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -1188,7 +1193,7 @@
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.2.4: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.2.6: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
     },
     {
       "fonte": "CEPEA/ESALQ Widget",
@@ -1205,6 +1210,32 @@
       "observacao": "Fonte de referência para mercado futuro. Não foram criados preços por praça/estado para evitar dados simulados."
     }
   ],
+  "diagnostico_sorgo_conab": {
+    "produto": "Sorgo",
+    "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
+    "data_corte_cotacoes_ativas": "2026-02-07",
+    "conclusao": "Nenhum registro bruto de Sorgo foi encontrado nos arquivos semanais da CONAB para os estados monitorados.",
+    "totais": {
+      "brutas_sorgo_conab": 0,
+      "validas_apos_validacao": 0,
+      "descartadas_por_validacao": 0,
+      "publicaveis_apos_filtro_nivel": 0,
+      "descartadas_por_nivel": 0,
+      "grupos_publicaveis": 0,
+      "grupos_antigos": 0,
+      "grupos_recentes": 0,
+      "na_tabela_final": 0
+    },
+    "motivos_descartes_validacao": {},
+    "motivos_descartes_nivel": {},
+    "grupos_recentes": [],
+    "grupos_antigos": [],
+    "amostra_brutas": [],
+    "amostra_descartadas_validacao": [],
+    "amostra_descartadas_nivel": [],
+    "amostra_tabela_final": []
+  },
+  "debug_sorgo_conab": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_sorgo_conab.json",
   "cotacoes": [
     {
       "produto": "Algodão — Caroço — Regional",
@@ -1536,10 +1567,10 @@
       "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
-      "data_referencia": "2026-03-09",
+      "data_referencia": "2026-03-13",
       "data_referencia_inicio": "2026-03-09",
-      "data_referencia_fim": "2026-03-09",
-      "periodo_referencia": "",
+      "data_referencia_fim": "2026-03-13",
+      "periodo_referencia": "09/03/2026 a 13/03/2026",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "tipo": "oficial",
@@ -1550,23 +1581,23 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários / Preços de Mercado. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
       "historico_30_dias": [
         {
-          "data": "2026-02-09",
+          "data": "2026-02-13",
           "valor": 257.4
         },
         {
-          "data": "2026-02-16",
+          "data": "2026-02-20",
           "valor": 277.8
         },
         {
-          "data": "2026-02-23",
+          "data": "2026-02-27",
           "valor": 272.4
         },
         {
-          "data": "2026-03-02",
+          "data": "2026-03-06",
           "valor": 289.8
         },
         {
-          "data": "2026-03-09",
+          "data": "2026-03-13",
           "valor": 300.0
         }
       ],
@@ -1630,10 +1661,10 @@
       "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
-      "data_referencia": "2026-04-27",
+      "data_referencia": "2026-05-01",
       "data_referencia_inicio": "2026-04-27",
-      "data_referencia_fim": "2026-04-27",
-      "periodo_referencia": "",
+      "data_referencia_fim": "2026-05-01",
+      "periodo_referencia": "27/04/2026 a 01/05/2026",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "tipo": "oficial",
@@ -1644,51 +1675,51 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários / Preços de Mercado. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
       "historico_30_dias": [
         {
-          "data": "2026-02-09",
+          "data": "2026-02-13",
           "valor": 310.2
         },
         {
-          "data": "2026-02-16",
+          "data": "2026-02-20",
           "valor": 310.2
         },
         {
-          "data": "2026-02-23",
+          "data": "2026-02-27",
           "valor": 334.8
         },
         {
-          "data": "2026-03-02",
+          "data": "2026-03-06",
           "valor": 349.8
         },
         {
-          "data": "2026-03-09",
+          "data": "2026-03-13",
           "valor": 352.8
         },
         {
-          "data": "2026-03-16",
+          "data": "2026-03-20",
           "valor": 327.6
         },
         {
-          "data": "2026-03-23",
+          "data": "2026-03-27",
           "valor": 319.8
         },
         {
-          "data": "2026-03-30",
+          "data": "2026-04-03",
           "valor": 302.4
         },
         {
-          "data": "2026-04-06",
+          "data": "2026-04-10",
           "valor": 307.8
         },
         {
-          "data": "2026-04-13",
+          "data": "2026-04-17",
           "valor": 310.2
         },
         {
-          "data": "2026-04-20",
+          "data": "2026-04-24",
           "valor": 329.4
         },
         {
-          "data": "2026-04-27",
+          "data": "2026-05-01",
           "valor": 352.8
         }
       ],
@@ -1830,10 +1861,10 @@
       "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
-      "data_referencia": "2026-04-27",
+      "data_referencia": "2026-05-01",
       "data_referencia_inicio": "2026-04-27",
-      "data_referencia_fim": "2026-04-27",
-      "periodo_referencia": "",
+      "data_referencia_fim": "2026-05-01",
+      "periodo_referencia": "27/04/2026 a 01/05/2026",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "tipo": "oficial",
@@ -1844,7 +1875,7 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários / Preços de Mercado. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
       "historico_30_dias": [
         {
-          "data": "2026-04-27",
+          "data": "2026-05-01",
           "valor": 199.8
         }
       ],
@@ -1986,10 +2017,10 @@
       "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
-      "data_referencia": "2026-04-27",
+      "data_referencia": "2026-05-01",
       "data_referencia_inicio": "2026-04-27",
-      "data_referencia_fim": "2026-04-27",
-      "periodo_referencia": "",
+      "data_referencia_fim": "2026-05-01",
+      "periodo_referencia": "27/04/2026 a 01/05/2026",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "tipo": "oficial",
@@ -2000,51 +2031,51 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários / Preços de Mercado. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
       "historico_30_dias": [
         {
-          "data": "2026-02-09",
+          "data": "2026-02-13",
           "valor": 270.6
         },
         {
-          "data": "2026-02-16",
+          "data": "2026-02-20",
           "valor": 271.2
         },
         {
-          "data": "2026-02-23",
+          "data": "2026-02-27",
           "valor": 268.8
         },
         {
-          "data": "2026-03-02",
+          "data": "2026-03-06",
           "valor": 272.4
         },
         {
-          "data": "2026-03-09",
+          "data": "2026-03-13",
           "valor": 289.2
         },
         {
-          "data": "2026-03-16",
+          "data": "2026-03-20",
           "valor": 308.4
         },
         {
-          "data": "2026-03-23",
+          "data": "2026-03-27",
           "valor": 319.8
         },
         {
-          "data": "2026-03-30",
+          "data": "2026-04-03",
           "valor": 319.8
         },
         {
-          "data": "2026-04-06",
+          "data": "2026-04-10",
           "valor": 319.8
         },
         {
-          "data": "2026-04-13",
+          "data": "2026-04-17",
           "valor": 381.6
         },
         {
-          "data": "2026-04-20",
+          "data": "2026-04-24",
           "valor": 384.6
         },
         {
-          "data": "2026-04-27",
+          "data": "2026-05-01",
           "valor": 384.6
         }
       ],
@@ -2147,10 +2178,10 @@
       "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
-      "data_referencia": "2026-04-27",
+      "data_referencia": "2026-05-01",
       "data_referencia_inicio": "2026-04-27",
-      "data_referencia_fim": "2026-04-27",
-      "periodo_referencia": "",
+      "data_referencia_fim": "2026-05-01",
+      "periodo_referencia": "27/04/2026 a 01/05/2026",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "tipo": "oficial",
@@ -2161,51 +2192,51 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários / Preços de Mercado. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
       "historico_30_dias": [
         {
-          "data": "2026-02-09",
+          "data": "2026-02-13",
           "valor": 313.8
         },
         {
-          "data": "2026-02-16",
+          "data": "2026-02-20",
           "valor": 313.8
         },
         {
-          "data": "2026-02-23",
+          "data": "2026-02-27",
           "valor": 300.6
         },
         {
-          "data": "2026-03-02",
+          "data": "2026-03-06",
           "valor": 309.0
         },
         {
-          "data": "2026-03-09",
+          "data": "2026-03-13",
           "valor": 297.6
         },
         {
-          "data": "2026-03-16",
+          "data": "2026-03-20",
           "valor": 301.2
         },
         {
-          "data": "2026-03-23",
+          "data": "2026-03-27",
           "valor": 288.6
         },
         {
-          "data": "2026-03-30",
+          "data": "2026-04-03",
           "valor": 284.4
         },
         {
-          "data": "2026-04-06",
+          "data": "2026-04-10",
           "valor": 288.0
         },
         {
-          "data": "2026-04-13",
+          "data": "2026-04-17",
           "valor": 292.2
         },
         {
-          "data": "2026-04-20",
+          "data": "2026-04-24",
           "valor": 292.2
         },
         {
-          "data": "2026-04-27",
+          "data": "2026-05-01",
           "valor": 292.2
         }
       ],
@@ -2386,10 +2417,10 @@
       "conversao_aplicada": true,
       "moeda": "BRL",
       "variacao_percentual": null,
-      "data_referencia": "2026-04-27",
+      "data_referencia": "2026-05-01",
       "data_referencia_inicio": "2026-04-27",
-      "data_referencia_fim": "2026-04-27",
-      "periodo_referencia": "",
+      "data_referencia_fim": "2026-05-01",
+      "periodo_referencia": "27/04/2026 a 01/05/2026",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "tipo": "oficial",
@@ -2400,51 +2431,51 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários / Preços de Mercado. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
       "historico_30_dias": [
         {
-          "data": "2026-02-09",
+          "data": "2026-02-13",
           "valor": 145.2
         },
         {
-          "data": "2026-02-16",
+          "data": "2026-02-20",
           "valor": 190.2
         },
         {
-          "data": "2026-02-23",
+          "data": "2026-02-27",
           "valor": 145.2
         },
         {
-          "data": "2026-03-02",
+          "data": "2026-03-06",
           "valor": 190.2
         },
         {
-          "data": "2026-03-09",
+          "data": "2026-03-13",
           "valor": 190.2
         },
         {
-          "data": "2026-03-16",
+          "data": "2026-03-20",
           "valor": 145.2
         },
         {
-          "data": "2026-03-23",
+          "data": "2026-03-27",
           "valor": 205.2
         },
         {
-          "data": "2026-03-30",
+          "data": "2026-04-03",
           "valor": 150.0
         },
         {
-          "data": "2026-04-06",
+          "data": "2026-04-10",
           "valor": 150.0
         },
         {
-          "data": "2026-04-13",
+          "data": "2026-04-17",
           "valor": 150.0
         },
         {
-          "data": "2026-04-20",
+          "data": "2026-04-24",
           "valor": 150.0
         },
         {
-          "data": "2026-04-27",
+          "data": "2026-05-01",
           "valor": 150.0
         }
       ],
@@ -2869,41 +2900,41 @@
       "unidade_original": "Kg",
       "fator_conversao": 60.0,
       "conversao_aplicada": true,
-      "data": "09/03/2026",
-      "data_iso": "2026-03-09",
+      "data": "09/03/2026 a 13/03/2026",
+      "data_iso": "2026-03-13",
       "data_inicio_iso": "2026-03-09",
-      "data_fim_iso": "2026-03-09",
-      "periodo_referencia": "",
+      "data_fim_iso": "2026-03-13",
+      "periodo_referencia": "09/03/2026 a 13/03/2026",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "historico_30d": [
         {
-          "data": "09/02/2026",
-          "data_iso": "2026-02-09",
+          "data": "13/02/2026",
+          "data_iso": "2026-02-13",
           "valor": 257.4,
           "preco": "R$ 257,40"
         },
         {
-          "data": "16/02/2026",
-          "data_iso": "2026-02-16",
+          "data": "20/02/2026",
+          "data_iso": "2026-02-20",
           "valor": 277.8,
           "preco": "R$ 277,80"
         },
         {
-          "data": "23/02/2026",
-          "data_iso": "2026-02-23",
+          "data": "27/02/2026",
+          "data_iso": "2026-02-27",
           "valor": 272.4,
           "preco": "R$ 272,40"
         },
         {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
+          "data": "06/03/2026",
+          "data_iso": "2026-03-06",
           "valor": 289.8,
           "preco": "R$ 289,80"
         },
         {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
+          "data": "13/03/2026",
+          "data_iso": "2026-03-13",
           "valor": 300.0,
           "preco": "R$ 300,00"
         }
@@ -2963,83 +2994,83 @@
       "unidade_original": "Kg",
       "fator_conversao": 60.0,
       "conversao_aplicada": true,
-      "data": "27/04/2026",
-      "data_iso": "2026-04-27",
+      "data": "27/04/2026 a 01/05/2026",
+      "data_iso": "2026-05-01",
       "data_inicio_iso": "2026-04-27",
-      "data_fim_iso": "2026-04-27",
-      "periodo_referencia": "",
+      "data_fim_iso": "2026-05-01",
+      "periodo_referencia": "27/04/2026 a 01/05/2026",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "historico_30d": [
         {
-          "data": "09/02/2026",
-          "data_iso": "2026-02-09",
+          "data": "13/02/2026",
+          "data_iso": "2026-02-13",
           "valor": 310.2,
           "preco": "R$ 310,20"
         },
         {
-          "data": "16/02/2026",
-          "data_iso": "2026-02-16",
+          "data": "20/02/2026",
+          "data_iso": "2026-02-20",
           "valor": 310.2,
           "preco": "R$ 310,20"
         },
         {
-          "data": "23/02/2026",
-          "data_iso": "2026-02-23",
+          "data": "27/02/2026",
+          "data_iso": "2026-02-27",
           "valor": 334.8,
           "preco": "R$ 334,80"
         },
         {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
+          "data": "06/03/2026",
+          "data_iso": "2026-03-06",
           "valor": 349.8,
           "preco": "R$ 349,80"
         },
         {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
+          "data": "13/03/2026",
+          "data_iso": "2026-03-13",
           "valor": 352.8,
           "preco": "R$ 352,80"
         },
         {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
+          "data": "20/03/2026",
+          "data_iso": "2026-03-20",
           "valor": 327.6,
           "preco": "R$ 327,60"
         },
         {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
+          "data": "27/03/2026",
+          "data_iso": "2026-03-27",
           "valor": 319.8,
           "preco": "R$ 319,80"
         },
         {
-          "data": "30/03/2026",
-          "data_iso": "2026-03-30",
+          "data": "03/04/2026",
+          "data_iso": "2026-04-03",
           "valor": 302.4,
           "preco": "R$ 302,40"
         },
         {
-          "data": "06/04/2026",
-          "data_iso": "2026-04-06",
+          "data": "10/04/2026",
+          "data_iso": "2026-04-10",
           "valor": 307.8,
           "preco": "R$ 307,80"
         },
         {
-          "data": "13/04/2026",
-          "data_iso": "2026-04-13",
+          "data": "17/04/2026",
+          "data_iso": "2026-04-17",
           "valor": 310.2,
           "preco": "R$ 310,20"
         },
         {
-          "data": "20/04/2026",
-          "data_iso": "2026-04-20",
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
           "valor": 329.4,
           "preco": "R$ 329,40"
         },
         {
-          "data": "27/04/2026",
-          "data_iso": "2026-04-27",
+          "data": "01/05/2026",
+          "data_iso": "2026-05-01",
           "valor": 352.8,
           "preco": "R$ 352,80"
         }
@@ -3169,17 +3200,17 @@
       "unidade_original": "Kg",
       "fator_conversao": 60.0,
       "conversao_aplicada": true,
-      "data": "27/04/2026",
-      "data_iso": "2026-04-27",
+      "data": "27/04/2026 a 01/05/2026",
+      "data_iso": "2026-05-01",
       "data_inicio_iso": "2026-04-27",
-      "data_fim_iso": "2026-04-27",
-      "periodo_referencia": "",
+      "data_fim_iso": "2026-05-01",
+      "periodo_referencia": "27/04/2026 a 01/05/2026",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "historico_30d": [
         {
-          "data": "27/04/2026",
-          "data_iso": "2026-04-27",
+          "data": "01/05/2026",
+          "data_iso": "2026-05-01",
           "valor": 199.8,
           "preco": "R$ 199,80"
         }
@@ -3309,83 +3340,83 @@
       "unidade_original": "Kg",
       "fator_conversao": 60.0,
       "conversao_aplicada": true,
-      "data": "27/04/2026",
-      "data_iso": "2026-04-27",
+      "data": "27/04/2026 a 01/05/2026",
+      "data_iso": "2026-05-01",
       "data_inicio_iso": "2026-04-27",
-      "data_fim_iso": "2026-04-27",
-      "periodo_referencia": "",
+      "data_fim_iso": "2026-05-01",
+      "periodo_referencia": "27/04/2026 a 01/05/2026",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "historico_30d": [
         {
-          "data": "09/02/2026",
-          "data_iso": "2026-02-09",
+          "data": "13/02/2026",
+          "data_iso": "2026-02-13",
           "valor": 270.6,
           "preco": "R$ 270,60"
         },
         {
-          "data": "16/02/2026",
-          "data_iso": "2026-02-16",
+          "data": "20/02/2026",
+          "data_iso": "2026-02-20",
           "valor": 271.2,
           "preco": "R$ 271,20"
         },
         {
-          "data": "23/02/2026",
-          "data_iso": "2026-02-23",
+          "data": "27/02/2026",
+          "data_iso": "2026-02-27",
           "valor": 268.8,
           "preco": "R$ 268,80"
         },
         {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
+          "data": "06/03/2026",
+          "data_iso": "2026-03-06",
           "valor": 272.4,
           "preco": "R$ 272,40"
         },
         {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
+          "data": "13/03/2026",
+          "data_iso": "2026-03-13",
           "valor": 289.2,
           "preco": "R$ 289,20"
         },
         {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
+          "data": "20/03/2026",
+          "data_iso": "2026-03-20",
           "valor": 308.4,
           "preco": "R$ 308,40"
         },
         {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
+          "data": "27/03/2026",
+          "data_iso": "2026-03-27",
           "valor": 319.8,
           "preco": "R$ 319,80"
         },
         {
-          "data": "30/03/2026",
-          "data_iso": "2026-03-30",
+          "data": "03/04/2026",
+          "data_iso": "2026-04-03",
           "valor": 319.8,
           "preco": "R$ 319,80"
         },
         {
-          "data": "06/04/2026",
-          "data_iso": "2026-04-06",
+          "data": "10/04/2026",
+          "data_iso": "2026-04-10",
           "valor": 319.8,
           "preco": "R$ 319,80"
         },
         {
-          "data": "13/04/2026",
-          "data_iso": "2026-04-13",
+          "data": "17/04/2026",
+          "data_iso": "2026-04-17",
           "valor": 381.6,
           "preco": "R$ 381,60"
         },
         {
-          "data": "20/04/2026",
-          "data_iso": "2026-04-20",
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
           "valor": 384.6,
           "preco": "R$ 384,60"
         },
         {
-          "data": "27/04/2026",
-          "data_iso": "2026-04-27",
+          "data": "01/05/2026",
+          "data_iso": "2026-05-01",
           "valor": 384.6,
           "preco": "R$ 384,60"
         }
@@ -3480,83 +3511,83 @@
       "unidade_original": "Kg",
       "fator_conversao": 60.0,
       "conversao_aplicada": true,
-      "data": "27/04/2026",
-      "data_iso": "2026-04-27",
+      "data": "27/04/2026 a 01/05/2026",
+      "data_iso": "2026-05-01",
       "data_inicio_iso": "2026-04-27",
-      "data_fim_iso": "2026-04-27",
-      "periodo_referencia": "",
+      "data_fim_iso": "2026-05-01",
+      "periodo_referencia": "27/04/2026 a 01/05/2026",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "historico_30d": [
         {
-          "data": "09/02/2026",
-          "data_iso": "2026-02-09",
+          "data": "13/02/2026",
+          "data_iso": "2026-02-13",
           "valor": 313.8,
           "preco": "R$ 313,80"
         },
         {
-          "data": "16/02/2026",
-          "data_iso": "2026-02-16",
+          "data": "20/02/2026",
+          "data_iso": "2026-02-20",
           "valor": 313.8,
           "preco": "R$ 313,80"
         },
         {
-          "data": "23/02/2026",
-          "data_iso": "2026-02-23",
+          "data": "27/02/2026",
+          "data_iso": "2026-02-27",
           "valor": 300.6,
           "preco": "R$ 300,60"
         },
         {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
+          "data": "06/03/2026",
+          "data_iso": "2026-03-06",
           "valor": 309.0,
           "preco": "R$ 309,00"
         },
         {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
+          "data": "13/03/2026",
+          "data_iso": "2026-03-13",
           "valor": 297.6,
           "preco": "R$ 297,60"
         },
         {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
+          "data": "20/03/2026",
+          "data_iso": "2026-03-20",
           "valor": 301.2,
           "preco": "R$ 301,20"
         },
         {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
+          "data": "27/03/2026",
+          "data_iso": "2026-03-27",
           "valor": 288.6,
           "preco": "R$ 288,60"
         },
         {
-          "data": "30/03/2026",
-          "data_iso": "2026-03-30",
+          "data": "03/04/2026",
+          "data_iso": "2026-04-03",
           "valor": 284.4,
           "preco": "R$ 284,40"
         },
         {
-          "data": "06/04/2026",
-          "data_iso": "2026-04-06",
+          "data": "10/04/2026",
+          "data_iso": "2026-04-10",
           "valor": 288.0,
           "preco": "R$ 288,00"
         },
         {
-          "data": "13/04/2026",
-          "data_iso": "2026-04-13",
+          "data": "17/04/2026",
+          "data_iso": "2026-04-17",
           "valor": 292.2,
           "preco": "R$ 292,20"
         },
         {
-          "data": "20/04/2026",
-          "data_iso": "2026-04-20",
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
           "valor": 292.2,
           "preco": "R$ 292,20"
         },
         {
-          "data": "27/04/2026",
-          "data_iso": "2026-04-27",
+          "data": "01/05/2026",
+          "data_iso": "2026-05-01",
           "valor": 292.2,
           "preco": "R$ 292,20"
         }
@@ -3721,83 +3752,83 @@
       "unidade_original": "Kg",
       "fator_conversao": 60.0,
       "conversao_aplicada": true,
-      "data": "27/04/2026",
-      "data_iso": "2026-04-27",
+      "data": "27/04/2026 a 01/05/2026",
+      "data_iso": "2026-05-01",
       "data_inicio_iso": "2026-04-27",
-      "data_fim_iso": "2026-04-27",
-      "periodo_referencia": "",
+      "data_fim_iso": "2026-05-01",
+      "periodo_referencia": "27/04/2026 a 01/05/2026",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "historico_30d": [
         {
-          "data": "09/02/2026",
-          "data_iso": "2026-02-09",
+          "data": "13/02/2026",
+          "data_iso": "2026-02-13",
           "valor": 145.2,
           "preco": "R$ 145,20"
         },
         {
-          "data": "16/02/2026",
-          "data_iso": "2026-02-16",
+          "data": "20/02/2026",
+          "data_iso": "2026-02-20",
           "valor": 190.2,
           "preco": "R$ 190,20"
         },
         {
-          "data": "23/02/2026",
-          "data_iso": "2026-02-23",
+          "data": "27/02/2026",
+          "data_iso": "2026-02-27",
           "valor": 145.2,
           "preco": "R$ 145,20"
         },
         {
-          "data": "02/03/2026",
-          "data_iso": "2026-03-02",
+          "data": "06/03/2026",
+          "data_iso": "2026-03-06",
           "valor": 190.2,
           "preco": "R$ 190,20"
         },
         {
-          "data": "09/03/2026",
-          "data_iso": "2026-03-09",
+          "data": "13/03/2026",
+          "data_iso": "2026-03-13",
           "valor": 190.2,
           "preco": "R$ 190,20"
         },
         {
-          "data": "16/03/2026",
-          "data_iso": "2026-03-16",
+          "data": "20/03/2026",
+          "data_iso": "2026-03-20",
           "valor": 145.2,
           "preco": "R$ 145,20"
         },
         {
-          "data": "23/03/2026",
-          "data_iso": "2026-03-23",
+          "data": "27/03/2026",
+          "data_iso": "2026-03-27",
           "valor": 205.2,
           "preco": "R$ 205,20"
         },
         {
-          "data": "30/03/2026",
-          "data_iso": "2026-03-30",
+          "data": "03/04/2026",
+          "data_iso": "2026-04-03",
           "valor": 150.0,
           "preco": "R$ 150,00"
         },
         {
-          "data": "06/04/2026",
-          "data_iso": "2026-04-06",
+          "data": "10/04/2026",
+          "data_iso": "2026-04-10",
           "valor": 150.0,
           "preco": "R$ 150,00"
         },
         {
-          "data": "13/04/2026",
-          "data_iso": "2026-04-13",
+          "data": "17/04/2026",
+          "data_iso": "2026-04-17",
           "valor": 150.0,
           "preco": "R$ 150,00"
         },
         {
-          "data": "20/04/2026",
-          "data_iso": "2026-04-20",
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
           "valor": 150.0,
           "preco": "R$ 150,00"
         },
         {
-          "data": "27/04/2026",
-          "data_iso": "2026-04-27",
+          "data": "01/05/2026",
+          "data_iso": "2026-05-01",
           "valor": 150.0,
           "preco": "R$ 150,00"
         }
@@ -4005,7 +4036,7 @@
         "preco": 47.54,
         "preco_original": 47.54,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_47.54"
       },
       {
@@ -4020,7 +4051,7 @@
         "preco": 36.52,
         "preco_original": 36.52,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_36.52"
       },
       {
@@ -4035,7 +4066,7 @@
         "preco": 36.2,
         "preco_original": 36.2,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
+        "data_referencia": "2025-05-16",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_36.2"
       },
       {
@@ -4050,7 +4081,7 @@
         "preco": 37.13,
         "preco_original": 37.13,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
+        "data_referencia": "2025-05-09",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_37.13"
       },
       {
@@ -4065,7 +4096,7 @@
         "preco": 46.81,
         "preco_original": 46.81,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_46.81"
       },
       {
@@ -4080,7 +4111,7 @@
         "preco": 36.1,
         "preco_original": 36.1,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_36.1"
       },
       {
@@ -4095,7 +4126,7 @@
         "preco": 47.73,
         "preco_original": 47.73,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
+        "data_referencia": "2025-05-16",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_47.73"
       },
       {
@@ -4110,7 +4141,7 @@
         "preco": 49.32,
         "preco_original": 49.32,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
+        "data_referencia": "2025-05-09",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_49.32"
       },
       {
@@ -4125,7 +4156,7 @@
         "preco": 35.82,
         "preco_original": 35.82,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_35.82"
       },
       {
@@ -4140,7 +4171,7 @@
         "preco": 37.0,
         "preco_original": 37.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
+        "data_referencia": "2025-05-16",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_37.0"
       },
       {
@@ -4155,7 +4186,7 @@
         "preco": 36.27,
         "preco_original": 36.27,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
+        "data_referencia": "2025-05-09",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_36.27"
       },
       {
@@ -4170,7 +4201,7 @@
         "preco": 37.17,
         "preco_original": 37.17,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_37.17"
       },
       {
@@ -4185,7 +4216,7 @@
         "preco": 39.88,
         "preco_original": 39.88,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_39.88"
       },
       {
@@ -4200,7 +4231,7 @@
         "preco": 16.04,
         "preco_original": 16.04,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
+        "data_referencia": "2025-05-09",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_16.04"
       },
       {
@@ -4215,7 +4246,7 @@
         "preco": 40.53,
         "preco_original": 40.53,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
+        "data_referencia": "2025-05-09",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_40.53"
       },
       {
@@ -4230,7 +4261,7 @@
         "preco": 39.23,
         "preco_original": 39.23,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
+        "data_referencia": "2025-05-16",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_39.23"
       },
       {
@@ -4245,7 +4276,7 @@
         "preco": 40.53,
         "preco_original": 40.53,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_40.53"
       },
       {
@@ -4260,7 +4291,7 @@
         "preco": 15.96,
         "preco_original": 15.96,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_15.96"
       },
       {
@@ -4275,7 +4306,7 @@
         "preco": 16.04,
         "preco_original": 16.04,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_16.04"
       },
       {
@@ -4290,7 +4321,7 @@
         "preco": 15.92,
         "preco_original": 15.92,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
+        "data_referencia": "2025-05-16",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_15.92"
       },
       {
@@ -4305,7 +4336,7 @@
         "preco": 37.97,
         "preco_original": 37.97,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
+        "data_referencia": "2025-05-09",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_37.97"
       },
       {
@@ -4320,7 +4351,7 @@
         "preco": 37.2,
         "preco_original": 37.2,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
+        "data_referencia": "2025-05-16",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_37.2"
       },
       {
@@ -4335,7 +4366,7 @@
         "preco": 38.5,
         "preco_original": 38.5,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_38.5"
       },
       {
@@ -4350,7 +4381,7 @@
         "preco": 38.2,
         "preco_original": 38.2,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
+        "data_referencia": "2025-05-09",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_38.2"
       },
       {
@@ -4365,7 +4396,7 @@
         "preco": 38.5,
         "preco_original": 38.5,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_38.5"
       },
       {
@@ -4380,7 +4411,7 @@
         "preco": 37.6,
         "preco_original": 37.6,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
+        "data_referencia": "2025-05-16",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_37.6"
       },
       {
@@ -4395,7 +4426,7 @@
         "preco": 38.1,
         "preco_original": 38.1,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_38.1"
       },
       {
@@ -4410,7 +4441,7 @@
         "preco": 37.26,
         "preco_original": 37.26,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_37.26"
       },
       {
@@ -4425,7 +4456,7 @@
         "preco": 36.17,
         "preco_original": 36.17,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
+        "data_referencia": "2025-05-16",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_36.17"
       },
       {
@@ -4440,7 +4471,7 @@
         "preco": 36.15,
         "preco_original": 36.15,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_36.15"
       },
       {
@@ -4455,7 +4486,7 @@
         "preco": 37.2,
         "preco_original": 37.2,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
+        "data_referencia": "2025-05-16",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_37.2"
       },
       {
@@ -4470,7 +4501,7 @@
         "preco": 37.7,
         "preco_original": 37.7,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
+        "data_referencia": "2025-05-09",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_37.7"
       },
       {
@@ -4485,7 +4516,7 @@
         "preco": 37.6,
         "preco_original": 37.6,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_37.6"
       },
       {
@@ -4500,7 +4531,7 @@
         "preco": 37.0,
         "preco_original": 37.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_37.0"
       },
       {
@@ -4515,7 +4546,7 @@
         "preco": 36.63,
         "preco_original": 36.63,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
+        "data_referencia": "2025-05-09",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_36.63"
       },
       {
@@ -4530,7 +4561,7 @@
         "preco": 36.17,
         "preco_original": 36.17,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_36.17"
       },
       {
@@ -4545,7 +4576,7 @@
         "preco": 38.08,
         "preco_original": 38.08,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_38.08"
       },
       {
@@ -4560,7 +4591,7 @@
         "preco": 38.21,
         "preco_original": 38.21,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
+        "data_referencia": "2025-05-09",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_38.21"
       },
       {
@@ -4575,7 +4606,7 @@
         "preco": 38.21,
         "preco_original": 38.21,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
+        "data_referencia": "2025-05-16",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_38.21"
       },
       {
@@ -4590,7 +4621,7 @@
         "preco": 38.08,
         "preco_original": 38.08,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_38.08"
       },
       {
@@ -4605,7 +4636,7 @@
         "preco": 42.75,
         "preco_original": 42.75,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_42.75"
       },
       {
@@ -4620,7 +4651,7 @@
         "preco": 42.8,
         "preco_original": 42.8,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
+        "data_referencia": "2025-05-16",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_42.8"
       },
       {
@@ -4635,7 +4666,7 @@
         "preco": 42.25,
         "preco_original": 42.25,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_42.25"
       },
       {
@@ -4650,7 +4681,7 @@
         "preco": 40.88,
         "preco_original": 40.88,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
+        "data_referencia": "2025-05-09",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_40.88"
       },
       {
@@ -4665,7 +4696,7 @@
         "preco": 37.5,
         "preco_original": 37.5,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_37.5"
       },
       {
@@ -4680,7 +4711,7 @@
         "preco": 35.72,
         "preco_original": 35.72,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_35.72"
       },
       {
@@ -4695,7 +4726,7 @@
         "preco": 34.9,
         "preco_original": 34.9,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_34.9"
       },
       {
@@ -4710,7 +4741,7 @@
         "preco": 35.51,
         "preco_original": 35.51,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
+        "data_referencia": "2025-05-16",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_35.51"
       },
       {
@@ -4725,7 +4756,7 @@
         "preco": 35.51,
         "preco_original": 35.51,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
+        "data_referencia": "2025-05-09",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_35.51"
       },
       {
@@ -4740,7 +4771,7 @@
         "preco": 36.75,
         "preco_original": 36.75,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "motivo": "preco_acima_da_faixa:Leite:Litro:max_10.0:valor_36.75"
       }
     ]
@@ -4777,7 +4808,7 @@
         "unidade": "Arroba (@)",
         "preco": 280.05,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -4792,7 +4823,7 @@
         "unidade": "Arroba (@)",
         "preco": 282.45,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -4807,7 +4838,7 @@
         "unidade": "Arroba (@)",
         "preco": 295.05,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
+        "data_referencia": "2025-05-09",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -4822,7 +4853,7 @@
         "unidade": "Arroba (@)",
         "preco": 287.55,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
+        "data_referencia": "2025-05-16",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -4837,7 +4868,7 @@
         "unidade": "Arroba (@)",
         "preco": 282.45,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -4852,7 +4883,7 @@
         "unidade": "Arroba (@)",
         "preco": 298.5,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
+        "data_referencia": "2025-05-09",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -4867,7 +4898,7 @@
         "unidade": "Arroba (@)",
         "preco": 295.05,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
+        "data_referencia": "2025-05-16",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -4882,7 +4913,7 @@
         "unidade": "Arroba (@)",
         "preco": 287.55,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -4897,7 +4928,7 @@
         "unidade": "Arroba (@)",
         "preco": 289.05,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
+        "data_referencia": "2025-05-09",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -4912,7 +4943,7 @@
         "unidade": "Arroba (@)",
         "preco": 283.35,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
+        "data_referencia": "2025-05-16",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -4927,7 +4958,7 @@
         "unidade": "Arroba (@)",
         "preco": 279.3,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
+        "data_referencia": "2025-05-23",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -4942,7 +4973,7 @@
         "unidade": "Arroba (@)",
         "preco": 278.4,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
+        "data_referencia": "2025-05-30",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -4957,7 +4988,7 @@
         "unidade": "Arroba (@)",
         "preco": 287.55,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-09",
+        "data_referencia": "2025-06-13",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -4972,7 +5003,7 @@
         "unidade": "Arroba (@)",
         "preco": 289.95,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-16",
+        "data_referencia": "2025-06-20",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -4987,7 +5018,7 @@
         "unidade": "Arroba (@)",
         "preco": 289.95,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-23",
+        "data_referencia": "2025-06-27",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5002,7 +5033,7 @@
         "unidade": "Arroba (@)",
         "preco": 278.7,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-02",
+        "data_referencia": "2025-06-06",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5017,7 +5048,7 @@
         "unidade": "Arroba (@)",
         "preco": 293.55,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-09",
+        "data_referencia": "2025-06-13",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5032,7 +5063,7 @@
         "unidade": "Arroba (@)",
         "preco": 283.5,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-02",
+        "data_referencia": "2025-06-06",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5047,7 +5078,7 @@
         "unidade": "Arroba (@)",
         "preco": 297.45,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-16",
+        "data_referencia": "2025-06-20",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5062,7 +5093,7 @@
         "unidade": "Arroba (@)",
         "preco": 296.55,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-23",
+        "data_referencia": "2025-06-27",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5077,7 +5108,7 @@
         "unidade": "Arroba (@)",
         "preco": 287.1,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-23",
+        "data_referencia": "2025-06-27",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5092,7 +5123,7 @@
         "unidade": "Arroba (@)",
         "preco": 276.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-02",
+        "data_referencia": "2025-06-06",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5107,7 +5138,7 @@
         "unidade": "Arroba (@)",
         "preco": 282.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-09",
+        "data_referencia": "2025-06-13",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5122,7 +5153,7 @@
         "unidade": "Arroba (@)",
         "preco": 286.5,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-16",
+        "data_referencia": "2025-06-20",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5137,7 +5168,7 @@
         "unidade": "Arroba (@)",
         "preco": 257.55,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-28",
+        "data_referencia": "2025-08-01",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5152,7 +5183,7 @@
         "unidade": "Arroba (@)",
         "preco": 287.55,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-30",
+        "data_referencia": "2025-07-04",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5167,7 +5198,7 @@
         "unidade": "Arroba (@)",
         "preco": 267.45,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-21",
+        "data_referencia": "2025-07-25",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5182,7 +5213,7 @@
         "unidade": "Arroba (@)",
         "preco": 280.05,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-07",
+        "data_referencia": "2025-07-11",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5197,7 +5228,7 @@
         "unidade": "Arroba (@)",
         "preco": 280.05,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-14",
+        "data_referencia": "2025-07-18",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5212,7 +5243,7 @@
         "unidade": "Arroba (@)",
         "preco": 292.5,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-07",
+        "data_referencia": "2025-07-11",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5227,7 +5258,7 @@
         "unidade": "Arroba (@)",
         "preco": 274.95,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-28",
+        "data_referencia": "2025-08-01",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5242,7 +5273,7 @@
         "unidade": "Arroba (@)",
         "preco": 274.95,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-14",
+        "data_referencia": "2025-07-18",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5257,7 +5288,7 @@
         "unidade": "Arroba (@)",
         "preco": 274.95,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-21",
+        "data_referencia": "2025-07-25",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5272,7 +5303,7 @@
         "unidade": "Arroba (@)",
         "preco": 295.05,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-30",
+        "data_referencia": "2025-07-04",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5287,7 +5318,7 @@
         "unidade": "Arroba (@)",
         "preco": 267.6,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-28",
+        "data_referencia": "2025-08-01",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5302,7 +5333,7 @@
         "unidade": "Arroba (@)",
         "preco": 284.55,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-30",
+        "data_referencia": "2025-07-04",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5317,7 +5348,7 @@
         "unidade": "Arroba (@)",
         "preco": 282.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-14",
+        "data_referencia": "2025-07-18",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5332,7 +5363,7 @@
         "unidade": "Arroba (@)",
         "preco": 286.95,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-07",
+        "data_referencia": "2025-07-11",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5347,7 +5378,7 @@
         "unidade": "Arroba (@)",
         "preco": 285.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-21",
+        "data_referencia": "2025-07-25",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5362,7 +5393,7 @@
         "unidade": "Arroba (@)",
         "preco": 285.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-25",
+        "data_referencia": "2025-08-29",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5377,7 +5408,7 @@
         "unidade": "Arroba (@)",
         "preco": 280.05,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-18",
+        "data_referencia": "2025-08-22",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5392,7 +5423,7 @@
         "unidade": "Arroba (@)",
         "preco": 270.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-04",
+        "data_referencia": "2025-08-08",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5407,7 +5438,7 @@
         "unidade": "Arroba (@)",
         "preco": 274.95,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-11",
+        "data_referencia": "2025-08-15",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5422,7 +5453,7 @@
         "unidade": "Arroba (@)",
         "preco": 285.45,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-11",
+        "data_referencia": "2025-08-15",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5437,7 +5468,7 @@
         "unidade": "Arroba (@)",
         "preco": 289.95,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-18",
+        "data_referencia": "2025-08-22",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5452,7 +5483,7 @@
         "unidade": "Arroba (@)",
         "preco": 280.5,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-04",
+        "data_referencia": "2025-08-08",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5467,7 +5498,7 @@
         "unidade": "Arroba (@)",
         "preco": 293.55,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-25",
+        "data_referencia": "2025-08-29",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5482,7 +5513,7 @@
         "unidade": "Arroba (@)",
         "preco": 286.5,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-25",
+        "data_referencia": "2025-08-29",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5497,7 +5528,7 @@
         "unidade": "Arroba (@)",
         "preco": 272.7,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-04",
+        "data_referencia": "2025-08-08",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
@@ -5512,12 +5543,12 @@
         "unidade": "Arroba (@)",
         "preco": 283.2,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-18",
+        "data_referencia": "2025-08-22",
         "nivel_comercializacao": "Referência CONAB",
         "nivel_comercializacao_chave": "preco_referencia_conab",
         "motivo": "nivel_conab_referencia_fonte_invalida"
       }
     ]
   },
-  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.2.4, a tabela principal publica preço pago ao produtor quando a fonte informar claramente, cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Leite e carnes só são publicados quando a fonte indicar preço ao produtor. Cotações de varejo e atacado são removidas para evitar confusão com preço recebido pelo produtor rural. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados, industrializados, insumos e serviços são removidos. CEPEA/ESALQ permanece em seção própria do HTML como indicador de mercado, e B3 permanece apenas como referência de mercado futuro. Os valores podem variar conforme praça, qualidade, volume, frete, forma de pagamento, logística e data de atualização."
+  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.2.6, a tabela principal publica preço pago ao produtor quando a fonte informar claramente, cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Leite e carnes só são publicados quando a fonte indicar preço ao produtor. Cotações de varejo e atacado são removidas para evitar confusão com preço recebido pelo produtor rural. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados, industrializados, insumos e serviços são removidos. CEPEA/ESALQ permanece em seção própria do HTML como indicador de mercado, e B3 permanece apenas como referência de mercado futuro. Os valores podem variar conforme praça, qualidade, volume, frete, forma de pagamento, logística e data de atualização."
 }
