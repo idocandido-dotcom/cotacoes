@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.1.7
+Nordeste Agro — Coletor Automático de Cotações v1.1.8
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -45,8 +45,9 @@ Melhorias desta versão:
   * mantém apenas um valor por data no historico_30_dias.
 - Melhora classificação visual:
   * reforça Regional, Atacado, Produtor e Média UF para o HTML.
-- Política de publicação v1.1.7:
+- Política de publicação v1.1.8:
   * publica preço ao produtor, cotação regional produtiva ou referência oficial CONAB.
+  * força CONAB sem nível claro/média UF como Referência CONAB, mantendo bloqueio para atacado/varejo.
   * remove Varejo, Atacado e Média UF da tabela principal.
   * CEPEA/ESALQ permanece como widget/indicador de mercado separado no HTML.
   * isso evita que valores de varejo sejam confundidos com preço pago ao produtor.
@@ -198,7 +199,7 @@ TIPOS_REAIS = {
 # soja, milho, sorgo, arroz e feijão devem aparecer por saca de 60 kg.
 PRODUTOS_SACA_60KG = {"Soja", "Milho", "Sorgo", "Arroz", "Feijão"}
 
-# Regra v1.1.7: na CONAB vamos publicar somente os 5 produtos definidos
+# Regra v1.1.8: na CONAB vamos publicar somente os 5 produtos definidos
 # para esta etapa da página Cotações. Isso evita que leite/carne/boi entrem
 # pela CONAB com unidade ou nível de comercialização inadequado.
 PRODUTOS_CONAB_OFICIAIS = {"Soja", "Milho", "Algodão", "Feijão", "Sorgo"}
@@ -950,9 +951,53 @@ def resumir_descartes(descartadas: list[dict[str, Any]]) -> dict[str, int]:
     return dict(sorted(resumo.items(), key=lambda par: par[0]))
 
 
+def forcar_referencia_conab(item: dict[str, Any]) -> bool:
+    """
+    Força a classificação como Referência CONAB somente quando for seguro:
+    - fonte CONAB;
+    - produto dentro da lista oficial desta etapa;
+    - nível ainda não confirmado como atacado, varejo, indicador ou mercado futuro.
+
+    Isso resolve o caso em que a base da CONAB traz registros com nível vazio,
+    média UF ou não informado. Esses registros entram como referência oficial,
+    sem serem chamados de preço ao produtor.
+    """
+    fonte = limpar_texto(item.get("fonte"))
+    produto_base = limpar_texto(item.get("produto_base"))
+    nivel = limpar_texto(item.get("nivel_comercializacao_chave"))
+
+    if "CONAB" not in fonte:
+        return False
+
+    if produto_base not in PRODUTOS_CONAB_OFICIAIS:
+        return False
+
+    if nivel in {"preco_varejo", "preco_atacado", "indicador_mercado", "mercado_futuro"}:
+        return False
+
+    if nivel in {"preco_referencia_conab", "nao_informado", "media_uf", ""}:
+        item["nivel_comercializacao"] = "Referência CONAB"
+        item["nivel_comercializacao_chave"] = "preco_referencia_conab"
+        item["prioridade_nivel_preco"] = NIVEIS_PRECO_PRIORIDADE["preco_referencia_conab"]
+        item["produto"] = nome_produto_com_nivel(
+            item.get("produto_base", ""),
+            item.get("tipo_produto", "Padrão"),
+            "Referência CONAB",
+        )
+        item["produto_slug"] = slugify(item.get("produto", ""))
+        item["politica_publicacao"] = "produtor_regional_ou_referencia_conab"
+        item["observacao"] = (
+            limpar_texto(item.get("observacao"))
+            + " Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível."
+        ).strip()
+        return True
+
+    return False
+
+
 def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     """
-    Política v1.1.7:
+    Política v1.1.8:
     - Publicar preço pago ao produtor quando a fonte informar claramente.
     - Publicar cotação regional produtiva, como AIBA.
     - Publicar referência oficial CONAB para soja, milho, algodão, feijão e sorgo
@@ -963,6 +1008,19 @@ def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     """
     nivel = limpar_texto(item.get("nivel_comercializacao_chave"))
     fonte = limpar_texto(item.get("fonte"))
+
+    # Bloqueios absolutos: nunca entram na tabela principal.
+    if nivel == "preco_varejo":
+        return False, "nivel_bloqueado_varejo"
+
+    if nivel == "preco_atacado":
+        return False, "nivel_bloqueado_atacado"
+
+    if nivel == "indicador_mercado":
+        return False, "nivel_bloqueado_indicador_mercado"
+
+    if nivel == "mercado_futuro":
+        return False, "nivel_bloqueado_mercado_futuro"
 
     if nivel == "preco_produtor":
         return True, "ok_preco_produtor"
@@ -975,29 +1033,21 @@ def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     if nivel == "preco_regional":
         return True, "ok_preco_regional"
 
+    # Correção v1.1.8: CONAB sem nível claro, média UF ou não informado
+    # entra como Referência CONAB, desde que não seja atacado/varejo/indicador.
+    if forcar_referencia_conab(item):
+        return True, "ok_referencia_oficial_conab_forcada"
+
     if nivel == "preco_referencia_conab":
         produto_base = limpar_texto(item.get("produto_base"))
         if "CONAB" in fonte and produto_base in PRODUTOS_CONAB_OFICIAIS:
             return True, "ok_referencia_oficial_conab"
         return False, "nivel_conab_referencia_fonte_invalida"
 
-    if nivel == "preco_varejo":
-        return False, "nivel_bloqueado_varejo"
-
-    if nivel == "preco_atacado":
-        return False, "nivel_bloqueado_atacado"
-
     if nivel == "media_uf":
         return False, "nivel_bloqueado_media_uf"
 
-    if nivel == "indicador_mercado":
-        return False, "nivel_bloqueado_indicador_mercado"
-
-    if nivel == "mercado_futuro":
-        return False, "nivel_bloqueado_mercado_futuro"
-
     return False, f"nivel_bloqueado_{nivel or 'nao_informado'}"
-
 
 def filtrar_cotacoes_produtor_regional(
     cotacoes: list[dict[str, Any]],
@@ -1327,14 +1377,14 @@ def detectar_nivel_conab(
         return texto
 
     if produto_base in PRODUTOS_CONAB_OFICIAIS and tipo_fonte_conab == "semanal_municipio":
-        # Regra v1.1.7: quando a base semanal por município da CONAB não informa
+        # Regra v1.1.8: quando a base semanal por município da CONAB não informa
         # explicitamente atacado, varejo ou produtor, ela entra como referência
         # oficial CONAB por praça. Não rotulamos como "Produtor" para não criar
         # uma informação que a própria linha não informou.
         return "referencia conab municipal"
 
     if produto_base in PRODUTOS_CONAB_OFICIAIS and tipo_fonte_conab == "semanal_uf":
-        # Regra v1.1.7: quando a base semanal por UF da CONAB não informa nível
+        # Regra v1.1.8: quando a base semanal por UF da CONAB não informa nível
         # de comercialização, ela entra como referência oficial estadual CONAB.
         # Atacado e varejo continuam bloqueados acima.
         return "referencia conab estadual"
@@ -1431,9 +1481,17 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
                     nivel_chave, nivel_label, _ = normalizar_nivel_preco(nivel_texto)
 
-                    # Se não identificou nada, deixa pelo menos a origem explícita.
-                    if nivel_chave == "nao_informado":
-                        nivel_texto = "Não informado"
+                    # Correção v1.1.8: quando a CONAB não informar claramente
+                    # o nível, publicamos como Referência CONAB, sem chamar de
+                    # preço ao produtor. Atacado e varejo continuam bloqueados.
+                    if nivel_chave in {"nao_informado", "media_uf"}:
+                        texto_nivel_norm = remover_acentos(nivel_texto).lower()
+                        if "atacado" not in texto_nivel_norm and "varejo" not in texto_nivel_norm and "consumidor" not in texto_nivel_norm:
+                            if fonte.get("tipo", "") == "semanal_municipio":
+                                nivel_texto = "referencia conab municipal"
+                            else:
+                                nivel_texto = "referencia conab estadual"
+                            nivel_chave, nivel_label, _ = normalizar_nivel_preco(nivel_texto)
 
                     cotacoes.append(
                         criar_item(
@@ -1713,7 +1771,7 @@ def consolidar_mais_recentes(
     """
     Consolida a base para uso no site.
 
-    Regra v1.1.7:
+    Regra v1.1.8:
     - Agrupa todos os registros brutos por fonte + produto + UF + praça + unidade.
     - Dentro de cada grupo, mantém apenas o item mais recente.
     - Se o item mais recente do grupo for mais antigo que data_corte_iso, o grupo inteiro
@@ -1879,7 +1937,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.1.7",
+        "versao": "1.1.8",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -1891,7 +1949,7 @@ def main() -> None:
         "fonte_principal": "AIBA/CONAB Produtos 360º e Preços Agropecuários",
         "fontes_complementares": ["CEPEA/ESALQ Widget no HTML", "B3 - referência de mercado futuro"],
         "politica_classificacao_preco": (
-            "Política v1.1.7: a tabela principal publica preço pago ao produtor quando a fonte informar, "
+            "Política v1.1.8: a tabela principal publica preço pago ao produtor quando a fonte informar, "
             "cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
             "Varejo, atacado, indicador de mercado e mercado futuro ficam fora da tabela principal. "
             "Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação."
@@ -1942,14 +2000,14 @@ def main() -> None:
                 "Varejo, atacado, indicador de mercado e mercado futuro são removidos."
             ),
             "niveis_permitidos": ["preco_produtor", "preco_regional", "preco_referencia_conab"],
-            "niveis_bloqueados": ["preco_varejo", "preco_atacado", "indicador_mercado", "mercado_futuro", "nao_informado"],
+            "niveis_bloqueados": ["preco_varejo", "preco_atacado", "indicador_mercado", "mercado_futuro", "nao_informado", "media_uf"],
             "total_descartadas": len(cotacoes_descartadas_nivel),
             "resumo_descartes": resumir_descartes(cotacoes_descartadas_nivel),
             "amostra_descartadas": cotacoes_descartadas_nivel[:50],
         },
         "aviso_legal": (
             "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas "
-            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.1.7, "
+            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.1.8, "
             "a tabela principal publica preço pago ao produtor quando a fonte informar claramente, "
             "cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
             "Cotações de varejo e atacado são removidas para evitar confusão com preço recebido "
