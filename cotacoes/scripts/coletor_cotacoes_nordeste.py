@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.2.0
+Nordeste Agro — Coletor Automático de Cotações v1.2.1
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -45,7 +45,7 @@ Melhorias desta versão:
   * mantém apenas um valor por data no historico_30_dias.
 - Melhora classificação visual:
   * reforça Regional, Atacado, Produtor e Média UF para o HTML.
-- Política de publicação v1.2.0:
+- Política de publicação v1.2.1:
   * publica preço ao produtor, cotação regional produtiva ou referência oficial CONAB.
   * usa CONAB Produtos 360º como fonte para Soja, Milho e Algodão.
   * usa arquivos semanais da CONAB apenas para Feijão e Sorgo.
@@ -91,6 +91,7 @@ AIBA_URL = "https://aiba.org.br/cotacoes/"
 
 CONAB_PRODUTOS_360_URL = "https://portaldeinformacoes.conab.gov.br/produtos-360.html"
 CONAB_PRODUTOS_360_PENTAHO_URL = "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/%3Ahome%3AProdutos%3Aprodutos360.wcdf/generatedContent?password=password&userid=pentaho"
+CONAB_360_DOQUERY_URL = "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?"
 
 CONAB_URLS = [
     {
@@ -206,12 +207,12 @@ TIPOS_REAIS = {
 # soja, milho, sorgo, arroz e feijão devem aparecer por saca de 60 kg.
 PRODUTOS_SACA_60KG = {"Soja", "Milho", "Sorgo", "Arroz", "Feijão"}
 
-# Regra v1.2.0: na CONAB vamos publicar somente os 5 produtos definidos
+# Regra v1.2.1: na CONAB vamos publicar somente os 5 produtos definidos
 # para esta etapa da página Cotações. Isso evita que leite/carne/boi entrem
 # pela CONAB com unidade ou nível de comercialização inadequado.
 PRODUTOS_CONAB_OFICIAIS = {"Soja", "Milho", "Algodão", "Feijão", "Sorgo"}
 
-# v1.2.0: soja, milho e algodão não devem mais sair dos arquivos semanais,
+# v1.2.1: soja, milho e algodão não devem mais sair dos arquivos semanais,
 # porque esses arquivos trouxeram datas antigas. Para esses três produtos,
 # a fonte operacional passa a ser o painel CONAB Produtos 360º.
 PRODUTOS_CONAB_360 = {"Soja", "Milho", "Algodão"}
@@ -1013,7 +1014,7 @@ def forcar_referencia_conab(item: dict[str, Any]) -> bool:
 
 def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     """
-    Política v1.2.0:
+    Política v1.2.1:
     - Publicar preço pago ao produtor quando a fonte informar claramente.
     - Publicar cotação regional produtiva, como AIBA.
     - Publicar referência oficial CONAB para soja, milho, algodão, feijão e sorgo
@@ -1049,7 +1050,7 @@ def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     if nivel == "preco_regional":
         return True, "ok_preco_regional"
 
-    # Correção v1.2.0: CONAB sem nível claro, média UF ou não informado
+    # Correção v1.2.1: CONAB sem nível claro, média UF ou não informado
     # entra como Referência CONAB, desde que não seja atacado/varejo/indicador.
     if forcar_referencia_conab(item):
         return True, "ok_referencia_oficial_conab_forcada"
@@ -1393,14 +1394,14 @@ def detectar_nivel_conab(
         return texto
 
     if produto_base in PRODUTOS_CONAB_OFICIAIS and tipo_fonte_conab == "semanal_municipio":
-        # Regra v1.2.0: quando a base semanal por município da CONAB não informa
+        # Regra v1.2.1: quando a base semanal por município da CONAB não informa
         # explicitamente atacado, varejo ou produtor, ela entra como referência
         # oficial CONAB por praça. Não rotulamos como "Produtor" para não criar
         # uma informação que a própria linha não informou.
         return "referencia conab municipal"
 
     if produto_base in PRODUTOS_CONAB_OFICIAIS and tipo_fonte_conab == "semanal_uf":
-        # Regra v1.2.0: quando a base semanal por UF da CONAB não informa nível
+        # Regra v1.2.1: quando a base semanal por UF da CONAB não informa nível
         # de comercialização, ela entra como referência oficial estadual CONAB.
         # Atacado e varejo continuam bloqueados acima.
         return "referencia conab estadual"
@@ -1825,43 +1826,294 @@ async def coletar_conab_360_playwright_async() -> tuple[list[dict[str, Any]], li
 
     return list(unicos.values()), respostas_debug, doquery_debug
 
-def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """
-    Coleta preferencial para Soja, Milho e Algodão no painel CONAB Produtos 360º.
 
-    v1.2.0:
-    - mantém a tentativa de extração automática;
-    - salva diagnóstico completo das chamadas internas do Pentaho/CDA em
-      logs/debug_conab_produtos_360.json;
-    - o objetivo é identificar a consulta exata de preço recebido pelo produtor.
+def parametros_preco_produto_conab_360(produto_base: str) -> dict[str, str]:
+    """
+    Parâmetros CDA confirmados no debug do Produtos 360º.
+
+    dataAccessId=precoProduto retorna preço médio recente por UF.
+    Esse é o dado que alimenta a tela do Produtos 360º por estado,
+    com colunas como Regionalizacao, UltimoPrecoMedio e DescricaoSemanal.
+    """
+    mapa_paramproduto = {
+        "Soja": "[Produto].[SOJA]",
+        "Milho": "[Produto].[MILHO]",
+        "Algodão": "[Produto].[ALGODÃO EM PLUMA]",
+    }
+
+    return {
+        "paramprodutoPreco": mapa_paramproduto[produto_base],
+        "path": "/home/Produtos/produtos360.cda",
+        "dataAccessId": "precoProduto",
+        "outputIndexId": "1",
+        "pageSize": "0",
+        "pageStart": "0",
+        "paramsearchBox": "",
+    }
+
+
+def parametros_historico_produto_conab_360(produto_base: str) -> dict[str, str]:
+    """
+    Consulta complementar nacional com coluna explícita
+    'Preco Recebido Produtor'. Usada apenas no debug/validação,
+    porque não retorna UF.
+    """
+    mapa_paramproduto = {
+        "Soja": "[Produto].[SOJA]",
+        "Milho": "[Produto].[MILHO]",
+        "Algodão": "[Produto].[ALGODÃO EM PLUMA]",
+    }
+
+    return {
+        "paramprodutoPreco": mapa_paramproduto[produto_base],
+        "path": "/home/Produtos/produtos360.cda",
+        "dataAccessId": "ultimaSemanaPrecoProduto_new",
+        "outputIndexId": "1",
+        "pageSize": "0",
+        "pageStart": "0",
+        "sortBy": "",
+        "paramsearchBox": "",
+    }
+
+
+def extrair_metadata_resultset_cda(obj: dict[str, Any]) -> tuple[list[str], list[Any]]:
+    metadata = obj.get("metadata") or obj.get("metaData") or []
+    resultset = obj.get("resultset") or obj.get("resultSet") or []
+
+    colunas: list[str] = []
+    if isinstance(metadata, list):
+        for i, meta in enumerate(metadata):
+            if isinstance(meta, dict):
+                colunas.append(
+                    limpar_texto(
+                        meta.get("colName")
+                        or meta.get("name")
+                        or meta.get("label")
+                        or meta.get("id")
+                        or f"coluna_{i}"
+                    )
+                )
+            else:
+                colunas.append(limpar_texto(meta) or f"coluna_{i}")
+
+    if not isinstance(resultset, list):
+        resultset = []
+
+    return colunas, resultset
+
+
+def linha_cda_para_dict(colunas: list[str], linha: Any) -> dict[str, Any]:
+    if isinstance(linha, dict):
+        return linha
+
+    if isinstance(linha, list):
+        return {
+            colunas[i] if i < len(colunas) else f"coluna_{i}": valor
+            for i, valor in enumerate(linha)
+        }
+
+    return {}
+
+
+def valor_coluna_exata_ou_termos(linha: dict[str, Any], nomes_exatos: list[str], termos: list[str]) -> Any:
+    for nome in nomes_exatos:
+        if nome in linha:
+            return linha.get(nome)
+
+    return valor_por_termos(linha, termos)
+
+
+def item_conab_360_preco_produto(produto_base: str, linha: dict[str, Any]) -> Optional[dict[str, Any]]:
+    uf = limpar_texto(
+        valor_coluna_exata_ou_termos(
+            linha,
+            ["Regionalizacao.Regionalizacao", "UF.UF", "UF", "Estado"],
+            ["regionalizacao", "regionalização", "uf", "estado"],
+        )
+    ).upper()
+
+    if uf not in UFS_NORDESTE:
+        return None
+
+    preco_raw = valor_coluna_exata_ou_termos(
+        linha,
+        ["UltimoPrecoMedio", "Último Preço Médio", "Preco Recebido Produtor", "Preço Recebido Produtor"],
+        ["ultimoprecomedio", "ultimo preco medio", "preco recebido produtor", "preço recebido produtor", "preco", "preço"],
+    )
+    preco = parse_preco(preco_raw)
+
+    if preco is None or preco <= 0:
+        return None
+
+    data_ref = parse_data(
+        valor_coluna_exata_ou_termos(
+            linha,
+            ["DescricaoSemanal", "Descrição Semanal", "Semana"],
+            ["descricao semanal", "descrição semanal", "semana", "periodo", "período", "data"],
+        )
+    )
+
+    if produto_base == "Algodão":
+        produto_original = "Algodão em Pluma"
+        unidade = "Arroba (@)"
+    else:
+        produto_original = produto_base
+        unidade = "Saca 60 kg"
+
+    return criar_item(
+        produto_original=produto_original,
+        uf=uf,
+        estado_nome=UFS_NORDESTE[uf],
+        praca="Média UF",
+        unidade=unidade,
+        preco=preco,
+        variacao_percentual=parse_preco(
+            valor_coluna_exata_ou_termos(
+                linha,
+                ["DifPercentualPrecoMedio"],
+                ["difpercentualprecomedio", "variacao", "variação"],
+            )
+        ),
+        data_referencia=data_ref,
+        fonte="CONAB - Produtos 360º",
+        fonte_url=CONAB_PRODUTOS_360_URL,
+        tipo_fonte="oficial",
+        nivel_comercializacao="referencia conab 360",
+        observacao=(
+            "Referência oficial CONAB extraída diretamente do painel Produtos 360º. "
+            "Consulta operacional: produtos360.cda / dataAccessId=precoProduto. "
+            "Usada para Soja, Milho e Algodão por trazer preço médio recente por UF. "
+            "Não é rotulada como preço pago ao produtor quando a linha não trouxer essa informação explicitamente."
+        ),
+    )
+
+
+def coletar_conab_360_direto_cda() -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[dict[str, Any]]]:
+    """
+    Coleta direta do endpoint CDA do CONAB Produtos 360º.
+
+    Esta é a correção principal da v1.2.1: em vez de depender do clique
+    no painel, chamamos diretamente a consulta identificada no debug:
+    dataAccessId=precoProduto.
     """
     cotacoes: list[dict[str, Any]] = []
     debug_respostas: list[dict[str, Any]] = []
     debug_doquery: list[dict[str, Any]] = []
 
-    for url in [CONAB_PRODUTOS_360_URL, CONAB_PRODUTOS_360_PENTAHO_URL]:
+    sessao = requests.Session()
+    headers = dict(HEADERS)
+    headers.update(
+        {
+            "Accept": "application/json, text/javascript, */*; q=0.01",
+            "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "Origin": "https://pentahoportaldeinformacoes.conab.gov.br",
+            "Referer": CONAB_PRODUTOS_360_PENTAHO_URL,
+            "X-Requested-With": "XMLHttpRequest",
+        }
+    )
+
+    for produto_base in ["Soja", "Milho", "Algodão"]:
+        parametros = parametros_preco_produto_conab_360(produto_base)
+
         try:
-            texto = baixar_texto(url, timeout=90)
-            novos = extrair_itens_conab_360_de_texto(texto, url)
-            cotacoes.extend(novos)
+            resposta = sessao.post(
+                CONAB_360_DOQUERY_URL,
+                headers=headers,
+                data=parametros,
+                timeout=90,
+            )
+            texto = resposta.text
+
+            item_debug = {
+                "fonte": "CONAB - Produtos 360º",
+                "produto_base": produto_base,
+                "url": CONAB_360_DOQUERY_URL,
+                "metodo_http": "POST",
+                "status": resposta.status_code,
+                "content_type": resposta.headers.get("content-type", ""),
+                "parametros_post": parametros,
+                "preview": texto[:1600],
+            }
+
+            try:
+                obj = resposta.json()
+                colunas, resultset = extrair_metadata_resultset_cda(obj)
+                itens_produto: list[dict[str, Any]] = []
+
+                for linha_bruta in resultset:
+                    linha = linha_cda_para_dict(colunas, linha_bruta)
+                    item = item_conab_360_preco_produto(produto_base, linha)
+                    if item:
+                        itens_produto.append(item)
+
+                cotacoes.extend(itens_produto)
+                item_debug["metadata_colunas"] = colunas
+                item_debug["total_linhas_resultset"] = len(resultset)
+                item_debug["itens_extraidos"] = len(itens_produto)
+                item_debug["preview_resultset"] = resultset[:10]
+
+                debug_doquery.append(
+                    {
+                        "url": CONAB_360_DOQUERY_URL,
+                        "metodo_http": "POST",
+                        "status": resposta.status_code,
+                        "content_type": resposta.headers.get("content-type", ""),
+                        "parametros_post": parametros,
+                        "itens_extraidos_pelo_parser_atual": len(itens_produto),
+                        "resumo_cda": resumir_json_cda(texto),
+                    }
+                )
+
+            except Exception as erro_json:
+                item_debug["erro_json"] = str(erro_json)
+
+            debug_respostas.append(item_debug)
+
+        except Exception as erro:
             debug_respostas.append(
                 {
-                    "metodo": "requests",
-                    "url": url,
-                    "itens_extraidos": len(novos),
-                    "preview": texto[:1200],
+                    "fonte": "CONAB - Produtos 360º",
+                    "produto_base": produto_base,
+                    "url": CONAB_360_DOQUERY_URL,
+                    "metodo_http": "POST",
+                    "parametros_post": parametros,
+                    "erro": str(erro),
+                }
+            )
+
+        # Consulta complementar nacional, apenas para debug/validação da coluna
+        # explícita 'Preco Recebido Produtor'. Não entra na tabela por não ter UF.
+        parametros_historico = parametros_historico_produto_conab_360(produto_base)
+        try:
+            resposta_hist = sessao.post(
+                CONAB_360_DOQUERY_URL,
+                headers=headers,
+                data=parametros_historico,
+                timeout=90,
+            )
+            texto_hist = resposta_hist.text
+            debug_doquery.append(
+                {
+                    "url": CONAB_360_DOQUERY_URL,
+                    "metodo_http": "POST",
+                    "status": resposta_hist.status_code,
+                    "content_type": resposta_hist.headers.get("content-type", ""),
+                    "parametros_post": parametros_historico,
+                    "itens_extraidos_pelo_parser_atual": 0,
+                    "uso": "debug_nacional_sem_uf",
+                    "resumo_cda": resumir_json_cda(texto_hist),
                 }
             )
         except Exception as erro:
-            debug_respostas.append({"metodo": "requests", "url": url, "erro": str(erro)})
-
-    try:
-        novos, debug_pw, debug_cda = asyncio.run(coletar_conab_360_playwright_async())
-        cotacoes.extend(novos)
-        debug_respostas.extend(debug_pw)
-        debug_doquery.extend(debug_cda)
-    except Exception as erro:
-        debug_respostas.append({"metodo": "playwright", "erro": str(erro)})
+            debug_doquery.append(
+                {
+                    "url": CONAB_360_DOQUERY_URL,
+                    "metodo_http": "POST",
+                    "parametros_post": parametros_historico,
+                    "uso": "debug_nacional_sem_uf",
+                    "erro": str(erro),
+                }
+            )
 
     # remove duplicados
     unicos: dict[tuple[str, str, str, str, float], dict[str, Any]] = {}
@@ -1875,9 +2127,30 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
         )
         unicos[chave] = item
 
-    cotacoes_finais = list(unicos.values())
+    return list(unicos.values()), debug_respostas, debug_doquery
 
-    # Gera um ranking das chamadas CDA mais promissoras para encontrar preço.
+
+def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """
+    Coleta preferencial para Soja, Milho e Algodão no painel CONAB Produtos 360º.
+
+    v1.2.1:
+    - usa chamada direta ao CDA identificada no debug;
+    - publica dados por UF do Nordeste;
+    - mantém debug para conferência.
+    """
+    cotacoes_finais: list[dict[str, Any]] = []
+    debug_respostas: list[dict[str, Any]] = []
+    debug_doquery: list[dict[str, Any]] = []
+
+    try:
+        novos, debug_direto, debug_cda = coletar_conab_360_direto_cda()
+        cotacoes_finais.extend(novos)
+        debug_respostas.extend(debug_direto)
+        debug_doquery.extend(debug_cda)
+    except Exception as erro:
+        debug_respostas.append({"metodo": "cda_direto", "erro": str(erro)})
+
     chamadas_promissoras = []
     for item in debug_doquery:
         resumo = item.get("resumo_cda", {})
@@ -1894,14 +2167,16 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
             score += 1
         if resumo.get("total_linhas_resultset", 0) > 0:
             score += 1
+        if item.get("itens_extraidos_pelo_parser_atual", 0) > 0:
+            score += 5
         if score > 0:
             chamadas_promissoras.append(
                 {
                     "score": score,
                     "status": item.get("status"),
                     "metodo_http": item.get("metodo_http"),
-                    "parametros_url": item.get("parametros_url"),
                     "parametros_post": item.get("parametros_post"),
+                    "itens_extraidos_pelo_parser_atual": item.get("itens_extraidos_pelo_parser_atual", 0),
                     "resumo_cda": item.get("resumo_cda"),
                 }
             )
@@ -1911,11 +2186,11 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     debug_payload = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
-        "versao": "1.2.0",
+        "versao": "1.2.1",
         "gerado_em": agora_local().isoformat(),
         "objetivo": (
-            "Diagnosticar o painel CONAB Produtos 360º/Pentaho para localizar a chamada CDA "
-            "que retorna preço recebido pelo produtor para soja, milho e algodão."
+            "Coletar diretamente do CONAB Produtos 360º/Pentaho a consulta CDA "
+            "dataAccessId=precoProduto para Soja, Milho e Algodão."
         ),
         "total_itens_extraidos_pelo_parser_atual": len(cotacoes_finais),
         "total_respostas_debug": len(debug_respostas),
@@ -1923,8 +2198,12 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
         "chamadas_promissoras": chamadas_promissoras[:50],
         "todas_chamadas_doquery": debug_doquery,
         "respostas_debug_resumidas": debug_respostas[:120],
+        "amostra_cotacoes_extraidas": cotacoes_finais[:50],
     }
     salvar_debug_conab_360(debug_payload)
+
+    produtos_extraidos = sorted({item.get("produto_base") for item in cotacoes_finais if item.get("produto_base")})
+    ufs_extraidas = sorted({item.get("uf") for item in cotacoes_finais if item.get("uf")})
 
     status_fontes.append(
         {
@@ -1933,9 +2212,11 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
             "status": "ok" if cotacoes_finais else "sem_registros_extraidos",
             "total_registros": len(cotacoes_finais),
             "produtos_conab_360": sorted(PRODUTOS_CONAB_360),
+            "produtos_extraidos": produtos_extraidos,
+            "ufs_extraidas": ufs_extraidas,
             "observacao": (
-                "Fonte preferencial para Soja, Milho e Algodão. v1.2.0 salva diagnóstico completo "
-                "das chamadas internas do Pentaho/CDA em logs/debug_conab_produtos_360.json."
+                "Fonte preferencial para Soja, Milho e Algodão. v1.2.1 usa chamada direta "
+                "ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto."
             ),
             "arquivo_debug_conab_360": str(OUTPUT_DEBUG_CONAB_360),
             "total_chamadas_doquery": len(debug_doquery),
@@ -2035,7 +2316,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
                     nivel_chave, nivel_label, _ = normalizar_nivel_preco(nivel_texto)
 
-                    # Correção v1.2.0: quando a CONAB não informar claramente
+                    # Correção v1.2.1: quando a CONAB não informar claramente
                     # o nível, publicamos como Referência CONAB, sem chamar de
                     # preço ao produtor. Atacado e varejo continuam bloqueados.
                     if nivel_chave in {"nao_informado", "media_uf"}:
@@ -2080,7 +2361,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "colunas_preco_identificadas": colunas_preco,
                     "coluna_nivel_identificada": col_nivel,
                     "produtos_conab_publicaveis": sorted(PRODUTOS_CONAB_TXT),
-                    "observacao": "v1.2.0: arquivos semanais usados apenas para Feijão e Sorgo; Soja, Milho e Algodão saem do Produtos 360º.",
+                    "observacao": "v1.2.1: arquivos semanais usados apenas para Feijão e Sorgo; Soja, Milho e Algodão saem do Produtos 360º.",
                 }
             )
 
@@ -2326,7 +2607,7 @@ def consolidar_mais_recentes(
     """
     Consolida a base para uso no site.
 
-    Regra v1.2.0:
+    Regra v1.2.1:
     - Agrupa todos os registros brutos por fonte + produto + UF + praça + unidade.
     - Dentro de cada grupo, mantém apenas o item mais recente.
     - Se o item mais recente do grupo for mais antigo que data_corte_iso, o grupo inteiro
@@ -2494,7 +2775,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.2.0",
+        "versao": "1.2.1",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -2506,7 +2787,7 @@ def main() -> None:
         "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; CONAB Preços Agropecuários para feijão e sorgo",
         "fontes_complementares": ["CEPEA/ESALQ Widget no HTML", "B3 - referência de mercado futuro"],
         "politica_classificacao_preco": (
-            "Política v1.2.0: a tabela principal publica preço pago ao produtor quando a fonte informar, "
+            "Política v1.2.1: a tabela principal publica preço pago ao produtor quando a fonte informar, "
             "cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
             "Varejo, atacado, indicador de mercado e mercado futuro ficam fora da tabela principal. "
             "Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação."
@@ -2565,7 +2846,7 @@ def main() -> None:
         },
         "aviso_legal": (
             "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas "
-            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.2.0, "
+            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.2.1, "
             "a tabela principal publica preço pago ao produtor quando a fonte informar claramente, "
             "cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
             "Cotações de varejo e atacado são removidas para evitar confusão com preço recebido "
