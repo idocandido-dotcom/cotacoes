@@ -2,10 +2,9 @@ name: Atualizar Cotações Nordeste Agro
 
 on:
   schedule:
-    # Roda uma vez por dia.
-    # GitHub usa horário UTC.
-    # 11:20 UTC = 08:20 no horário de Fortaleza/Brasília.
-    - cron: "20 11 * * *"
+    # Roda todos os dias às 09:30 UTC.
+    # Equivale a 06:30 no horário de Brasília/Fortaleza.
+    - cron: "30 9 * * *"
 
   workflow_dispatch:
 
@@ -14,7 +13,7 @@ permissions:
 
 jobs:
   atualizar-cotacoes:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Baixar repositório
@@ -25,63 +24,130 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Instalar dependências Python
+      - name: Instalar dependências
         run: |
           python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 pandas lxml html5lib
 
-          if [ -f "cotacoes/requirements.txt" ]; then
-            echo "Instalando dependências de cotacoes/requirements.txt"
-            pip install -r cotacoes/requirements.txt
-          elif [ -f "requirements.txt" ]; then
-            echo "Instalando dependências de requirements.txt"
-            pip install -r requirements.txt
+      - name: Localizar coletor de cotações
+        id: localizar_coletor
+        shell: bash
+        run: |
+          echo "Procurando coletor atualizado..."
+
+          if [ -f "cotacoes/coletor_cotacoes_nordeste_v1_3_1_atualizado.py" ]; then
+            echo "COLETOR=cotacoes/coletor_cotacoes_nordeste_v1_3_1_atualizado.py" >> "$GITHUB_ENV"
+          elif [ -f "scripts/coletor_cotacoes_nordeste_v1_3_1_atualizado.py" ]; then
+            echo "COLETOR=scripts/coletor_cotacoes_nordeste_v1_3_1_atualizado.py" >> "$GITHUB_ENV"
+          elif [ -f "cotacoes/coletor_cotacoes_nordeste_v1_3_0.py" ]; then
+            echo "COLETOR=cotacoes/coletor_cotacoes_nordeste_v1_3_0.py" >> "$GITHUB_ENV"
+          elif [ -f "scripts/coletor_cotacoes_nordeste_v1_3_0.py" ]; then
+            echo "COLETOR=scripts/coletor_cotacoes_nordeste_v1_3_0.py" >> "$GITHUB_ENV"
+          elif [ -f "coletor_cotacoes_nordeste_v1_3_1_atualizado.py" ]; then
+            echo "COLETOR=coletor_cotacoes_nordeste_v1_3_1_atualizado.py" >> "$GITHUB_ENV"
+          elif [ -f "coletor_cotacoes_nordeste_v1_3_0.py" ]; then
+            echo "COLETOR=coletor_cotacoes_nordeste_v1_3_0.py" >> "$GITHUB_ENV"
           else
-            echo "requirements.txt não encontrado. Instalando dependências mínimas."
-            pip install requests beautifulsoup4 lxml python-dateutil playwright==1.44.0
+            echo "ERRO: nenhum coletor de cotações foi encontrado."
+            echo "Arquivos Python encontrados:"
+            find . -name "*.py" -maxdepth 4
+            exit 1
           fi
 
-          pip install playwright==1.44.0
-
-      - name: Instalar navegador Chromium do Playwright
+      - name: Mostrar coletor selecionado
         run: |
-          python -m playwright install chromium
-
-      - name: Listar arquivos do projeto
-        run: |
-          echo "Arquivos encontrados no repositório:"
-          find . -maxdepth 4 -type f | sort
+          echo "Coletor selecionado: $COLETOR"
 
       - name: Rodar coletor de cotações
         run: |
-          echo "Rodando coletor:"
-          python cotacoes/scripts/coletor_cotacoes_nordeste.py
+          python "$COLETOR"
 
-      - name: Conferir arquivos gerados
+      - name: Verificar arquivos gerados
         run: |
-          echo "Arquivos gerados em cotacoes/public:"
-          find cotacoes/public -maxdepth 2 -type f | sort
+          echo "Verificando arquivos principais..."
 
-          echo ""
-          echo "Arquivos gerados em cotacoes/logs:"
-          find cotacoes/logs -maxdepth 2 -type f | sort || true
+          test -f public/cotacoes_nordeste.json
+          test -f public/cotacoes_regionais.json
+          test -f public/cotacoes_nordeste.csv
+          test -f logs/status_ultima_execucao.json
 
-      - name: Salvar alterações no GitHub
+          echo "Validando JSON principal..."
+          python -m json.tool public/cotacoes_nordeste.json > /tmp/cotacoes_nordeste_validado.json
+
+          echo "Validando JSON regional..."
+          python -m json.tool public/cotacoes_regionais.json > /tmp/cotacoes_regionais_validado.json
+
+          echo "Validando log..."
+          python -m json.tool logs/status_ultima_execucao.json > /tmp/status_ultima_execucao_validado.json
+
+      - name: Mostrar resumo da execução
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          python - <<'PY'
+          import json
+          from pathlib import Path
 
-          git add cotacoes/public/cotacoes_nordeste.json || true
-          git add cotacoes/public/cotacoes_regionais.json || true
-          git add cotacoes/public/cotacoes_nordeste.csv || true
+          log_path = Path("logs/status_ultima_execucao.json")
+          json_path = Path("public/cotacoes_nordeste.json")
 
-          git add cotacoes/logs/status_ultima_execucao.json || true
-          git add cotacoes/logs/debug_conab_produtos_360.json || true
-          git add cotacoes/logs/debug_sorgo_conab.json || true
-          git add cotacoes/logs/debug_leite_carne_conab.json || true
-          git add cotacoes/logs/debug_pecuaria_fontes.json || true
+          if log_path.exists():
+              with log_path.open("r", encoding="utf-8") as f:
+                  log = json.load(f)
+
+              print("Resumo do status:")
+              print("Projeto:", log.get("projeto"))
+              print("Módulo:", log.get("modulo"))
+              print("Versão:", log.get("versao"))
+              print("Início:", log.get("inicio"))
+              print("Fim:", log.get("fim"))
+              print("Total tabela:", log.get("total_cotacoes_tabela"))
+              print("Total brutas:", log.get("total_cotacoes_brutas"))
+              print("Total HTML:", log.get("total_dados_html"))
+              print("Descartadas validação:", log.get("total_cotacoes_descartadas_por_validacao"))
+              print("Descartadas nível:", log.get("total_cotacoes_descartadas_por_nivel"))
+
+          if json_path.exists():
+              with json_path.open("r", encoding="utf-8") as f:
+                  dados = json.load(f)
+
+              lista = dados.get("dados", [])
+              print("")
+              print("Resumo do JSON:")
+              print("Total de itens em dados:", len(lista))
+
+              print("")
+              print("Itens de leite e boi gordo encontrados:")
+              for item in lista:
+                  produto = str(item.get("produto", "")).lower()
+                  produto_base = str(item.get("produto_base", "")).lower()
+                  if "leite" in produto or "leite" in produto_base or "boi" in produto or "boi" in produto_base:
+                      print(
+                          item.get("estado"),
+                          item.get("cidade"),
+                          item.get("produto"),
+                          item.get("preco"),
+                          item.get("unidade"),
+                          item.get("fonte"),
+                          item.get("nivel_comercializacao")
+                      )
+          PY
+
+      - name: Commit automático dos arquivos atualizados
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add public/cotacoes_nordeste.json
+          git add public/cotacoes_regionais.json
+          git add public/cotacoes_nordeste.csv
+          git add logs/status_ultima_execucao.json
+          git add logs/debug_conab_produtos_360.json || true
+          git add logs/debug_sorgo_conab.json || true
+          git add logs/debug_leite_carne_conab.json || true
+          git add logs/debug_pecuaria_fontes.json || true
+          git add logs/debug_ceasas.json || true
 
           if git diff --cached --quiet; then
-            echo "Nenhuma alteração para salvar."
+            echo "Nenhuma alteração para commitar."
           else
             git commit -m "Atualizar cotações Nordeste Agro"
             git push
