@@ -3,10 +3,10 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "repositorio": "idocandido-dotcom/cotacoes",
-  "versao": "1.1.7",
-  "ultima_sincronizacao": "2026-05-08 09:53:12",
-  "ultima_sincronizacao_iso": "2026-05-08T09:53:12.879140-03:00",
-  "gerado_em": "08/05/2026 09:53",
+  "versao": "1.1.8",
+  "ultima_sincronizacao": "2026-05-08 10:06:47",
+  "ultima_sincronizacao_iso": "2026-05-08T10:06:47.973485-03:00",
+  "gerado_em": "08/05/2026 10:06",
   "fuso_horario": "America/Fortaleza",
   "frequencia_atualizacao": "diaria",
   "dias_maximos_cotacao_ativa": 90,
@@ -17,27 +17,26 @@
     "CEPEA/ESALQ Widget no HTML",
     "B3 - referência de mercado futuro"
   ],
-  "politica_classificacao_preco": "Política v1.1.7: a tabela principal publica preço pago ao produtor quando a fonte informar, cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Varejo, atacado, indicador de mercado e mercado futuro ficam fora da tabela principal. Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação.",
+  "politica_classificacao_preco": "Política v1.1.8: a tabela principal publica preço pago ao produtor quando a fonte informar, cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Varejo, atacado, indicador de mercado e mercado futuro ficam fora da tabela principal. Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação.",
   "resumo": {
-    "total_cotacoes_tabela": 8,
+    "total_cotacoes_tabela": 23,
     "total_cotacoes_brutas": 7036,
     "total_cotacoes_validas_apos_validacao": 7036,
-    "total_cotacoes_publicaveis_produtor_regional": 8,
+    "total_cotacoes_publicaveis_produtor_regional": 2168,
     "total_cotacoes_descartadas_por_validacao": 0,
-    "total_cotacoes_descartadas_por_nivel": 7028,
+    "total_cotacoes_descartadas_por_nivel": 4868,
     "resumo_descartes_validacao": {},
     "resumo_descartes_nivel": {
       "nivel_bloqueado_atacado": 3422,
-      "nivel_bloqueado_nao_informado": 2160,
       "nivel_bloqueado_varejo": 1446
     },
-    "total_dados_html": 8,
-    "total_grupos_brutos": 8,
-    "grupos_descartados_por_data_antiga": 0,
+    "total_dados_html": 23,
+    "total_grupos_brutos": 93,
+    "grupos_descartados_por_data_antiga": 70,
     "total_indicadores_cepea_widget": 0,
     "total_precos_produtor": 0,
     "total_precos_regionais": 8,
-    "total_referencias_conab": 0,
+    "total_referencias_conab": 15,
     "total_precos_atacado": 0,
     "total_precos_media_uf": 0,
     "total_cotacoes_boi_gordo": 0,
@@ -49,7 +48,7 @@
       "CONAB - Preços Agropecuários Semanal Município"
     ],
     "total_fontes_com_erro": 0,
-    "tempo_execucao_segundos": 18.63
+    "tempo_execucao_segundos": 21.61
   },
   "fontes": [
     {
@@ -395,6 +394,1134 @@
       ],
       "validacao_publicacao": "ok",
       "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Feijão — Referência CONAB",
+      "produto_base": "Feijão",
+      "produto_original": "FEIJAO",
+      "tipo_produto": "Padrão",
+      "produto_slug": "feijao-referencia-conab",
+      "uf": "AL",
+      "estado": "Alagoas",
+      "praca": "Média UF",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "preco": 300.0,
+      "preco_original": 5.0,
+      "preco_formatado": "R$ 300,00",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-03-09",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários / Preços de Mercado. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 257.4
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 277.8
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 272.4
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 289.8
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 300.0
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Milho — Referência CONAB",
+      "produto_base": "Milho",
+      "produto_original": "MILHO",
+      "tipo_produto": "Padrão",
+      "produto_slug": "milho-referencia-conab",
+      "uf": "AL",
+      "estado": "Alagoas",
+      "praca": "Média UF",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "preco": 79.8,
+      "preco_original": 1.33,
+      "preco_formatado": "R$ 79,80",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Produtos 360º / Preços Agropecuários. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 70.8
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 72.6
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 73.8
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 73.8
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 75.0
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 79.8
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 79.8
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 79.8
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 79.8
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 75.0
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 78.0
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 79.8
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Algodão — Pluma — Referência CONAB",
+      "produto_base": "Algodão",
+      "produto_original": "ALGODAO EM PLUMA",
+      "tipo_produto": "Pluma",
+      "produto_slug": "algodao-pluma-referencia-conab",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Média UF",
+      "unidade": "Arroba (@)",
+      "unidade_original": "Kg",
+      "preco": 130.95,
+      "preco_original": 8.73,
+      "preco_formatado": "R$ 130,95",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Produtos 360º / Preços Agropecuários. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 115.65
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 115.05
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 115.05
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 115.65
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 115.65
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 118.65
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 118.65
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 118.95
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 120.0
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 123.3
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 128.25
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 130.95
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Feijão — Referência CONAB",
+      "produto_base": "Feijão",
+      "produto_original": "FEIJAO",
+      "tipo_produto": "Padrão",
+      "produto_slug": "feijao-referencia-conab",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Média UF",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "preco": 352.8,
+      "preco_original": 5.88,
+      "preco_formatado": "R$ 352,80",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários / Preços de Mercado. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 310.2
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 310.2
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 334.8
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 349.8
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 352.8
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 327.6
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 319.8
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 302.4
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 307.8
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 310.2
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 329.4
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 352.8
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Milho — Referência CONAB",
+      "produto_base": "Milho",
+      "produto_original": "MILHO",
+      "tipo_produto": "Padrão",
+      "produto_slug": "milho-referencia-conab",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Média UF",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "preco": 56.4,
+      "preco_original": 0.94,
+      "preco_formatado": "R$ 56,40",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Produtos 360º / Preços Agropecuários. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 60.6
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 61.2
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 60.6
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 61.2
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 61.8
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 60.6
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 62.4
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 62.4
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 61.8
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 61.2
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 57.6
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 56.4
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Soja — Referência CONAB",
+      "produto_base": "Soja",
+      "produto_original": "SOJA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "soja-referencia-conab",
+      "uf": "BA",
+      "estado": "Bahia",
+      "praca": "Média UF",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "preco": 112.2,
+      "preco_original": 1.87,
+      "preco_formatado": "R$ 112,20",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Produtos 360º / Preços Agropecuários. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 112.8
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 114.0
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 112.8
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 112.8
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 112.2
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 110.4
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 116.4
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 114.0
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 111.0
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 111.0
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 112.8
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 112.2
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Feijão — Referência CONAB",
+      "produto_base": "Feijão",
+      "produto_original": "FEIJAO",
+      "tipo_produto": "Padrão",
+      "produto_slug": "feijao-referencia-conab",
+      "uf": "CE",
+      "estado": "Ceará",
+      "praca": "Média UF",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "preco": 199.8,
+      "preco_original": 3.33,
+      "preco_formatado": "R$ 199,80",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários / Preços de Mercado. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
+      "historico_30_dias": [
+        {
+          "data": "2026-04-27",
+          "valor": 199.8
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Algodão — Pluma — Referência CONAB",
+      "produto_base": "Algodão",
+      "produto_original": "ALGODAO EM PLUMA",
+      "tipo_produto": "Pluma",
+      "produto_slug": "algodao-pluma-referencia-conab",
+      "uf": "MA",
+      "estado": "Maranhão",
+      "praca": "Média UF",
+      "unidade": "Arroba (@)",
+      "unidade_original": "Kg",
+      "preco": 135.45,
+      "preco_original": 9.03,
+      "preco_formatado": "R$ 135,45",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Produtos 360º / Preços Agropecuários. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 116.85
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 116.85
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 116.1
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 116.55
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 118.2
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 120.45
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 123.75
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 125.85
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 129.75
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 128.4
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 132.0
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 135.45
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Milho — Referência CONAB",
+      "produto_base": "Milho",
+      "produto_original": "MILHO",
+      "tipo_produto": "Padrão",
+      "produto_slug": "milho-referencia-conab",
+      "uf": "MA",
+      "estado": "Maranhão",
+      "praca": "Média UF",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "preco": 62.4,
+      "preco_original": 1.04,
+      "preco_formatado": "R$ 62,40",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Produtos 360º / Preços Agropecuários. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 66.0
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 66.0
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 64.8
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 64.2
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 63.6
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 60.6
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 61.8
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 61.2
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 65.4
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 61.8
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 63.6
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 62.4
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Soja — Referência CONAB",
+      "produto_base": "Soja",
+      "produto_original": "SOJA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "soja-referencia-conab",
+      "uf": "MA",
+      "estado": "Maranhão",
+      "praca": "Média UF",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "preco": 107.4,
+      "preco_original": 1.79,
+      "preco_formatado": "R$ 107,40",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Produtos 360º / Preços Agropecuários. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 108.0
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 108.6
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 108.6
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 108.6
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 109.8
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 111.0
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 111.0
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 111.0
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 109.8
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 108.6
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 107.4
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 107.4
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Feijão — Referência CONAB",
+      "produto_base": "Feijão",
+      "produto_original": "FEIJAO",
+      "tipo_produto": "Padrão",
+      "produto_slug": "feijao-referencia-conab",
+      "uf": "PE",
+      "estado": "Pernambuco",
+      "praca": "Média UF",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "preco": 292.2,
+      "preco_original": 4.87,
+      "preco_formatado": "R$ 292,20",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários / Preços de Mercado. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 313.8
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 313.8
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 300.6
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 309.0
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 297.6
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 301.2
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 288.6
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 284.4
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 288.0
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 292.2
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 292.2
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 292.2
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Milho — Referência CONAB",
+      "produto_base": "Milho",
+      "produto_original": "MILHO",
+      "tipo_produto": "Padrão",
+      "produto_slug": "milho-referencia-conab",
+      "uf": "PE",
+      "estado": "Pernambuco",
+      "praca": "Média UF",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "preco": 95.4,
+      "preco_original": 1.59,
+      "preco_formatado": "R$ 95,40",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Produtos 360º / Preços Agropecuários. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 97.2
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 97.2
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 96.6
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 95.4
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 95.4
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 95.4
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 95.4
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 93.0
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 93.0
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 95.4
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 93.0
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 95.4
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Milho — Referência CONAB",
+      "produto_base": "Milho",
+      "produto_original": "MILHO",
+      "tipo_produto": "Padrão",
+      "produto_slug": "milho-referencia-conab",
+      "uf": "PI",
+      "estado": "Piauí",
+      "praca": "Média UF",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "preco": 69.6,
+      "preco_original": 1.16,
+      "preco_formatado": "R$ 69,60",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Produtos 360º / Preços Agropecuários. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 79.2
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 72.0
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 68.4
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 69.6
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 70.8
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 72.6
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 72.6
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 73.2
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 72.6
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 72.0
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 69.6
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 69.6
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Soja — Referência CONAB",
+      "produto_base": "Soja",
+      "produto_original": "SOJA",
+      "tipo_produto": "Padrão",
+      "produto_slug": "soja-referencia-conab",
+      "uf": "PI",
+      "estado": "Piauí",
+      "praca": "Média UF",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "preco": 117.6,
+      "preco_original": 1.96,
+      "preco_formatado": "R$ 117,60",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Produtos 360º / Preços Agropecuários. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 110.4
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 111.6
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 110.4
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 115.8
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 117.0
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 117.6
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 115.8
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 109.8
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 112.2
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 112.8
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 113.4
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 117.6
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
+    },
+    {
+      "produto": "Milho — Referência CONAB",
+      "produto_base": "Milho",
+      "produto_original": "MILHO",
+      "tipo_produto": "Padrão",
+      "produto_slug": "milho-referencia-conab",
+      "uf": "SE",
+      "estado": "Sergipe",
+      "praca": "Média UF",
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "preco": 72.0,
+      "preco_original": 1.2,
+      "preco_formatado": "R$ 72,00",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "moeda": "BRL",
+      "variacao_percentual": null,
+      "data_referencia": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "tipo": "oficial",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Produtos 360º / Preços Agropecuários. Nível identificado: Referência CONAB. Referência CONAB publicada de forma transparente: não é rotulada como preço ao produtor quando a linha não informa esse nível.",
+      "historico_30_dias": [
+        {
+          "data": "2026-02-09",
+          "valor": 69.0
+        },
+        {
+          "data": "2026-02-16",
+          "valor": 70.2
+        },
+        {
+          "data": "2026-02-23",
+          "valor": 70.2
+        },
+        {
+          "data": "2026-03-02",
+          "valor": 70.8
+        },
+        {
+          "data": "2026-03-09",
+          "valor": 70.8
+        },
+        {
+          "data": "2026-03-16",
+          "valor": 70.8
+        },
+        {
+          "data": "2026-03-23",
+          "valor": 70.8
+        },
+        {
+          "data": "2026-03-30",
+          "valor": 70.8
+        },
+        {
+          "data": "2026-04-06",
+          "valor": 72.0
+        },
+        {
+          "data": "2026-04-13",
+          "valor": 70.8
+        },
+        {
+          "data": "2026-04-20",
+          "valor": 72.0
+        },
+        {
+          "data": "2026-04-27",
+          "valor": 72.0
+        }
+      ],
+      "validacao_publicacao": "ok",
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
     }
   ],
   "dados": [
@@ -653,6 +1780,1368 @@
           "preco": "R$ 42,00"
         }
       ]
+    },
+    {
+      "estado": "AL",
+      "cidade": "Média UF",
+      "regiao": "Alagoas",
+      "produto": "Feijão — Referência CONAB",
+      "produto_base": "Feijão",
+      "produto_original": "FEIJAO",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "valor": 300.0,
+      "preco": "R$ 300,00",
+      "preco_original": 5.0,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "data": "09/03/2026",
+      "data_iso": "2026-03-09",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 257.4,
+          "preco": "R$ 257,40"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 277.8,
+          "preco": "R$ 277,80"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 272.4,
+          "preco": "R$ 272,40"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 289.8,
+          "preco": "R$ 289,80"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 300.0,
+          "preco": "R$ 300,00"
+        }
+      ]
+    },
+    {
+      "estado": "AL",
+      "cidade": "Média UF",
+      "regiao": "Alagoas",
+      "produto": "Milho — Referência CONAB",
+      "produto_base": "Milho",
+      "produto_original": "MILHO",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "valor": 79.8,
+      "preco": "R$ 79,80",
+      "preco_original": 1.33,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 70.8,
+          "preco": "R$ 70,80"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 72.6,
+          "preco": "R$ 72,60"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 73.8,
+          "preco": "R$ 73,80"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 73.8,
+          "preco": "R$ 73,80"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 75.0,
+          "preco": "R$ 75,00"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 79.8,
+          "preco": "R$ 79,80"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 79.8,
+          "preco": "R$ 79,80"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 79.8,
+          "preco": "R$ 79,80"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 79.8,
+          "preco": "R$ 79,80"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 75.0,
+          "preco": "R$ 75,00"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 78.0,
+          "preco": "R$ 78,00"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 79.8,
+          "preco": "R$ 79,80"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Média UF",
+      "regiao": "Bahia",
+      "produto": "Algodão — Pluma — Referência CONAB",
+      "produto_base": "Algodão",
+      "produto_original": "ALGODAO EM PLUMA",
+      "tipo_produto": "Pluma",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "valor": 130.95,
+      "preco": "R$ 130,95",
+      "preco_original": 8.73,
+      "unidade": "Arroba (@)",
+      "unidade_original": "Kg",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 115.65,
+          "preco": "R$ 115,65"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 115.05,
+          "preco": "R$ 115,05"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 115.05,
+          "preco": "R$ 115,05"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 115.65,
+          "preco": "R$ 115,65"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 115.65,
+          "preco": "R$ 115,65"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 118.65,
+          "preco": "R$ 118,65"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 118.65,
+          "preco": "R$ 118,65"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 118.95,
+          "preco": "R$ 118,95"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 120.0,
+          "preco": "R$ 120,00"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 123.3,
+          "preco": "R$ 123,30"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 128.25,
+          "preco": "R$ 128,25"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 130.95,
+          "preco": "R$ 130,95"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Média UF",
+      "regiao": "Bahia",
+      "produto": "Feijão — Referência CONAB",
+      "produto_base": "Feijão",
+      "produto_original": "FEIJAO",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "valor": 352.8,
+      "preco": "R$ 352,80",
+      "preco_original": 5.88,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 310.2,
+          "preco": "R$ 310,20"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 310.2,
+          "preco": "R$ 310,20"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 334.8,
+          "preco": "R$ 334,80"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 349.8,
+          "preco": "R$ 349,80"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 352.8,
+          "preco": "R$ 352,80"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 327.6,
+          "preco": "R$ 327,60"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 319.8,
+          "preco": "R$ 319,80"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 302.4,
+          "preco": "R$ 302,40"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 307.8,
+          "preco": "R$ 307,80"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 310.2,
+          "preco": "R$ 310,20"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 329.4,
+          "preco": "R$ 329,40"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 352.8,
+          "preco": "R$ 352,80"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Média UF",
+      "regiao": "Bahia",
+      "produto": "Milho — Referência CONAB",
+      "produto_base": "Milho",
+      "produto_original": "MILHO",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "valor": 56.4,
+      "preco": "R$ 56,40",
+      "preco_original": 0.94,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 60.6,
+          "preco": "R$ 60,60"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 61.2,
+          "preco": "R$ 61,20"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 60.6,
+          "preco": "R$ 60,60"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 61.2,
+          "preco": "R$ 61,20"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 61.8,
+          "preco": "R$ 61,80"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 60.6,
+          "preco": "R$ 60,60"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 62.4,
+          "preco": "R$ 62,40"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 62.4,
+          "preco": "R$ 62,40"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 61.8,
+          "preco": "R$ 61,80"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 61.2,
+          "preco": "R$ 61,20"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 57.6,
+          "preco": "R$ 57,60"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 56.4,
+          "preco": "R$ 56,40"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Média UF",
+      "regiao": "Bahia",
+      "produto": "Soja — Referência CONAB",
+      "produto_base": "Soja",
+      "produto_original": "SOJA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "valor": 112.2,
+      "preco": "R$ 112,20",
+      "preco_original": 1.87,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 112.8,
+          "preco": "R$ 112,80"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 114.0,
+          "preco": "R$ 114,00"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 112.8,
+          "preco": "R$ 112,80"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 112.8,
+          "preco": "R$ 112,80"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 112.2,
+          "preco": "R$ 112,20"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 110.4,
+          "preco": "R$ 110,40"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 116.4,
+          "preco": "R$ 116,40"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 114.0,
+          "preco": "R$ 114,00"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 111.0,
+          "preco": "R$ 111,00"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 111.0,
+          "preco": "R$ 111,00"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 112.8,
+          "preco": "R$ 112,80"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 112.2,
+          "preco": "R$ 112,20"
+        }
+      ]
+    },
+    {
+      "estado": "CE",
+      "cidade": "Média UF",
+      "regiao": "Ceará",
+      "produto": "Feijão — Referência CONAB",
+      "produto_base": "Feijão",
+      "produto_original": "FEIJAO",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "valor": 199.8,
+      "preco": "R$ 199,80",
+      "preco_original": 3.33,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 199.8,
+          "preco": "R$ 199,80"
+        }
+      ]
+    },
+    {
+      "estado": "MA",
+      "cidade": "Média UF",
+      "regiao": "Maranhão",
+      "produto": "Algodão — Pluma — Referência CONAB",
+      "produto_base": "Algodão",
+      "produto_original": "ALGODAO EM PLUMA",
+      "tipo_produto": "Pluma",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "valor": 135.45,
+      "preco": "R$ 135,45",
+      "preco_original": 9.03,
+      "unidade": "Arroba (@)",
+      "unidade_original": "Kg",
+      "fator_conversao": 15.0,
+      "conversao_aplicada": true,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 116.85,
+          "preco": "R$ 116,85"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 116.85,
+          "preco": "R$ 116,85"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 116.1,
+          "preco": "R$ 116,10"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 116.55,
+          "preco": "R$ 116,55"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 118.2,
+          "preco": "R$ 118,20"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 120.45,
+          "preco": "R$ 120,45"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 123.75,
+          "preco": "R$ 123,75"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 125.85,
+          "preco": "R$ 125,85"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 129.75,
+          "preco": "R$ 129,75"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 128.4,
+          "preco": "R$ 128,40"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 132.0,
+          "preco": "R$ 132,00"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 135.45,
+          "preco": "R$ 135,45"
+        }
+      ]
+    },
+    {
+      "estado": "MA",
+      "cidade": "Média UF",
+      "regiao": "Maranhão",
+      "produto": "Milho — Referência CONAB",
+      "produto_base": "Milho",
+      "produto_original": "MILHO",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "valor": 62.4,
+      "preco": "R$ 62,40",
+      "preco_original": 1.04,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 66.0,
+          "preco": "R$ 66,00"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 66.0,
+          "preco": "R$ 66,00"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 64.8,
+          "preco": "R$ 64,80"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 64.2,
+          "preco": "R$ 64,20"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 63.6,
+          "preco": "R$ 63,60"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 60.6,
+          "preco": "R$ 60,60"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 61.8,
+          "preco": "R$ 61,80"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 61.2,
+          "preco": "R$ 61,20"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 65.4,
+          "preco": "R$ 65,40"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 61.8,
+          "preco": "R$ 61,80"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 63.6,
+          "preco": "R$ 63,60"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 62.4,
+          "preco": "R$ 62,40"
+        }
+      ]
+    },
+    {
+      "estado": "MA",
+      "cidade": "Média UF",
+      "regiao": "Maranhão",
+      "produto": "Soja — Referência CONAB",
+      "produto_base": "Soja",
+      "produto_original": "SOJA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "valor": 107.4,
+      "preco": "R$ 107,40",
+      "preco_original": 1.79,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 108.0,
+          "preco": "R$ 108,00"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 108.6,
+          "preco": "R$ 108,60"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 108.6,
+          "preco": "R$ 108,60"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 108.6,
+          "preco": "R$ 108,60"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 109.8,
+          "preco": "R$ 109,80"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 111.0,
+          "preco": "R$ 111,00"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 111.0,
+          "preco": "R$ 111,00"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 111.0,
+          "preco": "R$ 111,00"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 109.8,
+          "preco": "R$ 109,80"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 108.6,
+          "preco": "R$ 108,60"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 107.4,
+          "preco": "R$ 107,40"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 107.4,
+          "preco": "R$ 107,40"
+        }
+      ]
+    },
+    {
+      "estado": "PE",
+      "cidade": "Média UF",
+      "regiao": "Pernambuco",
+      "produto": "Feijão — Referência CONAB",
+      "produto_base": "Feijão",
+      "produto_original": "FEIJAO",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "valor": 292.2,
+      "preco": "R$ 292,20",
+      "preco_original": 4.87,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 313.8,
+          "preco": "R$ 313,80"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 313.8,
+          "preco": "R$ 313,80"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 300.6,
+          "preco": "R$ 300,60"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 309.0,
+          "preco": "R$ 309,00"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 297.6,
+          "preco": "R$ 297,60"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 301.2,
+          "preco": "R$ 301,20"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 288.6,
+          "preco": "R$ 288,60"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 284.4,
+          "preco": "R$ 284,40"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 288.0,
+          "preco": "R$ 288,00"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 292.2,
+          "preco": "R$ 292,20"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 292.2,
+          "preco": "R$ 292,20"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 292.2,
+          "preco": "R$ 292,20"
+        }
+      ]
+    },
+    {
+      "estado": "PE",
+      "cidade": "Média UF",
+      "regiao": "Pernambuco",
+      "produto": "Milho — Referência CONAB",
+      "produto_base": "Milho",
+      "produto_original": "MILHO",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "valor": 95.4,
+      "preco": "R$ 95,40",
+      "preco_original": 1.59,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 97.2,
+          "preco": "R$ 97,20"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 97.2,
+          "preco": "R$ 97,20"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 96.6,
+          "preco": "R$ 96,60"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 95.4,
+          "preco": "R$ 95,40"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 95.4,
+          "preco": "R$ 95,40"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 95.4,
+          "preco": "R$ 95,40"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 95.4,
+          "preco": "R$ 95,40"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 93.0,
+          "preco": "R$ 93,00"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 93.0,
+          "preco": "R$ 93,00"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 95.4,
+          "preco": "R$ 95,40"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 93.0,
+          "preco": "R$ 93,00"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 95.4,
+          "preco": "R$ 95,40"
+        }
+      ]
+    },
+    {
+      "estado": "PI",
+      "cidade": "Média UF",
+      "regiao": "Piauí",
+      "produto": "Milho — Referência CONAB",
+      "produto_base": "Milho",
+      "produto_original": "MILHO",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "valor": 69.6,
+      "preco": "R$ 69,60",
+      "preco_original": 1.16,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 79.2,
+          "preco": "R$ 79,20"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 72.0,
+          "preco": "R$ 72,00"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 68.4,
+          "preco": "R$ 68,40"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 69.6,
+          "preco": "R$ 69,60"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 70.8,
+          "preco": "R$ 70,80"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 72.6,
+          "preco": "R$ 72,60"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 72.6,
+          "preco": "R$ 72,60"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 73.2,
+          "preco": "R$ 73,20"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 72.6,
+          "preco": "R$ 72,60"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 72.0,
+          "preco": "R$ 72,00"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 69.6,
+          "preco": "R$ 69,60"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 69.6,
+          "preco": "R$ 69,60"
+        }
+      ]
+    },
+    {
+      "estado": "PI",
+      "cidade": "Média UF",
+      "regiao": "Piauí",
+      "produto": "Soja — Referência CONAB",
+      "produto_base": "Soja",
+      "produto_original": "SOJA",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "valor": 117.6,
+      "preco": "R$ 117,60",
+      "preco_original": 1.96,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 110.4,
+          "preco": "R$ 110,40"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 111.6,
+          "preco": "R$ 111,60"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 110.4,
+          "preco": "R$ 110,40"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 115.8,
+          "preco": "R$ 115,80"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 117.0,
+          "preco": "R$ 117,00"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 117.6,
+          "preco": "R$ 117,60"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 115.8,
+          "preco": "R$ 115,80"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 109.8,
+          "preco": "R$ 109,80"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 112.2,
+          "preco": "R$ 112,20"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 112.8,
+          "preco": "R$ 112,80"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 113.4,
+          "preco": "R$ 113,40"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 117.6,
+          "preco": "R$ 117,60"
+        }
+      ]
+    },
+    {
+      "estado": "SE",
+      "cidade": "Média UF",
+      "regiao": "Sergipe",
+      "produto": "Milho — Referência CONAB",
+      "produto_base": "Milho",
+      "produto_original": "MILHO",
+      "tipo_produto": "Padrão",
+      "nivel_comercializacao": "Referência CONAB",
+      "nivel_comercializacao_chave": "preco_referencia_conab",
+      "prioridade_nivel_preco": 3,
+      "categoria": "commodity_agricola",
+      "valor": 72.0,
+      "preco": "R$ 72,00",
+      "preco_original": 1.2,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "data": "27/04/2026",
+      "data_iso": "2026-04-27",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "historico_30d": [
+        {
+          "data": "09/02/2026",
+          "data_iso": "2026-02-09",
+          "valor": 69.0,
+          "preco": "R$ 69,00"
+        },
+        {
+          "data": "16/02/2026",
+          "data_iso": "2026-02-16",
+          "valor": 70.2,
+          "preco": "R$ 70,20"
+        },
+        {
+          "data": "23/02/2026",
+          "data_iso": "2026-02-23",
+          "valor": 70.2,
+          "preco": "R$ 70,20"
+        },
+        {
+          "data": "02/03/2026",
+          "data_iso": "2026-03-02",
+          "valor": 70.8,
+          "preco": "R$ 70,80"
+        },
+        {
+          "data": "09/03/2026",
+          "data_iso": "2026-03-09",
+          "valor": 70.8,
+          "preco": "R$ 70,80"
+        },
+        {
+          "data": "16/03/2026",
+          "data_iso": "2026-03-16",
+          "valor": 70.8,
+          "preco": "R$ 70,80"
+        },
+        {
+          "data": "23/03/2026",
+          "data_iso": "2026-03-23",
+          "valor": 70.8,
+          "preco": "R$ 70,80"
+        },
+        {
+          "data": "30/03/2026",
+          "data_iso": "2026-03-30",
+          "valor": 70.8,
+          "preco": "R$ 70,80"
+        },
+        {
+          "data": "06/04/2026",
+          "data_iso": "2026-04-06",
+          "valor": 72.0,
+          "preco": "R$ 72,00"
+        },
+        {
+          "data": "13/04/2026",
+          "data_iso": "2026-04-13",
+          "valor": 70.8,
+          "preco": "R$ 70,80"
+        },
+        {
+          "data": "20/04/2026",
+          "data_iso": "2026-04-20",
+          "valor": 72.0,
+          "preco": "R$ 72,00"
+        },
+        {
+          "data": "27/04/2026",
+          "data_iso": "2026-04-27",
+          "valor": 72.0,
+          "preco": "R$ 72,00"
+        }
+      ]
     }
   ],
   "historico_30_dias": {},
@@ -750,766 +3239,766 @@
       "preco_atacado",
       "indicador_mercado",
       "mercado_futuro",
-      "nao_informado"
+      "nao_informado",
+      "media_uf"
     ],
-    "total_descartadas": 7028,
+    "total_descartadas": 4868,
     "resumo_descartes": {
       "nivel_bloqueado_atacado": 3422,
-      "nivel_bloqueado_nao_informado": 2160,
       "nivel_bloqueado_varejo": 1446
     },
     "amostra_descartadas": [
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "BA",
-        "estado": "Bahia",
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.3,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-12",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "BA",
-        "estado": "Bahia",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 136.05,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "BA",
-        "estado": "Bahia",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.6,
+        "unidade": "Saca 60 kg",
+        "preco": 519.6,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-05-05",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "BA",
-        "estado": "Bahia",
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.6,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 144.45,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-05",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 146.1,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-26",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 145.05,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-05-19",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 146.7,
+        "unidade": "Saca 60 kg",
+        "preco": 533.4,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
         "data_referencia": "2025-05-12",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 424.8,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-26",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
+      },
+      {
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 541.2,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-26",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
+      },
+      {
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 537.0,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-12",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 403.2,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-19",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 396.0,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-26",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 435.6,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-05",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 365.4,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-19",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 396.6,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-05",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 360.0,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-26",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
+      },
+      {
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 523.8,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-19",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 464.4,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-12",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
+      },
+      {
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 407.4,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-05",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 464.4,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-19",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 442.8,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-26",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
+      },
+      {
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 449.4,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-12",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 463.2,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-05",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
+      },
+      {
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 441.0,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-19",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 397.8,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-12",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 416.4,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-12",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
+      },
+      {
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 532.2,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-26",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
+      },
+      {
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 516.6,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-19",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
+      },
+      {
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "AL",
+        "estado": "Alagoas",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 494.4,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-05",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.3,
+        "unidade": "Saca 60 kg",
+        "preco": 437.4,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-02",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-05",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.3,
+        "unidade": "Saca 60 kg",
+        "preco": 437.4,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-23",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-12",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 136.35,
+        "unidade": "Saca 60 kg",
+        "preco": 386.4,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-09",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-19",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.6,
+        "unidade": "Saca 60 kg",
+        "preco": 381.6,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-16",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-05",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 144.3,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-16",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 139.65,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-23",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 145.65,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-09",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 145.5,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-02",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.3,
+        "unidade": "Saca 60 kg",
+        "preco": 385.2,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-21",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-12",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.3,
+        "unidade": "Saca 60 kg",
+        "preco": 429.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-14",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-19",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.6,
+        "unidade": "Saca 60 kg",
+        "preco": 382.2,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-30",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-26",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.0,
+        "unidade": "Saca 60 kg",
+        "preco": 373.2,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-07",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-12",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.0,
+        "unidade": "Saca 60 kg",
+        "preco": 406.8,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-28",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-26",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 136.65,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-14",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 136.2,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-06-30",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 136.5,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-07",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.45,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-28",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 136.35,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-21",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "PI",
-        "estado": "Piauí",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.0,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-28",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "PI",
-        "estado": "Piauí",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 124.95,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-07",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "PI",
-        "estado": "Piauí",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 124.95,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-14",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "PI",
-        "estado": "Piauí",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.0,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-07-21",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.0,
+        "unidade": "Saca 60 kg",
+        "preco": 421.2,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-04",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-05",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.6,
+        "unidade": "Saca 60 kg",
+        "preco": 406.8,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-25",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-05",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.0,
+        "unidade": "Saca 60 kg",
+        "preco": 399.6,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-11",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-19",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.6,
+        "unidade": "Saca 60 kg",
+        "preco": 371.4,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-18",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-05",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 129.15,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-25",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 131.55,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-18",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 133.05,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-04",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 132.6,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-11",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "PI",
-        "estado": "Piauí",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 130.05,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-25",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "PI",
-        "estado": "Piauí",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.0,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-18",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "PI",
-        "estado": "Piauí",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.0,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-04",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "PI",
-        "estado": "Piauí",
-        "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.0,
-        "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-08-11",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
-      },
-      {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 136.05,
+        "unidade": "Saca 60 kg",
+        "preco": 421.2,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-09-01",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-12",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.6,
+        "unidade": "Saca 60 kg",
+        "preco": 453.6,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-09-08",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-05",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.0,
+        "unidade": "Saca 60 kg",
+        "preco": 387.6,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-09-22",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-19",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
         "uf": "BA",
         "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 135.0,
+        "unidade": "Saca 60 kg",
+        "preco": 421.2,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-09-15",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-26",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "BA",
+        "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 121.65,
+        "unidade": "Saca 60 kg",
+        "preco": 421.2,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-09-22",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-26",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "BA",
+        "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 123.75,
+        "unidade": "Saca 60 kg",
+        "preco": 427.2,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-09-08",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-12",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "BA",
+        "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 128.4,
+        "unidade": "Saca 60 kg",
+        "preco": 429.0,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-09-01",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-26",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
       },
       {
-        "produto": "Algodão — Pluma",
-        "produto_base": "Algodão",
-        "produto_original": "ALGODAO EM PLUMA",
-        "uf": "MA",
-        "estado": "Maranhão",
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "BA",
+        "estado": "Bahia",
         "praca": "Média UF",
-        "unidade": "Arroba (@)",
-        "preco": 121.35,
+        "unidade": "Saca 60 kg",
+        "preco": 377.4,
         "fonte": "CONAB - Preços Agropecuários Semanal UF",
-        "data_referencia": "2025-09-15",
-        "nivel_comercializacao": "Não informado",
-        "nivel_comercializacao_chave": "nao_informado",
-        "motivo": "nivel_bloqueado_nao_informado"
+        "data_referencia": "2025-05-19",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
+      },
+      {
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "BA",
+        "estado": "Bahia",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 441.0,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-19",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "BA",
+        "estado": "Bahia",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 374.4,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-26",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "BA",
+        "estado": "Bahia",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 406.8,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-12",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
+      },
+      {
+        "produto": "Feijão — Varejo",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "CE",
+        "estado": "Ceará",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 387.6,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-12",
+        "nivel_comercializacao": "Varejo",
+        "nivel_comercializacao_chave": "preco_varejo",
+        "motivo": "nivel_bloqueado_varejo"
+      },
+      {
+        "produto": "Feijão — Atacado",
+        "produto_base": "Feijão",
+        "produto_original": "FEIJAO",
+        "uf": "CE",
+        "estado": "Ceará",
+        "praca": "Média UF",
+        "unidade": "Saca 60 kg",
+        "preco": 340.2,
+        "fonte": "CONAB - Preços Agropecuários Semanal UF",
+        "data_referencia": "2025-05-05",
+        "nivel_comercializacao": "Atacado",
+        "nivel_comercializacao_chave": "preco_atacado",
+        "motivo": "nivel_bloqueado_atacado"
       }
     ]
   },
-  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.1.7, a tabela principal publica preço pago ao produtor quando a fonte informar claramente, cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Cotações de varejo e atacado são removidas para evitar confusão com preço recebido pelo produtor rural. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados, industrializados, insumos e serviços são removidos. CEPEA/ESALQ permanece em seção própria do HTML como indicador de mercado, e B3 permanece apenas como referência de mercado futuro. Os valores podem variar conforme praça, qualidade, volume, frete, forma de pagamento, logística e data de atualização."
+  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.1.8, a tabela principal publica preço pago ao produtor quando a fonte informar claramente, cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Cotações de varejo e atacado são removidas para evitar confusão com preço recebido pelo produtor rural. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados, industrializados, insumos e serviços são removidos. CEPEA/ESALQ permanece em seção própria do HTML como indicador de mercado, e B3 permanece apenas como referência de mercado futuro. Os valores podem variar conforme praça, qualidade, volume, frete, forma de pagamento, logística e data de atualização."
 }
