@@ -1,0 +1,37 @@
+{
+  "projeto": "Nordeste Agro",
+  "modulo": "cotacoes_ceasas",
+  "versao": "1.2.9",
+  "gerado_em": "2026-05-08T13:11:59.882792-03:00",
+  "politica": "CEASA/Hortifruti é preço de atacado. Não misturar com preço ao produtor.",
+  "fontes": [
+    {
+      "fonte": "PROHORT/CONAB",
+      "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/%3Ahome%3APROHORT%3AprecoDia.wcdf/generatedContent?password=password&userid=pentaho",
+      "status": "ok",
+      "total_registros": 0,
+      "observacao": "Diagnóstico de acesso ao painel PROHORT. Não publica preço até mapear a chamada CDA correta.",
+      "preview": "Preços Diários PRODUTO CEASA Para consultar série histórica de preços diários clique aqui Clique no produto para ver os preços nos últimos 3 meses Para voltar à tabela com todos produtos clique",
+      "tem_produto": true,
+      "tem_ceasa": true
+    },
+    {
+      "fonte": "CEASA-CE",
+      "url": "https://files.ceasa-ce.com.br/unsima/boletim_diario/boletim.php",
+      "linhas_tabela_lidas": 0,
+      "linhas_com_produto_monitorado": 0,
+      "linhas_preco_invalido": 0,
+      "linhas_publicadas": 0,
+      "amostra_linhas": [],
+      "linhas_publicadas_unicas": 0
+    },
+    {
+      "fonte": "CEASA-PE",
+      "url": "https://www.ceasape.org.br/cotacao",
+      "erro": "403 Client Error: Forbidden for url: https://www.ceasape.org.br/cotacao"
+    }
+  ],
+  "total_cotacoes_extraidas": 0,
+  "produtos_extraidos": [],
+  "ufs_extraidas": []
+}

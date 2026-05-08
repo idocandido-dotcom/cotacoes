@@ -1,9 +1,9 @@
 {
   "ok": true,
-  "ultima_sincronizacao": "2026-05-08 12:48:26",
-  "total_cotacoes_tabela": 30,
-  "total_cotacoes_brutas": 12753,
-  "total_dados_html": 30,
+  "ultima_sincronizacao": "2026-05-08 13:12:27",
+  "total_cotacoes_tabela": 22,
+  "total_cotacoes_brutas": 12745,
+  "total_dados_html": 22,
   "total_cotacoes_descartadas_por_validacao": 1112,
   "total_cotacoes_descartadas_por_nivel": 10653,
   "resumo_descartes_validacao": {
@@ -21,27 +21,59 @@
     {
       "fonte": "AIBA",
       "url": "https://aiba.org.br/cotacoes/",
-      "status": "ok",
-      "total_registros": 8
+      "status": "erro",
+      "erro": "403 Client Error: Forbidden for url: https://aiba.org.br/cotacoes/"
     },
     {
       "fonte": "SEAGRI-BA",
       "url": "https://www.ba.gov.br/seagri/cotacao",
-      "status": "erro",
+      "status": "sem_registros_extraidos",
       "total_registros": 0,
       "produtos_monitorados": [
         "Feijão",
         "Sorgo"
       ],
       "periodo_consultado": "2026-02-07 a 2026-05-08",
-      "paginas_lidas": 0,
+      "paginas_lidas": 2,
       "linhas_encontradas_feijao_sorgo": 0,
       "linhas_sem_cotacao_ignoradas": 0,
       "linhas_preco_invalido_ignoradas": 0,
-      "erros_paginas": [
-        "page=0: ('Connection broken: IncompleteRead(2907 bytes read, 72 more expected)', IncompleteRead(2907 bytes read, 72 more expected))"
-      ],
+      "erros_paginas": [],
       "observacao": "Fonte complementar estadual para Feijão e Sorgo. Publicada como Referência SEAGRI-BA/Regional, sem misturar com CONAB 360."
+    },
+    {
+      "fonte": "PROHORT/CONAB",
+      "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/%3Ahome%3APROHORT%3AprecoDia.wcdf/generatedContent?password=password&userid=pentaho",
+      "status": "ok",
+      "total_registros": 0,
+      "categoria": "hortifruti_ceasa",
+      "observacao": "Fonte nacional prioritária para CEASAS. v1.2.9 mantém diagnóstico; publicação será ativada após mapear a CDA do painel."
+    },
+    {
+      "fonte": "CEASA-CE",
+      "url": "https://files.ceasa-ce.com.br/unsima/boletim_diario/boletim.php",
+      "status": "sem_registros_extraidos",
+      "total_registros": 0,
+      "categoria": "hortifruti_ceasa",
+      "observacao": "Fonte diária de hortifruti/atacado. Publicada como Atacado CEASA, separada de preço ao produtor.",
+      "debug": {
+        "fonte": "CEASA-CE",
+        "url": "https://files.ceasa-ce.com.br/unsima/boletim_diario/boletim.php",
+        "linhas_tabela_lidas": 0,
+        "linhas_com_produto_monitorado": 0,
+        "linhas_preco_invalido": 0,
+        "linhas_publicadas": 0,
+        "amostra_linhas": [],
+        "linhas_publicadas_unicas": 0
+      }
+    },
+    {
+      "fonte": "CEASA-PE",
+      "url": "https://www.ceasape.org.br/cotacao",
+      "status": "erro",
+      "erro": "403 Client Error: Forbidden for url: https://www.ceasape.org.br/cotacao",
+      "total_registros": 0,
+      "categoria": "hortifruti_ceasa"
     },
     {
       "fonte": "CONAB - Produtos 360º",
@@ -70,7 +102,7 @@
         "SE",
         "TO"
       ],
-      "observacao": "Fonte preferencial para Soja, Milho e Algodão. v1.2.8 usa chamada direta ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto.",
+      "observacao": "Fonte preferencial para Soja, Milho e Algodão. v1.2.9 usa chamada direta ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto.",
       "arquivo_debug_conab_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json",
       "total_chamadas_doquery": 3,
       "chamadas_promissoras_preview": [
@@ -1150,7 +1182,7 @@
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.2.8: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.2.9: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -1168,7 +1200,7 @@
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.2.8: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.2.9: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
     },
     {
       "fonte": "CEPEA/ESALQ Widget",
@@ -1188,6 +1220,7 @@
   "debug_conab_produtos_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json",
   "debug_sorgo_conab": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_sorgo_conab.json",
   "debug_leite_carne_conab": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_leite_carne_conab.json",
+  "debug_ceasas": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_ceasas.json",
   "diagnostico_sorgo_conab": {
     "produto": "Sorgo",
     "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
