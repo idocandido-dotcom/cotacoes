@@ -1,9 +1,9 @@
 {
   "ok": true,
-  "ultima_sincronizacao": "2026-05-08 13:46:11",
-  "total_cotacoes_tabela": 30,
-  "total_cotacoes_brutas": 12753,
-  "total_dados_html": 30,
+  "ultima_sincronizacao": "2026-05-08 16:19:20",
+  "total_cotacoes_tabela": 22,
+  "total_cotacoes_brutas": 12748,
+  "total_dados_html": 22,
   "total_cotacoes_descartadas_por_validacao": 1112,
   "total_cotacoes_descartadas_por_nivel": 10653,
   "resumo_descartes_validacao": {
@@ -16,13 +16,13 @@
   },
   "data_limite_cotacoes_ativas": "2026-02-07",
   "dias_maximos_cotacao_ativa": 90,
-  "grupos_descartados_por_data_antiga": 34,
+  "grupos_descartados_por_data_antiga": 37,
   "fontes": [
     {
       "fonte": "AIBA",
       "url": "https://aiba.org.br/cotacoes/",
-      "status": "ok",
-      "total_registros": 8
+      "status": "erro",
+      "erro": "403 Client Error: Forbidden for url: https://aiba.org.br/cotacoes/"
     },
     {
       "fonte": "SEAGRI-BA",
@@ -46,16 +46,20 @@
     {
       "fonte": "CEPEA/ESALQ - Leite ao Produtor",
       "url": "https://cepea.org.br/br/indicador/leite.aspx",
-      "status": "erro",
+      "status": "ok_fallback_pos_erro",
       "erro": "403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/leite.aspx",
-      "categoria": "pecuaria_leite"
+      "total_registros": 2,
+      "categoria": "pecuaria_leite",
+      "fallback_operacional": true
     },
     {
       "fonte": "CEPEA/ESALQ - Boi Gordo",
       "url": "https://cepea.org.br/br/indicador/boi-gordo.aspx",
-      "status": "erro",
+      "status": "ok_fallback_pos_erro",
       "erro": "403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/boi-gordo.aspx",
-      "categoria": "pecuaria_corte"
+      "total_registros": 1,
+      "categoria": "pecuaria_corte",
+      "fallback_operacional": true
     },
     {
       "fonte": "ACRIOESTE",
