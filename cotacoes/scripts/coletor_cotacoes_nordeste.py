@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.2.6
+Nordeste Agro — Coletor Automático de Cotações v1.2.7
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -45,7 +45,7 @@ Melhorias desta versão:
   * mantém apenas um valor por data no historico_30_dias.
 - Melhora classificação visual:
   * reforça Regional, Atacado, Produtor e Média UF para o HTML.
-- Política de publicação v1.2.6:
+- Política de publicação v1.2.7:
   * publica preço ao produtor, cotação regional produtiva ou referência oficial CONAB.
   * usa CONAB Produtos 360º como fonte para Soja, Milho e Algodão.
   * usa arquivos semanais da CONAB apenas para Feijão e Sorgo.
@@ -91,6 +91,7 @@ OUTPUT_DEBUG_CONAB_360 = LOGS_DIR / "debug_conab_produtos_360.json"
 OUTPUT_DEBUG_SORGO_CONAB = LOGS_DIR / "debug_sorgo_conab.json"
 
 AIBA_URL = "https://aiba.org.br/cotacoes/"
+SEAGRI_BA_COTACOES_URL = "https://www.ba.gov.br/seagri/cotacao"
 
 CONAB_PRODUTOS_360_URL = "https://portaldeinformacoes.conab.gov.br/produtos-360.html"
 CONAB_PRODUTOS_360_PENTAHO_URL = "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/%3Ahome%3AProdutos%3Aprodutos360.wcdf/generatedContent?password=password&userid=pentaho"
@@ -164,7 +165,7 @@ HEADERS = {
 
 # UFs monitoradas pela página de Cotações.
 # Mantemos o nome da constante por compatibilidade com o restante do código,
-# mas a partir da v1.2.6 incluímos também Pará e Tocantins por relevância
+# mas a partir da v1.2.7 incluímos também Pará e Tocantins por relevância
 # agrícola no MATOPIBA/Norte e para complementar as referências da CONAB 360º.
 UFS_NORDESTE = {
     "AL": "Alagoas",
@@ -216,18 +217,18 @@ TIPOS_REAIS = {
 # soja, milho, sorgo, arroz e feijão devem aparecer por saca de 60 kg.
 PRODUTOS_SACA_60KG = {"Soja", "Milho", "Sorgo", "Arroz", "Feijão"}
 
-# Regra v1.2.6: na CONAB vamos publicar somente os 5 produtos definidos
+# Regra v1.2.7: na CONAB vamos publicar somente os 5 produtos definidos
 # para esta etapa da página Cotações. Isso evita que leite/carne/boi entrem
 # pela CONAB com unidade ou nível de comercialização inadequado.
 PRODUTOS_CONAB_OFICIAIS = {"Soja", "Milho", "Algodão", "Feijão", "Sorgo"}
 
-# v1.2.6: soja, milho e algodão não devem mais sair dos arquivos semanais,
+# v1.2.7: soja, milho e algodão não devem mais sair dos arquivos semanais,
 # porque esses arquivos trouxeram datas antigas. Para esses três produtos,
 # a fonte operacional passa a ser o painel CONAB Produtos 360º.
 PRODUTOS_CONAB_360 = {"Soja", "Milho", "Algodão"}
 
 # Feijão e sorgo continuam nos arquivos semanais/Preços Agropecuários.
-# A partir da v1.2.6, leite e carnes também são lidos desses arquivos,
+# A partir da v1.2.7, leite e carnes também são lidos desses arquivos,
 # mas com regra mais rígida: só entram na tabela se a linha vier claramente
 # como preço ao produtor. Varejo, atacado e nível não informado continuam fora.
 PRODUTOS_CONAB_TXT = {"Feijão", "Sorgo", "Leite", "Boi Gordo", "Carne Bovina"}
@@ -428,6 +429,9 @@ def normalizar_nivel_preco(valor: Any) -> tuple[str, str, int]:
         "conab municipal",
     ]):
         return "preco_referencia_conab", "Referência CONAB", NIVEIS_PRECO_PRIORIDADE["preco_referencia_conab"]
+
+    if "seagri" in texto:
+        return "preco_regional", "Referência SEAGRI-BA", NIVEIS_PRECO_PRIORIDADE["preco_regional"]
 
     if "aiba" in texto or "regional" in texto or "oeste baiano" in texto:
         return "preco_regional", "Regional", NIVEIS_PRECO_PRIORIDADE["preco_regional"]
@@ -1076,7 +1080,7 @@ def forcar_referencia_conab(item: dict[str, Any]) -> bool:
 
 def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     """
-    Política v1.2.6:
+    Política v1.2.7:
     - Publicar preço pago ao produtor quando a fonte informar claramente.
     - Publicar cotação regional produtiva, como AIBA.
     - Publicar referência oficial CONAB para soja, milho, algodão, feijão e sorgo
@@ -1112,7 +1116,7 @@ def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     if nivel == "preco_regional":
         return True, "ok_preco_regional"
 
-    # Correção v1.2.6: CONAB sem nível claro, média UF ou não informado
+    # Correção v1.2.7: CONAB sem nível claro, média UF ou não informado
     # entra como Referência CONAB, desde que não seja atacado/varejo/indicador.
     if forcar_referencia_conab(item):
         return True, "ok_referencia_oficial_conab_forcada"
@@ -1470,14 +1474,14 @@ def detectar_nivel_conab(
         return texto
 
     if produto_base in PRODUTOS_CONAB_OFICIAIS and tipo_fonte_conab == "semanal_municipio":
-        # Regra v1.2.6: quando a base semanal por município da CONAB não informa
+        # Regra v1.2.7: quando a base semanal por município da CONAB não informa
         # explicitamente atacado, varejo ou produtor, ela entra como referência
         # oficial CONAB por praça. Não rotulamos como "Produtor" para não criar
         # uma informação que a própria linha não informou.
         return "referencia conab municipal"
 
     if produto_base in PRODUTOS_CONAB_OFICIAIS and tipo_fonte_conab == "semanal_uf":
-        # Regra v1.2.6: quando a base semanal por UF da CONAB não informa nível
+        # Regra v1.2.7: quando a base semanal por UF da CONAB não informa nível
         # de comercialização, ela entra como referência oficial estadual CONAB.
         # Atacado e varejo continuam bloqueados acima.
         return "referencia conab estadual"
@@ -2244,7 +2248,7 @@ def coletar_conab_360_direto_cda() -> tuple[list[dict[str, Any]], list[dict[str,
     """
     Coleta do CONAB Produtos 360º.
 
-    v1.2.6:
+    v1.2.7:
     - primeiro abre o generatedContent para criar sessão Pentaho;
     - tenta POST direto com cookies da sessão;
     - se o endpoint responder 401 ou não retornar dados, usa fallback Playwright
@@ -2417,7 +2421,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     """
     Coleta preferencial para Soja, Milho e Algodão no painel CONAB Produtos 360º.
 
-    v1.2.6:
+    v1.2.7:
     - usa chamada direta ao CDA identificada no debug;
     - publica dados por UF do Nordeste;
     - mantém debug para conferência.
@@ -2469,7 +2473,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     debug_payload = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
-        "versao": "1.2.6",
+        "versao": "1.2.7",
         "gerado_em": agora_local().isoformat(),
         "objetivo": (
             "Coletar diretamente do CONAB Produtos 360º/Pentaho a consulta CDA "
@@ -2498,13 +2502,265 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
             "produtos_extraidos": produtos_extraidos,
             "ufs_extraidas": ufs_extraidas,
             "observacao": (
-                "Fonte preferencial para Soja, Milho e Algodão. v1.2.6 usa chamada direta "
+                "Fonte preferencial para Soja, Milho e Algodão. v1.2.7 usa chamada direta "
                 "ao Pentaho/CDA: produtos360.cda / dataAccessId=precoProduto."
             ),
             "arquivo_debug_conab_360": str(OUTPUT_DEBUG_CONAB_360),
             "total_chamadas_doquery": len(debug_doquery),
             "chamadas_promissoras_preview": chamadas_promissoras[:10],
             "debug_respostas": debug_respostas[:30],
+        }
+    )
+
+    return cotacoes_finais
+
+
+def produto_seagri_ba_interessa(produto: Any) -> bool:
+    produto_base = normalizar_produto_base(produto)
+    return produto_base in {"Feijão", "Sorgo"}
+
+
+def montar_url_debug_seagri_ba(params: dict[str, Any]) -> str:
+    pares = []
+    for chave, valor in params.items():
+        pares.append(f"{chave}={valor}")
+    return SEAGRI_BA_COTACOES_URL + "?" + "&".join(pares)
+
+
+def extrair_linhas_seagri_ba_html(html: str) -> list[dict[str, str]]:
+    """
+    Extrai linhas da página pública de cotações da SEAGRI-BA.
+
+    Estrutura esperada da tabela:
+    Data | Produto | Praça | Tipo | Unidade | Preço
+
+    A função mantém fallback por texto porque o portal pode alterar pequenas
+    marcações HTML sem alterar o conteúdo visível.
+    """
+    linhas_extraidas: list[dict[str, str]] = []
+    soup = BeautifulSoup(html, "html.parser")
+
+    # Caminho principal: tabela HTML.
+    for tr in soup.find_all("tr"):
+        celulas = [limpar_texto(td.get_text(" ", strip=True)) for td in tr.find_all(["td", "th"])]
+        celulas = [c for c in celulas if c]
+
+        if len(celulas) < 6:
+            continue
+
+        data = celulas[0]
+        if not re.search(r"\d{2}/\d{2}/\d{4}|\d{4}-\d{2}-\d{2}", data):
+            continue
+
+        produto = celulas[1]
+        if not produto_seagri_ba_interessa(produto):
+            continue
+
+        linhas_extraidas.append(
+            {
+                "data": data,
+                "produto": produto,
+                "praca": celulas[2],
+                "tipo": celulas[3],
+                "unidade": celulas[4],
+                "preco": celulas[5],
+                "origem_parser": "html_table",
+            }
+        )
+
+    if linhas_extraidas:
+        return linhas_extraidas
+
+    # Fallback: texto bruto. Funciona quando a página vem sem tags de tabela
+    # preservadas no parser, mas com linhas visíveis no formato da busca.
+    texto = soup.get_text(" ", strip=True)
+    texto = re.sub(r"\s+", " ", texto)
+
+    padrao = re.compile(
+        r"(\d{2}/\d{2}/\d{4})\s+"
+        r"(Feij[aã]o|Sorgo)\s+"
+        r"([A-ZÁÀÂÃÉÊÍÓÔÕÚÇ0-9' ./-]{2,80})\s+"
+        r"([A-Za-zÀ-ÿ0-9ªº()/ .-]{2,50})\s+"
+        r"(sc\s*60\s*kg|saca\s*60\s*kg|saca 60 kg|quilo|kg|litro|arroba|@)\s+"
+        r"(Sem cotação|sem cotação|\d{1,4}(?:\.\d{3})*,\d{2,4}|\d{1,4}\.\d{2,4})",
+        flags=re.I,
+    )
+
+    for match in padrao.finditer(texto):
+        data, produto, praca, tipo, unidade, preco = match.groups()
+        if not produto_seagri_ba_interessa(produto):
+            continue
+
+        linhas_extraidas.append(
+            {
+                "data": data,
+                "produto": produto,
+                "praca": limpar_texto(praca),
+                "tipo": limpar_texto(tipo),
+                "unidade": limpar_texto(unidade),
+                "preco": limpar_texto(preco),
+                "origem_parser": "texto_regex",
+            }
+        )
+
+    return linhas_extraidas
+
+
+def coletar_seagri_ba(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """
+    SEAGRI-BA — fonte complementar para Feijão e Sorgo.
+
+    Uso na página:
+    - entra como Referência SEAGRI-BA / Regional;
+    - ignora linhas com "Sem cotação";
+    - não substitui CONAB/AIBA; complementa quando houver preço regional válido;
+    - consulta o período recente usado pela política de atualidade do site.
+    """
+    cotacoes: list[dict[str, Any]] = []
+    paginas_lidas = 0
+    linhas_encontradas = 0
+    linhas_sem_cotacao = 0
+    linhas_preco_invalido = 0
+    paginas_sem_linhas = 0
+    erros_paginas: list[str] = []
+
+    data_fim = agora_local().date()
+    data_inicio = data_fim - timedelta(days=DIAS_MAXIMOS_COTACAO_ATIVA)
+
+    # A página é paginada. O limite evita execução longa no GitHub Actions.
+    max_paginas = 35
+    assinaturas_paginas: set[str] = set()
+
+    for pagina in range(max_paginas):
+        params = {
+            "data[min][date]": data_inicio.isoformat(),
+            "data[max][date]": data_fim.isoformat(),
+            "produto": "All",
+            "praca": "All",
+            "tipo": "All",
+            "order": "data",
+            "sort": "desc",
+            "page": str(pagina),
+        }
+
+        try:
+            resposta = requests.get(
+                SEAGRI_BA_COTACOES_URL,
+                headers=HEADERS,
+                params=params,
+                timeout=90,
+            )
+            resposta.raise_for_status()
+            html = resposta.text
+            paginas_lidas += 1
+
+            assinatura = re.sub(r"\s+", " ", BeautifulSoup(html, "html.parser").get_text(" ", strip=True))[:1500]
+            if assinatura in assinaturas_paginas and pagina > 0:
+                break
+            assinaturas_paginas.add(assinatura)
+
+            linhas = extrair_linhas_seagri_ba_html(html)
+
+            if not linhas:
+                paginas_sem_linhas += 1
+                # Depois de várias páginas seguidas sem feijão/sorgo, evita varrer o portal inteiro.
+                if paginas_sem_linhas >= 8 and cotacoes:
+                    break
+                continue
+
+            paginas_sem_linhas = 0
+            linhas_encontradas += len(linhas)
+
+            for linha in linhas:
+                preco_texto = limpar_texto(linha.get("preco"))
+                if not preco_texto or "sem cot" in remover_acentos(preco_texto).lower():
+                    linhas_sem_cotacao += 1
+                    continue
+
+                preco = parse_preco(preco_texto)
+                if preco is None or preco <= 0:
+                    linhas_preco_invalido += 1
+                    continue
+
+                produto = limpar_texto(linha.get("produto"))
+                tipo = limpar_texto(linha.get("tipo"))
+                tipo_norm = remover_acentos(tipo).lower()
+
+                if tipo and tipo_norm not in {"(comum)", "comum", "nao informado", "não informado"}:
+                    produto_original = f"{produto} {tipo}"
+                else:
+                    produto_original = produto
+
+                produto_base = normalizar_produto_base(produto_original)
+                if produto_base not in {"Feijão", "Sorgo"}:
+                    continue
+
+                praca = limpar_texto(linha.get("praca")) or "Bahia"
+                unidade = limpar_texto(linha.get("unidade")) or "Saca 60 kg"
+                data_ref = parse_data(linha.get("data"))
+
+                cotacoes.append(
+                    criar_item(
+                        produto_original=produto_original,
+                        uf="BA",
+                        estado_nome="Bahia",
+                        praca=praca,
+                        unidade=unidade,
+                        preco=preco,
+                        variacao_percentual=None,
+                        data_referencia=data_ref,
+                        fonte="SEAGRI-BA",
+                        fonte_url=montar_url_debug_seagri_ba(params),
+                        tipo_fonte="regional",
+                        nivel_comercializacao="referencia seagri ba",
+                        observacao=(
+                            "Cotação regional publicada pela SEAGRI-BA. "
+                            "Fonte complementar para Feijão e Sorgo; linhas 'Sem cotação' são ignoradas."
+                        ),
+                    )
+                )
+
+        except Exception as erro:
+            erros_paginas.append(f"page={pagina}: {erro}")
+            if pagina == 0:
+                break
+
+    # Deduplicação: mantém a ocorrência mais recente/preço por praça/produto/tipo/unidade/data.
+    unicos: dict[tuple[str, str, str, str, str, float], dict[str, Any]] = {}
+    for item in cotacoes:
+        chave = (
+            item.get("produto_base", ""),
+            item.get("produto_original", ""),
+            item.get("praca", ""),
+            item.get("unidade", ""),
+            item.get("data_referencia", ""),
+            float(item.get("preco", 0)),
+        )
+        unicos[chave] = item
+
+    cotacoes_finais = list(unicos.values())
+
+    status = "ok" if cotacoes_finais else "sem_registros_extraidos"
+    if erros_paginas and not cotacoes_finais:
+        status = "erro"
+
+    status_fontes.append(
+        {
+            "fonte": "SEAGRI-BA",
+            "url": SEAGRI_BA_COTACOES_URL,
+            "status": status,
+            "total_registros": len(cotacoes_finais),
+            "produtos_monitorados": ["Feijão", "Sorgo"],
+            "periodo_consultado": f"{data_inicio.isoformat()} a {data_fim.isoformat()}",
+            "paginas_lidas": paginas_lidas,
+            "linhas_encontradas_feijao_sorgo": linhas_encontradas,
+            "linhas_sem_cotacao_ignoradas": linhas_sem_cotacao,
+            "linhas_preco_invalido_ignoradas": linhas_preco_invalido,
+            "erros_paginas": erros_paginas[:10],
+            "observacao": (
+                "Fonte complementar estadual para Feijão e Sorgo. "
+                "Publicada como Referência SEAGRI-BA/Regional, sem misturar com CONAB 360."
+            ),
         }
     )
 
@@ -2581,7 +2837,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
                 unidade = limpar_texto(linha.get(col_unidade, "")) if col_unidade else ""
 
-                # v1.2.6: os arquivos CONAB Preços Agropecuários são semanais.
+                # v1.2.7: os arquivos CONAB Preços Agropecuários são semanais.
                 # Quando a fonte trouxer apenas uma data, mostramos como "Semana de DD/MM/AAAA"
                 # para não dar a impressão de preço diário.
                 data_original_conab = linha.get(col_data, "") if col_data else agora_local().date().isoformat()
@@ -2608,7 +2864,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
                     nivel_chave, nivel_label, _ = normalizar_nivel_preco(nivel_texto)
 
-                    # Correção v1.2.6: quando a CONAB não informar claramente
+                    # Correção v1.2.7: quando a CONAB não informar claramente
                     # o nível, publicamos como Referência CONAB, sem chamar de
                     # preço ao produtor. Atacado e varejo continuam bloqueados.
                     if nivel_chave in {"nao_informado", "media_uf"}:
@@ -2656,7 +2912,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "colunas_preco_identificadas": colunas_preco,
                     "coluna_nivel_identificada": col_nivel,
                     "produtos_conab_publicaveis": sorted(PRODUTOS_CONAB_TXT),
-                    "observacao": "v1.2.6: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º.",
+                    "observacao": "v1.2.7: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º.",
                 }
             )
 
@@ -2902,7 +3158,7 @@ def consolidar_mais_recentes(
     """
     Consolida a base para uso no site.
 
-    Regra v1.2.6:
+    Regra v1.2.7:
     - Agrupa todos os registros brutos por fonte + produto + UF + praça + unidade.
     - Dentro de cada grupo, mantém apenas o item mais recente.
     - Se o item mais recente do grupo for mais antigo que data_corte_iso, o grupo inteiro
@@ -3169,6 +3425,7 @@ def main() -> None:
 
     cotacoes_brutas: list[dict[str, Any]] = []
     cotacoes_brutas.extend(coletar_aiba(status_fontes))
+    cotacoes_brutas.extend(coletar_seagri_ba(status_fontes))
     cotacoes_brutas.extend(coletar_conab_produtos_360(status_fontes))
     cotacoes_brutas.extend(coletar_conab(status_fontes))
     cotacoes_brutas.extend(coletar_cepea_widget(status_fontes))
@@ -3203,7 +3460,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.2.6",
+        "versao": "1.2.7",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -3212,11 +3469,11 @@ def main() -> None:
         "dias_maximos_cotacao_ativa": DIAS_MAXIMOS_COTACAO_ATIVA,
         "data_limite_cotacoes_ativas": data_corte_iso,
         "politica_atualidade": "A tabela principal exibe somente cotações com data dentro dos últimos 90 dias. No CONAB Produtos 360º, a data exibida é o período semanal publicado, não preço diário.",
-        "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; CONAB Preços Agropecuários para feijão, sorgo, leite e carnes somente quando forem preço ao produtor",
+        "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; AIBA/SEAGRI-BA/CONAB semanal para feijão e sorgo; CONAB semanal para leite e carnes somente quando forem preço ao produtor",
         "fontes_complementares": ["CEPEA/ESALQ Widget no HTML", "B3 - referência de mercado futuro"],
         "politica_classificacao_preco": (
-            "Política v1.2.6: a tabela principal publica preço pago ao produtor quando a fonte informar, "
-            "cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
+            "Política v1.2.7: a tabela principal publica preço pago ao produtor quando a fonte informar, "
+            "cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
             "Leite e carnes entram somente quando a fonte informar preço ao produtor. "
             "Varejo, atacado, indicador de mercado e mercado futuro ficam fora da tabela principal. "
             "Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação."
@@ -3236,6 +3493,7 @@ def main() -> None:
             "total_indicadores_cepea_widget": len([item for item in cotacoes_tabela if item.get("fonte") == "CEPEA/ESALQ Widget"]),
             "total_precos_produtor": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "preco_produtor"]),
             "total_precos_regionais": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "preco_regional"]),
+            "total_referencias_seagri_ba": len([item for item in cotacoes_tabela if item.get("fonte") == "SEAGRI-BA"]),
             "total_referencias_conab": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "preco_referencia_conab"]),
             "total_referencias_conab_360": len([item for item in cotacoes_tabela if item.get("fonte") == "CONAB - Produtos 360º"]),
             "total_precos_atacado": len([item for item in cotacoes_tabela if item.get("nivel_comercializacao_chave") == "preco_atacado"]),
@@ -3283,9 +3541,9 @@ def main() -> None:
         },
         "aviso_legal": (
             "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas "
-            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.2.6, "
+            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.2.7, "
             "a tabela principal publica preço pago ao produtor quando a fonte informar claramente, "
-            "cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
+            "cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
             "Leite e carnes só são publicados quando a fonte indicar preço ao produtor. "
             "Cotações de varejo e atacado são removidas para evitar confusão com preço recebido "
             "pelo produtor rural. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg "
@@ -3327,6 +3585,7 @@ def main() -> None:
     print(f"Total CEPEA Widget: {len([item for item in cotacoes_tabela if item.get('fonte') == 'CEPEA/ESALQ Widget'])}")
     print(f"Total Preço Produtor: {len([item for item in cotacoes_tabela if item.get('nivel_comercializacao_chave') == 'preco_produtor'])}")
     print(f"Total Preço Regional: {len([item for item in cotacoes_tabela if item.get('nivel_comercializacao_chave') == 'preco_regional'])}")
+    print(f"Total SEAGRI-BA: {len([item for item in cotacoes_tabela if item.get('fonte') == 'SEAGRI-BA'])}")
     print(f"Total Preço Atacado: {len([item for item in cotacoes_tabela if item.get('nivel_comercializacao_chave') == 'preco_atacado'])}")
     print(f"Total Média UF: {len([item for item in cotacoes_tabela if item.get('nivel_comercializacao_chave') == 'media_uf'])}")
     print(f"Total Leite: {len([item for item in cotacoes_tabela if item.get('produto_base') == 'Leite'])}")
