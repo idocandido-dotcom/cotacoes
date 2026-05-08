@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "ultima_sincronizacao": "2026-05-08 10:43:01",
+  "ultima_sincronizacao": "2026-05-08 10:56:07",
   "total_cotacoes_tabela": 12,
   "total_cotacoes_brutas": 3856,
   "total_dados_html": 12,
@@ -31,215 +31,1117 @@
         "Milho",
         "Soja"
       ],
-      "observacao": "Fonte preferencial para Soja, Milho e Algodão. Se total_registros vier 0, é necessário conferir se o painel Pentaho mudou os nomes das consultas internas.",
+      "observacao": "Fonte preferencial para Soja, Milho e Algodão. v1.2.0 salva diagnóstico completo das chamadas internas do Pentaho/CDA em logs/debug_conab_produtos_360.json.",
+      "arquivo_debug_conab_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json",
+      "total_chamadas_doquery": 105,
+      "chamadas_promissoras_preview": [
+        {
+          "score": 9,
+          "status": 200,
+          "metodo_http": "POST",
+          "parametros_url": {},
+          "parametros_post": {
+            "paramprodutoPreco": "[Produto].[MILHO]",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "ultimaSemanaPrecoProduto_new",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "resumo_cda": {
+            "json_valido": true,
+            "metadata_colunas": [
+              "Semana",
+              "Unidade Comercializacao.unidadeComercializacao",
+              "Preco Recebido Produtor"
+            ],
+            "total_linhas_resultset": 52,
+            "preview_resultset": [
+              [
+                "27-04-2026 - 01-05-2026",
+                "60 kg",
+                66.70875
+              ],
+              [
+                "20-04-2026 - 24-04-2026",
+                "60 kg",
+                67.65791666666667
+              ],
+              [
+                "13-04-2026 - 17-04-2026",
+                "60 kg",
+                68.3425
+              ],
+              [
+                "06-04-2026 - 10-04-2026",
+                "60 kg",
+                68.76958333333333
+              ],
+              [
+                "30-03-2026 - 03-04-2026",
+                "60 kg",
+                68.57625
+              ],
+              [
+                "23-03-2026 - 27-03-2026",
+                "60 kg",
+                68.69375
+              ],
+              [
+                "16-03-2026 - 20-03-2026",
+                "60 kg",
+                68.58458333333333
+              ],
+              [
+                "09-03-2026 - 13-03-2026",
+                "60 kg",
+                67.85958333333333
+              ],
+              [
+                "02-03-2026 - 06-03-2026",
+                "60 kg",
+                67.54083333333334
+              ],
+              [
+                "23-02-2026 - 27-02-2026",
+                "60 kg",
+                67.965
+              ]
+            ],
+            "tem_palavra_preco": true,
+            "tem_palavra_produtor": true,
+            "tem_uf": false,
+            "tem_produto": true,
+            "tem_data": true,
+            "texto_colunas": "semana | unidade comercializacao.unidadecomercializacao | preco recebido produtor"
+          }
+        },
+        {
+          "score": 9,
+          "status": 200,
+          "metodo_http": "POST",
+          "parametros_url": {},
+          "parametros_post": {
+            "paramprodutoPreco": "[Produto].[SOJA]",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "ultimaSemanaPrecoProduto_new",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "resumo_cda": {
+            "json_valido": true,
+            "metadata_colunas": [
+              "Semana",
+              "Unidade Comercializacao.unidadeComercializacao",
+              "Preco Recebido Produtor"
+            ],
+            "total_linhas_resultset": 52,
+            "preview_resultset": [
+              [
+                "27-04-2026 - 01-05-2026",
+                "60 kg",
+                110.822
+              ],
+              [
+                "20-04-2026 - 24-04-2026",
+                "60 kg",
+                110.626
+              ],
+              [
+                "13-04-2026 - 17-04-2026",
+                "60 kg",
+                110.45066666666666
+              ],
+              [
+                "06-04-2026 - 10-04-2026",
+                "60 kg",
+                111.62
+              ],
+              [
+                "30-03-2026 - 03-04-2026",
+                "60 kg",
+                112.05666666666667
+              ],
+              [
+                "23-03-2026 - 27-03-2026",
+                "60 kg",
+                112.47866666666667
+              ],
+              [
+                "16-03-2026 - 20-03-2026",
+                "60 kg",
+                111.88466666666666
+              ],
+              [
+                "09-03-2026 - 13-03-2026",
+                "60 kg",
+                112.67266666666667
+              ],
+              [
+                "02-03-2026 - 06-03-2026",
+                "60 kg",
+                111.71866666666666
+              ],
+              [
+                "23-02-2026 - 27-02-2026",
+                "60 kg",
+                111.12133333333334
+              ]
+            ],
+            "tem_palavra_preco": true,
+            "tem_palavra_produtor": true,
+            "tem_uf": false,
+            "tem_produto": true,
+            "tem_data": true,
+            "texto_colunas": "semana | unidade comercializacao.unidadecomercializacao | preco recebido produtor"
+          }
+        },
+        {
+          "score": 9,
+          "status": 200,
+          "metodo_http": "POST",
+          "parametros_url": {},
+          "parametros_post": {
+            "paramdata_conjuntura": "2026-04-27",
+            "paramproduto": "ALGODAO EM PLUMA",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "conjuntura",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "resumo_cda": {
+            "json_valido": true,
+            "metadata_colunas": [
+              "data_inicial_final",
+              "comentario_analista"
+            ],
+            "total_linhas_resultset": 1,
+            "preview_resultset": [
+              [
+                "27/04/2026 - 01/05/2026",
+                "O mercado doméstico de algodão perdeu força no fim do período, com menor movimentação e recuo dos preços, diante de demanda curta e produtores mais cautelosos nas negociações. Mesmo com algum suporte do mercado externo e do petróleo, a liquidez ficou limitada e as negociações seguiram pontuais. "
+              ]
+            ],
+            "tem_palavra_preco": true,
+            "tem_palavra_produtor": true,
+            "tem_uf": false,
+            "tem_produto": true,
+            "tem_data": true,
+            "texto_colunas": "data_inicial_final | comentario_analista"
+          }
+        },
+        {
+          "score": 9,
+          "status": 200,
+          "metodo_http": "POST",
+          "parametros_url": {},
+          "parametros_post": {
+            "paramprodutoPreco": "[Produto].[ALGODÃO EM PLUMA]",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "ultimaSemanaPrecoProduto_new",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "resumo_cda": {
+            "json_valido": true,
+            "metadata_colunas": [
+              "Semana",
+              "Unidade Comercializacao.unidadeComercializacao",
+              "Preco Recebido Produtor"
+            ],
+            "total_linhas_resultset": 52,
+            "preview_resultset": [
+              [
+                "27-04-2026 - 01-05-2026",
+                "15 kg",
+                129.90666666666667
+              ],
+              [
+                "20-04-2026 - 24-04-2026",
+                "15 kg",
+                127.39888888888889
+              ],
+              [
+                "13-04-2026 - 17-04-2026",
+                "15 kg",
+                125.38666666666667
+              ],
+              [
+                "06-04-2026 - 10-04-2026",
+                "15 kg",
+                124.13777777777777
+              ],
+              [
+                "30-03-2026 - 03-04-2026",
+                "15 kg",
+                122.47333333333333
+              ],
+              [
+                "23-03-2026 - 27-03-2026",
+                "15 kg",
+                120.47333333333333
+              ],
+              [
+                "16-03-2026 - 20-03-2026",
+                "15 kg",
+                117.76444444444445
+              ],
+              [
+                "09-03-2026 - 13-03-2026",
+                "15 kg",
+                115.53555555555556
+              ],
+              [
+                "02-03-2026 - 06-03-2026",
+                "15 kg",
+                115.18888888888888
+              ],
+              [
+                "23-02-2026 - 27-02-2026",
+                "15 kg",
+                115.11
+              ]
+            ],
+            "tem_palavra_preco": true,
+            "tem_palavra_produtor": true,
+            "tem_uf": false,
+            "tem_produto": true,
+            "tem_data": true,
+            "texto_colunas": "semana | unidade comercializacao.unidadecomercializacao | preco recebido produtor"
+          }
+        },
+        {
+          "score": 9,
+          "status": 200,
+          "metodo_http": "POST",
+          "parametros_url": {},
+          "parametros_post": {
+            "paramdata_conjuntura": "2026-04-27",
+            "paramproduto": "ALGODAO EM PLUMA",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "conjuntura",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "resumo_cda": {
+            "json_valido": true,
+            "metadata_colunas": [
+              "data_inicial_final",
+              "comentario_analista"
+            ],
+            "total_linhas_resultset": 1,
+            "preview_resultset": [
+              [
+                "27/04/2026 - 01/05/2026",
+                "O mercado doméstico de algodão perdeu força no fim do período, com menor movimentação e recuo dos preços, diante de demanda curta e produtores mais cautelosos nas negociações. Mesmo com algum suporte do mercado externo e do petróleo, a liquidez ficou limitada e as negociações seguiram pontuais. "
+              ]
+            ],
+            "tem_palavra_preco": true,
+            "tem_palavra_produtor": true,
+            "tem_uf": false,
+            "tem_produto": true,
+            "tem_data": true,
+            "texto_colunas": "data_inicial_final | comentario_analista"
+          }
+        },
+        {
+          "score": 6,
+          "status": 200,
+          "metodo_http": "POST",
+          "parametros_url": {},
+          "parametros_post": {
+            "paramproduto": "MILHO",
+            "paramsafraCustoProd": "[Tipo Safra].[1ª SAFRA]",
+            "paramprodClassificacaoCustoProducao": "[Produto Classificacao].[TODAS]",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "custoProducaoPreco",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "resumo_cda": {
+            "json_valido": true,
+            "metadata_colunas": [
+              "UF.UF",
+              "Renda de Fatores",
+              "Custo Fixo",
+              "Custo Variável",
+              "Preço"
+            ],
+            "total_linhas_resultset": 5,
+            "preview_resultset": [
+              [
+                "BA",
+                13.78,
+                10.12,
+                57.71,
+                60.97
+              ],
+              [
+                "PI",
+                5.73,
+                6.74,
+                44.12,
+                63.43
+              ],
+              [
+                "PR",
+                7.41,
+                10.65,
+                42.89,
+                54.08
+              ],
+              [
+                "RS",
+                8.725,
+                9.43,
+                48.515,
+                60.43
+              ],
+              [
+                "SC",
+                11.87,
+                12.76,
+                55.21,
+                61.14
+              ]
+            ],
+            "tem_palavra_preco": true,
+            "tem_palavra_produtor": false,
+            "tem_uf": true,
+            "tem_produto": false,
+            "tem_data": true,
+            "texto_colunas": "uf.uf | renda de fatores | custo fixo | custo variavel | preco"
+          }
+        },
+        {
+          "score": 6,
+          "status": 200,
+          "metodo_http": "POST",
+          "parametros_url": {},
+          "parametros_post": {
+            "paramproduto": "MILHO",
+            "paramsafraCustoProd": "[Tipo Safra].[1ª SAFRA]",
+            "paramprodClassificacaoCustoProducao": "[Produto Classificacao].[TODAS]",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "custoProducaoPreco",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "resumo_cda": {
+            "json_valido": true,
+            "metadata_colunas": [
+              "UF.UF",
+              "Renda de Fatores",
+              "Custo Fixo",
+              "Custo Variável",
+              "Preço"
+            ],
+            "total_linhas_resultset": 5,
+            "preview_resultset": [
+              [
+                "BA",
+                13.78,
+                10.12,
+                57.71,
+                60.97
+              ],
+              [
+                "PI",
+                5.73,
+                6.74,
+                44.12,
+                63.43
+              ],
+              [
+                "PR",
+                7.41,
+                10.65,
+                42.89,
+                54.08
+              ],
+              [
+                "RS",
+                8.725,
+                9.43,
+                48.515,
+                60.43
+              ],
+              [
+                "SC",
+                11.87,
+                12.76,
+                55.21,
+                61.14
+              ]
+            ],
+            "tem_palavra_preco": true,
+            "tem_palavra_produtor": false,
+            "tem_uf": true,
+            "tem_produto": false,
+            "tem_data": true,
+            "texto_colunas": "uf.uf | renda de fatores | custo fixo | custo variavel | preco"
+          }
+        },
+        {
+          "score": 6,
+          "status": 200,
+          "metodo_http": "POST",
+          "parametros_url": {},
+          "parametros_post": {
+            "paramdata_conjuntura": "2026-04-27",
+            "paramproduto": "SOJA",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "conjuntura",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "resumo_cda": {
+            "json_valido": true,
+            "metadata_colunas": [
+              "data_inicial_final",
+              "comentario_analista"
+            ],
+            "total_linhas_resultset": 1,
+            "preview_resultset": [
+              [
+                "27/04/2026 - 01/05/2026",
+                "O óleo de soja atingiu um novo recorde de preços, impulsionado pelas tensões entre Irã e Estados Unidos. Como consequência, os preços da soja em grão registraram alta de 1,28% na média semanal. No mercado interno, os preços também subiram, acompanhando a valorização internacional e a alta do dólar. No entanto, uma leve queda nos prêmios nos portos ajudou a conter aumentos ainda mais expressivos no mercado doméstico."
+              ]
+            ],
+            "tem_palavra_preco": true,
+            "tem_palavra_produtor": false,
+            "tem_uf": true,
+            "tem_produto": false,
+            "tem_data": true,
+            "texto_colunas": "data_inicial_final | comentario_analista"
+          }
+        },
+        {
+          "score": 6,
+          "status": 200,
+          "metodo_http": "POST",
+          "parametros_url": {},
+          "parametros_post": {
+            "paramproduto": "SOJA",
+            "paramsafraCustoProd": "[Tipo Safra].[TODAS]",
+            "paramprodClassificacaoCustoProducao": "[Produto Classificacao].[TODAS]",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "custoProducaoPreco",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "resumo_cda": {
+            "json_valido": true,
+            "metadata_colunas": [
+              "UF.UF",
+              "Renda de Fatores",
+              "Custo Fixo",
+              "Custo Variável",
+              "Preço"
+            ],
+            "total_linhas_resultset": 9,
+            "preview_resultset": [
+              [
+                "BA",
+                33.37,
+                18.09,
+                79.27,
+                122.93
+              ],
+              [
+                "GO",
+                13.97,
+                16.11,
+                57.87,
+                120.93
+              ],
+              [
+                "MA",
+                21.27,
+                32.58,
+                67.56,
+                123.07
+              ],
+              [
+                "MS",
+                35.04,
+                21.65,
+                82.31,
+                125.55
+              ],
+              [
+                "MT",
+                19.655,
+                15.72,
+                74.215,
+                120.81
+              ],
+              [
+                "PI",
+                14.9,
+                17.36,
+                65.48,
+                127.53
+              ],
+              [
+                "PR",
+                30.645,
+                19.28,
+                75.925,
+                122.38
+              ],
+              [
+                "RS",
+                11.41,
+                22.54,
+                71.53,
+                124.5
+              ],
+              [
+                "TO",
+                9.16,
+                23.73,
+                88.52,
+                125.38
+              ]
+            ],
+            "tem_palavra_preco": true,
+            "tem_palavra_produtor": false,
+            "tem_uf": true,
+            "tem_produto": false,
+            "tem_data": true,
+            "texto_colunas": "uf.uf | renda de fatores | custo fixo | custo variavel | preco"
+          }
+        },
+        {
+          "score": 6,
+          "status": 200,
+          "metodo_http": "POST",
+          "parametros_url": {},
+          "parametros_post": {
+            "paramproduto": "ALGODAO EM PLUMA",
+            "paramsafraCustoProd": "[Tipo Safra].[TODAS]",
+            "paramprodClassificacaoCustoProducao": "[Produto Classificacao].[TODAS]",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "custoProducaoPreco",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "resumo_cda": {
+            "json_valido": true,
+            "metadata_colunas": [
+              "UF.UF",
+              "Renda de Fatores",
+              "Custo Fixo",
+              "Custo Variável",
+              "Preço"
+            ],
+            "total_linhas_resultset": 2,
+            "preview_resultset": [
+              [
+                "BA",
+                22.49,
+                13.65,
+                137.92,
+                131.44
+              ],
+              [
+                "MT",
+                10.5,
+                10.01,
+                109.17,
+                108.61
+              ]
+            ],
+            "tem_palavra_preco": true,
+            "tem_palavra_produtor": false,
+            "tem_uf": true,
+            "tem_produto": false,
+            "tem_data": true,
+            "texto_colunas": "uf.uf | renda de fatores | custo fixo | custo variavel | preco"
+          }
+        }
+      ],
       "debug_respostas": [
         {
           "metodo": "requests",
           "url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
           "itens_extraidos": 0,
-          "preview": "<!DOCTYPE html>\n\n<html lang=\"en\">\n\n    <head>\n        <meta charset=\"utf-8\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\n        <title>Conab - Portal de Informações Agropecuária</title>\n\n        <!-- ================= Favicon ================== -->\n        <link rel=\"shortcut icon\" href=\"assets/favicon.ico\" />\n        <meta property=\"og:type\"                 content=\"website\" >\n        <meta property=\"twitter:card\"            content=\"summary\" >\n        <meta property=\"og:image\"                content=\"https://portaldeinformacoes.conab.gov.br/assets/logo.png\">\n        <meta nam=\"twitter:image\"                content=\"https://portaldeinformacoes.conab.gov.br/assets/logo.png\">\n        <meta prope"
+          "preview": "<!DOCTYPE html>\n\n<html lang=\"en\">\n\n    <head>\n        <meta charset=\"utf-8\">\n        <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\n        <title>Conab - Portal de Informações Agropecuária</title>\n\n        <!-- ================= Favicon ================== -->\n        <link rel=\"shortcut icon\" href=\"assets/favicon.ico\" />\n        <meta property=\"og:type\"                 content=\"website\" >\n        <meta property=\"twitter:card\"            content=\"summary\" >\n        <meta property=\"og:image\"                content=\"https://portaldeinformacoes.conab.gov.br/assets/logo.png\">\n        <meta nam=\"twitter:image\"                content=\"https://portaldeinformacoes.conab.gov.br/assets/logo.png\">\n        <meta property=\"og:image:width\" content=\"300\">\n        <meta property=\"og:image:height\" content=\"300\">\n        <meta property=\"og:title\"                content=\"Portal de Informações Agropecuárias\" >\n        <meta name=\"twitter:title\"               content=\"Portal de Informações Agropecuárias\" >\n        <meta property=\"og:url\"                  content=\"https://portaldeinformacoes.conab.gov.br\" >\n        <met"
         },
         {
           "metodo": "requests",
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/%3Ahome%3AProdutos%3Aprodutos360.wcdf/generatedContent?password=password&userid=pentaho",
           "itens_extraidos": 0,
-          "preview": "<!DOCTYPE HTML>\r\n<html>\r\n\t<head>\r\n\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n\t\t  <title>produtos360</title><!-- cdf-bootstrap-script-includes -->\t\t<script language=\"javascript\" type=\"text/javascript\" src=\"/pentaho/api/repos/pentaho-cdf/js/cdf-bootstrap-script-includes.js?v=ec607dd1a3910ad9b9d062a57d3bb53e\"></script>\n<!-- cdf-bootstrap-ie8script-includes --><!--[if lte IE 8]>\n\t\t<script language=\"javascript\" type=\"text/javascript\" src=\"/pentaho/api/repos/pentaho-cdf/js-legacy/lib/html5shiv/html5shiv.js?v=ee68da404bd6cbdab3adb3bf9219c207\"></script>\n<![endif]-->\n<!-- cdf-bootstrap-style-includes -->\t\t<link href=\"/pentaho/api/repos/pentaho-cdf/css/cdf-bootstrap-style-includes.css?v=c329c3a4ac6ff5"
+          "preview": "<!DOCTYPE HTML>\r\n<html>\r\n\t<head>\r\n\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n\t\t  <title>produtos360</title><!-- cdf-bootstrap-script-includes -->\t\t<script language=\"javascript\" type=\"text/javascript\" src=\"/pentaho/api/repos/pentaho-cdf/js/cdf-bootstrap-script-includes.js?v=ec607dd1a3910ad9b9d062a57d3bb53e\"></script>\n<!-- cdf-bootstrap-ie8script-includes --><!--[if lte IE 8]>\n\t\t<script language=\"javascript\" type=\"text/javascript\" src=\"/pentaho/api/repos/pentaho-cdf/js-legacy/lib/html5shiv/html5shiv.js?v=ee68da404bd6cbdab3adb3bf9219c207\"></script>\n<![endif]-->\n<!-- cdf-bootstrap-style-includes -->\t\t<link href=\"/pentaho/api/repos/pentaho-cdf/css/cdf-bootstrap-style-includes.css?v=c329c3a4ac6ff585632e4664c8d54d78\" rel=\"stylesheet\" type=\"text/css\" />\n<!-- bootstrap.css.map --><!-- cdf-bootstrap-ie8scriptAfterLink-includes --><!--[if lte IE 8]>\n\t\t<script language=\"javascript\" type=\"text/javascript\" src=\"/pentaho/api/repos/pentaho-cdf/js-legacy/lib/respond/respond.js?v=c03b5dcc8955c34fa65e59e7e7daacf0\"></script>\n<![endif]-->\n<!-- cdf-cdf-dashboard-script-includes -->\n\t\t<script language=\"jav"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/%3Ahome%3AProdutos%3Aprodutos360.wcdf/generatedContent?password=password&userid=pentaho",
+          "metodo_http": "GET",
           "status": 200,
           "content_type": "text/html;charset=UTF-8",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "password": "password",
+            "userid": "pentaho"
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": "<!DOCTYPE HTML>\r\n<html>\r\n\t<head>\r\n\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\r\n\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\r\n\t\t  <title>produtos360</title><!-- cdf-bootstrap-script-includes -->\t\t<script language=\"javascript\" type=\"text/javascript\" src=\"/pentaho/api/repos/pentaho-cdf/js/cdf-bootstrap-script-includes.js?v=ec607dd1a3910ad9b9d062a57d3bb53e\"></script>\n<!-- cdf-bootstrap-ie8script-includes --><!--[if lte IE 8]>\n\t\t<script language=\"javascript\" type=\"text/javascript\" src=\"/pentaho/api/repos/pentaho-cdf/js-legacy/lib/html5shiv/html5shiv.js?v=ee68da404bd6cbdab3adb3bf9219c207\"></script>\n<![endif]-->\n<!-- cdf-bootstrap-style-includes -->\t\t<link href=\"/pentaho/api/repos/pentaho-cdf/css/cdf-bootstrap-style-includes.css?v=c329c3a4ac6ff5"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf/js-legacy/lib/OpenMap/OpenLayers/theme/default/style.css?v=d913ca3244cd2e59de875e1da15fa250",
+          "metodo_http": "GET",
           "status": 200,
           "content_type": "text/css",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "v": "d913ca3244cd2e59de875e1da15fa250"
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": "div.olMap {\n    z-index: 0;\n    padding: 0 !important;\n    margin: 0 !important;\n    cursor: default;\n}\n\ndiv.olMapViewport {\n    text-align: left;\n    -ms-touch-action: none;\n}\n\ndiv.olLayerDiv {\n   -moz-user-select: none;\n   -khtml-user-select: none;\n}\n\n.olLayerGoogleCopyright {\n    left: 2px;\n    bottom: 2px;\n}\n.olLayerGoogleV3.olLayerGoogleCopyright {\n    right: auto !important;\n}\n.olLayerGooglePoweredBy {\n    left: 2px;\n    bottom: 15px;\n}\n.olLayerGoogleV3.olLayerGooglePoweredBy {\n    bottom: 15px !important;\n}\n/* GMaps should not set styles on its container */\n.olForeignContainer {\n    opacity: 1 !important;\n}\n.olControlAttribution {\n    font-size: smaller;\n    right: 3px;\n    bottom: 4.5em;\n    position: absolute;\n    display: block;\n}\n.olControlScale {\n    right: 3px;\n    bottom: 3em"
         },
         {
-          "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/pentaho-cdf-dd/api/resources/home/resource2/css/global.css?v=1778247722834",
+          "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/pentaho-cdf-dd/api/resources/home/resource2/css/global.css?v=1778248449752",
+          "metodo_http": "GET",
           "status": 200,
           "content_type": "text/css",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "v": "1778248449752"
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": "@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700);\nbody{\nfont-family: 'Open Sans', sans-serif;\nfont-weight:300;\n}\n.imp-cinza-claro-bg {background-color:#f7f7f7;}\n.imp-cinza-bg {background-color:#E4E8EB;}\n.imp-teal-bg{background-color:#1CB09A;}\n.imp-red-bg{background-color:#DA534F;}\n.imp-blue-bg{background-color:#418BCA;}\n.imp-dark-bg{background-color:#1D2939;}\n.imp-branco-bg {background-color:#fff;}\n.imp-cinza-claro{color:#f7f7f7;}\n.imp-cinza{color:#E4E8EB;}\n.imp-branco{color:#fff;}\n.imp-red{color:#DA534F;}\n.imp-transp {opacity:.8;}\n.imp-verdeConab{background-color:#0B6121;}\n\nh1.imp-titulo01 {\n    font-weight: 300;\n    font-size: 24px;\n    margin-top: 10px; /* a margem default tem 20-top e 10-bottom */\n}\n/* Titulos de graficos e outros labels importantes */\n.im"
         },
         {
-          "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/pentaho-cdf-dd/api/resources/home/resource2/css/bootstrap-select.min.css?v=1778247722834",
+          "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/pentaho-cdf-dd/api/resources/home/resource2/css/bootstrap-select.min.css?v=1778248449752",
+          "metodo_http": "GET",
           "status": 200,
           "content_type": "text/css",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "v": "1778248449752"
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": "/*!\r\n * Bootstrap-select v1.9.4 (http://silviomoreto.github.io/bootstrap-select)\r\n *\r\n * Copyright 2013-2016 bootstrap-select\r\n * Licensed under MIT (https://github.com/silviomoreto/bootstrap-select/blob/master/LICENSE)\r\n */.bootstrap-select{width:220px\\9}.bootstrap-select>.dropdown-toggle{width:100%;padding-right:25px;z-index:1}.bootstrap-select>select{position:absolute!important;bottom:0;left:50%;width:.11px!important;height:100%!important;padding:0!important;opacity:0!important;border:none}.bootstrap-select>select.mobile-device{top:0;left:0;display:block!important;width:100%!important;z-index:2}.error .bootstrap-select .dropdown-toggle,.has-error .bootstrap-select .dropdown-toggle{border-color:#b94a48}.bootstrap-select.fit-width{width:auto!important}.bootstrap-select:not([class*=col-]):"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf/css/cdf-bootstrap-style-includes.css?v=c329c3a4ac6ff585632e4664c8d54d78",
+          "metodo_http": "GET",
           "status": 200,
           "content_type": "text/css",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "v": "c329c3a4ac6ff585632e4664c8d54d78"
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": "/*!\n * Copyright 2002 - 2017 Webdetails, a Hitachi Vantara company.  All rights reserved.\n *\n * This software was developed by Webdetails and is provided under the terms\n * of the Mozilla Public License, Version 2.0, or any later version. You may not use\n * this file except in compliance with the license. If you need a copy of the license,\n * please go to  http://mozilla.org/MPL/2.0/. The Initial Developer is Webdetails.\n *\n * Software distributed under the Mozilla Public License is distributed on an \"AS IS\"\n * basis, WITHOUT WARRANTY OF ANY KIND, either express or  implied. Please refer to\n * the license for the specific language governing your rights and limitations.\n */\n\n.tipsy{pointer-events:none;padding:5px;font-size:10px;font-family:Arial,Helvetica,sans-serif;position:absolute;z-inde"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf-dd/css/CDF-CSS.css?v=4a08a45e9646042ece4920f102ba125d",
+          "metodo_http": "GET",
           "status": 200,
           "content_type": "text/css",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "v": "4a08a45e9646042ece4920f102ba125d"
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": "/* \n    Document   : exportButton\n    Created on : Sep 27, 2011\n    Author     : nelson\n    Description: Default style for export button component\n*/\n\n\n.exportButton{\n  cursor: pointer;  \n  background-color: #ccc;\n  padding: 2px 5px;\n  text-align: center;\n  border-radius: 5px;\n  -moz-border-radius: 5px;\n  -webkit-border-radius: 5px;\n}\n\n.exportButton:hover{\n  background-color: #333;\n  color: #eee;\n}/* @media print { */\n/*     html, body { */\n/*         height: auto; */\n/*     } */\n/*     #map_canvas { */\n/*         height: 650px; */\n/*     } */\n/* } */\n\n/* Remove X */\nimg[src=\"http://maps.gstatic.com/mapfiles/api-3/images/mapcnt3.png\"] {\n    display: none;\n}\n\n.gm-style div div img\n{\n/* display: none; */\n}\n.gmapsoverlay-legend\n{\n    background-color:white;\n    padding: 5px;\n    border: solid"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf/js-legacy/lib/OpenMap/open_map.js?v=6d210a2dc7787b981763beaf2738fbb5",
+          "metodo_http": "GET",
           "status": 200,
           "content_type": "text/javascript",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "v": "6d210a2dc7787b981763beaf2738fbb5"
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": "/*!\n * Copyright 2002 - 2017 Webdetails, a Hitachi Vantara company. All rights reserved.\n *\n * This software was developed by Webdetails and is provided under the terms\n * of the Mozilla Public License, Version 2.0, or any later version. You may not use\n * this file except in compliance with the license. If you need a copy of the license,\n * please go to http://mozilla.org/MPL/2.0/. The Initial Developer is Webdetails.\n *\n * Software distributed under the Mozilla Public License is distributed on an \"AS IS\"\n * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. Please refer to\n * the license for the specific language governing your rights and limitations.\n */\n\nvar map;\nvar slayer;\nvar layerMapnik;\nvar layerTah;\nvar center_point;\nvar markers;\nvar show_layer_control;\nvar popup;\nva"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf/js-legacy/lib/OpenStreetMap.js?v=2af9bba443dfc61024f57435d18b6dd7",
+          "metodo_http": "GET",
           "status": 200,
           "content_type": "text/javascript",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "v": "2af9bba443dfc61024f57435d18b6dd7"
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": "/*!\n * Copyright 2002 - 2017 Webdetails, a Hitachi Vantara company. All rights reserved.\n *\n * This software was developed by Webdetails and is provided under the terms\n * of the Mozilla Public License, Version 2.0, or any later version. You may not use\n * this file except in compliance with the license. If you need a copy of the license,\n * please go to http://mozilla.org/MPL/2.0/. The Initial Developer is Webdetails.\n *\n * Software distributed under the Mozilla Public License is distributed on an \"AS IS\"\n * basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. Please refer to\n * the license for the specific language governing your rights and limitations.\n */\n\n/**\n * Namespace: Util.OSM\n */\n\nOpenLayers.Util.OSM = {};\n\n/**\n * Constant: MISSING_TILE_URL\n * {String} URL of image to"
         },
         {
-          "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/pentaho-cdf-dd/api/resources/home/resource2/js/helpers.js?v=1778247722834",
-          "status": 200,
-          "content_type": "text/javascript",
-          "itens_extraidos": 0,
-          "preview": "/*\nParametros:\n- componente --- objeto do componente acessado por this dentro dos pontos\nde acesso\n- cda\n--- objeto que o resultset encaminha ao componente. acessivel\ndentro do postFetch( cda ) - eh passado como argumento\nEssa funcao recebe um resultset pre definido, com:\n- Membro - o membro com maior ocorrencia - os membros tem de estar\nordenados decrescentemente com BDESC\n- Numero - o numero absoluto que representa aquele percentual\n- Percent - o percentual daquele numero absoluto sobre o todo\nA funcao formata os textos e cria a estrutura HTML\nO Estilo deve ser tratado via CSS\n*/\nfunction imprimeKPI( componente , cda ){\n    var htmlObject = $(\"#\"+componente.htmlObject);\n    resultset = cda.resultset;\n    texto = resultset[0][0];\n    num = resultset[0][1];\n    percent = resultset[0][2];\n "
-        },
-        {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf/js-legacy/lib/sparkline/jquery.sparkline.js?v=c7638b825bc7deb1cf58c990825d35b2",
+          "metodo_http": "GET",
           "status": 200,
           "content_type": "text/javascript",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "v": "c7638b825bc7deb1cf58c990825d35b2"
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": "/**\n*\n* jquery.sparkline.js\n*\n* v2.1.2\n* (c) Splunk, Inc\n* Contact: Gareth Watts (gareth@splunk.com)\n* http://omnipotent.net/jquery.sparkline/\n*\n* Generates inline sparkline charts from data supplied either to the method\n* or inline in HTML\n*\n* Compatible with Internet Explorer 6.0+ and modern browsers equipped with the canvas tag\n* (Firefox 2.0+, Safari, Opera, etc)\n*\n* License: New BSD License\n*\n* Copyright (c) 2012, Splunk Inc.\n* All rights reserved.\n*\n* Redistribution and use in source and binary forms, with or without modification,\n* are permitted provided that the following conditions are met:\n*\n*     * Redistributions of source code must retain the above copyright notice,\n*       this list of conditions and the following disclaimer.\n*     * Redistributions in binary form must reprod"
         },
         {
-          "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/pentaho-cdf-dd/api/resources/home/resource2/js/bootstrap-select.js?v=1778247722834",
+          "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/pentaho-cdf-dd/api/resources/home/resource2/js/helpers.js?v=1778248449752",
+          "metodo_http": "GET",
           "status": 200,
           "content_type": "text/javascript",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "v": "1778248449752"
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
+          "preview": "/*\nParametros:\n- componente --- objeto do componente acessado por this dentro dos pontos\nde acesso\n- cda\n--- objeto que o resultset encaminha ao componente. acessivel\ndentro do postFetch( cda ) - eh passado como argumento\nEssa funcao recebe um resultset pre definido, com:\n- Membro - o membro com maior ocorrencia - os membros tem de estar\nordenados decrescentemente com BDESC\n- Numero - o numero absoluto que representa aquele percentual\n- Percent - o percentual daquele numero absoluto sobre o todo\nA funcao formata os textos e cria a estrutura HTML\nO Estilo deve ser tratado via CSS\n*/\nfunction imprimeKPI( componente , cda ){\n    var htmlObject = $(\"#\"+componente.htmlObject);\n    resultset = cda.resultset;\n    texto = resultset[0][0];\n    num = resultset[0][1];\n    percent = resultset[0][2];\n "
+        },
+        {
+          "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/pentaho-cdf-dd/api/resources/home/resource2/js/bootstrap-select.js?v=1778248449752",
+          "metodo_http": "GET",
+          "status": 200,
+          "content_type": "text/javascript",
+          "itens_extraidos": 0,
+          "parametros_url": {
+            "v": "1778248449752"
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": "(function ($) {\r\n  'use strict';\r\n\r\n  //<editor-fold desc=\"Shims\">\r\n  if (!String.prototype.includes) {\r\n    (function () {\r\n      'use strict'; // needed to support `apply`/`call` with `undefined`/`null`\r\n      var toString = {}.toString;\r\n      var defineProperty = (function () {\r\n        // IE 8 only supports `Object.defineProperty` on DOM elements\r\n        try {\r\n          var object = {};\r\n          var $defineProperty = Object.defineProperty;\r\n          var result = $defineProperty(object, object, object) && $defineProperty;\r\n        } catch (error) {\r\n        }\r\n        return result;\r\n      }());\r\n      var indexOf = ''.indexOf;\r\n      var includes = function (search) {\r\n        if (this == null) {\r\n          throw new TypeError();\r\n        }\r\n        var string = String(this);\r\n  "
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf-dd/js/CDF.js?v=51e3d50c36ab26ce83e0552e4e8dee6a",
+          "metodo_http": "GET",
           "status": 200,
           "content_type": "text/javascript",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "v": "51e3d50c36ab26ce83e0552e4e8dee6a"
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": "\nvar AjaxRequestComponent=BaseComponent.extend({visible:false,update:function(){this.executeRequest(this);},parseXML:function(sText){if(!sText){return null;}\nvar xmlDoc;try{parser=new DOMParser();xmlDoc=parser.parseFromString(sText,\"text/xml\");return xmlDoc;}catch(e){try{xmlDoc=new ActiveXObject(\"Microsoft.XMLDOM\");xmlDoc.async=\"false\";xmlDoc.loadXML(sText);return xmlDoc;}catch(e){}}\nalert('XML is invalid or no XML parser found');return null;},executeRequest:function(object){var myself=this;var url=object.url;var ajaxRequestType=object.ajaxRequestType;var params=object.parameters;var asyncCall=object.asyncCall;if(url==undefined){Dashboards.log(\"Fatal - No url passed\",\"error\");return;}\nif(ajaxRequestType==undefined){ajaxRequestType=\"json\";}\nif(params!=undefined){var containsTime=false;for(v"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf/js-legacy/lib/OpenMap/OpenLayers/OpenLayers.js?v=f6d81b292bcfcaf6f47cfd1771e73f07",
+          "metodo_http": "GET",
           "status": 200,
           "content_type": "text/javascript",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "v": "f6d81b292bcfcaf6f47cfd1771e73f07"
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": "/*\n\n  OpenLayers.js -- OpenLayers Map Viewer Library\n\n  Copyright (c) 2006-2013 by OpenLayers Contributors\n  Published under the 2-clause BSD license.\n  See http://openlayers.org/dev/license.txt for the full text of the license, and http://openlayers.org/dev/authors.txt for full list of contributors.\n\n  Includes compressed code under the following licenses:\n\n  (For uncompressed versions of the code used, please see the\n  OpenLayers Github repository: <https://github.com/openlayers/openlayers>)\n\n*/\n\n/**\n * Contains XMLHttpRequest.js <http://code.google.com/p/xmlhttprequest/>\n * Copyright 2007 Sergey Ilinsky (http://www.ilinsky.com)\n *\n * Licensed under the Apache License, Version 2.0 (the \"License\");\n * you may not use this file except in compliance with the License.\n * You may obtain a cop"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf/js/cdf-bootstrap-script-includes.js?v=ec607dd1a3910ad9b9d062a57d3bb53e",
+          "metodo_http": "GET",
           "status": 200,
           "content_type": "text/javascript",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "v": "ec607dd1a3910ad9b9d062a57d3bb53e"
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": "\nif(!Object.create){Object.create=(function(){var Klass=function(){},proto=Klass.prototype;function create(baseProto){Klass.prototype=baseProto||{};var instance=new Klass();Klass.prototype=proto;return instance;}\nreturn create;}());}\nFunction.prototype.method=Function.prototype.method||function(name,func){this.prototype[name]=func;return this;};if(!String.prototype.endsWith){String.prototype.endsWith=function(str){return(this.match(str+\"$\")==str);};}\nif(!String.prototype.trim){String.prototype.trim=function(){return this.replace(/^\\s+/,'').replace(/\\s+$/,'');};}\nif(!Object.keys){Object.keys=(function(){var hasOwnProperty=Object.prototype.hasOwnProperty,hasDontEnumBug=!({toString:null}).propertyIsEnumerable('toString'),dontEnums=['toString','toLocaleString','valueOf','hasOwnProperty','isPro"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf-dd/tmp/.cache/home/Produtos/messages.properties",
+          "metodo_http": "POST",
           "status": 200,
           "content_type": "text/plain",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf-dd/tmp/.cache/home/Produtos/messages.properties": ""
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": ""
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf-dd/tmp/.cache/home/Produtos/messages_pt.properties",
+          "metodo_http": "POST",
           "status": 200,
           "content_type": "text/plain",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf-dd/tmp/.cache/home/Produtos/messages_pt.properties": ""
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": ""
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf-dd/tmp/.cache/home/Produtos/messages_pt-BR.properties",
+          "metodo_http": "POST",
           "status": 200,
           "content_type": "text/plain",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf-dd/tmp/.cache/home/Produtos/messages_pt-BR.properties": ""
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": ""
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?",
+          "metodo_http": "POST",
           "status": 200,
           "content_type": "application/json",
           "itens_extraidos": 0,
+          "parametros_url": {},
+          "parametros_post": {
+            "paramprodutoProducao": "MILHO",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "producaoAnoLevantamento",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "post_data_preview": "paramprodutoProducao=MILHO&path=%2Fhome%2FProdutos%2Fprodutos360.cda&dataAccessId=producaoAnoLevantamento&outputIndexId=1&pageSize=0&pageStart=0&sortBy=&paramsearchBox=",
           "preview": "{\"metadata\":[{\"colName\":\"Ano Agricola.Ano Agricola\",\"colType\":\"String\",\"colIndex\":0},{\"colName\":\"Levantamento.Levantamento\",\"colType\":\"String\",\"colIndex\":1},{\"colName\":\"Producao (mil t)\",\"colType\":\"Numeric\",\"colIndex\":2}],\"resultset\":[[\"2025/26\",\"7º LEV\",139572]],\"queryInfo\":{\"totalRows\":\"1\"}}"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf/js-legacy/lib/OpenMap/OpenLayers/theme/default/style.css",
+          "metodo_http": "GET",
           "status": 200,
           "content_type": "text/css",
           "itens_extraidos": 0,
+          "parametros_url": {
+            "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/pentaho-cdf/js-legacy/lib/OpenMap/OpenLayers/theme/default/style.css": ""
+          },
+          "parametros_post": {},
+          "post_data_preview": "",
           "preview": "div.olMap {\n    z-index: 0;\n    padding: 0 !important;\n    margin: 0 !important;\n    cursor: default;\n}\n\ndiv.olMapViewport {\n    text-align: left;\n    -ms-touch-action: none;\n}\n\ndiv.olLayerDiv {\n   -moz-user-select: none;\n   -khtml-user-select: none;\n}\n\n.olLayerGoogleCopyright {\n    left: 2px;\n    bottom: 2px;\n}\n.olLayerGoogleV3.olLayerGoogleCopyright {\n    right: auto !important;\n}\n.olLayerGooglePoweredBy {\n    left: 2px;\n    bottom: 15px;\n}\n.olLayerGoogleV3.olLayerGooglePoweredBy {\n    bottom: 15px !important;\n}\n/* GMaps should not set styles on its container */\n.olForeignContainer {\n    opacity: 1 !important;\n}\n.olControlAttribution {\n    font-size: smaller;\n    right: 3px;\n    bottom: 4.5em;\n    position: absolute;\n    display: block;\n}\n.olControlScale {\n    right: 3px;\n    bottom: 3em"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?",
+          "metodo_http": "POST",
           "status": 200,
           "content_type": "application/json",
           "itens_extraidos": 0,
+          "parametros_url": {},
+          "parametros_post": {
+            "paramprodutoProducao": "MILHO",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "producao",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "post_data_preview": "paramprodutoProducao=MILHO&path=%2Fhome%2FProdutos%2Fprodutos360.cda&dataAccessId=producao&outputIndexId=1&pageSize=0&pageStart=0&sortBy=&paramsearchBox=",
           "preview": "{\"metadata\":[{\"colName\":\"Ano Agricola.Ano Agricola\",\"colType\":\"String\",\"colIndex\":0},{\"colName\":\"Producao\",\"colType\":\"Numeric\",\"colIndex\":1},{\"colName\":\"Area Plantada\",\"colType\":\"Numeric\",\"colIndex\":2},{\"colName\":\"Produtividade (kg-ha)\",\"colType\":\"Numeric\",\"colIndex\":3}],\"resultset\":[[\"2024/25\",139695.8,21857.5,6391.2066796294175],[\"2025/26\",139572,22483.2,6207.835183603757]],\"queryInfo\":{\"totalRows\":\"2\"}}"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?",
+          "metodo_http": "POST",
           "status": 200,
           "content_type": "application/json",
           "itens_extraidos": 0,
-          "preview": "{\"metadata\":[{\"colName\":\"max\",\"colType\":\"Integer\",\"colIndex\":0}],\"resultset\":[[2026]],\"queryInfo\":{\"totalRows\":\"1\"}}"
-        },
-        {
-          "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?",
-          "status": 200,
-          "content_type": "application/json",
-          "itens_extraidos": 0,
+          "parametros_url": {},
+          "parametros_post": {
+            "paramselMesMaxImpExp": "ordem",
+            "paramprodutoMesMax": "10059010;10059090;10051000",
+            "paramproduto": "MILHO",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "mesMaxImportacaoExport",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "post_data_preview": "paramselMesMaxImpExp=ordem+&paramprodutoMesMax=10059010%3B10059090%3B10051000&paramproduto=MILHO&path=%2Fhome%2FProdutos%2Fprodutos360.cda&dataAccessId=mesMaxImportacaoExport&outputIndexId=1&pageSize=0&pageStart=0&sortBy=&paramsearchBox=",
           "preview": "{\"metadata\":[{\"colName\":\"max\",\"colType\":\"Integer\",\"colIndex\":0}],\"resultset\":[[2]],\"queryInfo\":{\"totalRows\":\"1\"}}"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?",
+          "metodo_http": "POST",
           "status": 200,
           "content_type": "application/json",
           "itens_extraidos": 0,
-          "preview": "{\"metadata\":[{\"colName\":\"UF.UF\",\"colType\":\"String\",\"colIndex\":0},{\"colName\":\"2025/26/Producao\",\"colType\":\"Numeric\",\"colIndex\":1},{\"colName\":\"2025/26/Area Plantada\",\"colType\":\"Numeric\",\"colIndex\":2},{\"colName\":\"2025/26/Produtividade (kg-ha)\",\"colType\":\"Numeric\",\"colIndex\":3}],\"resultset\":[[\"DF\",377.3,52.2,7227.969348659003],[\"GO\",12122.7,1899.9,6380.704247591978],[\"MS\",12539.3,2126.3,5897.239335935662],[\"MT\",54547.7,7612.1,7165.920048344084],[\"AL\",102,32.7,3119.2660550458713],[\"BA\",2752.4,682.9,4030.4583394347637],[\"CE\",536.6,572.1,937.9479112043349],[\"MA\",3066.9,554.6,5529.931482149296],[\"PB\",75.6,117.2,645.0511945392491],[\"PE\",224.3,194.4,1153.8065843621398],[\"PI\",2120,483.9,4381.070469105187],[\"RN\",31.9,61,522.9508196721312],[\"SE\",1108.8,186.1,5958.087049973133],[\"AC\",147.1,42.4,3469.339"
+          "parametros_url": {},
+          "parametros_post": {
+            "paramprodutoMesMax": "10059010;10059090;10051000",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "anoAtualImportacaoExport",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "post_data_preview": "paramprodutoMesMax=10059010%3B10059090%3B10051000&path=%2Fhome%2FProdutos%2Fprodutos360.cda&dataAccessId=anoAtualImportacaoExport&outputIndexId=1&pageSize=0&pageStart=0&sortBy=&paramsearchBox=",
+          "preview": "{\"metadata\":[{\"colName\":\"max\",\"colType\":\"Integer\",\"colIndex\":0}],\"resultset\":[[2026]],\"queryInfo\":{\"totalRows\":\"1\"}}"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?",
+          "metodo_http": "POST",
           "status": 200,
           "content_type": "application/json",
           "itens_extraidos": 0,
+          "parametros_url": {},
+          "parametros_post": {
+            "paramprodutoImpExport": "[Produto NCM].[10051000]:[Produto NCM].[10059090]",
+            "paramrowImpExport": "Mes Safra",
+            "paramcolumnImpExport": "{[Ano Analise Safra].[Ano Analise Safra].Members}, 8, [Ano Analise Safra].[Ano Analise Safra].CURRENTMEMBER.ORDERKEY",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "exportacao_new",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "post_data_preview": "paramprodutoImpExport=%5BProduto+NCM%5D.%5B10051000%5D%3A%5BProduto+NCM%5D.%5B10059090%5D&paramrowImpExport=Mes+Safra&paramcolumnImpExport=%7B%5BAno+Analise+Safra%5D.%5BAno+Analise+Safra%5D.Members%7D%2C+8%2C+%5BAno+Analise+Safra%5D.%5BAno+Analise+Safra%5D.CURRENTMEMBER.ORDERKEY&path=%2Fhome%2FProdutos%2Fprodutos360.cda&dataAccessId=exportacao_new&outputIndexId=1&pageSize=0&pageStart=0&sortBy=&paramsearchBox=",
           "preview": "{\"metadata\":[{\"colName\":\"Mes Safra\",\"colType\":\"String\",\"colIndex\":0},{\"colName\":\"2026/Qtd Produto Ton\",\"colType\":\"Numeric\",\"colIndex\":1},{\"colName\":\"2025/Qtd Produto Ton\",\"colType\":\"Numeric\",\"colIndex\":2}],\"resultset\":[[\"FEV\",1552124.411,1419488.671],[\"MAR\",983029.206,871297.909],[\"ABR\",null,178347.528],[\"MAI\",null,38928.13],[\"JUN\",null,369533.361],[\"JUL\",null,2433966.108],[\"AGO\",null,6848668.289],[\"SET\",null,7563069.667],[\"OUT\",null,6500520.935],[\"NOV\",null,5032782.861],[\"DEZ\",null,6127590.028],[\"JAN\",null,4247307.19]],\"queryInfo\":{\"totalRows\":\"12\"}}"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?",
+          "metodo_http": "POST",
           "status": 200,
           "content_type": "application/json",
           "itens_extraidos": 0,
-          "preview": "{\"metadata\":[{\"colName\":\"uniqueName\",\"colType\":\"String\",\"colIndex\":0},{\"colName\":\"Produto Classificacao.Produto Classificacao\",\"colType\":\"String\",\"colIndex\":1}],\"resultset\":[[\"[Produto Classificacao].[TODAS]\",\"TODAS\"],[\"[Produto Classificacao].[MILHO EM GRÃOS]\",\"MILHO EM GRÃOS\"]],\"queryInfo\":{\"totalRows\":\"2\"}}"
-        },
-        {
-          "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?",
-          "status": 200,
-          "content_type": "application/json",
-          "itens_extraidos": 0,
+          "parametros_url": {},
+          "parametros_post": {
+            "paramproduto": "MILHO",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "safraCustoProducao",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "post_data_preview": "paramproduto=MILHO&path=%2Fhome%2FProdutos%2Fprodutos360.cda&dataAccessId=safraCustoProducao&outputIndexId=1&pageSize=0&pageStart=0&sortBy=&paramsearchBox=",
           "preview": "{\"metadata\":[{\"colName\":\"uniqueName\",\"colType\":\"String\",\"colIndex\":0},{\"colName\":\"Tipo Safra.Tipo Safra\",\"colType\":\"String\",\"colIndex\":1}],\"resultset\":[[\"[Tipo Safra].[TODAS]\",\"TODAS\"],[\"[Tipo Safra].[1ª SAFRA]\",\"1ª SAFRA\"],[\"[Tipo Safra].[2ª SAFRA]\",\"2ª SAFRA\"],[\"[Tipo Safra].[3ª SAFRA]\",\"3ª SAFRA\"]],\"queryInfo\":{\"totalRows\":\"4\"}}"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?",
+          "metodo_http": "POST",
           "status": 200,
           "content_type": "application/json",
           "itens_extraidos": 0,
+          "parametros_url": {},
+          "parametros_post": {
+            "paramprodutoProducao": "MILHO",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "producaoUF",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "post_data_preview": "paramprodutoProducao=MILHO&path=%2Fhome%2FProdutos%2Fprodutos360.cda&dataAccessId=producaoUF&outputIndexId=1&pageSize=0&pageStart=0&sortBy=&paramsearchBox=",
+          "preview": "{\"metadata\":[{\"colName\":\"UF.UF\",\"colType\":\"String\",\"colIndex\":0},{\"colName\":\"2025/26/Producao\",\"colType\":\"Numeric\",\"colIndex\":1},{\"colName\":\"2025/26/Area Plantada\",\"colType\":\"Numeric\",\"colIndex\":2},{\"colName\":\"2025/26/Produtividade (kg-ha)\",\"colType\":\"Numeric\",\"colIndex\":3}],\"resultset\":[[\"DF\",377.3,52.2,7227.969348659003],[\"GO\",12122.7,1899.9,6380.704247591978],[\"MS\",12539.3,2126.3,5897.239335935662],[\"MT\",54547.7,7612.1,7165.920048344084],[\"AL\",102,32.7,3119.2660550458713],[\"BA\",2752.4,682.9,4030.4583394347637],[\"CE\",536.6,572.1,937.9479112043349],[\"MA\",3066.9,554.6,5529.931482149296],[\"PB\",75.6,117.2,645.0511945392491],[\"PE\",224.3,194.4,1153.8065843621398],[\"PI\",2120,483.9,4381.070469105187],[\"RN\",31.9,61,522.9508196721312],[\"SE\",1108.8,186.1,5958.087049973133],[\"AC\",147.1,42.4,3469.339"
+        },
+        {
+          "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?",
+          "metodo_http": "POST",
+          "status": 200,
+          "content_type": "application/json",
+          "itens_extraidos": 0,
+          "parametros_url": {},
+          "parametros_post": {
+            "paramproduto": "MILHO",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "produtoClassificacaoCustoProducao",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "post_data_preview": "paramproduto=MILHO&path=%2Fhome%2FProdutos%2Fprodutos360.cda&dataAccessId=produtoClassificacaoCustoProducao&outputIndexId=1&pageSize=0&pageStart=0&sortBy=&paramsearchBox=",
+          "preview": "{\"metadata\":[{\"colName\":\"uniqueName\",\"colType\":\"String\",\"colIndex\":0},{\"colName\":\"Produto Classificacao.Produto Classificacao\",\"colType\":\"String\",\"colIndex\":1}],\"resultset\":[[\"[Produto Classificacao].[TODAS]\",\"TODAS\"],[\"[Produto Classificacao].[MILHO EM GRÃOS]\",\"MILHO EM GRÃOS\"]],\"queryInfo\":{\"totalRows\":\"2\"}}"
+        },
+        {
+          "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?",
+          "metodo_http": "POST",
+          "status": 200,
+          "content_type": "application/json",
+          "itens_extraidos": 0,
+          "parametros_url": {},
+          "parametros_post": {
+            "paramproduto": "MILHO",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "data_conjuntura",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "post_data_preview": "paramproduto=MILHO&path=%2Fhome%2FProdutos%2Fprodutos360.cda&dataAccessId=data_conjuntura&outputIndexId=1&pageSize=0&pageStart=0&sortBy=&paramsearchBox=",
           "preview": "{\"metadata\":[{\"colName\":\"data_inicial\",\"colType\":\"Date\",\"colIndex\":0},{\"colName\":\"data_inicial_final\",\"colType\":\"String\",\"colIndex\":1}],\"resultset\":[[\"2026-04-27\",\"27/04/2026 - 01/05/2026\"],[\"2026-04-20\",\"20/04/2026 - 24/04/2026\"],[\"2026-04-13\",\"13/04/2026 - 17/04/2026\"],[\"2026-04-06\",\"06/04/2026 - 10/04/2026\"],[\"2026-03-30\",\"30/03/2026 - 03/04/2026\"],[\"2026-03-23\",\"23/03/2026 - 27/03/2026\"],[\"2026-03-16\",\"16/03/2026 - 20/03/2026\"],[\"2026-03-09\",\"09/03/2026 - 13/03/2026\"],[\"2026-03-02\",\"02/03/2026 - 06/03/2026\"],[\"2026-02-23\",\"23/02/2026 - 27/02/2026\"],[\"2026-02-16\",\"16/02/2026 - 20/02/2026\"],[\"2026-02-09\",\"09/02/2026 - 13/02/2026\"],[\"2026-02-02\",\"02/02/2026 - 06/02/2026\"],[\"2026-01-26\",\"26/01/2026 - 30/01/2026\"],[\"2026-01-19\",\"19/01/2026 - 23/01/2026\"],[\"2026-01-12\",\"12/01/2026 - 16/01/20"
         },
         {
           "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?",
-          "status": 501,
-          "content_type": "text/html; charset=iso-8859-1",
+          "metodo_http": "POST",
+          "status": 200,
+          "content_type": "application/json",
           "itens_extraidos": 0,
-          "preview": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>501 Not Implemented</title>\n</head><body>\n<h1>Not Implemented</h1>\n<p>POST  not supported for current URL.<br />\n</p>\n</body></html>\n"
+          "parametros_url": {},
+          "parametros_post": {
+            "paramprodutoPainel": "MILHO",
+            "path": "/home/Produtos/produtos360.cda",
+            "dataAccessId": "produtoClassificacao",
+            "outputIndexId": "1",
+            "pageSize": "0",
+            "pageStart": "0",
+            "sortBy": "",
+            "paramsearchBox": ""
+          },
+          "post_data_preview": "paramprodutoPainel=MILHO&path=%2Fhome%2FProdutos%2Fprodutos360.cda&dataAccessId=produtoClassificacao&outputIndexId=1&pageSize=0&pageStart=0&sortBy=&paramsearchBox=",
+          "preview": "{\"metadata\":[{\"colName\":\"Name\",\"colType\":\"String\",\"colIndex\":0},{\"colName\":\"Produto.Produto\",\"colType\":\"String\",\"colIndex\":1}],\"resultset\":[[\"[Produto].[MILHO]\",\"MILHO\"]],\"queryInfo\":{\"totalRows\":\"1\"}}"
         }
       ]
     },
@@ -256,7 +1158,7 @@
         "Feijão",
         "Sorgo"
       ],
-      "observacao": "v1.1.9: arquivos semanais usados apenas para Feijão e Sorgo; Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.2.0: arquivos semanais usados apenas para Feijão e Sorgo; Soja, Milho e Algodão saem do Produtos 360º."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -271,7 +1173,7 @@
         "Feijão",
         "Sorgo"
       ],
-      "observacao": "v1.1.9: arquivos semanais usados apenas para Feijão e Sorgo; Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.2.0: arquivos semanais usados apenas para Feijão e Sorgo; Soja, Milho e Algodão saem do Produtos 360º."
     },
     {
       "fonte": "CEPEA/ESALQ Widget",
@@ -287,5 +1189,6 @@
       "total_registros": 0,
       "observacao": "Fonte de referência para mercado futuro. Não foram criados preços por praça/estado para evitar dados simulados."
     }
-  ]
+  ],
+  "debug_conab_produtos_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json"
 }
