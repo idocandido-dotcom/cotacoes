@@ -3,10 +3,10 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "repositorio": "idocandido-dotcom/cotacoes",
-  "versao": "1.1.6",
-  "ultima_sincronizacao": "2026-05-08 09:38:27",
-  "ultima_sincronizacao_iso": "2026-05-08T09:38:27.032369-03:00",
-  "gerado_em": "08/05/2026 09:38",
+  "versao": "1.1.7",
+  "ultima_sincronizacao": "2026-05-08 09:53:12",
+  "ultima_sincronizacao_iso": "2026-05-08T09:53:12.879140-03:00",
+  "gerado_em": "08/05/2026 09:53",
   "fuso_horario": "America/Fortaleza",
   "frequencia_atualizacao": "diaria",
   "dias_maximos_cotacao_ativa": 90,
@@ -17,7 +17,7 @@
     "CEPEA/ESALQ Widget no HTML",
     "B3 - referência de mercado futuro"
   ],
-  "politica_classificacao_preco": "Política v1.1.6: a tabela principal publica somente preço pago ao produtor ou cotação regional produtiva. Varejo, atacado, média UF, indicador de mercado e mercado futuro ficam fora da tabela principal para evitar confusão com preço recebido pelo produtor.",
+  "politica_classificacao_preco": "Política v1.1.7: a tabela principal publica preço pago ao produtor quando a fonte informar, cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Varejo, atacado, indicador de mercado e mercado futuro ficam fora da tabela principal. Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação.",
   "resumo": {
     "total_cotacoes_tabela": 8,
     "total_cotacoes_brutas": 7036,
@@ -37,6 +37,7 @@
     "total_indicadores_cepea_widget": 0,
     "total_precos_produtor": 0,
     "total_precos_regionais": 8,
+    "total_referencias_conab": 0,
     "total_precos_atacado": 0,
     "total_precos_media_uf": 0,
     "total_cotacoes_boi_gordo": 0,
@@ -48,7 +49,7 @@
       "CONAB - Preços Agropecuários Semanal Município"
     ],
     "total_fontes_com_erro": 0,
-    "tempo_execucao_segundos": 21.01
+    "tempo_execucao_segundos": 18.63
   },
   "fontes": [
     {
@@ -141,7 +142,7 @@
         }
       ],
       "validacao_publicacao": "ok",
-      "politica_publicacao": "somente_produtor_ou_regional"
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
     },
     {
       "produto": "Algodão — Pluma — Regional",
@@ -177,7 +178,7 @@
         }
       ],
       "validacao_publicacao": "ok",
-      "politica_publicacao": "somente_produtor_ou_regional"
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
     },
     {
       "produto": "Arroz — Regional",
@@ -213,7 +214,7 @@
         }
       ],
       "validacao_publicacao": "ok",
-      "politica_publicacao": "somente_produtor_ou_regional"
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
     },
     {
       "produto": "Feijão — Carioca — Regional",
@@ -249,7 +250,7 @@
         }
       ],
       "validacao_publicacao": "ok",
-      "politica_publicacao": "somente_produtor_ou_regional"
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
     },
     {
       "produto": "Milho — Regional",
@@ -285,7 +286,7 @@
         }
       ],
       "validacao_publicacao": "ok",
-      "politica_publicacao": "somente_produtor_ou_regional"
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
     },
     {
       "produto": "Soja — Balcão — Regional",
@@ -321,7 +322,7 @@
         }
       ],
       "validacao_publicacao": "ok",
-      "politica_publicacao": "somente_produtor_ou_regional"
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
     },
     {
       "produto": "Soja — Disponível — Regional",
@@ -357,7 +358,7 @@
         }
       ],
       "validacao_publicacao": "ok",
-      "politica_publicacao": "somente_produtor_ou_regional"
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
     },
     {
       "produto": "Sorgo — Regional",
@@ -393,7 +394,7 @@
         }
       ],
       "validacao_publicacao": "ok",
-      "politica_publicacao": "somente_produtor_ou_regional"
+      "politica_publicacao": "produtor_regional_ou_referencia_conab"
     }
   ],
   "dados": [
@@ -738,15 +739,15 @@
     "amostra_descartadas": []
   },
   "filtro_nivel_comercializacao": {
-    "descricao": "Filtro final de publicação. A tabela principal publica somente preço pago ao produtor ou cotação regional produtiva. Varejo, atacado e média UF são removidos.",
+    "descricao": "Filtro final de publicação. A tabela principal publica preço pago ao produtor, cotação regional produtiva e referência oficial CONAB para os produtos principais. Varejo, atacado, indicador de mercado e mercado futuro são removidos.",
     "niveis_permitidos": [
       "preco_produtor",
-      "preco_regional"
+      "preco_regional",
+      "preco_referencia_conab"
     ],
     "niveis_bloqueados": [
       "preco_varejo",
       "preco_atacado",
-      "media_uf",
       "indicador_mercado",
       "mercado_futuro",
       "nao_informado"
@@ -1510,5 +1511,5 @@
       }
     ]
   },
-  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.1.6, a tabela principal publica somente preço pago ao produtor ou cotação regional produtiva. Cotações de varejo, atacado e média UF são removidas para evitar confusão com preço recebido pelo produtor rural. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados, industrializados, insumos e serviços são removidos. CEPEA/ESALQ permanece em seção própria do HTML como indicador de mercado, e B3 permanece apenas como referência de mercado futuro. Os valores podem variar conforme praça, qualidade, volume, frete, forma de pagamento, logística e data de atualização."
+  "aviso_legal": "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.1.7, a tabela principal publica preço pago ao produtor quando a fonte informar claramente, cotação regional produtiva e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Cotações de varejo e atacado são removidas para evitar confusão com preço recebido pelo produtor rural. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg quando a fonte vier em Kg. Produtos derivados, industrializados, insumos e serviços são removidos. CEPEA/ESALQ permanece em seção própria do HTML como indicador de mercado, e B3 permanece apenas como referência de mercado futuro. Os valores podem variar conforme praça, qualidade, volume, frete, forma de pagamento, logística e data de atualização."
 }
