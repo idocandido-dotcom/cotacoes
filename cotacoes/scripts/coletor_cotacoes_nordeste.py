@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.1.5
+Nordeste Agro — Coletor Automático de Cotações v1.1.6
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -45,7 +45,7 @@ Melhorias desta versão:
   * mantém apenas um valor por data no historico_30_dias.
 - Melhora classificação visual:
   * reforça Regional, Atacado, Produtor e Média UF para o HTML.
-- Política de publicação v1.1.5:
+- Política de publicação v1.1.6:
   * publica somente preço ao produtor ou cotação regional produtiva.
   * remove Varejo, Atacado e Média UF da tabela principal.
   * CEPEA/ESALQ permanece como widget/indicador de mercado separado no HTML.
@@ -197,6 +197,19 @@ TIPOS_REAIS = {
 # Regra definida para Nordeste Agro:
 # soja, milho, sorgo, arroz e feijão devem aparecer por saca de 60 kg.
 PRODUTOS_SACA_60KG = {"Soja", "Milho", "Sorgo", "Arroz", "Feijão"}
+
+# Regra v1.1.6: na CONAB vamos publicar somente os 5 produtos definidos
+# para esta etapa da página Cotações. Isso evita que leite/carne/boi entrem
+# pela CONAB com unidade ou nível de comercialização inadequado.
+PRODUTOS_CONAB_OFICIAIS = {"Soja", "Milho", "Algodão", "Feijão", "Sorgo"}
+
+FONTE_CONAB_POR_PRODUTO = {
+    "Soja": "CONAB Produtos 360º / Preços Agropecuários",
+    "Milho": "CONAB Produtos 360º / Preços Agropecuários",
+    "Algodão": "CONAB Produtos 360º / Preços Agropecuários",
+    "Feijão": "CONAB Preços Agropecuários / Preços de Mercado",
+    "Sorgo": "CONAB Preços Agropecuários / Preços de Mercado",
+}
 
 # Regra de segurança para não mostrar preços antigos como se fossem atuais.
 # Se uma praça/produto não tiver cotação dentro desse prazo, ela sai da tabela principal.
@@ -611,7 +624,10 @@ def inferir_unidade(produto_original: Any, produto_base: str, unidade: Any, font
             return "Kg"
 
         if "algodao" in base_norm:
-            return "@"
+            # Os arquivos semanais da CONAB costumam trazer preço base em Kg.
+            # O Nordeste Agro publica algodão em Arroba (@), então a conversão
+            # segura é feita depois em aplicar_conversao_unidade_comercial.
+            return "Kg"
 
     if "leite" in base_norm:
         return "Litro"
@@ -690,6 +706,9 @@ def aplicar_conversao_unidade_comercial(
     if produto_base == "Algodão":
         if unidade_norm in {"@", "arroba", "arrobas"} or "arroba" in unidade_norm:
             return round(preco, 2), "Arroba (@)", 1.0, False
+
+        if unidade_indica_kg(unidade) or unidade_norm in {"unidade", "unidade informada pela fonte", ""}:
+            return round(preco * 15, 2), "Arroba (@)", 15.0, True
 
         if "tonelada" in unidade_norm or unidade_norm in {"t", "ton"}:
             return round(preco, 2), "Tonelada", 1.0, False
@@ -923,7 +942,7 @@ def resumir_descartes(descartadas: list[dict[str, Any]]) -> dict[str, int]:
 
 def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     """
-    Política v1.1.5:
+    Política v1.1.6:
     - Publicar somente preço pago ao produtor ou cotação regional produtiva.
     - Não publicar varejo.
     - Não publicar atacado.
@@ -1269,6 +1288,8 @@ def detectar_nivel_conab(
     linha: dict[str, str],
     col_nivel: Optional[str],
     nome_fonte: str,
+    tipo_fonte_conab: str,
+    produto_base: str,
 ) -> str:
     candidatos = []
 
@@ -1279,9 +1300,25 @@ def detectar_nivel_conab(
     candidatos.append(nome_fonte)
 
     texto = " ".join(limpar_texto(c) for c in candidatos if c)
+    texto_norm = remover_acentos(texto).lower()
 
-    if "Semanal UF" in nome_fonte and "atacado" not in remover_acentos(texto).lower() and "produtor" not in remover_acentos(texto).lower():
-        # A linha de UF é uma média agregada quando não houver outra classificação.
+    if "atacado" in texto_norm or "varejo" in texto_norm or "consumidor" in texto_norm:
+        return texto
+
+    if "produtor" in texto_norm or "recebido" in texto_norm or "pago" in texto_norm:
+        return texto
+
+    if tipo_fonte_conab == "semanal_municipio" and produto_base in PRODUTOS_CONAB_OFICIAIS:
+        # Regra v1.1.6: para a tabela principal, a CONAB por município entra
+        # como preço regional produtivo dos produtos definidos pelo projeto.
+        # Isso permite publicar soja, milho, algodão, feijão e sorgo por praça
+        # sem misturar varejo, atacado ou média agregada de UF.
+        return "regional produtor CONAB"
+
+    if tipo_fonte_conab == "semanal_uf":
+        # A linha de UF é média agregada quando não houver classificação explícita.
+        # Mantemos fora da tabela principal pela política atual, mas o descarte
+        # fica registrado no log/resumo.
         return texto + " Média UF"
 
     return texto
@@ -1346,6 +1383,11 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 if not produto_deve_entrar_na_base(produto_original):
                     continue
 
+                produto_base_conab = normalizar_produto_base(produto_original)
+
+                if produto_base_conab not in PRODUTOS_CONAB_OFICIAIS:
+                    continue
+
                 praca = "Média UF"
 
                 if col_praca:
@@ -1365,6 +1407,8 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                         linha=linha,
                         col_nivel=col_nivel,
                         nome_fonte=nome,
+                        tipo_fonte_conab=fonte.get("tipo", ""),
+                        produto_base=produto_base_conab,
                     )
 
                     nivel_chave, nivel_label, _ = normalizar_nivel_preco(nivel_texto)
@@ -1389,6 +1433,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                             nivel_comercializacao=nivel_texto,
                             observacao=(
                                 "Preço agropecuário oficial/compilado pela CONAB e parceiros. "
+                                f"Fonte operacional: {FONTE_CONAB_POR_PRODUTO.get(produto_base_conab, 'CONAB Preços Agropecuários')}. "
                                 f"Nível identificado: {nivel_label}."
                             ),
                         )
@@ -1404,6 +1449,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "total_registros": total,
                     "colunas_preco_identificadas": colunas_preco,
                     "coluna_nivel_identificada": col_nivel,
+                    "produtos_conab_publicaveis": sorted(PRODUTOS_CONAB_OFICIAIS),
                 }
             )
 
@@ -1649,7 +1695,7 @@ def consolidar_mais_recentes(
     """
     Consolida a base para uso no site.
 
-    Regra v1.1.5:
+    Regra v1.1.6:
     - Agrupa todos os registros brutos por fonte + produto + UF + praça + unidade.
     - Dentro de cada grupo, mantém apenas o item mais recente.
     - Se o item mais recente do grupo for mais antigo que data_corte_iso, o grupo inteiro
@@ -1815,7 +1861,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.1.5",
+        "versao": "1.1.6",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -1824,10 +1870,10 @@ def main() -> None:
         "dias_maximos_cotacao_ativa": DIAS_MAXIMOS_COTACAO_ATIVA,
         "data_limite_cotacoes_ativas": data_corte_iso,
         "politica_atualidade": "A tabela principal exibe somente cotações com data dentro dos últimos 90 dias.",
-        "fonte_principal": "AIBA/CONAB produtor",
+        "fonte_principal": "AIBA/CONAB Produtos 360º e Preços Agropecuários",
         "fontes_complementares": ["CEPEA/ESALQ Widget no HTML", "B3 - referência de mercado futuro"],
         "politica_classificacao_preco": (
-            "Política v1.1.5: a tabela principal publica somente preço pago ao produtor "
+            "Política v1.1.6: a tabela principal publica somente preço pago ao produtor "
             "ou cotação regional produtiva. Varejo, atacado, média UF, indicador de mercado "
             "e mercado futuro ficam fora da tabela principal para evitar confusão com preço recebido pelo produtor."
         ),
@@ -1882,7 +1928,7 @@ def main() -> None:
         },
         "aviso_legal": (
             "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas "
-            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.1.5, "
+            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.1.6, "
             "a tabela principal publica somente preço pago ao produtor ou cotação regional produtiva. "
             "Cotações de varejo, atacado e média UF são removidas para evitar confusão com preço recebido "
             "pelo produtor rural. Soja, milho, sorgo, arroz e feijão são padronizados em preço por Saca 60 kg "
