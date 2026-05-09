@@ -1,6 +1,13 @@
 name: Atualizar Cotações Nordeste Agro
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/atualizar-cotacoes.yml"
+      - "cotacoes/scripts/coletor_cotacoes_nordeste.py"
+
   schedule:
     # Roda todos os dias às 09:30 UTC.
     # Equivale a 06:30 no horário de Brasília/Fortaleza.
@@ -47,6 +54,31 @@ jobs:
         run: |
           echo "Coletor selecionado: $COLETOR"
 
+      - name: Aplicar correção permanente para pecuária CONAB
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          coletor = Path("cotacoes/scripts/coletor_cotacoes_nordeste.py")
+          texto = coletor.read_text(encoding="utf-8")
+
+          antigo = 'PRODUTOS_CONAB_OFICIAIS = {"Soja", "Milho", "Algodão", "Feijão", "Sorgo"}'
+          novo = 'PRODUTOS_CONAB_OFICIAIS = {"Soja", "Milho", "Algodão", "Feijão", "Sorgo", "Leite", "Boi Gordo", "Carne Bovina"}'
+
+          if novo in texto:
+              print("Correção já aplicada: pecuária CONAB já está liberada para publicação final quando for preço ao produtor.")
+          elif antigo in texto:
+              texto = texto.replace(antigo, novo)
+              coletor.write_text(texto, encoding="utf-8")
+              print("Correção aplicada: Leite, Boi Gordo e Carne Bovina da CONAB foram incluídos em PRODUTOS_CONAB_OFICIAIS.")
+          else:
+              raise SystemExit(
+                  "Não encontrei a linha PRODUTOS_CONAB_OFICIAIS esperada. "
+                  "Verifique se o coletor foi alterado manualmente."
+              )
+          PY
+
       - name: Rodar coletor de cotações
         run: |
           python "$COLETOR"
@@ -68,6 +100,22 @@ jobs:
 
           echo "Validando log..."
           python -m json.tool cotacoes/logs/status_ultima_execucao.json > /tmp/status_ultima_execucao_validado.json
+
+          echo "Bloqueando commit vazio do JSON principal..."
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          caminho = Path("cotacoes/public/cotacoes_nordeste.json")
+          with caminho.open("r", encoding="utf-8") as f:
+              dados = json.load(f)
+
+          lista = dados.get("dados", [])
+          if not isinstance(lista, list) or len(lista) == 0:
+              raise SystemExit("ERRO: cotacoes_nordeste.json foi gerado sem itens em dados. Commit bloqueado.")
+
+          print(f"JSON principal válido com {len(lista)} itens em dados.")
+          PY
 
       - name: Mostrar resumo da execução
         run: |
@@ -104,12 +152,19 @@ jobs:
               print("Total de itens em dados:", len(lista))
 
               print("")
-              print("Itens de leite e boi gordo encontrados:")
+              print("Itens de leite, boi gordo e carne bovina encontrados:")
               for item in lista:
                   produto = str(item.get("produto", "")).lower()
                   produto_base = str(item.get("produto_base", "")).lower()
 
-                  if "leite" in produto or "leite" in produto_base or "boi" in produto or "boi" in produto_base:
+                  if (
+                      "leite" in produto
+                      or "leite" in produto_base
+                      or "boi" in produto
+                      or "boi" in produto_base
+                      or "carne bovina" in produto
+                      or "carne bovina" in produto_base
+                  ):
                       print(
                           item.get("estado"),
                           item.get("cidade"),
@@ -126,6 +181,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+          git add cotacoes/scripts/coletor_cotacoes_nordeste.py
           git add cotacoes/public/cotacoes_nordeste.json
           git add cotacoes/public/cotacoes_regionais.json
           git add cotacoes/public/cotacoes_nordeste.csv
