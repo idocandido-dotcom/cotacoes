@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.3.5
+Nordeste Agro — Coletor Automático de Cotações v1.3.6
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -81,6 +81,13 @@ Melhorias desta versão:
   * Boi Gordo informado pela CONAB em R$/kg continua convertido para Arroba (@), fator 15;
   * Leite permanece em Litro;
   * janela de cotação ativa reduzida para 30 dias.
+
+- v1.3.6: ajuste definitivo para Arroz e Sorgo Granífero:
+  * Arroz passa a ser buscado também na CONAB Preços Agropecuários Semanal UF/Município;
+  * Sorgo Granífero, Sorgo Grão, Sorgo em Grão e variações são normalizados como Sorgo;
+  * Arroz e Sorgo regionais válidos do JSON anterior são preservados quando a fonte regional falhar, evitando sumiço do botão na página;
+  * Leite e Boi Gordo permanecem somente pela CONAB Semanal;
+  * CEPEA continua fora da tabela principal.
 - Gera:
   * cotacoes/public/cotacoes_nordeste.json
   * cotacoes/public/cotacoes_regionais.json
@@ -332,18 +339,18 @@ PRODUTOS_SACA_60KG = {"Soja", "Milho", "Sorgo", "Arroz", "Feijão"}
 # Regra v1.3.0: na CONAB vamos publicar somente os 5 produtos definidos
 # para esta etapa da página Cotações. Isso evita que leite/carne/boi entrem
 # pela CONAB com unidade ou nível de comercialização inadequado.
-PRODUTOS_CONAB_OFICIAIS = {"Soja", "Milho", "Algodão", "Feijão", "Sorgo", "Leite", "Boi Gordo", "Carne Bovina"}
+PRODUTOS_CONAB_OFICIAIS = {"Soja", "Milho", "Algodão", "Arroz", "Feijão", "Sorgo", "Leite", "Boi Gordo", "Carne Bovina"}
 
 # v1.3.0: soja, milho e algodão não devem mais sair dos arquivos semanais,
 # porque esses arquivos trouxeram datas antigas. Para esses três produtos,
 # a fonte operacional passa a ser o painel CONAB Produtos 360º.
 PRODUTOS_CONAB_360 = {"Soja", "Milho", "Algodão"}
 
-# Feijão e sorgo continuam nos arquivos semanais/Preços Agropecuários.
+# Arroz, feijão e sorgo continuam nos arquivos semanais/Preços Agropecuários.
 # A partir da v1.3.0, leite e carnes também são lidos desses arquivos,
 # mas com regra mais rígida: só entram na tabela se a linha vier claramente
 # como preço ao produtor. Varejo, atacado e nível não informado continuam fora.
-PRODUTOS_CONAB_TXT = {"Feijão", "Sorgo", "Leite", "Boi Gordo", "Carne Bovina"}
+PRODUTOS_CONAB_TXT = {"Arroz", "Feijão", "Sorgo", "Leite", "Boi Gordo", "Carne Bovina"}
 
 # Regra definida no projeto Nordeste Agro:
 # Leite e Boi Gordo devem usar CONAB Preços Agropecuários como preço recebido pelo produtor
@@ -357,6 +364,7 @@ FONTE_CONAB_POR_PRODUTO = {
     "Algodão": "CONAB Produtos 360º / Preços Agropecuários",
     "Feijão": "CONAB Preços Agropecuários / Preços de Mercado",
     "Sorgo": "CONAB Preços Agropecuários / Preços de Mercado",
+    "Arroz": "CONAB Preços Agropecuários / Preços de Mercado",
     "Leite": "CONAB Preços Agropecuários - somente preço ao produtor",
     "Boi Gordo": "CONAB Preços Agropecuários - somente preço ao produtor",
     "Carne Bovina": "CONAB Preços Agropecuários - somente preço ao produtor",
@@ -711,6 +719,7 @@ def produto_deve_entrar_na_base(produto: Any) -> bool:
 def normalizar_produto_base(produto: Any) -> str:
     p = limpar_texto(produto)
     p_norm = remover_acentos(p).lower()
+    p_norm = re.sub(r"\s+", " ", p_norm).strip()
 
     if "soja" in p_norm:
         return "Soja"
@@ -718,12 +727,32 @@ def normalizar_produto_base(produto: Any) -> str:
         return "Milho"
     if "algodao" in p_norm:
         return "Algodão"
-    if "sorgo" in p_norm:
+
+    # Regra v1.3.6: a CONAB pode trazer sorgo como
+    # Sorgo Granífero, Sorgo Grão, Sorgo em Grão etc.
+    # Todas essas variações alimentam o produto-base Sorgo.
+    if any(termo in p_norm for termo in [
+        "sorgo",
+        "sorgo granifero",
+        "sorgo grao",
+        "sorgo em grao",
+        "sorgo forrageiro",
+    ]):
         return "Sorgo"
+
+    # Regra v1.3.6: arroz também deve ser buscado nos arquivos
+    # PrecosSemanalUF/PrecosSemanalMunicipio da CONAB.
+    if any(termo in p_norm for termo in [
+        "arroz",
+        "arroz em casca",
+        "arroz casca",
+        "arroz irrigado",
+        "arroz sequeiro",
+    ]):
+        return "Arroz"
+
     if "feijao" in p_norm:
         return "Feijão"
-    if "arroz" in p_norm:
-        return "Arroz"
     if "leite" in p_norm:
         return "Leite"
     if "carne bovina" in p_norm:
@@ -2705,7 +2734,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     debug_payload = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
-        "versao": "1.3.5",
+        "versao": "1.3.6",
         "gerado_em": agora_local().isoformat(),
         "objetivo": (
             "Coletar diretamente do CONAB Produtos 360º/Pentaho a consulta CDA "
@@ -3319,7 +3348,7 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
         debug: dict[str, Any] = {
             "projeto": "Nordeste Agro",
             "modulo": "pecuaria_leite_boi",
-            "versao": "1.3.5",
+            "versao": "1.3.6",
             "gerado_em": agora_local().isoformat(),
             "politica": (
                 "Leite e Boi Gordo na tabela principal usam somente CONAB Preços Agropecuários Semanal, "
@@ -3389,7 +3418,7 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
     debug: dict[str, Any] = {
         "projeto": "Nordeste Agro",
         "modulo": "pecuaria_leite_boi",
-        "versao": "1.3.5",
+        "versao": "1.3.6",
         "gerado_em": agora_local().isoformat(),
         "politica": "Leite e Boi Gordo entram por CEPEA/ESALQ como referência segura e por CONAB apenas quando a linha for preço ao produtor. Carne bovina em kg não é publicada na tabela principal.",
         "fontes": [],
@@ -3865,7 +3894,7 @@ def coletar_ceasas(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     debug = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes_ceasas",
-        "versao": "1.3.5",
+        "versao": "1.3.6",
         "gerado_em": agora_local().isoformat(),
         "politica": "CEASA/Hortifruti é preço de atacado. Não misturar com preço ao produtor.",
         "fontes": [],
@@ -4077,7 +4106,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "colunas_preco_identificadas": colunas_preco,
                     "coluna_nivel_identificada": col_nivel,
                     "produtos_conab_publicaveis": sorted(PRODUTOS_CONAB_TXT),
-                    "observacao": "v1.3.5: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. CEPEA/fallback não alimenta pecuária no JSON principal.",
+                    "observacao": "v1.3.6: arquivos semanais usados para Arroz, Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. CEPEA/fallback não alimenta pecuária no JSON principal.",
                 }
             )
 
@@ -4770,6 +4799,100 @@ def salvar_log(payload: dict[str, Any]) -> None:
     )
 
 
+
+def _produto_html_normalizado(item: dict[str, Any]) -> str:
+    return remover_acentos(
+        limpar_texto(item.get("produto_base") or item.get("produto") or item.get("produto_original"))
+    ).lower()
+
+
+def _chave_dado_html_preservacao(item: dict[str, Any]) -> tuple[str, str, str, str]:
+    return (
+        _produto_html_normalizado(item),
+        limpar_texto(item.get("uf") or item.get("estado")),
+        limpar_texto(item.get("praca") or item.get("cidade")),
+        limpar_texto(item.get("fonte")),
+    )
+
+
+def preservar_arroz_sorgo_regionais_validos(
+    dados_html: list[dict[str, Any]],
+    status_fontes: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """
+    Regra Nordeste Agro v1.3.6:
+    - Arroz e Sorgo passam a ser buscados também na CONAB Semanal.
+    - Se uma fonte regional, especialmente AIBA, falhar, o coletor não deve
+      apagar Arroz/Sorgo regionais válidos que já estavam no JSON anterior.
+    - CEPEA nunca é preservada para a tabela principal.
+    """
+    fontes_regionais_com_erro = {
+        limpar_texto(fonte.get("fonte"))
+        for fonte in status_fontes
+        if limpar_texto(fonte.get("status")) == "erro"
+        and limpar_texto(fonte.get("fonte")) in {"AIBA", "SEAGRI-BA"}
+    }
+
+    if not fontes_regionais_com_erro:
+        return dados_html, []
+
+    if not OUTPUT_JSON_REGIONAL.exists():
+        return dados_html, []
+
+    try:
+        payload_antigo = json.loads(OUTPUT_JSON_REGIONAL.read_text(encoding="utf-8"))
+    except Exception:
+        return dados_html, []
+
+    dados_antigos = payload_antigo.get("dados", []) if isinstance(payload_antigo, dict) else []
+    if not isinstance(dados_antigos, list):
+        return dados_html, []
+
+    chaves_atuais = {
+        _chave_dado_html_preservacao(item)
+        for item in dados_html
+        if isinstance(item, dict)
+    }
+
+    preservados: list[dict[str, Any]] = []
+
+    for item in dados_antigos:
+        if not isinstance(item, dict):
+            continue
+
+        produto = _produto_html_normalizado(item)
+        fonte = limpar_texto(item.get("fonte"))
+        nivel = remover_acentos(limpar_texto(item.get("nivel_comercializacao") or item.get("nivel_comercializacao_chave"))).lower()
+
+        if produto not in {"arroz", "sorgo"}:
+            continue
+
+        if "CEPEA" in fonte or "ESALQ" in fonte:
+            continue
+
+        if "AIBA" not in fonte and "Regional" not in fonte and "regional" not in nivel:
+            continue
+
+        chave = _chave_dado_html_preservacao(item)
+        if chave in chaves_atuais:
+            continue
+
+        novo = dict(item)
+        novo["preservado_por_falha_fonte"] = True
+        novo["observacao_preservacao"] = (
+            "Registro regional preservado porque a fonte regional falhou na coleta atual. "
+            "Será substituído automaticamente quando houver nova cotação válida."
+        )
+        novo["ultima_preservacao"] = agora_local().replace(microsecond=0).isoformat()
+        preservados.append(novo)
+        chaves_atuais.add(chave)
+
+    if not preservados:
+        return dados_html, []
+
+    return dados_html + preservados, preservados
+
+
 def main() -> None:
     inicio = agora_local()
     status_fontes: list[dict[str, Any]] = []
@@ -4792,6 +4915,10 @@ def main() -> None:
         data_corte_iso,
     )
     dados_html = [cotacao_para_dado_html(item) for item in cotacoes_tabela]
+    dados_html, regionais_preservados_arroz_sorgo = preservar_arroz_sorgo_regionais_validos(
+        dados_html=dados_html,
+        status_fontes=status_fontes,
+    )
 
     diagnostico_sorgo_conab = diagnosticar_sorgo_conab(
         cotacoes_brutas=cotacoes_brutas,
@@ -4823,7 +4950,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.3.5",
+        "versao": "1.3.6",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -4832,11 +4959,11 @@ def main() -> None:
         "dias_maximos_cotacao_ativa": DIAS_MAXIMOS_COTACAO_ATIVA,
         "data_limite_cotacoes_ativas": data_corte_iso,
         "politica_atualidade": "A tabela principal exibe somente cotações com data dentro dos últimos 30 dias. Para Leite e Boi Gordo, a fonte publicável é somente CONAB Preços Agropecuários Semanal.",
-        "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; AIBA/SEAGRI-BA/CONAB semanal para feijão e sorgo; CONAB Preços Agropecuários Semanal para Leite e Boi Gordo quando o nível for PREÇO RECEBIDO/Produtor.",
+        "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; CONAB Preços Agropecuários Semanal para arroz, feijão, sorgo granífero, leite e boi gordo; AIBA/regionais preservados quando a fonte regional falhar.",
         "fontes_complementares": ["SEAGRI-BA como referência estadual", "ACRIOESTE e Agrolink em diagnóstico", "CEPEA/ESALQ somente como widget visual separado, sem alimentar Leite e Boi Gordo no JSON principal"],
         "politica_classificacao_preco": (
             "Política v1.3.5: a tabela principal publica preço pago ao produtor quando a fonte informar, "
-            "cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
+            "cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, arroz, feijão e sorgo. "
             "Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível for PREÇO RECEBIDO/Produtor. "
             "CEPEA/ESALQ e fallback CEPEA não alimentam Leite e Boi Gordo no JSON principal. "
             "Boi Gordo em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. "
@@ -4879,12 +5006,17 @@ def main() -> None:
             "total_sorgo_conab_descartado_nivel": diagnostico_sorgo_conab.get("totais", {}).get("descartadas_por_nivel", 0),
             "total_sorgo_conab_descartado_validacao": diagnostico_sorgo_conab.get("totais", {}).get("descartadas_por_validacao", 0),
             "total_sorgo_conab_grupos_antigos": diagnostico_sorgo_conab.get("totais", {}).get("grupos_antigos", 0),
+            "total_cotacoes_arroz": len([item for item in dados_html if _produto_html_normalizado(item) == "arroz"]),
+            "total_cotacoes_sorgo": len([item for item in dados_html if _produto_html_normalizado(item) == "sorgo"]),
+            "total_regionais_preservados_arroz_sorgo": len(regionais_preservados_arroz_sorgo),
             "total_indicadores_mercado": len([item for item in cotacoes_tabela if item.get("categoria") == "indicador_mercado"]),
             "fontes_com_sucesso": fontes_ok,
             "total_fontes_com_erro": len(fontes_erro),
             "tempo_execucao_segundos": round((agora_local() - inicio).total_seconds(), 2),
         },
         "fontes": status_fontes,
+        "regra_preservacao_regional": "Se AIBA/SEAGRI-BA falhar, Arroz e Sorgo regionais válidos do JSON anterior são preservados; Arroz e Sorgo Granífero também são buscados na CONAB Preços Agropecuários Semanal.",
+        "regionais_preservados_arroz_sorgo": regionais_preservados_arroz_sorgo,
         "diagnostico_sorgo_conab": diagnostico_sorgo_conab,
         "diagnostico_leite_carne_conab": diagnostico_leite_carne_conab,
         "debug_sorgo_conab": str(OUTPUT_DEBUG_SORGO_CONAB),
