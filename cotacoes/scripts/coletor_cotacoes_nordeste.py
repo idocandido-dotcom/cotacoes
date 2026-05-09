@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.3.2
+Nordeste Agro — Coletor Automático de Cotações v1.3.3
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -59,10 +59,16 @@ Melhorias desta versão:
   * Leite ao Produtor CEPEA/ESALQ Brasil como referência de mercado em R$/litro.
   * Leite ao Produtor CEPEA/ESALQ Bahia como referência regional em R$/litro.
   * Esses registros só entram como referência; não são preço local de PI, MA ou PA.
-- v1.3.2: corrige o filtro final de publicação para permitir Leite e Boi Gordo CEPEA/ESALQ:
+- v1.3.3: corrige o filtro final de publicação para permitir Leite e Boi Gordo CEPEA/ESALQ:
   * CEPEA/ESALQ entra como Referência CEPEA/ESALQ, não como preço local.
   * A exceção de data vale apenas para referência CEPEA pecuária quando o período oficial é mensal/indicador.
   * PI, MA e PA continuam sem preço simulado quando não houver dado local validado.
+- v1.3.3: adiciona correção operacional para CONAB Preços Agropecuários:
+  * classifica "PREÇO RECEBIDO" e variações como preço recebido pelo produtor;
+  * converte Boi/Boi Gordo informado em R$/kg para Arroba (@), usando fator 15;
+  * mantém Leite ao Produtor em Litro;
+  * marca Boi Gordo como pecuaria_corte e Leite como pecuaria_leite;
+  * não altera soja, milho, algodão, feijão, sorgo e demais produtos já estabelecidos.
 - Gera:
   * cotacoes/public/cotacoes_nordeste.json
   * cotacoes/public/cotacoes_regionais.json
@@ -183,6 +189,8 @@ CEASA_PE_COTACAO_URL = "https://www.ceasape.org.br/cotacao"
 CONAB_PRODUTOS_360_URL = "https://portaldeinformacoes.conab.gov.br/produtos-360.html"
 CONAB_PRODUTOS_360_PENTAHO_URL = "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/%3Ahome%3AProdutos%3Aprodutos360.wcdf/generatedContent?password=password&userid=pentaho"
 CONAB_360_DOQUERY_URL = "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?"
+
+CONAB_PRECOS_AGROPECUARIOS_URL = "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html"
 
 CONAB_URLS = [
     {
@@ -523,8 +531,18 @@ def normalizar_nivel_preco(valor: Any) -> tuple[str, str, int]:
         "recebido pelo prod",
         "preco recebido pelo produtor",
         "preço recebido pelo produtor",
+        "preco recebido p produtor",
+        "preço recebido p produtor",
+        "preco recebido p/ produtor",
+        "preço recebido p/ produtor",
+        "preco recebido",
+        "preço recebido",
+        "preco recebi",
+        "preço recebi",
         "produtor",
     ]):
+        # CONAB Preços Agropecuários usa no filtro o texto "PREÇO RECEBIDO".
+        # No contexto da página, esse nível corresponde ao preço recebido pelo produtor.
         return "preco_produtor", "Produtor", NIVEIS_PRECO_PRIORIDADE["preco_produtor"]
 
     if any(chave in texto for chave in [
@@ -737,9 +755,13 @@ def produto_usa_saca_60kg(produto_base: str) -> bool:
 
 def unidade_indica_kg(unidade: Any) -> bool:
     u = remover_acentos(unidade).lower().strip()
+    u = u.replace(" ", "")
     return (
-        u in {"kg", "quilo", "quilograma", "quilogramas"}
-        or " kg" in f" {u} "
+        u in {"kg", "kgs", "quilo", "quilos", "quilograma", "quilogramas"}
+        or "kg" in u
+        or "/kg" in u
+        or "r$/kg" in u
+        or "rs/kg" in u
         or "quilo" in u
         or "quilograma" in u
     )
@@ -748,6 +770,18 @@ def unidade_indica_kg(unidade: Any) -> bool:
 def unidade_indica_saca(unidade: Any) -> bool:
     u = remover_acentos(unidade).lower()
     return "saca" in u or "sc" == u.strip() or "sc " in f"{u} "
+
+
+def unidade_indica_litro(unidade: Any) -> bool:
+    u = remover_acentos(unidade).lower().strip()
+    u = u.replace(" ", "")
+    return (
+        u in {"l", "lt", "lts", "litro", "litros"}
+        or "litro" in u
+        or "/l" in u
+        or "r$/l" in u
+        or "rs/l" in u
+    )
 
 
 def inferir_unidade(produto_original: Any, produto_base: str, unidade: Any, fonte: str, preco: Optional[float] = None) -> str:
@@ -858,10 +892,10 @@ def aplicar_conversao_unidade_comercial(
         return round(preco, 2), unidade_limpa or "Kg", 1.0, False
 
     if produto_base == "Leite":
-        if "litro" in unidade_norm or unidade_norm in {"l", "lt", "litros", "unidade", "unidade informada pela fonte", ""}:
-            return round(preco, 2), "Litro", 1.0, False
+        if unidade_indica_litro(unidade) or unidade_norm in {"unidade", "unidade informada pela fonte", ""}:
+            return round(preco, 4), "Litro", 1.0, False
 
-        return round(preco, 2), unidade_limpa or "Litro", 1.0, False
+        return round(preco, 4), unidade_limpa or "Litro", 1.0, False
 
     if produto_base == "Algodão":
         if unidade_norm in {"@", "arroba", "arrobas"} or "arroba" in unidade_norm:
@@ -1005,9 +1039,10 @@ def baixar_texto(url: str, timeout: int = 60) -> str:
 
 def normalizar_unidade_validacao(unidade: Any) -> str:
     u = limpar_texto(unidade)
-    u_norm = remover_acentos(u).lower()
+    u_norm = remover_acentos(u).lower().strip()
+    u_compacta = u_norm.replace(" ", "")
 
-    if "saca" in u_norm or "60kg" in u_norm or "60 kg" in u_norm:
+    if "saca" in u_norm or "60kg" in u_compacta or "60 kg" in u_norm:
         return "Saca 60 kg"
 
     if "arroba" in u_norm or u_norm == "@":
@@ -1016,10 +1051,10 @@ def normalizar_unidade_validacao(unidade: Any) -> str:
     if "tonelada" in u_norm or u_norm in {"t", "ton"}:
         return "Tonelada"
 
-    if "litro" in u_norm or u_norm == "l":
+    if unidade_indica_litro(unidade):
         return "Litro"
 
-    if u_norm in {"kg", "quilo", "quilograma", "quilogramas"}:
+    if unidade_indica_kg(unidade):
         return "Kg"
 
     return u
@@ -1206,7 +1241,7 @@ def forcar_referencia_conab(item: dict[str, Any]) -> bool:
 
 def nivel_publicavel_produtor(item: dict[str, Any]) -> tuple[bool, str]:
     """
-    Política v1.3.2:
+    Política v1.3.3:
     - Publicar preço pago ao produtor quando a fonte informar claramente.
     - Publicar cotação regional produtiva, como AIBA/SEAGRI-BA.
     - Publicar referência oficial CONAB para soja, milho, algodão, feijão e sorgo
@@ -2632,7 +2667,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     debug_payload = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
-        "versao": "1.3.2",
+        "versao": "1.3.3",
         "gerado_em": agora_local().isoformat(),
         "objetivo": (
             "Coletar diretamente do CONAB Produtos 360º/Pentaho a consulta CDA "
@@ -3245,7 +3280,7 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
     debug: dict[str, Any] = {
         "projeto": "Nordeste Agro",
         "modulo": "pecuaria_leite_boi",
-        "versao": "1.3.2",
+        "versao": "1.3.3",
         "gerado_em": agora_local().isoformat(),
         "politica": "Leite e Boi Gordo entram por CEPEA/ESALQ como referência segura e por CONAB apenas quando a linha for preço ao produtor. Carne bovina em kg não é publicada na tabela principal.",
         "fontes": [],
@@ -3721,7 +3756,7 @@ def coletar_ceasas(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     debug = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes_ceasas",
-        "versao": "1.3.2",
+        "versao": "1.3.3",
         "gerado_em": agora_local().isoformat(),
         "politica": "CEASA/Hortifruti é preço de atacado. Não misturar com preço ao produtor.",
         "fontes": [],
@@ -3744,6 +3779,42 @@ def coletar_ceasas(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     salvar_debug_ceasas(debug)
 
     return cotacoes
+
+
+def categoria_conab_produto(produto_base: Any) -> str:
+    produto = limpar_texto(produto_base)
+
+    if produto == "Leite":
+        return "pecuaria_leite"
+
+    if produto == "Boi Gordo":
+        return "pecuaria_corte"
+
+    if produto == "Carne Bovina":
+        return "pecuaria_corte"
+
+    return "commodity_agricola"
+
+
+def observacao_conab_produto(produto_base: Any, nivel_label: str) -> str:
+    produto = limpar_texto(produto_base)
+    base = (
+        "Preço agropecuário oficial/compilado pela CONAB e parceiros. "
+        f"Fonte operacional: {FONTE_CONAB_POR_PRODUTO.get(produto, 'CONAB Preços Agropecuários')}. "
+        f"Nível identificado: {nivel_label}."
+    )
+
+    if produto == "Boi Gordo":
+        return (
+            base
+            + " Regra Nordeste Agro: quando a CONAB informar BOI/BOI GORDO em R$/kg, "
+            + "o coletor converte para Arroba (@) usando 1 @ = 15 kg, mantendo o preço original no JSON."
+        )
+
+    if produto == "Leite":
+        return base + " Regra Nordeste Agro: leite ao produtor permanece em R$/litro."
+
+    return base
 
 
 def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -3873,11 +3944,8 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                             fonte_url=url,
                             tipo_fonte="oficial",
                             nivel_comercializacao=nivel_texto,
-                            observacao=(
-                                "Preço agropecuário oficial/compilado pela CONAB e parceiros. "
-                                f"Fonte operacional: {FONTE_CONAB_POR_PRODUTO.get(produto_base_conab, 'CONAB Preços Agropecuários')}. "
-                                f"Nível identificado: {nivel_label}."
-                            ),
+                            categoria=categoria_conab_produto(produto_base_conab),
+                            observacao=observacao_conab_produto(produto_base_conab, nivel_label),
                         )
                     )
 
@@ -3892,7 +3960,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "colunas_preco_identificadas": colunas_preco,
                     "coluna_nivel_identificada": col_nivel,
                     "produtos_conab_publicaveis": sorted(PRODUTOS_CONAB_TXT),
-                    "observacao": "v1.3.0: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e carnes só entram na tabela quando o nível vier como preço ao produtor; varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º.",
+                    "observacao": "v1.3.3: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. Varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º.",
                 }
             )
 
@@ -4166,7 +4234,7 @@ def consolidar_mais_recentes(
             if data_dentro_do_limite(item.get("data_referencia"), data_corte_iso)
         ]
 
-        # Exceção controlada v1.3.2:
+        # Exceção controlada v1.3.3:
         # Leite e Boi Gordo CEPEA/ESALQ são referências institucionais/mensais.
         # Quando a página do CEPEA bloqueia o GitHub Actions ou retorna fallback,
         # o dado pode ter período oficial anterior ao limite de 90 dias.
@@ -4638,7 +4706,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.3.2",
+        "versao": "1.3.3",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -4647,13 +4715,13 @@ def main() -> None:
         "dias_maximos_cotacao_ativa": DIAS_MAXIMOS_COTACAO_ATIVA,
         "data_limite_cotacoes_ativas": data_corte_iso,
         "politica_atualidade": "A tabela principal exibe somente cotações com data dentro dos últimos 90 dias. No CONAB Produtos 360º, a data exibida é o período semanal publicado, não preço diário.",
-        "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; AIBA/SEAGRI-BA/CONAB semanal para feijão e sorgo; CEPEA/ESALQ e SEAGRI-BA para leite e boi gordo",
+        "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; AIBA/SEAGRI-BA/CONAB semanal para feijão e sorgo; CONAB Preços Agropecuários para leite e boi gordo quando o nível for PREÇO RECEBIDO/Produtor; CEPEA/ESALQ e SEAGRI-BA como referências complementares",
         "fontes_complementares": ["CEPEA/ESALQ para Leite e Boi Gordo", "SEAGRI-BA como referência estadual", "ACRIOESTE e Agrolink em diagnóstico"],
         "politica_classificacao_preco": (
-            "Política v1.3.2: a tabela principal publica preço pago ao produtor quando a fonte informar, "
+            "Política v1.3.3: a tabela principal publica preço pago ao produtor quando a fonte informar, "
             "cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. "
             "Leite e Boi Gordo CEPEA/ESALQ entram como referência de mercado, sem serem tratados como preço local de praça/estado. "
-            "Leite, Boi Gordo e Carne Bovina da CONAB entram somente quando a fonte informar preço ao produtor. "
+            "Leite e Boi Gordo da CONAB entram quando a fonte informar PREÇO RECEBIDO/Produtor; Boi em R$/kg é convertido para Arroba (@) com fator 15. Carne Bovina permanece bloqueada salvo preço ao produtor claramente identificado. "
             "Varejo, atacado comum, indicadores genéricos e mercado futuro ficam fora da tabela principal. "
             "Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação."
         ),
@@ -4733,7 +4801,7 @@ def main() -> None:
         },
         "aviso_legal": (
             "As cotações apresentadas pelo Nordeste Agro são referenciais e compiladas "
-            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.3.2, "
+            "a partir de fontes regionais, oficiais e indicadores de mercado. A partir da versão v1.3.3, "
             "a tabela principal publica preço pago ao produtor quando a fonte informar claramente, "
             "cotação regional produtiva, referência SEAGRI-BA, referência oficial CONAB para soja, milho, algodão, feijão e sorgo, "
             "e referência CEPEA/ESALQ para Leite e Boi Gordo. "
