@@ -1,8 +1,8 @@
 {
   "projeto": "Nordeste Agro",
   "modulo": "pecuaria_leite_boi",
-  "versao": "1.3.9",
-  "gerado_em": "2026-05-09T09:54:31.429146-03:00",
+  "versao": "1.4.0",
+  "gerado_em": "2026-05-09T10:22:09.856787-03:00",
   "politica": "Leite e Boi Gordo na tabela principal usam somente CONAB Preços Agropecuários Semanal, nível Preço Recebido/Produtor. CEPEA/ESALQ, fallback CEPEA, dados mensais antigos, varejo e atacado não são publicados no JSON principal.",
   "fontes": [
     {
