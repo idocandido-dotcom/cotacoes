@@ -221,6 +221,16 @@ CONAB_PRECO_MEDIO_WCDF_URL = "https://pentahoportaldeinformacoes.conab.gov.br/pe
 CONAB_PRECO_MEDIO_CDA_PATH = "/home/SIAGRO/PrecoMedio.cda"
 CONAB_PRECO_MEDIO_DOQUERY_URL = "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?"
 
+# v1.4.5 — Fonte principal SIAGRO para produtos definidos:
+# Mantém Soja, Milho e Algodão no CONAB Produtos 360º.
+# Mantém Sorgo no SIAGRO.
+# Altera Arroz, Feijão, Boi Gordo e Leite para priorizar o painel SIAGRO,
+# preservando fontes regionais como complemento e mantendo CONAB Semanal como fallback
+# somente quando o SIAGRO não retornar dado válido para o produto.
+PRODUTOS_SIAGRO_PRINCIPAL = {"Sorgo", "Arroz", "Feijão", "Boi Gordo", "Leite"}
+PRODUTOS_SIAGRO_PRIORITARIOS = {"Sorgo", "Arroz", "Feijão", "Boi Gordo", "Leite"}
+
+
 
 CONAB_URLS = [
     {
@@ -306,7 +316,7 @@ UFS_NORDESTE = {
     "TO": "Tocantins",
 }
 
-# v1.4.3 — Referências complementares CONAB:
+# v1.4.5 — Referências complementares CONAB:
 # O portal Nordeste Agro continua focado em Nordeste + PA/TO, mas alguns produtos
 # como Sorgo Granífero podem aparecer na CONAB somente em praças/UFs de referência
 # fora da região monitorada. Para não ocultar um produto que existe no painel oficial,
@@ -1901,7 +1911,7 @@ def salvar_debug_sorgo_conab(debug: dict[str, Any]) -> None:
     Salva o diagnóstico do Sorgo sem apagar diagnósticos complementares.
 
     Na v1.3.8 o painel SIAGRO escrevia uma seção chamada coleta_painel_siagro,
-    mas depois o diagnóstico final sobrescrevia o arquivo. Na v1.4.3 o arquivo
+    mas depois o diagnóstico final sobrescrevia o arquivo. Na v1.4.5 o arquivo
     passa a ser mesclado para manter:
     - diagnóstico dos TXT semanais;
     - diagnóstico do painel SIAGRO;
@@ -2817,7 +2827,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     debug_payload = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
-        "versao": "1.4.3",
+        "versao": "1.4.5",
         "gerado_em": agora_local().isoformat(),
         "objetivo": (
             "Coletar diretamente do CONAB Produtos 360º/Pentaho a consulta CDA "
@@ -3431,7 +3441,7 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
         debug: dict[str, Any] = {
             "projeto": "Nordeste Agro",
             "modulo": "pecuaria_leite_boi",
-            "versao": "1.4.3",
+            "versao": "1.4.5",
             "gerado_em": agora_local().isoformat(),
             "politica": (
                 "Leite e Boi Gordo na tabela principal usam somente CONAB Preços Agropecuários Semanal, "
@@ -3501,7 +3511,7 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
     debug: dict[str, Any] = {
         "projeto": "Nordeste Agro",
         "modulo": "pecuaria_leite_boi",
-        "versao": "1.4.3",
+        "versao": "1.4.5",
         "gerado_em": agora_local().isoformat(),
         "politica": "Leite e Boi Gordo entram por CEPEA/ESALQ como referência segura e por CONAB apenas quando a linha for preço ao produtor. Carne bovina em kg não é publicada na tabela principal.",
         "fontes": [],
@@ -3977,7 +3987,7 @@ def coletar_ceasas(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     debug = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes_ceasas",
-        "versao": "1.4.3",
+        "versao": "1.4.5",
         "gerado_em": agora_local().isoformat(),
         "politica": "CEASA/Hortifruti é preço de atacado. Não misturar com preço ao produtor.",
         "fontes": [],
@@ -4213,7 +4223,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "colunas_preco_identificadas": colunas_preco,
                     "coluna_nivel_identificada": col_nivel,
                     "produtos_conab_publicaveis": sorted(PRODUTOS_CONAB_TXT),
-                    "observacao": "v1.4.3: arquivos semanais usados para Arroz, Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Arroz e Sorgo podem usar referência complementar CONAB UF quando não houver registro regional/local. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. CEPEA/fallback não alimenta pecuária no JSON principal.",
+                    "observacao": "v1.4.5: arquivos semanais usados para Arroz, Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Arroz e Sorgo podem usar referência complementar CONAB UF quando não houver registro regional/local. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. CEPEA/fallback não alimenta pecuária no JSON principal.",
                 }
             )
 
@@ -4248,7 +4258,7 @@ def extrair_data_access_ids_cda(html: str) -> list[str]:
             if valor and valor not in ids:
                 ids.append(valor)
 
-    # v1.4.3 — ordem definida a partir do código-fonte do iframe do painel CONAB.
+    # v1.4.5 — ordem definida a partir do código-fonte do iframe do painel CONAB.
     # RankingPrecoMedioUF é o componente que alimenta o gráfico "Ranking Preço por UF".
     preferenciais = [
         "RankingPrecoMedioUF",
@@ -4478,6 +4488,13 @@ def contextos_semanais_preco_medio() -> list[dict[str, str]]:
     return contextos
 
 def valores_parametros_preco_medio(produto_base: str) -> list[str]:
+    """
+    Variações de parâmetro do produto no painel SIAGRO/Preço Médio UF.
+
+    A lista usa nomes com e sem MDX porque alguns dataAccessIds aceitam:
+    - [Produto].[NOME]
+    - NOME
+    """
     if produto_base == "Sorgo":
         return [
             "[Produto].[SORGO GRANIFERO]",
@@ -4494,20 +4511,91 @@ def valores_parametros_preco_medio(produto_base: str) -> list[str]:
         return [
             "[Produto].[ARROZ]",
             "[Produto].[ARROZ EM CASCA]",
+            "[Produto].[ARROZ CASCA]",
             "ARROZ",
             "ARROZ EM CASCA",
+            "ARROZ CASCA",
             "Arroz",
             "Arroz em Casca",
         ]
 
+    if produto_base == "Feijão":
+        return [
+            "[Produto].[FEIJAO]",
+            "[Produto].[FEIJÃO]",
+            "[Produto].[FEIJAO CARIOCA]",
+            "[Produto].[FEIJÃO CARIOCA]",
+            "[Produto].[FEIJAO CORES]",
+            "[Produto].[FEIJÃO CORES]",
+            "[Produto].[FEIJAO PRETO]",
+            "[Produto].[FEIJÃO PRETO]",
+            "FEIJAO",
+            "FEIJÃO",
+            "FEIJAO CARIOCA",
+            "FEIJÃO CARIOCA",
+            "FEIJAO CORES",
+            "FEIJÃO CORES",
+            "FEIJAO PRETO",
+            "FEIJÃO PRETO",
+            "Feijão",
+            "Feijão Carioca",
+            "Feijão Cores",
+            "Feijão Preto",
+        ]
+
+    if produto_base == "Boi Gordo":
+        return [
+            "[Produto].[BOI GORDO]",
+            "[Produto].[BOI]",
+            "[Produto].[BOVINO]",
+            "[Produto].[BOVINOS]",
+            "BOI GORDO",
+            "BOI",
+            "BOVINO",
+            "BOVINOS",
+            "Boi Gordo",
+            "Boi",
+            "Bovino",
+        ]
+
+    if produto_base == "Leite":
+        return [
+            "[Produto].[LEITE]",
+            "[Produto].[LEITE DE VACA]",
+            "LEITE",
+            "LEITE DE VACA",
+            "Leite",
+            "Leite de Vaca",
+        ]
+
     return [produto_base]
+
+
+def classificacoes_parametros_preco_medio(produto_base: str) -> list[str]:
+    """
+    Classificações testadas no SIAGRO.
+
+    Para grãos, o painel usa EM GRÃOS.
+    Para pecuária/leite, a classificação pode ser vazia, repetir o produto
+    ou vir como classificação genérica. Por isso testamos variações seguras.
+    """
+    if produto_base in {"Sorgo", "Arroz", "Feijão"}:
+        return ["EM GRÃOS", "EM GRAOS", ""]
+
+    if produto_base == "Boi Gordo":
+        return ["BOI GORDO", "BOVINO", ""]
+
+    if produto_base == "Leite":
+        return ["LEITE", "LEITE DE VACA", ""]
+
+    return [""]
 
 
 def montar_parametros_preco_medio(data_access_id: str, produto_valor: str, produto_base: str, contexto: Any) -> dict[str, str]:
     """
     Monta parâmetros do CDA do painel SIAGRO.
 
-    v1.4.3 usa os nomes de parâmetros confirmados no código do iframe:
+    v1.4.5 usa os nomes de parâmetros confirmados no código do iframe:
     produto, nivelComercializacao, mesAnoUF, classificacao, tipoVisao,
     linhaRegiao, colunaMunicipioSemanal e data_semana.
     """
@@ -4528,8 +4616,8 @@ def montar_parametros_preco_medio(data_access_id: str, produto_valor: str, produ
         semana_final = ""
         periodo = data_ref
 
-    classificacao = "EM GRÃOS"
-    classificacao_sem_acento = "EM GRAOS"
+    classificacao = limpar_texto(contexto.get("classificacao", "EM GRÃOS")) if isinstance(contexto, dict) else "EM GRÃOS"
+    classificacao_sem_acento = remover_acentos(classificacao).upper()
     nivel = "PREÇO RECEBIDO P/ PRODUTOR"
     nivel_sem_acento = "PRECO RECEBIDO P/ PRODUTOR"
 
@@ -4637,6 +4725,7 @@ def linha_resultset_para_item_preco_medio(
     produto_base: str,
     data_access_id: str,
     cda_path: str,
+    contexto_ref: Optional[dict[str, Any]] = None,
 ) -> Optional[dict[str, Any]]:
     if not isinstance(row, list) or not row:
         return None
@@ -4662,13 +4751,20 @@ def linha_resultset_para_item_preco_medio(
                 continue
         numericos.append(candidato)
 
-    # O painel do print usa Sorgo em R$/kg, faixa aproximada 0,5 a 0,9.
-    # Arroz pode vir como R$/kg ou, em alguns componentes, já agregado.
+    # O painel SIAGRO/Preço Médio UF normalmente retorna o valor em R$/kg
+    # para grãos e boi gordo, e R$/litro para leite.
+    # Pegamos o primeiro valor em faixa plausível para o produto.
+    faixas_siagro = {
+        "Sorgo": (0.05, 10.0),
+        "Arroz": (0.05, 30.0),
+        "Feijão": (0.05, 30.0),
+        "Boi Gordo": (1.0, 80.0),
+        "Leite": (0.1, 10.0),
+    }
+    minimo, maximo = faixas_siagro.get(produto_base, (0.01, 100000.0))
+
     for candidato in numericos:
-        if produto_base == "Sorgo" and 0.05 <= candidato <= 10:
-            preco = candidato
-            break
-        if produto_base == "Arroz" and 0.05 <= candidato <= 20:
+        if minimo <= candidato <= maximo:
             preco = candidato
             break
 
@@ -4677,19 +4773,60 @@ def linha_resultset_para_item_preco_medio(
 
     texto_linha = " ".join(limpar_texto(v) for v in row)
     periodo = extrair_periodo_semanal(texto_linha)
+
+    # v1.4.5:
+    # Algumas consultas do SIAGRO RankingPrecoMedioUF retornam UF + preço,
+    # mas não retornam a coluna de período no resultset. Antes, nesse caso,
+    # o site mostrava "Semana de DD/MM/AAAA".
+    #
+    # A data correta, porém, já está no contexto usado para chamar o CDA:
+    # contexto_ref["periodo"] = "27-04-2026 - 01-05-2026", por exemplo.
+    # Aqui reaproveitamos esse contexto para exibir no mesmo padrão do Boi Gordo:
+    # "27/04/2026 a 01/05/2026".
+    if not periodo.get("periodo_referencia") and isinstance(contexto_ref, dict):
+        periodo_contexto_texto = (
+            contexto_ref.get("periodo")
+            or contexto_ref.get("mesAnoUF")
+            or contexto_ref.get("semana_data_inicial")
+            or ""
+        )
+        periodo_contexto = extrair_periodo_semanal(periodo_contexto_texto)
+        if periodo_contexto.get("periodo_referencia"):
+            periodo = periodo_contexto
+
     data_ref = periodo.get("data_fim") or agora_local().date().isoformat()
     data_inicio = periodo.get("data_inicio") or data_ref
     data_fim = periodo.get("data_fim") or data_ref
     periodo_referencia = periodo.get("periodo_referencia") or f"Semana de {data_para_br(data_ref)}"
 
-    produto_original = "Sorgo Granífero - Em Grãos" if produto_base == "Sorgo" else "Arroz - Em Grãos"
+    produto_original_map = {
+        "Sorgo": "Sorgo Granífero - Em Grãos",
+        "Arroz": "Arroz - Em Grãos",
+        "Feijão": "Feijão - Em Grãos",
+        "Boi Gordo": "Boi Gordo",
+        "Leite": "Leite",
+    }
+    produto_original = produto_original_map.get(produto_base, produto_base)
+
+    if produto_base == "Leite":
+        unidade_siagro = "Litro"
+        obs_unidade = "Valor publicado em R$/litro."
+    elif produto_base == "Boi Gordo":
+        unidade_siagro = "Kg"
+        obs_unidade = "Valor original em R$/kg convertido para Arroba (@), com fator de 15 kg."
+    elif produto_base in {"Sorgo", "Arroz", "Feijão"}:
+        unidade_siagro = "Kg"
+        obs_unidade = "Valor original em R$/kg convertido para Saca 60 kg."
+    else:
+        unidade_siagro = "Kg"
+        obs_unidade = "Valor original conforme unidade informada pela CONAB."
 
     item = criar_item(
         produto_original=produto_original,
         uf=uf,
         estado_nome=nome_estado_conab(uf),
         praca=f"{nome_estado_conab(uf)} - Média estadual CONAB",
-        unidade="Kg",
+        unidade=unidade_siagro,
         preco=preco,
         variacao_percentual=None,
         data_referencia=data_ref,
@@ -4703,8 +4840,8 @@ def linha_resultset_para_item_preco_medio(
         categoria=categoria_conab_produto(produto_base),
         observacao=(
             f"{produto_original} coletado do painel CONAB Preços Agropecuários, "
-            f"periodicidade semanal, nível Preço Recebido/Produtor, classificação Em Grãos. "
-            f"Consulta CDA: {cda_path} / {data_access_id}. Valor original em R$/kg convertido para Saca 60 kg."
+            f"periodicidade semanal, nível Preço Recebido/Produtor. "
+            f"Consulta CDA: {cda_path} / {data_access_id}. {obs_unidade}"
         ),
     )
     item["origem_painel_conab"] = "PrecoMedio/SIAGRO"
@@ -4713,7 +4850,13 @@ def linha_resultset_para_item_preco_medio(
     return item
 
 
-def extrair_itens_preco_medio_cda(data: dict[str, Any], produto_base: str, data_access_id: str, cda_path: str) -> list[dict[str, Any]]:
+def extrair_itens_preco_medio_cda(
+    data: dict[str, Any],
+    produto_base: str,
+    data_access_id: str,
+    cda_path: str,
+    contexto_ref: Optional[dict[str, Any]] = None,
+) -> list[dict[str, Any]]:
     resultset = data.get("resultset") or []
     if not isinstance(resultset, list):
         return []
@@ -4722,7 +4865,13 @@ def extrair_itens_preco_medio_cda(data: dict[str, Any], produto_base: str, data_
     chaves: set[tuple[str, str, str]] = set()
 
     for row in resultset:
-        item = linha_resultset_para_item_preco_medio(row, produto_base=produto_base, data_access_id=data_access_id, cda_path=cda_path)
+        item = linha_resultset_para_item_preco_medio(
+            row,
+            produto_base=produto_base,
+            data_access_id=data_access_id,
+            cda_path=cda_path,
+            contexto_ref=contexto_ref,
+        )
         if not item:
             continue
 
@@ -4740,7 +4889,7 @@ def coletar_conab_preco_medio_painel_siagro(status_fontes: list[dict[str, Any]])
     """
     Coleta complementar do painel CONAB Preços Agropecuários visto no navegador.
 
-    v1.4.3:
+    v1.4.5:
     - usa último dia útil como Data de Referência, não apenas a data do dia;
     - busca scripts/recursos do painel para descobrir dataAccessId/path reais;
     - testa POST e GET em combinações controladas;
@@ -4784,7 +4933,7 @@ def coletar_conab_preco_medio_painel_siagro(status_fontes: list[dict[str, Any]])
         cda_paths = extrair_cda_paths(texto_unificado)
         contextos_ref = contextos_semanais_preco_medio()
 
-        produtos_consultar = ["Sorgo", "Arroz"]
+        produtos_consultar = ["Sorgo", "Arroz", "Feijão", "Boi Gordo", "Leite"]
         max_tentativas_por_produto = 900
 
         for produto_base in produtos_consultar:
@@ -4807,72 +4956,88 @@ def coletar_conab_preco_medio_painel_siagro(status_fontes: list[dict[str, Any]])
                             if tentativas_produto >= max_tentativas_por_produto:
                                 break
 
-                            params = montar_parametros_preco_medio(data_access_id, produto_valor, produto_base, contexto_ref)
-                            params["path"] = cda_path
-                            tentativas_produto += 1
+                            for classificacao_consulta in classificacoes_parametros_preco_medio(produto_base):
+                                if tentativas_produto >= max_tentativas_por_produto or encontrados_produto:
+                                    break
 
-                            for metodo in ["POST", "GET"]:
-                                try:
-                                    if metodo == "POST":
-                                        resp = session.post(CONAB_PRECO_MEDIO_DOQUERY_URL, data=params, timeout=45)
-                                    else:
-                                        resp = session.get(CONAB_PRECO_MEDIO_DOQUERY_URL, params=params, timeout=45)
-                                except Exception as erro_req:
-                                    tentativas_debug.append({
-                                        "produto": produto_base,
-                                        "metodo": metodo,
-                                        "cda_path": cda_path,
-                                        "dataAccessId": data_access_id,
-                                        "produto_valor": produto_valor,
-                                        "data_ref": contexto_ref.get("data_ref_br") if isinstance(contexto_ref, dict) else str(contexto_ref),
-                                        "mesAnoUF": params.get("parammesAnoUF"),
-                                        "status": "erro_requisicao",
-                                        "erro": repr(erro_req),
-                                    })
-                                    continue
+                                contexto_chamada = dict(contexto_ref) if isinstance(contexto_ref, dict) else {"data_ref_br": str(contexto_ref)}
+                                contexto_chamada["classificacao"] = classificacao_consulta
 
-                                data = resposta_json_cda_valida(resp)
-                                preview = (resp.text or "")[:300]
+                                params = montar_parametros_preco_medio(data_access_id, produto_valor, produto_base, contexto_chamada)
+                                params["path"] = cda_path
+                                tentativas_produto += 1
 
-                                if data is None:
-                                    # Guarda apenas parte das falhas para não explodir o arquivo.
-                                    if len(tentativas_debug) < 250:
+                                for metodo in ["POST", "GET"]:
+                                    try:
+                                        if metodo == "POST":
+                                            resp = session.post(CONAB_PRECO_MEDIO_DOQUERY_URL, data=params, timeout=45)
+                                        else:
+                                            resp = session.get(CONAB_PRECO_MEDIO_DOQUERY_URL, params=params, timeout=45)
+                                    except Exception as erro_req:
                                         tentativas_debug.append({
                                             "produto": produto_base,
                                             "metodo": metodo,
                                             "cda_path": cda_path,
                                             "dataAccessId": data_access_id,
                                             "produto_valor": produto_valor,
-                                            "data_ref": contexto_ref.get("data_ref_br") if isinstance(contexto_ref, dict) else str(contexto_ref),
-                                        "mesAnoUF": params.get("parammesAnoUF"),
-                                            "http_status": resp.status_code,
-                                            "status": "sem_json_resultset",
-                                            "preview": preview,
+                                            "classificacao": classificacao_consulta,
+                                            "data_ref": contexto_chamada.get("data_ref_br") if isinstance(contexto_chamada, dict) else str(contexto_chamada),
+                                            "mesAnoUF": params.get("parammesAnoUF"),
+                                            "status": "erro_requisicao",
+                                            "erro": repr(erro_req),
                                         })
-                                    continue
+                                        continue
 
-                                candidatos = extrair_itens_preco_medio_cda(data, produto_base, data_access_id, cda_path)
-                                registro_tentativa = {
-                                    "produto": produto_base,
-                                    "metodo": metodo,
-                                    "cda_path": cda_path,
-                                    "dataAccessId": data_access_id,
-                                    "produto_valor": produto_valor,
-                                    "data_ref": contexto_ref.get("data_ref_br") if isinstance(contexto_ref, dict) else str(contexto_ref),
-                                    "mesAnoUF": params.get("parammesAnoUF"),
-                                    "linhaRegiao": params.get("paramlinhaRegiao"),
-                                    "http_status": resp.status_code,
-                                    "status": "json_resultset",
-                                    "total_linhas_resultset": len(data.get("resultset") or []),
-                                    "itens_extraidos": len(candidatos),
-                                    "metadata": [m.get("colName") for m in (data.get("metadata") or []) if isinstance(m, dict)][:20],
-                                    "amostra_resultset": (data.get("resultset") or [])[:5],
-                                }
-                                tentativas_debug.append(registro_tentativa)
+                                    data = resposta_json_cda_valida(resp)
+                                    preview = (resp.text or "")[:300]
 
-                                if candidatos:
-                                    encontrados_produto.extend(candidatos)
-                                    break
+                                    if data is None:
+                                        # Guarda apenas parte das falhas para não explodir o arquivo.
+                                        if len(tentativas_debug) < 250:
+                                            tentativas_debug.append({
+                                                "produto": produto_base,
+                                                "metodo": metodo,
+                                                "cda_path": cda_path,
+                                                "dataAccessId": data_access_id,
+                                                "produto_valor": produto_valor,
+                                                "classificacao": classificacao_consulta,
+                                                "data_ref": contexto_chamada.get("data_ref_br") if isinstance(contexto_chamada, dict) else str(contexto_chamada),
+                                                "mesAnoUF": params.get("parammesAnoUF"),
+                                                "http_status": resp.status_code,
+                                                "status": "sem_json_resultset",
+                                                "preview": preview,
+                                            })
+                                        continue
+
+                                    candidatos = extrair_itens_preco_medio_cda(
+                                        data,
+                                        produto_base,
+                                        data_access_id,
+                                        cda_path,
+                                        contexto_ref=contexto_chamada,
+                                    )
+                                    registro_tentativa = {
+                                        "produto": produto_base,
+                                        "metodo": metodo,
+                                        "cda_path": cda_path,
+                                        "dataAccessId": data_access_id,
+                                        "produto_valor": produto_valor,
+                                        "classificacao": classificacao_consulta,
+                                        "data_ref": contexto_chamada.get("data_ref_br") if isinstance(contexto_chamada, dict) else str(contexto_chamada),
+                                        "mesAnoUF": params.get("parammesAnoUF"),
+                                        "linhaRegiao": params.get("paramlinhaRegiao"),
+                                        "http_status": resp.status_code,
+                                        "status": "json_resultset",
+                                        "total_linhas_resultset": len(data.get("resultset") or []),
+                                        "itens_extraidos": len(candidatos),
+                                        "metadata": [m.get("colName") for m in (data.get("metadata") or []) if isinstance(m, dict)][:20],
+                                        "amostra_resultset": (data.get("resultset") or [])[:5],
+                                    }
+                                    tentativas_debug.append(registro_tentativa)
+
+                                    if candidatos:
+                                        encontrados_produto.extend(candidatos)
+                                        break
 
                             if encontrados_produto:
                                 break
@@ -4884,10 +5049,10 @@ def coletar_conab_preco_medio_painel_siagro(status_fontes: list[dict[str, Any]])
             "url": CONAB_PRECO_MEDIO_WCDF_URL,
             "status": "ok" if itens else "sem_registros_extraidos",
             "total_registros": len(itens),
-            "produtos_monitorados": ["Sorgo Granífero", "Arroz"],
+            "produtos_monitorados": ["Sorgo Granífero", "Arroz", "Feijão", "Boi Gordo", "Leite"],
             "observacao": (
-                "v1.4.3: consulta complementar ao painel Preço Médio/Preços Agropecuários. "
-                "Prioriza RankingPrecoMedioUF, MediaPrecoUF e parâmetros semanais mesAnoUF/linhaRegiao identificados no iframe."
+                "v1.4.5: consulta complementar ao painel Preço Médio/Preços Agropecuários. "
+                "Prioriza RankingPrecoMedioUF, MediaPrecoUF e parâmetros semanais mesAnoUF/linhaRegiao identificados no iframe; quando o resultset não traz período, usa o período semanal do contexto CDA. v1.4.5: Arroz, Feijão, Boi Gordo e Leite passam a priorizar SIAGRO, mantendo regionais e CONAB Semanal como fallback."
             ),
         })
 
@@ -4912,11 +5077,14 @@ def coletar_conab_preco_medio_painel_siagro(status_fontes: list[dict[str, Any]])
 
         debug_existente["coleta_painel_siagro"] = {
             "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
-            "versao_rotina": "1.4.3",
+            "versao_rotina": "1.4.5",
             "url": CONAB_PRECO_MEDIO_WCDF_URL,
             "total_itens_extraidos": len(itens),
             "total_sorgo_extraido": len([x for x in itens if x.get("produto_base") == "Sorgo"]),
             "total_arroz_extraido": len([x for x in itens if x.get("produto_base") == "Arroz"]),
+            "total_feijao_extraido": len([x for x in itens if x.get("produto_base") == "Feijão"]),
+            "total_boi_gordo_extraido": len([x for x in itens if x.get("produto_base") == "Boi Gordo"]),
+            "total_leite_extraido": len([x for x in itens if x.get("produto_base") == "Leite"]),
             "urls_lidas": htmls_debug[:80],
             "tentativas": tentativas_debug[:350],
             "observacao": (
@@ -4930,6 +5098,72 @@ def coletar_conab_preco_medio_painel_siagro(status_fontes: list[dict[str, Any]])
         pass
 
     return itens
+
+
+def priorizar_siagro_para_produtos_definidos(cotacoes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """
+    v1.4.5:
+    Para Arroz, Feijão, Boi Gordo, Leite e Sorgo, o SIAGRO/Preço Médio UF
+    passa a ser a fonte CONAB principal quando retornar dado válido.
+
+    Mantém:
+    - CONAB Produtos 360º para Soja, Milho e Algodão;
+    - AIBA/SEAGRI/regionais como complemento;
+    - CONAB Semanal UF/Município como fallback, somente quando o SIAGRO não
+      trouxer dado válido para o produto.
+    """
+    produtos_siagro_ok = {
+        limpar_texto(item.get("produto_base"))
+        for item in cotacoes
+        if (
+            limpar_texto(item.get("produto_base")) in PRODUTOS_SIAGRO_PRIORITARIOS
+            and "SIAGRO" in limpar_texto(item.get("fonte"))
+            and "CONAB" in limpar_texto(item.get("fonte"))
+            and item.get("preco") is not None
+        )
+    }
+
+    if not produtos_siagro_ok:
+        return cotacoes
+
+    filtradas: list[dict[str, Any]] = []
+    removidos = 0
+
+    for item in cotacoes:
+        produto = limpar_texto(item.get("produto_base"))
+        fonte = limpar_texto(item.get("fonte"))
+
+        eh_conab_semanal = (
+            "CONAB - Preços Agropecuários Semanal UF" in fonte
+            or "CONAB - Preços Agropecuários Semanal Município" in fonte
+        )
+
+        if produto in produtos_siagro_ok and eh_conab_semanal:
+            removidos += 1
+            continue
+
+        filtradas.append(item)
+
+    if removidos:
+        try:
+            LOGS_DIR.mkdir(parents=True, exist_ok=True)
+            (LOGS_DIR / "debug_prioridade_siagro.json").write_text(
+                json.dumps(
+                    {
+                        "versao": "1.4.5",
+                        "produtos_siagro_ok": sorted(produtos_siagro_ok),
+                        "registros_conab_semanal_removidos_por_prioridade_siagro": removidos,
+                        "regra": "SIAGRO é principal para Arroz, Feijão, Boi Gordo, Leite e Sorgo quando retorna dado válido; CONAB Semanal fica como fallback.",
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                ),
+                encoding="utf-8",
+            )
+        except Exception:
+            pass
+
+    return filtradas
 
 
 def extrair_primeiro_indicador_cepea(texto_pagina: str) -> Optional[tuple[str, float, Optional[float]]]:
@@ -5716,6 +5950,8 @@ def main() -> None:
     cotacoes_brutas.extend(coletar_cepea_widget(status_fontes))
     registrar_b3(status_fontes)
 
+    cotacoes_brutas = priorizar_siagro_para_produtos_definidos(cotacoes_brutas)
+
     cotacoes_validas, cotacoes_descartadas_validacao = filtrar_cotacoes_publicaveis(cotacoes_brutas)
     cotacoes_produtor_regional, cotacoes_descartadas_nivel = filtrar_cotacoes_produtor_regional(cotacoes_validas)
 
@@ -5760,7 +5996,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.4.3",
+        "versao": "1.4.5",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -5772,7 +6008,7 @@ def main() -> None:
         "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; CONAB Preços Agropecuários Semanal para arroz, feijão, sorgo granífero, leite e boi gordo; Sorgo/Arroz podem usar referência complementar CONAB UF quando não houver praça local; AIBA/regionais preservados quando a fonte regional falhar.",
         "fontes_complementares": ["SEAGRI-BA como referência estadual", "ACRIOESTE e Agrolink em diagnóstico", "CEPEA/ESALQ somente como widget visual separado, sem alimentar Leite e Boi Gordo no JSON principal"],
         "politica_classificacao_preco": (
-            "Política v1.4.3: a tabela principal publica preço pago ao produtor quando a fonte informar, "
+            "Política v1.4.5: a tabela principal publica preço pago ao produtor quando a fonte informar, "
             "cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, arroz, feijão e sorgo. "
             "Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível for PREÇO RECEBIDO/Produtor. "
             "CEPEA/ESALQ e fallback CEPEA não alimentam Leite e Boi Gordo no JSON principal. "
