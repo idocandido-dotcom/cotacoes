@@ -2,12 +2,12 @@
   "ok": true,
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
-  "versao": "1.5.5",
-  "gerado_em": "2026-05-09T13:20:56-03:00",
-  "ultima_sincronizacao": "2026-05-09 13:20:56",
+  "versao": "1.5.6",
+  "gerado_em": "2026-05-09T13:30:02-03:00",
+  "ultima_sincronizacao": "2026-05-09 13:30:02",
   "data_limite_cotacoes_ativas": "2026-04-09",
   "dias_maximos_cotacao_ativa": 30,
-  "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio a cada execução.",
+  "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json a cada execução.",
   "fontes": [
     {
       "fonte": "CONAB - Produtos 360º",
@@ -32,7 +32,7 @@
         "Algodão",
         "Sorgo"
       ],
-      "observacao": "v1.5.5: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. O preço atual continua vindo do CONAB Produtos 360º."
+      "observacao": "v1.5.6: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. O preço atual continua vindo do CONAB Produtos 360º."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
@@ -46,7 +46,7 @@
         "Boi Gordo",
         "Leite"
       ],
-      "observacao": "v1.5.5 enxuta: usa RankingPrecoMedioUF por POST. Grãos em Saca 60 kg, Boi em @, Leite em litro."
+      "observacao": "v1.5.6 enxuta: usa RankingPrecoMedioUF por POST. Grãos em Saca 60 kg, Boi em @, Leite em litro."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
@@ -96,5 +96,6 @@
   "total_cotacoes_tabela": 58,
   "total_dados_html": 58,
   "debug_conab_produtos_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json",
-  "debug_sorgo_conab": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_sorgo_conab.json"
+  "debug_sorgo_conab": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_sorgo_conab.json",
+  "historico_aiba": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/historico_aiba.json"
 }
