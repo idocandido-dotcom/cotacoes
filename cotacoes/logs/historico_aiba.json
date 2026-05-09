@@ -1,7 +1,7 @@
 {
   "ok": true,
   "versao": "1.5.7",
-  "gerado_em": "2026-05-09T18:03:35-03:00",
+  "gerado_em": "2026-05-09T18:06:09-03:00",
   "regra": "Histórico persistente da AIBA/regional. Acumula uma cotação por data real, sem simular valores.",
   "historicos": {
     "Algodão||BA||Oeste da Bahia - AIBA||AIBA": [
