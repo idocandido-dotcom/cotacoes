@@ -21,7 +21,7 @@ permissions:
 jobs:
   atualizar-cotacoes:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 18
 
     steps:
       - name: Baixar repositório
@@ -37,23 +37,20 @@ jobs:
       - name: Instalar dependências
         run: |
           python -m pip install --upgrade pip
-          pip install requests beautifulsoup4 pandas lxml html5lib
+          pip install requests beautifulsoup4
 
       - name: Localizar coletor de cotações
         shell: bash
         run: |
-          echo "Procurando coletor atualizado..."
-
           if [ -f "cotacoes/scripts/coletor_cotacoes_nordeste.py" ]; then
             echo "COLETOR=cotacoes/scripts/coletor_cotacoes_nordeste.py" >> "$GITHUB_ENV"
           else
             echo "ERRO: coletor principal não foi encontrado."
-            echo "Arquivos Python encontrados:"
             find . -maxdepth 5 -name "*.py" -print
             exit 1
           fi
 
-      - name: Mostrar coletor selecionado
+      - name: Validar sintaxe do coletor
         run: |
           echo "Coletor selecionado: $COLETOR"
           python -m py_compile "$COLETOR"
@@ -64,36 +61,27 @@ jobs:
 
       - name: Verificar arquivos gerados
         run: |
-          echo "Verificando arquivos principais..."
-
           test -f cotacoes/public/cotacoes_nordeste.json
           test -f cotacoes/public/cotacoes_regionais.json
           test -f cotacoes/public/cotacoes_nordeste.csv
           test -f cotacoes/logs/status_ultima_execucao.json
 
-          echo "Validando JSON principal..."
           python -m json.tool cotacoes/public/cotacoes_nordeste.json > /tmp/cotacoes_nordeste_validado.json
-
-          echo "Validando JSON regional..."
           python -m json.tool cotacoes/public/cotacoes_regionais.json > /tmp/cotacoes_regionais_validado.json
-
-          echo "Validando log..."
           python -m json.tool cotacoes/logs/status_ultima_execucao.json > /tmp/status_ultima_execucao_validado.json
 
-          echo "Bloqueando commit vazio do JSON principal..."
           python - <<'PY'
           import json
           from pathlib import Path
 
           caminho = Path("cotacoes/public/cotacoes_nordeste.json")
-          with caminho.open("r", encoding="utf-8") as f:
-              dados = json.load(f)
-
+          dados = json.loads(caminho.read_text(encoding="utf-8"))
           lista = dados.get("dados", [])
-          if not isinstance(lista, list) or len(lista) == 0:
-              raise SystemExit("ERRO: cotacoes_nordeste.json foi gerado sem itens em dados. Commit bloqueado.")
 
-          print(f"JSON principal válido com {len(lista)} itens em dados.")
+          if not isinstance(lista, list) or len(lista) == 0:
+              raise SystemExit("ERRO: cotacoes_nordeste.json foi gerado sem itens em dados.")
+
+          print(f"JSON principal válido com {len(lista)} itens.")
           PY
 
       - name: Mostrar resumo da execução
@@ -102,72 +90,21 @@ jobs:
           import json
           from pathlib import Path
 
-          log_path = Path("cotacoes/logs/status_ultima_execucao.json")
-          json_path = Path("cotacoes/public/cotacoes_nordeste.json")
-          debug_sorgo = Path("cotacoes/logs/debug_sorgo_conab.json")
+          status = json.loads(Path("cotacoes/logs/status_ultima_execucao.json").read_text(encoding="utf-8"))
+          resumo = status.get("resumo", {})
 
-          if log_path.exists():
-              with log_path.open("r", encoding="utf-8") as f:
-                  log = json.load(f)
+          print("Versão:", status.get("versao"))
+          print("Última sincronização:", status.get("ultima_sincronizacao"))
+          print("Total tabela:", status.get("total_cotacoes_tabela"))
+          print("Total HTML:", status.get("total_dados_html"))
+          print("Sorgo CONAB tabela:", resumo.get("total_sorgo_conab_tabela"))
+          print("Arroz:", resumo.get("total_arroz_extraido"))
+          print("Feijão:", resumo.get("total_feijao_extraido"))
+          print("Boi Gordo:", resumo.get("total_boi_gordo_extraido"))
+          print("Leite:", resumo.get("total_leite_extraido"))
 
-              resumo = log.get("resumo", {})
-              print("Resumo do status:")
-              print("Projeto:", log.get("projeto"))
-              print("Módulo:", log.get("modulo"))
-              print("Versão:", log.get("versao"))
-              print("Última sincronização:", log.get("ultima_sincronizacao"))
-              print("Total tabela:", resumo.get("total_cotacoes_tabela", log.get("total_cotacoes_tabela")))
-              print("Total HTML:", resumo.get("total_dados_html", log.get("total_dados_html")))
-              print("Sorgo CONAB bruto:", resumo.get("total_sorgo_conab_bruto"))
-              print("Sorgo CONAB tabela:", resumo.get("total_sorgo_conab_tabela"))
-              print("Sorgo total:", resumo.get("total_cotacoes_sorgo"))
-              print("Arroz total:", resumo.get("total_cotacoes_arroz"))
-              print("Painel SIAGRO / referências CONAB:", resumo.get("total_referencias_complementares_conab_arroz_sorgo"))
-
-          if json_path.exists():
-              with json_path.open("r", encoding="utf-8") as f:
-                  dados = json.load(f)
-
-              lista = dados.get("dados", [])
-              print("")
-              print("Itens de Leite, Boi Gordo, Arroz e Sorgo no JSON principal:")
-              for produto_alvo in ["Leite", "Boi Gordo", "Arroz", "Sorgo"]:
-                  itens = [
-                      x for x in lista
-                      if produto_alvo.lower() in str(x.get("produto_base") or x.get("produto") or "").lower()
-                  ]
-                  print(produto_alvo + ":", len(itens))
-                  for item in itens[:15]:
-                      print(
-                          " -",
-                          item.get("uf") or item.get("estado"),
-                          item.get("praca") or item.get("cidade"),
-                          item.get("produto"),
-                          item.get("preco"),
-                          item.get("unidade"),
-                          item.get("fonte"),
-                          item.get("periodo_referencia") or item.get("data_referencia"),
-                          "preservado=" + str(item.get("preservado_por_falha_fonte"))
-                      )
-
-          if debug_sorgo.exists():
-              with debug_sorgo.open("r", encoding="utf-8") as f:
-                  debug = json.load(f)
-              print("")
-              print("Diagnóstico Sorgo CONAB:")
-              print(debug.get("conclusao"))
-              print("Totais:", debug.get("totais"))
-              painel = debug.get("coleta_painel_siagro", {})
-              print("Painel SIAGRO total_sorgo_extraido:", painel.get("total_sorgo_extraido"))
-              print("Painel SIAGRO total_arroz_extraido:", painel.get("total_arroz_extraido"))
-              print("Painel SIAGRO total_feijao_extraido:", painel.get("total_feijao_extraido"))
-              print("Painel SIAGRO total_boi_gordo_extraido:", painel.get("total_boi_gordo_extraido"))
-              print("Painel SIAGRO total_leite_extraido:", painel.get("total_leite_extraido"))
-              tentativas = painel.get("tentativas", [])
-              boas = [t for t in tentativas if t.get("itens_extraidos", 0)]
-              print("Tentativas SIAGRO com itens extraídos:", len(boas))
-              for t in boas[:10]:
-                  print(" -", t.get("dataAccessId"), t.get("produto"), t.get("produto_valor"), t.get("mesAnoUF"), t.get("itens_extraidos"))
+          for fonte in status.get("fontes", []):
+              print("-", fonte.get("fonte"), "|", fonte.get("status"), "|", fonte.get("total_registros"))
           PY
 
       - name: Commit automático dos arquivos atualizados
@@ -178,7 +115,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          echo "Sincronizando com a branch main antes do commit para evitar erro de push rejeitado..."
           git fetch origin main
           git pull --rebase --autostash origin main
 
@@ -189,9 +125,6 @@ jobs:
           git add cotacoes/logs/status_ultima_execucao.json
           git add cotacoes/logs/debug_conab_produtos_360.json || true
           git add cotacoes/logs/debug_sorgo_conab.json || true
-          git add cotacoes/logs/debug_leite_carne_conab.json || true
-          git add cotacoes/logs/debug_pecuaria_fontes.json || true
-          git add cotacoes/logs/debug_ceasas.json || true
           git add cotacoes/logs/debug_prioridade_siagro.json || true
 
           if git diff --cached --quiet; then
@@ -200,26 +133,4 @@ jobs:
           fi
 
           git commit -m "Atualizar cotações Nordeste Agro"
-
-          echo "Enviando alterações para main com tentativa de rebase em caso de concorrência..."
-          for tentativa in 1 2 3; do
-            echo "Tentativa de push ${tentativa}/3"
-
-            if git push origin HEAD:main; then
-              echo "Push realizado com sucesso."
-              exit 0
-            fi
-
-            echo "Push rejeitado. Atualizando branch local com rebase e tentando novamente..."
-            git fetch origin main
-            git rebase origin/main || {
-              echo "Rebase automático falhou. Abortando para evitar sobrescrever alterações remotas."
-              git rebase --abort || true
-              exit 1
-            }
-
-            sleep 5
-          done
-
-          echo "ERRO: não foi possível fazer push após 3 tentativas."
-          exit 1
+          git push origin HEAD:main
