@@ -1,17 +1,17 @@
 {
   "ok": true,
-  "ultima_sincronizacao": "2026-05-09 09:07:02",
-  "total_cotacoes_tabela": 52,
-  "total_cotacoes_brutas": 15696,
-  "total_dados_html": 52,
-  "total_cotacoes_descartadas_por_validacao": 2736,
-  "total_cotacoes_descartadas_por_nivel": 8563,
+  "ultima_sincronizacao": "2026-05-09 09:32:56",
+  "total_cotacoes_tabela": 44,
+  "total_cotacoes_brutas": 15688,
+  "total_dados_html": 46,
+  "total_cotacoes_descartadas_por_validacao": 1112,
+  "total_cotacoes_descartadas_por_nivel": 10167,
   "resumo_descartes_validacao": {
-    "preco_acima_da_faixa": 2736
+    "preco_acima_da_faixa": 1112
   },
   "resumo_descartes_nivel": {
-    "nivel_bloqueado_atacado": 3225,
-    "nivel_bloqueado_varejo": 5338
+    "nivel_bloqueado_atacado": 3745,
+    "nivel_bloqueado_varejo": 6422
   },
   "data_limite_cotacoes_ativas": "2026-04-09",
   "dias_maximos_cotacao_ativa": 30,
@@ -20,13 +20,13 @@
     {
       "fonte": "AIBA",
       "url": "https://aiba.org.br/cotacoes/",
-      "status": "ok",
-      "total_registros": 8
+      "status": "erro",
+      "erro": "403 Client Error: Forbidden for url: https://aiba.org.br/cotacoes/"
     },
     {
       "fonte": "SEAGRI-BA",
       "url": "https://www.ba.gov.br/seagri/cotacao",
-      "status": "sem_registros_extraidos",
+      "status": "erro",
       "total_registros": 0,
       "produtos_monitorados": [
         "Feijão",
@@ -35,11 +35,13 @@
         "Boi Gordo"
       ],
       "periodo_consultado": "2026-04-09 a 2026-05-09",
-      "paginas_lidas": 2,
+      "paginas_lidas": 0,
       "linhas_encontradas_feijao_sorgo": 0,
       "linhas_sem_cotacao_ignoradas": 0,
       "linhas_preco_invalido_ignoradas": 0,
-      "erros_paginas": [],
+      "erros_paginas": [
+        "page=0: HTTPSConnectionPool(host='www.ba.gov.br', port=443): Max retries exceeded with url: /seagri/cotacao?data%5Bmin%5D%5Bdate%5D=2026-04-09&data%5Bmax%5D%5Bdate%5D=2026-05-09&produto=All&praca=All&tipo=All&order=data&sort=desc&page=0 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.ba.gov.br', port=443) at 0x7f3bab9aab50>, 'Connection to www.ba.gov.br timed out. (connect timeout=90)'))"
+      ],
       "observacao": "Fonte complementar estadual para Feijão, Sorgo, Leite e Boi Gordo. Publicada como Referência SEAGRI-BA/Regional, sem misturar com CONAB 360."
     },
     {
@@ -1212,6 +1214,17 @@
         "Sorgo"
       ],
       "observacao": "v1.3.6: arquivos semanais usados para Arroz, Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. CEPEA/fallback não alimenta pecuária no JSON principal."
+    },
+    {
+      "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
+      "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/%3Ahome%3ASIAGRO%3APrecoMedio.wcdf/generatedContent?password=password&userid=pentaho",
+      "status": "sem_registros_extraidos",
+      "total_registros": 0,
+      "produtos_monitorados": [
+        "Sorgo Granífero",
+        "Arroz"
+      ],
+      "observacao": "Consulta complementar ao painel Preço Médio/Preços Agropecuários para capturar Sorgo Granífero e Arroz em Preço Recebido pelo Produtor, classificação Em Grãos."
     },
     {
       "fonte": "CEPEA/ESALQ Widget",
