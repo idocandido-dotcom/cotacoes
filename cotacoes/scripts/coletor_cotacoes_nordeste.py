@@ -1850,9 +1850,37 @@ def salvar_debug_conab_360(debug: dict[str, Any]) -> None:
 
 
 def salvar_debug_sorgo_conab(debug: dict[str, Any]) -> None:
+    """
+    Salva o diagnóstico do Sorgo sem apagar diagnósticos complementares.
+
+    Na v1.3.8 o painel SIAGRO escrevia uma seção chamada coleta_painel_siagro,
+    mas depois o diagnóstico final sobrescrevia o arquivo. Na v1.3.9 o arquivo
+    passa a ser mesclado para manter:
+    - diagnóstico dos TXT semanais;
+    - diagnóstico do painel SIAGRO;
+    - chamadas testadas;
+    - amostras de resultset.
+    """
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
+
+    anterior: dict[str, Any] = {}
+    if OUTPUT_DEBUG_SORGO_CONAB.exists():
+        try:
+            carregado = json.loads(OUTPUT_DEBUG_SORGO_CONAB.read_text(encoding="utf-8"))
+            if isinstance(carregado, dict):
+                anterior = carregado
+        except Exception:
+            anterior = {}
+
+    mesclado = dict(anterior)
+    mesclado.update(debug)
+
+    # Preserva explicitamente a seção do painel, caso exista no debug anterior.
+    if "coleta_painel_siagro" in anterior and "coleta_painel_siagro" not in debug:
+        mesclado["coleta_painel_siagro"] = anterior["coleta_painel_siagro"]
+
     OUTPUT_DEBUG_SORGO_CONAB.write_text(
-        json.dumps(debug, ensure_ascii=False, indent=2),
+        json.dumps(mesclado, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
 
@@ -2742,7 +2770,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     debug_payload = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
-        "versao": "1.3.8",
+        "versao": "1.3.9",
         "gerado_em": agora_local().isoformat(),
         "objetivo": (
             "Coletar diretamente do CONAB Produtos 360º/Pentaho a consulta CDA "
@@ -3356,7 +3384,7 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
         debug: dict[str, Any] = {
             "projeto": "Nordeste Agro",
             "modulo": "pecuaria_leite_boi",
-            "versao": "1.3.8",
+            "versao": "1.3.9",
             "gerado_em": agora_local().isoformat(),
             "politica": (
                 "Leite e Boi Gordo na tabela principal usam somente CONAB Preços Agropecuários Semanal, "
@@ -3426,7 +3454,7 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
     debug: dict[str, Any] = {
         "projeto": "Nordeste Agro",
         "modulo": "pecuaria_leite_boi",
-        "versao": "1.3.8",
+        "versao": "1.3.9",
         "gerado_em": agora_local().isoformat(),
         "politica": "Leite e Boi Gordo entram por CEPEA/ESALQ como referência segura e por CONAB apenas quando a linha for preço ao produtor. Carne bovina em kg não é publicada na tabela principal.",
         "fontes": [],
@@ -3902,7 +3930,7 @@ def coletar_ceasas(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     debug = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes_ceasas",
-        "versao": "1.3.8",
+        "versao": "1.3.9",
         "gerado_em": agora_local().isoformat(),
         "politica": "CEASA/Hortifruti é preço de atacado. Não misturar com preço ao produtor.",
         "fontes": [],
@@ -4133,13 +4161,14 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 
 def extrair_data_access_ids_cda(html: str) -> list[str]:
-    """Extrai possíveis dataAccessId do HTML/JS de um painel Pentaho CDE."""
+    """Extrai possíveis dataAccessId do HTML/JS de um painel Pentaho CDE/CDA."""
     ids: list[str] = []
 
     padroes = [
         r'dataAccessId\s*[:=]\s*["\']([^"\']+)["\']',
         r'["\']dataAccessId["\']\s*:\s*["\']([^"\']+)["\']',
-        r'queryType\s*[:=].{0,200}?dataAccessId\s*[:=]\s*["\']([^"\']+)["\']',
+        r'queryType\s*[:=].{0,400}?dataAccessId\s*[:=]\s*["\']([^"\']+)["\']',
+        r'dataAccessId=([A-Za-z0-9_\-.]+)',
     ]
 
     for padrao in padroes:
@@ -4149,27 +4178,51 @@ def extrair_data_access_ids_cda(html: str) -> list[str]:
                 ids.append(valor)
 
     candidatos = [
+        # Candidatos mais prováveis do painel Preço Médio / Preços Agropecuários.
         "precoMedio",
         "precoMedioProduto",
         "precoMedioRegiao",
-        "precoMedioUf",
+        "precoMedioRegiaoProduto",
         "precoMedioUF",
+        "precoMedioUf",
         "precoMedioPorUF",
         "precoMedioPorUf",
+        "precoRecebidoProdutor",
+        "precoRecebidoProdutorUF",
+        "precoRecebidoProdutorUf",
+        "precoProduto",
+        "precoProdutoUF",
+        "precoProdutoUf",
+        "consultaPreco",
+        "consultaPrecos",
+        "precos",
+        "dadosPrecoMedio",
+        "dadosGraficoRegiao",
+        "dadosGraficoUF",
+        "dadosGraficoUf",
         "graficoRegiao",
+        "graficoRegional",
         "graficoUF",
         "graficoUf",
+        "graficoPrecoUF",
+        "graficoPrecoUf",
+        "ranking",
         "rankingUF",
         "rankingUf",
         "rankingPrecoUF",
         "rankingPrecoUf",
+        "rankingPrecoProdutoUF",
+        "rankingPrecoProdutoUf",
+        "rankingProdutoUF",
+        "rankingProdutoUf",
         "mapaBrasil",
         "mapaUF",
         "mapaUf",
+        "mapaPrecoUF",
+        "mapaPrecoUf",
         "tabelaRanking",
-        "precos",
-        "consultaPreco",
-        "consultaPrecos",
+        "tabelaPreco",
+        "tabelaPrecos",
     ]
 
     for candidato in candidatos:
@@ -4179,17 +4232,112 @@ def extrair_data_access_ids_cda(html: str) -> list[str]:
     return ids
 
 
+def extrair_cda_paths(html: str) -> list[str]:
+    """Extrai possíveis caminhos .cda usados por um dashboard Pentaho."""
+    paths: list[str] = []
+
+    padroes = [
+        r'path\s*[:=]\s*["\']([^"\']+\.cda)["\']',
+        r'["\']path["\']\s*:\s*["\']([^"\']+\.cda)["\']',
+        r'([/:]home[:/][A-Za-z0-9_\-/ÁÀÂÃÉÊÍÓÔÕÚÇáàâãéêíóôõúç .]+?\.cda)',
+    ]
+
+    for padrao in padroes:
+        for match in re.finditer(padrao, html, flags=re.IGNORECASE | re.DOTALL):
+            valor = limpar_texto(match.group(1))
+            if not valor:
+                continue
+            valor = valor.replace(":", "/") if valor.startswith(":home:") else valor
+            if not valor.startswith("/") and valor.startswith("home/"):
+                valor = "/" + valor
+            if valor not in paths:
+                paths.append(valor)
+
+    candidatos = [
+        CONAB_PRECO_MEDIO_CDA_PATH,
+        "/home/SIAGRO/precoMedio.cda",
+        "/home/SIAGRO/PrecoMedio.cda",
+        "/home/SIAGRO/PrecosAgropecuarios.cda",
+        "/home/SIAGRO/precosAgropecuarios.cda",
+        "/home/SIAGRO/precosagropecuarios.cda",
+        "/home/SIAGRO/PrecoAgropecuario.cda",
+        "/home/SIAGRO/precoAgropecuario.cda",
+        "/home/PrecosAgropecuarios/PrecoMedio.cda",
+        "/home/PrecosAgropecuarios/precoMedio.cda",
+    ]
+
+    for candidato in candidatos:
+        if candidato not in paths:
+            paths.append(candidato)
+
+    return paths
+
+
+def urls_recursos_pentaho(html: str, base_url: str) -> list[str]:
+    """Coleta JS/HTML referenciados pelo dashboard para encontrar dataAccessId/path reais."""
+    urls: list[str] = []
+
+    for match in re.finditer(r'(?:src|href)\s*=\s*["\']([^"\']+)["\']', html, flags=re.IGNORECASE):
+        url = limpar_texto(match.group(1))
+        if not url:
+            continue
+        if url.startswith("//"):
+            url = "https:" + url
+        elif url.startswith("/"):
+            # Os recursos do WCDF ficam no domínio pentahoportaldeinformacoes.
+            parsed = urlparse(base_url)
+            url = f"{parsed.scheme}://{parsed.netloc}{url}"
+        elif not url.startswith("http"):
+            prefixo = base_url.rsplit("/", 1)[0]
+            url = prefixo + "/" + url
+
+        url_norm = remover_acentos(url).lower()
+        if any(chave in url_norm for chave in ["cda", "cdf", "pentaho", "siagro", "preco", "precos", "dash", "component"]):
+            if url not in urls:
+                urls.append(url)
+
+    return urls[:40]
+
+
+def datas_referencia_preco_medio() -> list[str]:
+    """
+    O painel da CONAB usa Data de Referência. Em fins de semana, o campo do portal
+    pode estar no último dia útil anterior. Por isso testamos hoje, ontem e o último
+    dia útil, priorizando o último dia útil.
+    """
+    hoje = agora_local().date()
+    datas = []
+
+    def add(d):
+        br = d.strftime("%d/%m/%Y")
+        iso = d.isoformat()
+        for valor in [br, iso]:
+            if valor not in datas:
+                datas.append(valor)
+
+    # Prioriza último dia útil. Se hoje for sábado, usa sexta; se domingo, sexta.
+    d = hoje
+    while d.weekday() >= 5:
+        d = d - timedelta(days=1)
+    add(d)
+    add(hoje)
+    add(hoje - timedelta(days=1))
+    add(hoje - timedelta(days=2))
+
+    return datas[:8]
+
+
 def valores_parametros_preco_medio(produto_base: str) -> list[str]:
     if produto_base == "Sorgo":
         return [
             "[Produto].[SORGO GRANIFERO]",
             "[Produto].[SORGO GRANÍFERO]",
+            "[Produto].[SORGO GRANIF]",
             "SORGO GRANIFERO",
             "SORGO GRANÍFERO",
+            "SORGO GRANIF",
             "Sorgo Granifero",
             "Sorgo Granífero",
-            "SORGO",
-            "Sorgo",
         ]
 
     if produto_base == "Arroz":
@@ -4205,23 +4353,18 @@ def valores_parametros_preco_medio(produto_base: str) -> list[str]:
     return [produto_base]
 
 
-def montar_parametros_preco_medio(data_access_id: str, produto_valor: str, produto_base: str) -> dict[str, str]:
+def montar_parametros_preco_medio(data_access_id: str, produto_valor: str, produto_base: str, data_referencia: str) -> dict[str, str]:
     """
-    O painel Preços Agropecuários é Pentaho/CDA. Os nomes dos parâmetros podem
-    mudar entre componentes do painel; por isso enviamos os principais aliases.
-    Parâmetros desconhecidos são ignorados pelo CDA e os conhecidos alimentam a query.
+    Monta parâmetros redundantes para o CDA. Parâmetros desconhecidos são ignorados;
+    os nomes corretos alimentam a query do painel.
     """
-    hoje = agora_local()
-    data_br = hoje.strftime("%d/%m/%Y")
-    data_iso = hoje.strftime("%Y-%m-%d")
-
+    data_ref = data_referencia
     classificacao = "EM GRÃOS"
     classificacao_sem_acento = "EM GRAOS"
     nivel = "PREÇO RECEBIDO P/ PRODUTOR"
     nivel_sem_acento = "PRECO RECEBIDO P/ PRODUTOR"
 
     params = {
-        "path": CONAB_PRECO_MEDIO_CDA_PATH,
         "dataAccessId": data_access_id,
         "outputIndexId": "1",
         "pageSize": "0",
@@ -4234,6 +4377,7 @@ def montar_parametros_preco_medio(data_access_id: str, produto_valor: str, produ
         "paramprodutos": produto_valor,
         "paramProdutoSelecionado": produto_valor,
         "paramprodutoSelecionado": produto_valor,
+        "paramProdutoFiltro": produto_valor,
         "produto": produto_valor,
         "Produto": produto_valor,
         "paramNivel": nivel,
@@ -4256,16 +4400,15 @@ def montar_parametros_preco_medio(data_access_id: str, produto_valor: str, produ
         "Classificacao": classificacao,
         "Classificação": classificacao,
         "paramClassificacaoSemAcento": classificacao_sem_acento,
-        "paramDataReferencia": data_br,
-        "paramdataReferencia": data_br,
-        "paramDataReferência": data_br,
-        "paramdataReferência": data_br,
-        "paramData": data_br,
-        "paramdata": data_br,
-        "dataReferencia": data_br,
-        "data_referencia": data_br,
-        "data": data_br,
-        "paramDataReferenciaISO": data_iso,
+        "paramDataReferencia": data_ref,
+        "paramdataReferencia": data_ref,
+        "paramDataReferência": data_ref,
+        "paramdataReferência": data_ref,
+        "paramData": data_ref,
+        "paramdata": data_ref,
+        "dataReferencia": data_ref,
+        "data_referencia": data_ref,
+        "data": data_ref,
     }
 
     return params
@@ -4286,37 +4429,16 @@ def resposta_json_cda_valida(resp: requests.Response) -> Optional[dict[str, Any]
     return data
 
 
-def detectar_colunas_resultset_cda(metadata: list[dict[str, Any]]) -> dict[str, Optional[int]]:
-    nomes = []
-    for i, meta in enumerate(metadata):
-        if isinstance(meta, dict):
-            nomes.append((i, remover_acentos(str(meta.get("colName") or meta.get("name") or "")).lower()))
-        else:
-            nomes.append((i, ""))
-
-    def acha(*termos: str) -> Optional[int]:
-        for i, nome in nomes:
-            if any(t in nome for t in termos):
-                return i
-        return None
-
-    return {
-        "uf": acha("uf", "regionalizacao", "regionalizacao.regionalizacao", "estado"),
-        "preco": acha("ultimoprecomedio", "preco medio", "precomedio", "valor", "preco"),
-        "data": acha("descricaosemanal", "periodo", "data", "referencia"),
-    }
-
-
 def linha_resultset_para_item_preco_medio(
     row: list[Any],
     *,
     produto_base: str,
     data_access_id: str,
+    cda_path: str,
 ) -> Optional[dict[str, Any]]:
     if not isinstance(row, list) or not row:
         return None
 
-    # UF: busca uma célula com sigla de UF monitorada.
     uf = None
     for valor in row:
         valor_limpo = limpar_texto(valor).upper()
@@ -4327,9 +4449,8 @@ def linha_resultset_para_item_preco_medio(
     if not uf:
         return None
 
-    # Preço: no painel de Preços Agropecuários, o eixo do Sorgo está em R$/kg.
-    # Usamos o primeiro valor numérico plausível depois da UF.
     preco = None
+    numericos = []
     for valor in row:
         if isinstance(valor, (int, float)):
             candidato = float(valor)
@@ -4337,7 +4458,11 @@ def linha_resultset_para_item_preco_medio(
             candidato = parse_preco(valor)
             if candidato is None:
                 continue
+        numericos.append(candidato)
 
+    # O painel do print usa Sorgo em R$/kg, faixa aproximada 0,5 a 0,9.
+    # Arroz pode vir como R$/kg ou, em alguns componentes, já agregado.
+    for candidato in numericos:
         if produto_base == "Sorgo" and 0.05 <= candidato <= 10:
             preco = candidato
             break
@@ -4377,15 +4502,16 @@ def linha_resultset_para_item_preco_medio(
         observacao=(
             f"{produto_original} coletado do painel CONAB Preços Agropecuários, "
             f"periodicidade semanal, nível Preço Recebido/Produtor, classificação Em Grãos. "
-            f"Consulta CDA: {data_access_id}. Valor original em R$/kg convertido para Saca 60 kg."
+            f"Consulta CDA: {cda_path} / {data_access_id}. Valor original em R$/kg convertido para Saca 60 kg."
         ),
     )
-    item["origem_painel_conab"] = "PrecoMedio.wcdf"
+    item["origem_painel_conab"] = "PrecoMedio/SIAGRO"
     item["data_access_id_conab"] = data_access_id
+    item["cda_path_conab"] = cda_path
     return item
 
 
-def extrair_itens_preco_medio_cda(data: dict[str, Any], produto_base: str, data_access_id: str) -> list[dict[str, Any]]:
+def extrair_itens_preco_medio_cda(data: dict[str, Any], produto_base: str, data_access_id: str, cda_path: str) -> list[dict[str, Any]]:
     resultset = data.get("resultset") or []
     if not isinstance(resultset, list):
         return []
@@ -4394,7 +4520,7 @@ def extrair_itens_preco_medio_cda(data: dict[str, Any], produto_base: str, data_
     chaves: set[tuple[str, str, str]] = set()
 
     for row in resultset:
-        item = linha_resultset_para_item_preco_medio(row, produto_base=produto_base, data_access_id=data_access_id)
+        item = linha_resultset_para_item_preco_medio(row, produto_base=produto_base, data_access_id=data_access_id, cda_path=cda_path)
         if not item:
             continue
 
@@ -4410,81 +4536,140 @@ def extrair_itens_preco_medio_cda(data: dict[str, Any], produto_base: str, data_
 
 def coletar_conab_preco_medio_painel_siagro(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """
-    Coleta complementar do painel CONAB Preços Agropecuários que aparece no navegador.
+    Coleta complementar do painel CONAB Preços Agropecuários visto no navegador.
 
-    Motivo técnico:
-    - O print do portal mostra Sorgo Granífero com atualização semanal e preço R$/kg.
-    - Os arquivos PrecosSemanalUF/PrecosSemanalMunicipio nem sempre trazem esse produto
-      na mesma estrutura lida pelo coletor.
-    - Esta rotina consulta o mesmo painel Pentaho/CDA do navegador para Arroz e Sorgo Granífero,
-      mantendo os regionais da AIBA quando existirem.
+    v1.3.9:
+    - usa último dia útil como Data de Referência, não apenas a data do dia;
+    - busca scripts/recursos do painel para descobrir dataAccessId/path reais;
+    - testa POST e GET em combinações controladas;
+    - salva debug completo sem ser sobrescrito pelo diagnóstico do TXT;
+    - publica somente quando houver UF + preço + período plausível.
     """
     itens: list[dict[str, Any]] = []
     tentativas_debug: list[dict[str, Any]] = []
+    htmls_debug: list[dict[str, Any]] = []
 
     session = requests.Session()
     session.headers.update(HEADERS)
 
     try:
-        resp_html = session.get(CONAB_PRECO_MEDIO_WCDF_URL, timeout=90)
-        resp_html.raise_for_status()
-        html = resp_html.text
+        conteudos: list[str] = []
+        urls_base = [
+            CONAB_PRECO_MEDIO_WCDF_URL,
+            CONAB_PRECOS_AGROPECUARIOS_URL,
+        ]
 
-        data_access_ids = extrair_data_access_ids_cda(html)
+        for url in urls_base:
+            try:
+                resp = session.get(url, timeout=60)
+                texto_resp = resp.text or ""
+                if resp.status_code < 400 and texto_resp:
+                    conteudos.append(texto_resp)
+                    htmls_debug.append({"url": url, "status": resp.status_code, "tamanho": len(texto_resp), "preview": texto_resp[:500]})
+                    for recurso in urls_recursos_pentaho(texto_resp, url):
+                        try:
+                            r2 = session.get(recurso, timeout=45)
+                            if r2.status_code < 400 and r2.text:
+                                conteudos.append(r2.text)
+                                htmls_debug.append({"url": recurso, "status": r2.status_code, "tamanho": len(r2.text), "preview": r2.text[:300]})
+                        except Exception as er:
+                            htmls_debug.append({"url": recurso, "status": "erro", "erro": repr(er)})
+            except Exception as er:
+                htmls_debug.append({"url": url, "status": "erro", "erro": repr(er)})
+
+        texto_unificado = "\n".join(conteudos)
+        data_access_ids = extrair_data_access_ids_cda(texto_unificado)
+        cda_paths = extrair_cda_paths(texto_unificado)
+        datas_ref = datas_referencia_preco_medio()
+
         produtos_consultar = ["Sorgo", "Arroz"]
+        max_tentativas_por_produto = 220
 
         for produto_base in produtos_consultar:
             encontrados_produto: list[dict[str, Any]] = []
+            tentativas_produto = 0
 
-            for data_access_id in data_access_ids:
-                if encontrados_produto:
+            for cda_path in cda_paths:
+                if encontrados_produto or tentativas_produto >= max_tentativas_por_produto:
                     break
 
-                for produto_valor in valores_parametros_preco_medio(produto_base):
-                    params = montar_parametros_preco_medio(data_access_id, produto_valor, produto_base)
-
-                    try:
-                        resp = session.post(CONAB_PRECO_MEDIO_DOQUERY_URL, data=params, timeout=90)
-                    except Exception as erro_req:
-                        tentativas_debug.append({
-                            "produto": produto_base,
-                            "dataAccessId": data_access_id,
-                            "produto_valor": produto_valor,
-                            "status": "erro_requisicao",
-                            "erro": repr(erro_req),
-                        })
-                        continue
-
-                    data = resposta_json_cda_valida(resp)
-                    preview = (resp.text or "")[:300]
-
-                    if data is None:
-                        tentativas_debug.append({
-                            "produto": produto_base,
-                            "dataAccessId": data_access_id,
-                            "produto_valor": produto_valor,
-                            "http_status": resp.status_code,
-                            "status": "sem_json_resultset",
-                            "preview": preview,
-                        })
-                        continue
-
-                    candidatos = extrair_itens_preco_medio_cda(data, produto_base, data_access_id)
-                    tentativas_debug.append({
-                        "produto": produto_base,
-                        "dataAccessId": data_access_id,
-                        "produto_valor": produto_valor,
-                        "http_status": resp.status_code,
-                        "status": "json_resultset",
-                        "total_linhas_resultset": len(data.get("resultset") or []),
-                        "itens_extraidos": len(candidatos),
-                        "metadata": [m.get("colName") for m in (data.get("metadata") or []) if isinstance(m, dict)][:20],
-                        "amostra_resultset": (data.get("resultset") or [])[:5],
-                    })
-
-                    if candidatos:
-                        encontrados_produto.extend(candidatos)
+                for data_access_id in data_access_ids:
+                    if encontrados_produto or tentativas_produto >= max_tentativas_por_produto:
                         break
+
+                    for data_ref in datas_ref:
+                        if encontrados_produto or tentativas_produto >= max_tentativas_por_produto:
+                            break
+
+                        for produto_valor in valores_parametros_preco_medio(produto_base):
+                            if tentativas_produto >= max_tentativas_por_produto:
+                                break
+
+                            params = montar_parametros_preco_medio(data_access_id, produto_valor, produto_base, data_ref)
+                            params["path"] = cda_path
+                            tentativas_produto += 1
+
+                            for metodo in ["POST", "GET"]:
+                                try:
+                                    if metodo == "POST":
+                                        resp = session.post(CONAB_PRECO_MEDIO_DOQUERY_URL, data=params, timeout=45)
+                                    else:
+                                        resp = session.get(CONAB_PRECO_MEDIO_DOQUERY_URL, params=params, timeout=45)
+                                except Exception as erro_req:
+                                    tentativas_debug.append({
+                                        "produto": produto_base,
+                                        "metodo": metodo,
+                                        "cda_path": cda_path,
+                                        "dataAccessId": data_access_id,
+                                        "produto_valor": produto_valor,
+                                        "data_ref": data_ref,
+                                        "status": "erro_requisicao",
+                                        "erro": repr(erro_req),
+                                    })
+                                    continue
+
+                                data = resposta_json_cda_valida(resp)
+                                preview = (resp.text or "")[:300]
+
+                                if data is None:
+                                    # Guarda apenas parte das falhas para não explodir o arquivo.
+                                    if len(tentativas_debug) < 250:
+                                        tentativas_debug.append({
+                                            "produto": produto_base,
+                                            "metodo": metodo,
+                                            "cda_path": cda_path,
+                                            "dataAccessId": data_access_id,
+                                            "produto_valor": produto_valor,
+                                            "data_ref": data_ref,
+                                            "http_status": resp.status_code,
+                                            "status": "sem_json_resultset",
+                                            "preview": preview,
+                                        })
+                                    continue
+
+                                candidatos = extrair_itens_preco_medio_cda(data, produto_base, data_access_id, cda_path)
+                                registro_tentativa = {
+                                    "produto": produto_base,
+                                    "metodo": metodo,
+                                    "cda_path": cda_path,
+                                    "dataAccessId": data_access_id,
+                                    "produto_valor": produto_valor,
+                                    "data_ref": data_ref,
+                                    "http_status": resp.status_code,
+                                    "status": "json_resultset",
+                                    "total_linhas_resultset": len(data.get("resultset") or []),
+                                    "itens_extraidos": len(candidatos),
+                                    "metadata": [m.get("colName") for m in (data.get("metadata") or []) if isinstance(m, dict)][:20],
+                                    "amostra_resultset": (data.get("resultset") or [])[:5],
+                                }
+                                tentativas_debug.append(registro_tentativa)
+
+                                if candidatos:
+                                    encontrados_produto.extend(candidatos)
+                                    break
+
+                            if encontrados_produto:
+                                break
 
             itens.extend(encontrados_produto)
 
@@ -4495,8 +4680,8 @@ def coletar_conab_preco_medio_painel_siagro(status_fontes: list[dict[str, Any]])
             "total_registros": len(itens),
             "produtos_monitorados": ["Sorgo Granífero", "Arroz"],
             "observacao": (
-                "Consulta complementar ao painel Preço Médio/Preços Agropecuários para capturar "
-                "Sorgo Granífero e Arroz em Preço Recebido pelo Produtor, classificação Em Grãos."
+                "v1.3.9: consulta complementar ao painel Preço Médio/Preços Agropecuários. "
+                "Testa dataAccessId/path reais encontrados no HTML/JS e usa o último dia útil como referência."
             ),
         })
 
@@ -4510,20 +4695,28 @@ def coletar_conab_preco_medio_painel_siagro(status_fontes: list[dict[str, Any]])
         })
 
     try:
-        debug_existente = {}
+        debug_existente: dict[str, Any] = {}
         if OUTPUT_DEBUG_SORGO_CONAB.exists():
             try:
-                debug_existente = json.loads(OUTPUT_DEBUG_SORGO_CONAB.read_text(encoding="utf-8"))
+                carregado = json.loads(OUTPUT_DEBUG_SORGO_CONAB.read_text(encoding="utf-8"))
+                if isinstance(carregado, dict):
+                    debug_existente = carregado
             except Exception:
                 debug_existente = {}
 
         debug_existente["coleta_painel_siagro"] = {
             "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
+            "versao_rotina": "1.3.9",
             "url": CONAB_PRECO_MEDIO_WCDF_URL,
             "total_itens_extraidos": len(itens),
             "total_sorgo_extraido": len([x for x in itens if x.get("produto_base") == "Sorgo"]),
             "total_arroz_extraido": len([x for x in itens if x.get("produto_base") == "Arroz"]),
-            "tentativas": tentativas_debug[:120],
+            "urls_lidas": htmls_debug[:80],
+            "tentativas": tentativas_debug[:350],
+            "observacao": (
+                "Se total_sorgo_extraido ficar 0, verificar em tentativas quais dataAccessId/path retornaram resultset. "
+                "O diagnóstico TXT Semanal fica em outra seção deste mesmo arquivo."
+            ),
         }
         OUTPUT_DEBUG_SORGO_CONAB.parent.mkdir(parents=True, exist_ok=True)
         OUTPUT_DEBUG_SORGO_CONAB.write_text(json.dumps(debug_existente, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -5361,7 +5554,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.3.8",
+        "versao": "1.3.9",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -5373,7 +5566,7 @@ def main() -> None:
         "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; CONAB Preços Agropecuários Semanal para arroz, feijão, sorgo granífero, leite e boi gordo; AIBA/regionais preservados quando a fonte regional falhar.",
         "fontes_complementares": ["SEAGRI-BA como referência estadual", "ACRIOESTE e Agrolink em diagnóstico", "CEPEA/ESALQ somente como widget visual separado, sem alimentar Leite e Boi Gordo no JSON principal"],
         "politica_classificacao_preco": (
-            "Política v1.3.8: a tabela principal publica preço pago ao produtor quando a fonte informar, "
+            "Política v1.3.9: a tabela principal publica preço pago ao produtor quando a fonte informar, "
             "cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, arroz, feijão e sorgo. "
             "Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível for PREÇO RECEBIDO/Produtor. "
             "CEPEA/ESALQ e fallback CEPEA não alimentam Leite e Boi Gordo no JSON principal. "
