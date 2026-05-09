@@ -216,6 +216,11 @@ CONAB_360_DOQUERY_URL = "https://pentahoportaldeinformacoes.conab.gov.br/pentaho
 
 CONAB_PRECOS_AGROPECUARIOS_URL = "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html"
 
+CONAB_PRECO_MEDIO_WCDF_URL = "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/%3Ahome%3ASIAGRO%3APrecoMedio.wcdf/generatedContent?password=password&userid=pentaho"
+CONAB_PRECO_MEDIO_CDA_PATH = "/home/SIAGRO/PrecoMedio.cda"
+CONAB_PRECO_MEDIO_DOQUERY_URL = "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/plugin/cda/api/doQuery?"
+
+
 CONAB_URLS = [
     {
         "nome": "CONAB - Preços Agropecuários Semanal UF",
@@ -401,7 +406,10 @@ FAIXAS_VALIDACAO_COMERCIAL = {
         "Saca 60 kg": (15.0, 180.0),
     },
     "Arroz": {
-        "Saca 60 kg": (30.0, 250.0),
+        # Arroz no painel CONAB pode vir em R$/kg; convertido para Saca 60 kg.
+        # A faixa foi ampliada para evitar descarte indevido quando o valor em kg
+        # representar uma saca acima de R$ 250.
+        "Saca 60 kg": (30.0, 500.0),
     },
     "Feijão": {
         "Saca 60 kg": (80.0, 700.0),
@@ -2734,7 +2742,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     debug_payload = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
-        "versao": "1.3.6",
+        "versao": "1.3.8",
         "gerado_em": agora_local().isoformat(),
         "objetivo": (
             "Coletar diretamente do CONAB Produtos 360º/Pentaho a consulta CDA "
@@ -3348,7 +3356,7 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
         debug: dict[str, Any] = {
             "projeto": "Nordeste Agro",
             "modulo": "pecuaria_leite_boi",
-            "versao": "1.3.6",
+            "versao": "1.3.8",
             "gerado_em": agora_local().isoformat(),
             "politica": (
                 "Leite e Boi Gordo na tabela principal usam somente CONAB Preços Agropecuários Semanal, "
@@ -3418,7 +3426,7 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
     debug: dict[str, Any] = {
         "projeto": "Nordeste Agro",
         "modulo": "pecuaria_leite_boi",
-        "versao": "1.3.6",
+        "versao": "1.3.8",
         "gerado_em": agora_local().isoformat(),
         "politica": "Leite e Boi Gordo entram por CEPEA/ESALQ como referência segura e por CONAB apenas quando a linha for preço ao produtor. Carne bovina em kg não é publicada na tabela principal.",
         "fontes": [],
@@ -3894,7 +3902,7 @@ def coletar_ceasas(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     debug = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes_ceasas",
-        "versao": "1.3.6",
+        "versao": "1.3.8",
         "gerado_em": agora_local().isoformat(),
         "politica": "CEASA/Hortifruti é preço de atacado. Não misturar com preço ao produtor.",
         "fontes": [],
@@ -4121,6 +4129,408 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
             )
 
     return cotacoes
+
+
+
+def extrair_data_access_ids_cda(html: str) -> list[str]:
+    """Extrai possíveis dataAccessId do HTML/JS de um painel Pentaho CDE."""
+    ids: list[str] = []
+
+    padroes = [
+        r'dataAccessId\s*[:=]\s*["\']([^"\']+)["\']',
+        r'["\']dataAccessId["\']\s*:\s*["\']([^"\']+)["\']',
+        r'queryType\s*[:=].{0,200}?dataAccessId\s*[:=]\s*["\']([^"\']+)["\']',
+    ]
+
+    for padrao in padroes:
+        for match in re.finditer(padrao, html, flags=re.IGNORECASE | re.DOTALL):
+            valor = limpar_texto(match.group(1))
+            if valor and valor not in ids:
+                ids.append(valor)
+
+    candidatos = [
+        "precoMedio",
+        "precoMedioProduto",
+        "precoMedioRegiao",
+        "precoMedioUf",
+        "precoMedioUF",
+        "precoMedioPorUF",
+        "precoMedioPorUf",
+        "graficoRegiao",
+        "graficoUF",
+        "graficoUf",
+        "rankingUF",
+        "rankingUf",
+        "rankingPrecoUF",
+        "rankingPrecoUf",
+        "mapaBrasil",
+        "mapaUF",
+        "mapaUf",
+        "tabelaRanking",
+        "precos",
+        "consultaPreco",
+        "consultaPrecos",
+    ]
+
+    for candidato in candidatos:
+        if candidato not in ids:
+            ids.append(candidato)
+
+    return ids
+
+
+def valores_parametros_preco_medio(produto_base: str) -> list[str]:
+    if produto_base == "Sorgo":
+        return [
+            "[Produto].[SORGO GRANIFERO]",
+            "[Produto].[SORGO GRANÍFERO]",
+            "SORGO GRANIFERO",
+            "SORGO GRANÍFERO",
+            "Sorgo Granifero",
+            "Sorgo Granífero",
+            "SORGO",
+            "Sorgo",
+        ]
+
+    if produto_base == "Arroz":
+        return [
+            "[Produto].[ARROZ]",
+            "[Produto].[ARROZ EM CASCA]",
+            "ARROZ",
+            "ARROZ EM CASCA",
+            "Arroz",
+            "Arroz em Casca",
+        ]
+
+    return [produto_base]
+
+
+def montar_parametros_preco_medio(data_access_id: str, produto_valor: str, produto_base: str) -> dict[str, str]:
+    """
+    O painel Preços Agropecuários é Pentaho/CDA. Os nomes dos parâmetros podem
+    mudar entre componentes do painel; por isso enviamos os principais aliases.
+    Parâmetros desconhecidos são ignorados pelo CDA e os conhecidos alimentam a query.
+    """
+    hoje = agora_local()
+    data_br = hoje.strftime("%d/%m/%Y")
+    data_iso = hoje.strftime("%Y-%m-%d")
+
+    classificacao = "EM GRÃOS"
+    classificacao_sem_acento = "EM GRAOS"
+    nivel = "PREÇO RECEBIDO P/ PRODUTOR"
+    nivel_sem_acento = "PRECO RECEBIDO P/ PRODUTOR"
+
+    params = {
+        "path": CONAB_PRECO_MEDIO_CDA_PATH,
+        "dataAccessId": data_access_id,
+        "outputIndexId": "1",
+        "pageSize": "0",
+        "pageStart": "0",
+        "paramProduto": produto_valor,
+        "paramproduto": produto_valor,
+        "paramProdutoPreco": produto_valor,
+        "paramprodutoPreco": produto_valor,
+        "paramProdutos": produto_valor,
+        "paramprodutos": produto_valor,
+        "paramProdutoSelecionado": produto_valor,
+        "paramprodutoSelecionado": produto_valor,
+        "produto": produto_valor,
+        "Produto": produto_valor,
+        "paramNivel": nivel,
+        "paramnivel": nivel,
+        "paramNivelComercializacao": nivel,
+        "paramnivelComercializacao": nivel,
+        "paramComercializacao": nivel,
+        "paramcomercializacao": nivel,
+        "paramNivelComercialização": nivel,
+        "paramnivelComercialização": nivel,
+        "nivel": nivel,
+        "comercializacao": nivel,
+        "paramNivelSemAcento": nivel_sem_acento,
+        "paramClassificacao": classificacao,
+        "paramclassificacao": classificacao,
+        "paramClassificação": classificacao,
+        "paramclassificação": classificacao,
+        "classificacao": classificacao,
+        "classificação": classificacao,
+        "Classificacao": classificacao,
+        "Classificação": classificacao,
+        "paramClassificacaoSemAcento": classificacao_sem_acento,
+        "paramDataReferencia": data_br,
+        "paramdataReferencia": data_br,
+        "paramDataReferência": data_br,
+        "paramdataReferência": data_br,
+        "paramData": data_br,
+        "paramdata": data_br,
+        "dataReferencia": data_br,
+        "data_referencia": data_br,
+        "data": data_br,
+        "paramDataReferenciaISO": data_iso,
+    }
+
+    return params
+
+
+def resposta_json_cda_valida(resp: requests.Response) -> Optional[dict[str, Any]]:
+    try:
+        data = resp.json()
+    except Exception:
+        return None
+
+    if not isinstance(data, dict):
+        return None
+
+    if not isinstance(data.get("resultset"), list):
+        return None
+
+    return data
+
+
+def detectar_colunas_resultset_cda(metadata: list[dict[str, Any]]) -> dict[str, Optional[int]]:
+    nomes = []
+    for i, meta in enumerate(metadata):
+        if isinstance(meta, dict):
+            nomes.append((i, remover_acentos(str(meta.get("colName") or meta.get("name") or "")).lower()))
+        else:
+            nomes.append((i, ""))
+
+    def acha(*termos: str) -> Optional[int]:
+        for i, nome in nomes:
+            if any(t in nome for t in termos):
+                return i
+        return None
+
+    return {
+        "uf": acha("uf", "regionalizacao", "regionalizacao.regionalizacao", "estado"),
+        "preco": acha("ultimoprecomedio", "preco medio", "precomedio", "valor", "preco"),
+        "data": acha("descricaosemanal", "periodo", "data", "referencia"),
+    }
+
+
+def linha_resultset_para_item_preco_medio(
+    row: list[Any],
+    *,
+    produto_base: str,
+    data_access_id: str,
+) -> Optional[dict[str, Any]]:
+    if not isinstance(row, list) or not row:
+        return None
+
+    # UF: busca uma célula com sigla de UF monitorada.
+    uf = None
+    for valor in row:
+        valor_limpo = limpar_texto(valor).upper()
+        if valor_limpo in UFS_NORDESTE:
+            uf = valor_limpo
+            break
+
+    if not uf:
+        return None
+
+    # Preço: no painel de Preços Agropecuários, o eixo do Sorgo está em R$/kg.
+    # Usamos o primeiro valor numérico plausível depois da UF.
+    preco = None
+    for valor in row:
+        if isinstance(valor, (int, float)):
+            candidato = float(valor)
+        else:
+            candidato = parse_preco(valor)
+            if candidato is None:
+                continue
+
+        if produto_base == "Sorgo" and 0.05 <= candidato <= 10:
+            preco = candidato
+            break
+        if produto_base == "Arroz" and 0.05 <= candidato <= 20:
+            preco = candidato
+            break
+
+    if preco is None:
+        return None
+
+    texto_linha = " ".join(limpar_texto(v) for v in row)
+    periodo = extrair_periodo_semanal(texto_linha)
+    data_ref = periodo.get("data_fim") or agora_local().date().isoformat()
+    data_inicio = periodo.get("data_inicio") or data_ref
+    data_fim = periodo.get("data_fim") or data_ref
+    periodo_referencia = periodo.get("periodo_referencia") or f"Semana de {data_para_br(data_ref)}"
+
+    produto_original = "Sorgo Granífero - Em Grãos" if produto_base == "Sorgo" else "Arroz - Em Grãos"
+
+    item = criar_item(
+        produto_original=produto_original,
+        uf=uf,
+        estado_nome=UFS_NORDESTE[uf],
+        praca=f"{UFS_NORDESTE[uf]} - Média estadual CONAB",
+        unidade="Kg",
+        preco=preco,
+        variacao_percentual=None,
+        data_referencia=data_ref,
+        data_referencia_inicio=data_inicio,
+        data_referencia_fim=data_fim,
+        periodo_referencia=periodo_referencia,
+        fonte="CONAB - Preços Agropecuários Painel SIAGRO",
+        fonte_url=CONAB_PRECOS_AGROPECUARIOS_URL,
+        tipo_fonte="oficial",
+        nivel_comercializacao="preço recebido pelo produtor conab",
+        categoria=categoria_conab_produto(produto_base),
+        observacao=(
+            f"{produto_original} coletado do painel CONAB Preços Agropecuários, "
+            f"periodicidade semanal, nível Preço Recebido/Produtor, classificação Em Grãos. "
+            f"Consulta CDA: {data_access_id}. Valor original em R$/kg convertido para Saca 60 kg."
+        ),
+    )
+    item["origem_painel_conab"] = "PrecoMedio.wcdf"
+    item["data_access_id_conab"] = data_access_id
+    return item
+
+
+def extrair_itens_preco_medio_cda(data: dict[str, Any], produto_base: str, data_access_id: str) -> list[dict[str, Any]]:
+    resultset = data.get("resultset") or []
+    if not isinstance(resultset, list):
+        return []
+
+    itens: list[dict[str, Any]] = []
+    chaves: set[tuple[str, str, str]] = set()
+
+    for row in resultset:
+        item = linha_resultset_para_item_preco_medio(row, produto_base=produto_base, data_access_id=data_access_id)
+        if not item:
+            continue
+
+        chave = (item.get("produto_base", ""), item.get("uf", ""), item.get("periodo_referencia", ""))
+        if chave in chaves:
+            continue
+
+        itens.append(item)
+        chaves.add(chave)
+
+    return itens
+
+
+def coletar_conab_preco_medio_painel_siagro(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """
+    Coleta complementar do painel CONAB Preços Agropecuários que aparece no navegador.
+
+    Motivo técnico:
+    - O print do portal mostra Sorgo Granífero com atualização semanal e preço R$/kg.
+    - Os arquivos PrecosSemanalUF/PrecosSemanalMunicipio nem sempre trazem esse produto
+      na mesma estrutura lida pelo coletor.
+    - Esta rotina consulta o mesmo painel Pentaho/CDA do navegador para Arroz e Sorgo Granífero,
+      mantendo os regionais da AIBA quando existirem.
+    """
+    itens: list[dict[str, Any]] = []
+    tentativas_debug: list[dict[str, Any]] = []
+
+    session = requests.Session()
+    session.headers.update(HEADERS)
+
+    try:
+        resp_html = session.get(CONAB_PRECO_MEDIO_WCDF_URL, timeout=90)
+        resp_html.raise_for_status()
+        html = resp_html.text
+
+        data_access_ids = extrair_data_access_ids_cda(html)
+        produtos_consultar = ["Sorgo", "Arroz"]
+
+        for produto_base in produtos_consultar:
+            encontrados_produto: list[dict[str, Any]] = []
+
+            for data_access_id in data_access_ids:
+                if encontrados_produto:
+                    break
+
+                for produto_valor in valores_parametros_preco_medio(produto_base):
+                    params = montar_parametros_preco_medio(data_access_id, produto_valor, produto_base)
+
+                    try:
+                        resp = session.post(CONAB_PRECO_MEDIO_DOQUERY_URL, data=params, timeout=90)
+                    except Exception as erro_req:
+                        tentativas_debug.append({
+                            "produto": produto_base,
+                            "dataAccessId": data_access_id,
+                            "produto_valor": produto_valor,
+                            "status": "erro_requisicao",
+                            "erro": repr(erro_req),
+                        })
+                        continue
+
+                    data = resposta_json_cda_valida(resp)
+                    preview = (resp.text or "")[:300]
+
+                    if data is None:
+                        tentativas_debug.append({
+                            "produto": produto_base,
+                            "dataAccessId": data_access_id,
+                            "produto_valor": produto_valor,
+                            "http_status": resp.status_code,
+                            "status": "sem_json_resultset",
+                            "preview": preview,
+                        })
+                        continue
+
+                    candidatos = extrair_itens_preco_medio_cda(data, produto_base, data_access_id)
+                    tentativas_debug.append({
+                        "produto": produto_base,
+                        "dataAccessId": data_access_id,
+                        "produto_valor": produto_valor,
+                        "http_status": resp.status_code,
+                        "status": "json_resultset",
+                        "total_linhas_resultset": len(data.get("resultset") or []),
+                        "itens_extraidos": len(candidatos),
+                        "metadata": [m.get("colName") for m in (data.get("metadata") or []) if isinstance(m, dict)][:20],
+                        "amostra_resultset": (data.get("resultset") or [])[:5],
+                    })
+
+                    if candidatos:
+                        encontrados_produto.extend(candidatos)
+                        break
+
+            itens.extend(encontrados_produto)
+
+        status_fontes.append({
+            "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
+            "url": CONAB_PRECO_MEDIO_WCDF_URL,
+            "status": "ok" if itens else "sem_registros_extraidos",
+            "total_registros": len(itens),
+            "produtos_monitorados": ["Sorgo Granífero", "Arroz"],
+            "observacao": (
+                "Consulta complementar ao painel Preço Médio/Preços Agropecuários para capturar "
+                "Sorgo Granífero e Arroz em Preço Recebido pelo Produtor, classificação Em Grãos."
+            ),
+        })
+
+    except Exception as erro:
+        status_fontes.append({
+            "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
+            "url": CONAB_PRECO_MEDIO_WCDF_URL,
+            "status": "erro",
+            "erro": repr(erro),
+            "total_registros": 0,
+        })
+
+    try:
+        debug_existente = {}
+        if OUTPUT_DEBUG_SORGO_CONAB.exists():
+            try:
+                debug_existente = json.loads(OUTPUT_DEBUG_SORGO_CONAB.read_text(encoding="utf-8"))
+            except Exception:
+                debug_existente = {}
+
+        debug_existente["coleta_painel_siagro"] = {
+            "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
+            "url": CONAB_PRECO_MEDIO_WCDF_URL,
+            "total_itens_extraidos": len(itens),
+            "total_sorgo_extraido": len([x for x in itens if x.get("produto_base") == "Sorgo"]),
+            "total_arroz_extraido": len([x for x in itens if x.get("produto_base") == "Arroz"]),
+            "tentativas": tentativas_debug[:120],
+        }
+        OUTPUT_DEBUG_SORGO_CONAB.parent.mkdir(parents=True, exist_ok=True)
+        OUTPUT_DEBUG_SORGO_CONAB.write_text(json.dumps(debug_existente, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+
+    return itens
 
 
 def extrair_primeiro_indicador_cepea(texto_pagina: str) -> Optional[tuple[str, float, Optional[float]]]:
@@ -4903,6 +5313,7 @@ def main() -> None:
     cotacoes_brutas.extend(coletar_pecuaria_leite_boi(status_fontes))
     cotacoes_brutas.extend(coletar_conab_produtos_360(status_fontes))
     cotacoes_brutas.extend(coletar_conab(status_fontes))
+    cotacoes_brutas.extend(coletar_conab_preco_medio_painel_siagro(status_fontes))
     cotacoes_brutas.extend(coletar_cepea_widget(status_fontes))
     registrar_b3(status_fontes)
 
@@ -4950,7 +5361,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.3.6",
+        "versao": "1.3.8",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -4962,7 +5373,7 @@ def main() -> None:
         "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; CONAB Preços Agropecuários Semanal para arroz, feijão, sorgo granífero, leite e boi gordo; AIBA/regionais preservados quando a fonte regional falhar.",
         "fontes_complementares": ["SEAGRI-BA como referência estadual", "ACRIOESTE e Agrolink em diagnóstico", "CEPEA/ESALQ somente como widget visual separado, sem alimentar Leite e Boi Gordo no JSON principal"],
         "politica_classificacao_preco": (
-            "Política v1.3.5: a tabela principal publica preço pago ao produtor quando a fonte informar, "
+            "Política v1.3.8: a tabela principal publica preço pago ao produtor quando a fonte informar, "
             "cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, arroz, feijão e sorgo. "
             "Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível for PREÇO RECEBIDO/Produtor. "
             "CEPEA/ESALQ e fallback CEPEA não alimentam Leite e Boi Gordo no JSON principal. "
