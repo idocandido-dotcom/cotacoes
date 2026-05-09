@@ -158,9 +158,16 @@ jobs:
           PY
 
       - name: Commit automático dos arquivos atualizados
+        shell: bash
         run: |
+          set -e
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          echo "Sincronizando com a branch main antes do commit para evitar erro de push rejeitado..."
+          git fetch origin main
+          git pull --rebase --autostash origin main
 
           git add cotacoes/scripts/coletor_cotacoes_nordeste.py
           git add cotacoes/public/cotacoes_nordeste.json
@@ -175,7 +182,30 @@ jobs:
 
           if git diff --cached --quiet; then
             echo "Nenhuma alteração para commitar."
-          else
-            git commit -m "Atualizar cotações Nordeste Agro"
-            git push
+            exit 0
           fi
+
+          git commit -m "Atualizar cotações Nordeste Agro"
+
+          echo "Enviando alterações para main com tentativa de rebase em caso de concorrência..."
+          for tentativa in 1 2 3; do
+            echo "Tentativa de push ${tentativa}/3"
+
+            if git push origin HEAD:main; then
+              echo "Push realizado com sucesso."
+              exit 0
+            fi
+
+            echo "Push rejeitado. Atualizando branch local com rebase e tentando novamente..."
+            git fetch origin main
+            git rebase origin/main || {
+              echo "Rebase automático falhou. Abortando para evitar sobrescrever alterações remotas."
+              git rebase --abort || true
+              exit 1
+            }
+
+            sleep 5
+          done
+
+          echo "ERRO: não foi possível fazer push após 3 tentativas."
+          exit 1
