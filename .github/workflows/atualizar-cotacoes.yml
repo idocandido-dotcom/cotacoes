@@ -102,7 +102,10 @@ jobs:
           print("Feijão:", resumo.get("total_feijao_extraido"))
           print("Boi Gordo:", resumo.get("total_boi_gordo_extraido"))
           print("Leite:", resumo.get("total_leite_extraido"))
-          print("Milho/Soja/Algodão com histórico 360:", sum(1 for x in json.loads(Path("cotacoes/public/cotacoes_nordeste.json").read_text(encoding="utf-8")).get("dados", []) if x.get("produto_base") in ["Soja", "Milho", "Algodão"] and len(x.get("historico_30d", [])) >= 2))
+          dados_json = json.loads(Path("cotacoes/public/cotacoes_nordeste.json").read_text(encoding="utf-8")).get("dados", [])
+          print("Milho/Soja/Algodão com histórico 360:", sum(1 for x in dados_json if x.get("produto_base") in ["Soja", "Milho", "Algodão"] and len(x.get("historico_30d", [])) >= 2))
+          print("Sorgo com histórico:", sum(1 for x in dados_json if x.get("produto_base") == "Sorgo" and len(x.get("historico_30d", [])) >= 2))
+          print("AIBA/regionais com histórico:", sum(1 for x in dados_json if ("AIBA" in str(x.get("fonte", "")) or x.get("nivel_comercializacao") == "Regional") and len(x.get("historico_30d", [])) >= 2))
 
           for fonte in status.get("fontes", []):
               print("-", fonte.get("fonte"), "|", fonte.get("status"), "|", fonte.get("total_registros"))
