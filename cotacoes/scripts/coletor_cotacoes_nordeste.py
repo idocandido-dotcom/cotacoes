@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.5.4 enxuto
+Nordeste Agro — Coletor Automático de Cotações v1.5.5 enxuto
 
 Objetivo:
 - Manter o mesmo nome do arquivo principal do projeto:
@@ -51,7 +51,7 @@ from bs4 import BeautifulSoup
 # Configuração geral
 # =============================================================================
 
-VERSAO = "1.5.4"
+VERSAO = "1.5.5"
 PROJETO = "Nordeste Agro"
 MODULO = "cotacoes"
 TZ = ZoneInfo("America/Fortaleza")
@@ -347,7 +347,7 @@ def periodo_semanal_padrao(data_inicio_iso: Optional[str], data_fim_iso: Optiona
     Padroniza a data exibida no site como:
     DD/MM/AAAA a DD/MM/AAAA
 
-    Regra v1.5.4:
+    Regra v1.5.5:
     - Se a fonte trouxer data inicial e final diferentes, usa as duas.
     - Se a fonte trouxer só uma data, ou se inicial e final vierem iguais,
       trata essa data como início da semana e soma +4 dias.
@@ -942,7 +942,7 @@ def coletar_siagro(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "total_registros": len(itens),
             "produtos_monitorados": ["Sorgo Granífero", "Arroz", "Feijão", "Boi Gordo", "Leite"],
             "observacao": (
-                "v1.5.4 enxuta: usa RankingPrecoMedioUF por POST. "
+                "v1.5.5 enxuta: usa RankingPrecoMedioUF por POST. "
                 "Grãos em Saca 60 kg, Boi em @, Leite em litro."
             ),
         }
@@ -956,28 +956,29 @@ def coletar_siagro(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
 # Histórico CONAB Semanal UF para CONAB 360
 # =============================================================================
 
-def converter_preco_historico_360(produto_base: str, preco_kg: float) -> Optional[float]:
+def converter_preco_historico_semanal(produto_base: str, preco_kg: float) -> Optional[float]:
     """
-    Histórico de Soja, Milho e Algodão vindo da CONAB Semanal UF.
+    Histórico de Soja, Milho, Algodão e Sorgo vindo da CONAB Semanal UF.
 
     A coluna semanal da CONAB vem em R$/kg.
     Para a visualização do site:
     - Soja/Milho: R$/kg x 60 = Saca 60 kg
     - Algodão: R$/kg x 15 = Arroba (@)
     """
-    if produto_base in {"Soja", "Milho"}:
+    if produto_base in {"Soja", "Milho", "Sorgo"}:
         return round(preco_kg * 60, 2)
     if produto_base == "Algodão":
         return round(preco_kg * 15, 2)
     return None
 
 
-def coletar_historico_conab_semanal_para_360(status_fontes: list[dict[str, Any]]) -> dict[tuple[str, str], list[dict[str, Any]]]:
+def coletar_historico_conab_semanal_para_360_e_sorgo(status_fontes: list[dict[str, Any]]) -> dict[tuple[str, str], list[dict[str, Any]]]:
     """
-    v1.5.4:
+    v1.5.5:
     Mantém CONAB Produtos 360º como fonte principal para Soja, Milho e Algodão,
-    mas usa a CONAB Preços Agropecuários Semanal UF para montar o histórico
-    de 30 dias desses produtos.
+    e SIAGRO como fonte principal para Sorgo, mas usa a CONAB Preços
+    Agropecuários Semanal UF para montar histórico de 30 dias quando houver
+    dados compatíveis.
 
     Isso resolve o gráfico com um único ponto e permite calcular:
     - preço inicial;
@@ -1026,7 +1027,7 @@ def coletar_historico_conab_semanal_para_360(status_fontes: list[dict[str, Any]]
         for row in registros:
             produto_base = normalizar_produto_base(row.get(col_produto, ""))
 
-            if produto_base not in {"Soja", "Milho", "Algodão"}:
+            if produto_base not in {"Soja", "Milho", "Algodão", "Sorgo"}:
                 continue
 
             uf = limpar_texto(row.get(col_uf, "")).upper()
@@ -1041,7 +1042,7 @@ def coletar_historico_conab_semanal_para_360(status_fontes: list[dict[str, Any]]
             if preco_kg is None:
                 continue
 
-            valor_convertido = converter_preco_historico_360(produto_base, preco_kg)
+            valor_convertido = converter_preco_historico_semanal(produto_base, preco_kg)
             if valor_convertido is None:
                 continue
 
@@ -1077,9 +1078,9 @@ def coletar_historico_conab_semanal_para_360(status_fontes: list[dict[str, Any]]
                 "url": CONAB_SEMANAL_UF_URL,
                 "status": "ok",
                 "total_registros": total_pontos,
-                "produtos_historico": ["Soja", "Milho", "Algodão"],
+                "produtos_historico": ["Soja", "Milho", "Algodão", "Sorgo"],
                 "observacao": (
-                    "v1.5.4: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. "
+                    "v1.5.5: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. "
                     "O preço atual continua vindo do CONAB Produtos 360º."
                 ),
             }
@@ -1100,25 +1101,29 @@ def coletar_historico_conab_semanal_para_360(status_fontes: list[dict[str, Any]]
         return {}
 
 
-def aplicar_historico_360(
+def aplicar_historico_360_e_sorgo(
     itens_tabela: list[dict[str, Any]],
     historicos_360: dict[tuple[str, str], list[dict[str, Any]]],
 ) -> None:
     """
-    Aplica histórico nos itens atuais do CONAB Produtos 360º.
+    Aplica histórico nos itens atuais do CONAB Produtos 360º e do Sorgo SIAGRO.
 
     Mantém o item do 360 como preço atual, mas injeta pontos semanais
     da CONAB Semanal UF para que o frontend consiga desenhar gráfico
     e mostrar variação.
     """
     for item in itens_tabela:
-        if item.get("fonte") != "CONAB - Produtos 360º":
-            continue
-
         produto_base = limpar_texto(item.get("produto_base"))
+        fonte_item = limpar_texto(item.get("fonte"))
+
+        eh_360 = fonte_item == "CONAB - Produtos 360º" and produto_base in {"Soja", "Milho", "Algodão"}
+        eh_sorgo_siagro = produto_base == "Sorgo" and "SIAGRO" in fonte_item
+
+        if not eh_360 and not eh_sorgo_siagro:
+            continue
         uf = limpar_texto(item.get("uf")).upper()
 
-        if produto_base not in {"Soja", "Milho", "Algodão"}:
+        if produto_base not in {"Soja", "Milho", "Algodão", "Sorgo"}:
             continue
 
         pontos = list(historicos_360.get((produto_base, uf), []))
@@ -1151,6 +1156,143 @@ def aplicar_historico_360(
                     limpar_texto(item.get("observacao"))
                     + " Histórico de 30 dias montado pela CONAB Semanal UF para cálculo de variação."
                 ).strip()
+
+
+
+# =============================================================================
+# Histórico acumulado próprio para AIBA e Sorgo
+# =============================================================================
+
+def carregar_historicos_do_json_anterior() -> dict[tuple[str, str, str, str], list[dict[str, Any]]]:
+    """
+    Lê o JSON anterior e recupera históricos já acumulados.
+
+    Usado para:
+    - AIBA/regional, que normalmente traz só preço atual na página;
+    - Sorgo SIAGRO, caso a CONAB Semanal UF não traga histórico suficiente.
+    """
+    if not OUTPUT_JSON.exists():
+        return {}
+
+    try:
+        obj = json.loads(OUTPUT_JSON.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+    dados = obj.get("dados", []) if isinstance(obj, dict) else []
+    if not isinstance(dados, list):
+        return {}
+
+    historicos: dict[tuple[str, str, str, str], list[dict[str, Any]]] = {}
+
+    for item in dados:
+        if not isinstance(item, dict):
+            continue
+
+        chave = (
+            limpar_texto(item.get("produto_base")),
+            limpar_texto(item.get("estado")).upper(),
+            limpar_texto(item.get("cidade")),
+            limpar_texto(item.get("fonte")),
+        )
+
+        pontos = item.get("historico_30d") or item.get("historico_30_dias") or []
+        if not isinstance(pontos, list):
+            pontos = []
+
+        normalizados: dict[str, float] = {}
+
+        for p in pontos:
+            if not isinstance(p, dict):
+                continue
+            data_p = limpar_texto(p.get("data_iso") or p.get("data"))
+            valor_p = parse_preco(p.get("valor"))
+            if data_p and valor_p is not None:
+                # Se veio em formato BR, tenta converter.
+                data_iso = parse_data_qualquer(data_p) or data_p[:10]
+                normalizados[data_iso] = float(valor_p)
+
+        data_item = limpar_texto(item.get("data_iso"))
+        valor_item = parse_preco(item.get("valor"))
+        if data_item and valor_item is not None:
+            normalizados[data_item[:10]] = float(valor_item)
+
+        if normalizados:
+            historicos[chave] = [
+                {"data": data_iso, "valor": valor}
+                for data_iso, valor in sorted(normalizados.items())
+            ]
+
+    return historicos
+
+
+def aplicar_historico_acumulado_aiba_e_sorgo(
+    itens_tabela: list[dict[str, Any]],
+    historicos_anteriores: dict[tuple[str, str, str, str], list[dict[str, Any]]],
+) -> None:
+    """
+    v1.5.5:
+    AIBA/regional passa a acumular histórico próprio a cada execução.
+    Sorgo também reaproveita histórico anterior se a CONAB Semanal UF não
+    trouxer pontos suficientes para cálculo de variação.
+    """
+    data_corte = (agora_local().date() - timedelta(days=DIAS_MAXIMOS_COTACAO_ATIVA)).isoformat()
+
+    for item in itens_tabela:
+        produto_base = limpar_texto(item.get("produto_base"))
+        fonte = limpar_texto(item.get("fonte"))
+        tipo = limpar_texto(item.get("tipo")).lower()
+
+        eh_aiba_ou_regional = "AIBA" in fonte.upper() or tipo == "regional"
+        eh_sorgo = produto_base == "Sorgo"
+
+        if not eh_aiba_ou_regional and not eh_sorgo:
+            continue
+
+        chave = (
+            produto_base,
+            limpar_texto(item.get("uf")).upper(),
+            limpar_texto(item.get("praca")),
+            fonte,
+        )
+
+        pontos = list(historicos_anteriores.get(chave, []))
+        pontos.extend(item.get("historico_30_dias") or [])
+
+        data_atual = limpar_texto(item.get("data_referencia"))
+        valor_atual = parse_preco(item.get("preco"))
+
+        if data_atual and valor_atual is not None:
+            pontos.append({"data": data_atual[:10], "valor": float(valor_atual)})
+
+        por_data: dict[str, float] = {}
+        for p in pontos:
+            if not isinstance(p, dict):
+                continue
+            data_p = limpar_texto(p.get("data"))
+            valor_p = parse_preco(p.get("valor"))
+            data_iso = parse_data_qualquer(data_p) or data_p[:10]
+            if data_iso and data_iso >= data_corte and valor_p is not None:
+                por_data[data_iso] = float(valor_p)
+
+        pontos_finais = [
+            {"data": data_iso, "valor": valor}
+            for data_iso, valor in sorted(por_data.items())
+        ][-30:]
+
+        if not pontos_finais:
+            continue
+
+        item["historico_30_dias"] = pontos_finais
+
+        if len(pontos_finais) >= 2:
+            inicial = parse_preco(pontos_finais[0].get("valor"))
+            atual = parse_preco(pontos_finais[-1].get("valor"))
+
+            if inicial is not None and atual is not None:
+                variacao_valor = round(atual - inicial, 2)
+                item["variacao_valor"] = variacao_valor
+                item["variacao_percentual"] = round((variacao_valor / inicial) * 100, 4) if inicial else None
 
 
 # =============================================================================
@@ -1610,7 +1752,7 @@ def salvar_jsons(
         "politica": (
             "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; "
             "SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; "
-            "regionais como complemento; CEPEA fora da tabela principal."
+            "regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio a cada execução."
         ),
         "fontes": status_fontes,
         "resumo": resumo,
@@ -1644,11 +1786,12 @@ def main() -> None:
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
     status_fontes: list[dict[str, Any]] = []
+    historicos_anteriores = carregar_historicos_do_json_anterior()
     preservados_regionais = carregar_regionais_anteriores()
 
     brutas: list[dict[str, Any]] = []
     brutas.extend(coletar_conab_360(status_fontes))
-    historicos_360 = coletar_historico_conab_semanal_para_360(status_fontes)
+    historicos_360 = coletar_historico_conab_semanal_para_360_e_sorgo(status_fontes)
 
     siagro = coletar_siagro(status_fontes)
     brutas.extend(siagro)
@@ -1673,7 +1816,8 @@ def main() -> None:
 
     data_corte = (agora_local().date() - timedelta(days=DIAS_MAXIMOS_COTACAO_ATIVA)).isoformat()
     tabela, stats = consolidar(brutas, data_corte)
-    aplicar_historico_360(tabela, historicos_360)
+    aplicar_historico_360_e_sorgo(tabela, historicos_360)
+    aplicar_historico_acumulado_aiba_e_sorgo(tabela, historicos_anteriores)
     stats["brutas"] = len(brutas)
 
     salvar_csv(tabela)
@@ -1690,7 +1834,8 @@ def main() -> None:
                 "versao": VERSAO,
                 "regra": (
                     "SIAGRO é principal para Sorgo, Arroz, Feijão, Boi Gordo e Leite. "
-                    "CONAB Semanal é fallback quando SIAGRO não retorna dado válido."
+                    "CONAB Semanal é fallback quando SIAGRO não retorna dado válido. "
+                    "v1.5.5: AIBA acumula histórico próprio e Sorgo recebe variação por histórico semanal/acumulado."
                 ),
                 "produtos_siagro_ok": sorted(produtos_siagro_ok),
                 "produtos_fallback": sorted(produtos_fallback),
