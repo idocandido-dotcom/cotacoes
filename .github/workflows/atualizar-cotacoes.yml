@@ -108,6 +108,10 @@ jobs:
           print("AIBA/regionais com histórico:", sum(1 for x in dados_json if ("AIBA" in str(x.get("fonte", "")) or x.get("nivel_comercializacao") == "Regional") and len(x.get("historico_30d", [])) >= 2))
           hist_aiba = Path("cotacoes/logs/historico_aiba.json")
           print("Histórico AIBA persistente:", "sim" if hist_aiba.exists() else "não")
+          dup_aiba = Path("cotacoes/logs/debug_aiba_duplicados.json")
+          if dup_aiba.exists():
+              dups = json.loads(dup_aiba.read_text(encoding="utf-8"))
+              print("Duplicados AIBA removidos:", dups.get("total_grupos_duplicados"))
 
           for fonte in status.get("fontes", []):
               print("-", fonte.get("fonte"), "|", fonte.get("status"), "|", fonte.get("total_registros"))
@@ -133,6 +137,7 @@ jobs:
           git add cotacoes/logs/debug_sorgo_conab.json || true
           git add cotacoes/logs/debug_prioridade_siagro.json || true
           git add cotacoes/logs/historico_aiba.json || true
+          git add cotacoes/logs/debug_aiba_duplicados.json || true
 
           if git diff --cached --quiet; then
             echo "Nenhuma alteração para commitar."
