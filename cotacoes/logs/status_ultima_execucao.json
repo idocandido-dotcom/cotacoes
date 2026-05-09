@@ -1,27 +1,27 @@
 {
   "ok": true,
-  "ultima_sincronizacao": "2026-05-09 07:33:19",
-  "total_cotacoes_tabela": 35,
-  "total_cotacoes_brutas": 12745,
-  "total_dados_html": 35,
-  "total_cotacoes_descartadas_por_validacao": 1112,
-  "total_cotacoes_descartadas_por_nivel": 8259,
+  "ultima_sincronizacao": "2026-05-09 09:00:50",
+  "total_cotacoes_tabela": 52,
+  "total_cotacoes_brutas": 15696,
+  "total_dados_html": 52,
+  "total_cotacoes_descartadas_por_validacao": 2736,
+  "total_cotacoes_descartadas_por_nivel": 8563,
   "resumo_descartes_validacao": {
-    "preco_acima_da_faixa": 1112
+    "preco_acima_da_faixa": 2736
   },
   "resumo_descartes_nivel": {
-    "nivel_bloqueado_atacado": 2981,
-    "nivel_bloqueado_varejo": 5278
+    "nivel_bloqueado_atacado": 3225,
+    "nivel_bloqueado_varejo": 5338
   },
   "data_limite_cotacoes_ativas": "2026-04-09",
   "dias_maximos_cotacao_ativa": 30,
-  "grupos_descartados_por_data_antiga": 83,
+  "grupos_descartados_por_data_antiga": 103,
   "fontes": [
     {
       "fonte": "AIBA",
       "url": "https://aiba.org.br/cotacoes/",
-      "status": "erro",
-      "erro": "403 Client Error: Forbidden for url: https://aiba.org.br/cotacoes/"
+      "status": "ok",
+      "total_registros": 8
     },
     {
       "fonte": "SEAGRI-BA",
@@ -1179,37 +1179,39 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 5830,
+      "total_registros": 7243,
       "colunas_preco_identificadas": [
         "valor_produto_kg"
       ],
       "coluna_nivel_identificada": "dsc_nivel_comercializacao",
       "produtos_conab_publicaveis": [
+        "Arroz",
         "Boi Gordo",
         "Carne Bovina",
         "Feijão",
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.3.5: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. CEPEA/fallback não alimenta pecuária no JSON principal."
+      "observacao": "v1.3.6: arquivos semanais usados para Arroz, Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. CEPEA/fallback não alimenta pecuária no JSON principal."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
       "status": "ok",
-      "total_registros": 6896,
+      "total_registros": 8426,
       "colunas_preco_identificadas": [
         "valor_produto_kg"
       ],
       "coluna_nivel_identificada": "dsc_nivel_comercializacao",
       "produtos_conab_publicaveis": [
+        "Arroz",
         "Boi Gordo",
         "Carne Bovina",
         "Feijão",
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.3.5: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. CEPEA/fallback não alimenta pecuária no JSON principal."
+      "observacao": "v1.3.6: arquivos semanais usados para Arroz, Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. CEPEA/fallback não alimenta pecuária no JSON principal."
     },
     {
       "fonte": "CEPEA/ESALQ Widget",
