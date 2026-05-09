@@ -1,9 +1,9 @@
 {
   "ok": true,
-  "ultima_sincronizacao": "2026-05-09 07:21:49",
-  "total_cotacoes_tabela": 43,
-  "total_cotacoes_brutas": 12753,
-  "total_dados_html": 43,
+  "ultima_sincronizacao": "2026-05-09 07:33:19",
+  "total_cotacoes_tabela": 35,
+  "total_cotacoes_brutas": 12745,
+  "total_dados_html": 35,
   "total_cotacoes_descartadas_por_validacao": 1112,
   "total_cotacoes_descartadas_por_nivel": 8259,
   "resumo_descartes_validacao": {
@@ -20,8 +20,8 @@
     {
       "fonte": "AIBA",
       "url": "https://aiba.org.br/cotacoes/",
-      "status": "ok",
-      "total_registros": 8
+      "status": "erro",
+      "erro": "403 Client Error: Forbidden for url: https://aiba.org.br/cotacoes/"
     },
     {
       "fonte": "SEAGRI-BA",
