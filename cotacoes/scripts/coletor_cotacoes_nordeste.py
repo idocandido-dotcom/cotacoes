@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.5.2 enxuto
+Nordeste Agro — Coletor Automático de Cotações v1.5.3 enxuto
 
 Objetivo:
 - Manter o mesmo nome do arquivo principal do projeto:
@@ -51,7 +51,7 @@ from bs4 import BeautifulSoup
 # Configuração geral
 # =============================================================================
 
-VERSAO = "1.5.2"
+VERSAO = "1.5.3"
 PROJETO = "Nordeste Agro"
 MODULO = "cotacoes"
 TZ = ZoneInfo("America/Fortaleza")
@@ -347,10 +347,11 @@ def periodo_semanal_padrao(data_inicio_iso: Optional[str], data_fim_iso: Optiona
     Padroniza a data exibida no site como:
     DD/MM/AAAA a DD/MM/AAAA
 
-    Quando a fonte semanal traz somente uma data, tratamos essa data como
-    início da semana de referência e usamos +4 dias para fechar sexta-feira.
-    Isso evita exibir apenas "27/04/2026" quando a referência real é
-    "27/04/2026 a 01/05/2026".
+    Regra v1.5.3:
+    - Se a fonte trouxer data inicial e final diferentes, usa as duas.
+    - Se a fonte trouxer só uma data, ou se inicial e final vierem iguais,
+      trata essa data como início da semana e soma +4 dias.
+    - Ex.: 27/04/2026 -> 27/04/2026 a 01/05/2026.
     """
     inicio = data_inicio_iso or agora_local().date().isoformat()
 
@@ -360,17 +361,22 @@ def periodo_semanal_padrao(data_inicio_iso: Optional[str], data_fim_iso: Optiona
         d_ini = agora_local().date()
         inicio = d_ini.isoformat()
 
-    if data_fim_iso:
-        fim = data_fim_iso
-        try:
-            d_fim = datetime.strptime(fim[:10], "%Y-%m-%d").date()
-        except Exception:
-            d_fim = d_ini + timedelta(days=4)
-            fim = d_fim.isoformat()
-    else:
-        d_fim = d_ini + timedelta(days=4)
-        fim = d_fim.isoformat()
+    d_fim = None
 
+    if data_fim_iso:
+        try:
+            d_fim = datetime.strptime(data_fim_iso[:10], "%Y-%m-%d").date()
+        except Exception:
+            d_fim = None
+
+    # Correção principal:
+    # Quando a CONAB Semanal traz a mesma data nos campos inicial/final,
+    # a tabela não pode mostrar "27/04/2026 a 27/04/2026".
+    # Nesse caso, assumimos semana comercial de segunda a sexta.
+    if d_fim is None or d_fim <= d_ini:
+        d_fim = d_ini + timedelta(days=4)
+
+    fim = d_fim.isoformat()
     periodo_ref = f"{d_ini.strftime('%d/%m/%Y')} a {d_fim.strftime('%d/%m/%Y')}"
     return inicio, fim, periodo_ref
 
@@ -934,7 +940,7 @@ def coletar_siagro(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "total_registros": len(itens),
             "produtos_monitorados": ["Sorgo Granífero", "Arroz", "Feijão", "Boi Gordo", "Leite"],
             "observacao": (
-                "v1.5.2 enxuta: usa RankingPrecoMedioUF por POST. "
+                "v1.5.3 enxuta: usa RankingPrecoMedioUF por POST. "
                 "Grãos em Saca 60 kg, Boi em @, Leite em litro."
             ),
         }
