@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "ultima_sincronizacao": "2026-05-09 09:32:56",
+  "ultima_sincronizacao": "2026-05-09 10:02:34",
   "total_cotacoes_tabela": 44,
   "total_cotacoes_brutas": 15688,
   "total_dados_html": 46,
@@ -26,7 +26,7 @@
     {
       "fonte": "SEAGRI-BA",
       "url": "https://www.ba.gov.br/seagri/cotacao",
-      "status": "erro",
+      "status": "sem_registros_extraidos",
       "total_registros": 0,
       "produtos_monitorados": [
         "Feijão",
@@ -35,13 +35,11 @@
         "Boi Gordo"
       ],
       "periodo_consultado": "2026-04-09 a 2026-05-09",
-      "paginas_lidas": 0,
+      "paginas_lidas": 2,
       "linhas_encontradas_feijao_sorgo": 0,
       "linhas_sem_cotacao_ignoradas": 0,
       "linhas_preco_invalido_ignoradas": 0,
-      "erros_paginas": [
-        "page=0: HTTPSConnectionPool(host='www.ba.gov.br', port=443): Max retries exceeded with url: /seagri/cotacao?data%5Bmin%5D%5Bdate%5D=2026-04-09&data%5Bmax%5D%5Bdate%5D=2026-05-09&produto=All&praca=All&tipo=All&order=data&sort=desc&page=0 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.ba.gov.br', port=443) at 0x7f3bab9aab50>, 'Connection to www.ba.gov.br timed out. (connect timeout=90)'))"
-      ],
+      "erros_paginas": [],
       "observacao": "Fonte complementar estadual para Feijão, Sorgo, Leite e Boi Gordo. Publicada como Referência SEAGRI-BA/Regional, sem misturar com CONAB 360."
     },
     {
@@ -1224,7 +1222,7 @@
         "Sorgo Granífero",
         "Arroz"
       ],
-      "observacao": "Consulta complementar ao painel Preço Médio/Preços Agropecuários para capturar Sorgo Granífero e Arroz em Preço Recebido pelo Produtor, classificação Em Grãos."
+      "observacao": "v1.3.9: consulta complementar ao painel Preço Médio/Preços Agropecuários. Testa dataAccessId/path reais encontrados no HTML/JS e usa o último dia útil como referência."
     },
     {
       "fonte": "CEPEA/ESALQ Widget",

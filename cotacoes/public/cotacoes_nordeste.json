@@ -3,10 +3,10 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "repositorio": "idocandido-dotcom/cotacoes",
-  "versao": "1.3.8",
-  "ultima_sincronizacao": "2026-05-09 09:32:56",
-  "ultima_sincronizacao_iso": "2026-05-09T09:32:56.185777-03:00",
-  "gerado_em": "09/05/2026 09:32",
+  "versao": "1.3.9",
+  "ultima_sincronizacao": "2026-05-09 10:02:34",
+  "ultima_sincronizacao_iso": "2026-05-09T10:02:34.028939-03:00",
+  "gerado_em": "09/05/2026 10:02",
   "fuso_horario": "America/Fortaleza",
   "frequencia_atualizacao": "diaria",
   "dias_maximos_cotacao_ativa": 30,
@@ -18,7 +18,7 @@
     "ACRIOESTE e Agrolink em diagnóstico",
     "CEPEA/ESALQ somente como widget visual separado, sem alimentar Leite e Boi Gordo no JSON principal"
   ],
-  "politica_classificacao_preco": "Política v1.3.8: a tabela principal publica preço pago ao produtor quando a fonte informar, cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, arroz, feijão e sorgo. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível for PREÇO RECEBIDO/Produtor. CEPEA/ESALQ e fallback CEPEA não alimentam Leite e Boi Gordo no JSON principal. Boi Gordo em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. Varejo, atacado comum, indicadores genéricos, dados mensais antigos e mercado futuro ficam fora da tabela principal.",
+  "politica_classificacao_preco": "Política v1.3.9: a tabela principal publica preço pago ao produtor quando a fonte informar, cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, arroz, feijão e sorgo. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível for PREÇO RECEBIDO/Produtor. CEPEA/ESALQ e fallback CEPEA não alimentam Leite e Boi Gordo no JSON principal. Boi Gordo em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. Varejo, atacado comum, indicadores genéricos, dados mensais antigos e mercado futuro ficam fora da tabela principal.",
   "resumo": {
     "total_cotacoes_tabela": 44,
     "total_cotacoes_brutas": 15688,
@@ -73,8 +73,8 @@
       "CONAB - Preços Agropecuários Semanal UF",
       "CONAB - Preços Agropecuários Semanal Município"
     ],
-    "total_fontes_com_erro": 2,
-    "tempo_execucao_segundos": 482.39
+    "total_fontes_com_erro": 1,
+    "tempo_execucao_segundos": 485.6
   },
   "fontes": [
     {
@@ -86,7 +86,7 @@
     {
       "fonte": "SEAGRI-BA",
       "url": "https://www.ba.gov.br/seagri/cotacao",
-      "status": "erro",
+      "status": "sem_registros_extraidos",
       "total_registros": 0,
       "produtos_monitorados": [
         "Feijão",
@@ -95,13 +95,11 @@
         "Boi Gordo"
       ],
       "periodo_consultado": "2026-04-09 a 2026-05-09",
-      "paginas_lidas": 0,
+      "paginas_lidas": 2,
       "linhas_encontradas_feijao_sorgo": 0,
       "linhas_sem_cotacao_ignoradas": 0,
       "linhas_preco_invalido_ignoradas": 0,
-      "erros_paginas": [
-        "page=0: HTTPSConnectionPool(host='www.ba.gov.br', port=443): Max retries exceeded with url: /seagri/cotacao?data%5Bmin%5D%5Bdate%5D=2026-04-09&data%5Bmax%5D%5Bdate%5D=2026-05-09&produto=All&praca=All&tipo=All&order=data&sort=desc&page=0 (Caused by ConnectTimeoutError(<HTTPSConnection(host='www.ba.gov.br', port=443) at 0x7f3bab9aab50>, 'Connection to www.ba.gov.br timed out. (connect timeout=90)'))"
-      ],
+      "erros_paginas": [],
       "observacao": "Fonte complementar estadual para Feijão, Sorgo, Leite e Boi Gordo. Publicada como Referência SEAGRI-BA/Regional, sem misturar com CONAB 360."
     },
     {
@@ -1284,7 +1282,7 @@
         "Sorgo Granífero",
         "Arroz"
       ],
-      "observacao": "Consulta complementar ao painel Preço Médio/Preços Agropecuários para capturar Sorgo Granífero e Arroz em Preço Recebido pelo Produtor, classificação Em Grãos."
+      "observacao": "v1.3.9: consulta complementar ao painel Preço Médio/Preços Agropecuários. Testa dataAccessId/path reais encontrados no HTML/JS e usa o último dia útil como referência."
     },
     {
       "fonte": "CEPEA/ESALQ Widget",
@@ -1339,7 +1337,7 @@
       ],
       "preservado_por_falha_fonte": true,
       "observacao_preservacao": "Registro regional preservado porque a fonte regional falhou na coleta atual. Será substituído automaticamente quando houver nova cotação válida.",
-      "ultima_preservacao": "2026-05-09T09:32:55-03:00"
+      "ultima_preservacao": "2026-05-09T10:02:33-03:00"
     },
     {
       "estado": "BA",
@@ -1377,7 +1375,7 @@
       ],
       "preservado_por_falha_fonte": true,
       "observacao_preservacao": "Registro regional preservado porque a fonte regional falhou na coleta atual. Será substituído automaticamente quando houver nova cotação válida.",
-      "ultima_preservacao": "2026-05-09T09:32:55-03:00"
+      "ultima_preservacao": "2026-05-09T10:02:33-03:00"
     }
   ],
   "diagnostico_sorgo_conab": {
@@ -22601,7 +22599,7 @@
       ],
       "preservado_por_falha_fonte": true,
       "observacao_preservacao": "Registro regional preservado porque a fonte regional falhou na coleta atual. Será substituído automaticamente quando houver nova cotação válida.",
-      "ultima_preservacao": "2026-05-09T09:32:55-03:00"
+      "ultima_preservacao": "2026-05-09T10:02:33-03:00"
     },
     {
       "estado": "BA",
@@ -22639,7 +22637,7 @@
       ],
       "preservado_por_falha_fonte": true,
       "observacao_preservacao": "Registro regional preservado porque a fonte regional falhou na coleta atual. Será substituído automaticamente quando houver nova cotação válida.",
-      "ultima_preservacao": "2026-05-09T09:32:55-03:00"
+      "ultima_preservacao": "2026-05-09T10:02:33-03:00"
     }
   ],
   "historico_30_dias": {},
