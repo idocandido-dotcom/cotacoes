@@ -1,9 +1,9 @@
 {
   "ok": true,
-  "ultima_sincronizacao": "2026-05-08 21:54:13",
-  "total_cotacoes_tabela": 47,
-  "total_cotacoes_brutas": 12756,
-  "total_dados_html": 47,
+  "ultima_sincronizacao": "2026-05-09 07:21:49",
+  "total_cotacoes_tabela": 43,
+  "total_cotacoes_brutas": 12753,
+  "total_dados_html": 43,
   "total_cotacoes_descartadas_por_validacao": 1112,
   "total_cotacoes_descartadas_por_nivel": 8259,
   "resumo_descartes_validacao": {
@@ -13,9 +13,9 @@
     "nivel_bloqueado_atacado": 2981,
     "nivel_bloqueado_varejo": 5278
   },
-  "data_limite_cotacoes_ativas": "2026-02-07",
-  "dias_maximos_cotacao_ativa": 90,
-  "grupos_descartados_por_data_antiga": 82,
+  "data_limite_cotacoes_ativas": "2026-04-09",
+  "dias_maximos_cotacao_ativa": 30,
+  "grupos_descartados_por_data_antiga": 83,
   "fontes": [
     {
       "fonte": "AIBA",
@@ -34,7 +34,7 @@
         "Leite",
         "Boi Gordo"
       ],
-      "periodo_consultado": "2026-02-07 a 2026-05-08",
+      "periodo_consultado": "2026-04-09 a 2026-05-09",
       "paginas_lidas": 2,
       "linhas_encontradas_feijao_sorgo": 0,
       "linhas_sem_cotacao_ignoradas": 0,
@@ -45,20 +45,20 @@
     {
       "fonte": "CEPEA/ESALQ - Leite ao Produtor",
       "url": "https://cepea.org.br/br/indicador/leite.aspx",
-      "status": "ok_fallback_pos_erro",
-      "erro": "403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/leite.aspx",
-      "total_registros": 2,
+      "status": "bloqueado_tabela_principal",
+      "total_registros": 0,
       "categoria": "pecuaria_leite",
-      "fallback_operacional": true
+      "publicacao_automatica": false,
+      "observacao": "Leite deve ser publicado somente pela CONAB Preços Agropecuários Semanal."
     },
     {
       "fonte": "CEPEA/ESALQ - Boi Gordo",
       "url": "https://cepea.org.br/br/indicador/boi-gordo.aspx",
-      "status": "ok_fallback_pos_erro",
-      "erro": "403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/boi-gordo.aspx",
-      "total_registros": 1,
+      "status": "bloqueado_tabela_principal",
+      "total_registros": 0,
       "categoria": "pecuaria_corte",
-      "fallback_operacional": true
+      "publicacao_automatica": false,
+      "observacao": "Boi Gordo deve ser publicado somente pela CONAB Preços Agropecuários Semanal, com conversão R$/kg x 15 para Arroba (@)."
     },
     {
       "fonte": "ACRIOESTE",
@@ -74,7 +74,7 @@
       "status": "ok",
       "total_registros": 0,
       "categoria": "diagnostico_pecuaria",
-      "observacao": "Diagnóstico de referência de mercado para boi por praça. Não publicado automaticamente nesta versão."
+      "observacao": "Diagnóstico de referência de mercado para boi gordo por praça; não publica automaticamente nesta versão."
     },
     {
       "fonte": "Agrolink PA - Marabá",
@@ -82,7 +82,7 @@
       "status": "ok",
       "total_registros": 0,
       "categoria": "diagnostico_pecuaria",
-      "observacao": "Diagnóstico de referência de mercado para boi por praça. Não publicado automaticamente nesta versão."
+      "observacao": "Diagnóstico de referência de mercado para boi gordo por praça; não publica automaticamente nesta versão."
     },
     {
       "fonte": "CONAB - Produtos 360º",
@@ -1191,7 +1191,7 @@
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.3.4: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. Varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.3.5: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. CEPEA/fallback não alimenta pecuária no JSON principal."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -1209,7 +1209,7 @@
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.3.4: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. Varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.3.5: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. CEPEA/fallback não alimenta pecuária no JSON principal."
     },
     {
       "fonte": "CEPEA/ESALQ Widget",
@@ -1233,7 +1233,7 @@
   "diagnostico_sorgo_conab": {
     "produto": "Sorgo",
     "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
-    "data_corte_cotacoes_ativas": "2026-02-07",
+    "data_corte_cotacoes_ativas": "2026-04-09",
     "conclusao": "Nenhum registro bruto de Sorgo foi encontrado nos arquivos semanais da CONAB para os estados monitorados.",
     "totais": {
       "brutas_sorgo_conab": 0,
@@ -1262,7 +1262,7 @@
       "Carne Bovina"
     ],
     "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
-    "data_corte_cotacoes_ativas": "2026-02-07",
+    "data_corte_cotacoes_ativas": "2026-04-09",
     "politica_publicacao": "Leite, Boi Gordo e Carne Bovina só entram na tabela principal quando a CONAB informa preço ao produtor. Varejo, atacado e nível não informado continuam bloqueados.",
     "totais_gerais": {
       "brutas_conab": 7861,
@@ -1279,7 +1279,7 @@
       "Leite": {
         "produto": "Leite",
         "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
-        "data_corte_cotacoes_ativas": "2026-02-07",
+        "data_corte_cotacoes_ativas": "2026-04-09",
         "conclusao": "Leite CONAB entrou na tabela final.",
         "totais": {
           "brutas_conab": 4845,
@@ -9372,7 +9372,7 @@
       "Boi Gordo": {
         "produto": "Boi Gordo",
         "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
-        "data_corte_cotacoes_ativas": "2026-02-07",
+        "data_corte_cotacoes_ativas": "2026-04-09",
         "conclusao": "Boi Gordo CONAB entrou na tabela final.",
         "totais": {
           "brutas_conab": 394,
@@ -13442,7 +13442,7 @@
       "Carne Bovina": {
         "produto": "Carne Bovina",
         "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
-        "data_corte_cotacoes_ativas": "2026-02-07",
+        "data_corte_cotacoes_ativas": "2026-04-09",
         "conclusao": "Carne Bovina CONAB foi coletado, mas foi bloqueado pelo nível de comercialização. Provável atacado, varejo ou nível não permitido para tabela principal.",
         "totais": {
           "brutas_conab": 2622,

@@ -3,27 +3,27 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "repositorio": "idocandido-dotcom/cotacoes",
-  "versao": "1.3.4",
-  "ultima_sincronizacao": "2026-05-08 21:54:13",
-  "ultima_sincronizacao_iso": "2026-05-08T21:54:13.088883-03:00",
-  "gerado_em": "08/05/2026 21:54",
+  "versao": "1.3.5",
+  "ultima_sincronizacao": "2026-05-09 07:21:49",
+  "ultima_sincronizacao_iso": "2026-05-09T07:21:49.228489-03:00",
+  "gerado_em": "09/05/2026 07:21",
   "fuso_horario": "America/Fortaleza",
   "frequencia_atualizacao": "diaria",
-  "dias_maximos_cotacao_ativa": 90,
-  "data_limite_cotacoes_ativas": "2026-02-07",
-  "politica_atualidade": "A tabela principal exibe somente cotações com data dentro dos últimos 90 dias. No CONAB Produtos 360º, a data exibida é o período semanal publicado, não preço diário.",
-  "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; AIBA/SEAGRI-BA/CONAB semanal para feijão e sorgo; CONAB Preços Agropecuários para leite e boi gordo quando o nível for PREÇO RECEBIDO/Produtor; CEPEA/ESALQ e SEAGRI-BA como referências complementares",
+  "dias_maximos_cotacao_ativa": 30,
+  "data_limite_cotacoes_ativas": "2026-04-09",
+  "politica_atualidade": "A tabela principal exibe somente cotações com data dentro dos últimos 30 dias. Para Leite e Boi Gordo, a fonte publicável é somente CONAB Preços Agropecuários Semanal.",
+  "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; AIBA/SEAGRI-BA/CONAB semanal para feijão e sorgo; CONAB Preços Agropecuários Semanal para Leite e Boi Gordo quando o nível for PREÇO RECEBIDO/Produtor.",
   "fontes_complementares": [
-    "CEPEA/ESALQ para Leite e Boi Gordo",
     "SEAGRI-BA como referência estadual",
-    "ACRIOESTE e Agrolink em diagnóstico"
+    "ACRIOESTE e Agrolink em diagnóstico",
+    "CEPEA/ESALQ somente como widget visual separado, sem alimentar Leite e Boi Gordo no JSON principal"
   ],
-  "politica_classificacao_preco": "Política v1.3.3: a tabela principal publica preço pago ao produtor quando a fonte informar, cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Leite e Boi Gordo CEPEA/ESALQ entram como referência de mercado, sem serem tratados como preço local de praça/estado. Leite e Boi Gordo da CONAB entram quando a fonte informar PREÇO RECEBIDO/Produtor; Boi em R$/kg é convertido para Arroba (@) com fator 15. Carne Bovina permanece bloqueada salvo preço ao produtor claramente identificado. Varejo, atacado comum, indicadores genéricos e mercado futuro ficam fora da tabela principal. Referência CONAB não é rotulada como preço ao produtor quando a linha não trouxer essa informação.",
+  "politica_classificacao_preco": "Política v1.3.5: a tabela principal publica preço pago ao produtor quando a fonte informar, cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, feijão e sorgo. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível for PREÇO RECEBIDO/Produtor. CEPEA/ESALQ e fallback CEPEA não alimentam Leite e Boi Gordo no JSON principal. Boi Gordo em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. Varejo, atacado comum, indicadores genéricos, dados mensais antigos e mercado futuro ficam fora da tabela principal.",
   "resumo": {
-    "total_cotacoes_tabela": 47,
-    "total_cotacoes_brutas": 12756,
-    "total_cotacoes_validas_apos_validacao": 11644,
-    "total_cotacoes_publicaveis_produtor_regional": 3385,
+    "total_cotacoes_tabela": 43,
+    "total_cotacoes_brutas": 12753,
+    "total_cotacoes_validas_apos_validacao": 11641,
+    "total_cotacoes_publicaveis_produtor_regional": 3382,
     "total_cotacoes_descartadas_por_validacao": 1112,
     "total_cotacoes_descartadas_por_nivel": 8259,
     "resumo_descartes_validacao": {
@@ -33,22 +33,22 @@
       "nivel_bloqueado_atacado": 2981,
       "nivel_bloqueado_varejo": 5278
     },
-    "total_dados_html": 47,
-    "total_grupos_brutos": 129,
-    "grupos_descartados_por_data_antiga": 82,
+    "total_dados_html": 43,
+    "total_grupos_brutos": 126,
+    "grupos_descartados_por_data_antiga": 83,
     "total_indicadores_cepea_widget": 0,
-    "total_precos_produtor": 20,
+    "total_precos_produtor": 19,
     "total_precos_regionais": 8,
     "total_referencias_seagri_ba": 0,
-    "total_pecuaria_leite": 13,
-    "total_pecuaria_corte": 4,
-    "total_cepea_pecuaria": 3,
+    "total_pecuaria_leite": 11,
+    "total_pecuaria_corte": 3,
+    "total_cepea_pecuaria": 0,
     "total_referencias_conab": 16,
     "total_referencias_conab_360": 16,
     "total_precos_atacado": 0,
     "total_precos_media_uf": 0,
-    "total_cotacoes_leite": 13,
-    "total_cotacoes_boi_gordo": 4,
+    "total_cotacoes_leite": 11,
+    "total_cotacoes_boi_gordo": 3,
     "total_cotacoes_carne_bovina": 0,
     "total_leite_conab_bruto": 4845,
     "total_leite_conab_tabela": 11,
@@ -72,7 +72,7 @@
       "CONAB - Preços Agropecuários Semanal Município"
     ],
     "total_fontes_com_erro": 0,
-    "tempo_execucao_segundos": 31.12
+    "tempo_execucao_segundos": 47.68
   },
   "fontes": [
     {
@@ -92,7 +92,7 @@
         "Leite",
         "Boi Gordo"
       ],
-      "periodo_consultado": "2026-02-07 a 2026-05-08",
+      "periodo_consultado": "2026-04-09 a 2026-05-09",
       "paginas_lidas": 2,
       "linhas_encontradas_feijao_sorgo": 0,
       "linhas_sem_cotacao_ignoradas": 0,
@@ -103,20 +103,20 @@
     {
       "fonte": "CEPEA/ESALQ - Leite ao Produtor",
       "url": "https://cepea.org.br/br/indicador/leite.aspx",
-      "status": "ok_fallback_pos_erro",
-      "erro": "403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/leite.aspx",
-      "total_registros": 2,
+      "status": "bloqueado_tabela_principal",
+      "total_registros": 0,
       "categoria": "pecuaria_leite",
-      "fallback_operacional": true
+      "publicacao_automatica": false,
+      "observacao": "Leite deve ser publicado somente pela CONAB Preços Agropecuários Semanal."
     },
     {
       "fonte": "CEPEA/ESALQ - Boi Gordo",
       "url": "https://cepea.org.br/br/indicador/boi-gordo.aspx",
-      "status": "ok_fallback_pos_erro",
-      "erro": "403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/boi-gordo.aspx",
-      "total_registros": 1,
+      "status": "bloqueado_tabela_principal",
+      "total_registros": 0,
       "categoria": "pecuaria_corte",
-      "fallback_operacional": true
+      "publicacao_automatica": false,
+      "observacao": "Boi Gordo deve ser publicado somente pela CONAB Preços Agropecuários Semanal, com conversão R$/kg x 15 para Arroba (@)."
     },
     {
       "fonte": "ACRIOESTE",
@@ -132,7 +132,7 @@
       "status": "ok",
       "total_registros": 0,
       "categoria": "diagnostico_pecuaria",
-      "observacao": "Diagnóstico de referência de mercado para boi por praça. Não publicado automaticamente nesta versão."
+      "observacao": "Diagnóstico de referência de mercado para boi gordo por praça; não publica automaticamente nesta versão."
     },
     {
       "fonte": "Agrolink PA - Marabá",
@@ -140,7 +140,7 @@
       "status": "ok",
       "total_registros": 0,
       "categoria": "diagnostico_pecuaria",
-      "observacao": "Diagnóstico de referência de mercado para boi por praça. Não publicado automaticamente nesta versão."
+      "observacao": "Diagnóstico de referência de mercado para boi gordo por praça; não publica automaticamente nesta versão."
     },
     {
       "fonte": "CONAB - Produtos 360º",
@@ -1249,7 +1249,7 @@
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.3.4: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. Varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.3.5: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. CEPEA/fallback não alimenta pecuária no JSON principal."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
@@ -1267,7 +1267,7 @@
         "Leite",
         "Sorgo"
       ],
-      "observacao": "v1.3.4: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. Varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º."
+      "observacao": "v1.3.5: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. CEPEA/fallback não alimenta pecuária no JSON principal."
     },
     {
       "fonte": "CEPEA/ESALQ Widget",
@@ -1287,7 +1287,7 @@
   "diagnostico_sorgo_conab": {
     "produto": "Sorgo",
     "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
-    "data_corte_cotacoes_ativas": "2026-02-07",
+    "data_corte_cotacoes_ativas": "2026-04-09",
     "conclusao": "Nenhum registro bruto de Sorgo foi encontrado nos arquivos semanais da CONAB para os estados monitorados.",
     "totais": {
       "brutas_sorgo_conab": 0,
@@ -1316,7 +1316,7 @@
       "Carne Bovina"
     ],
     "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
-    "data_corte_cotacoes_ativas": "2026-02-07",
+    "data_corte_cotacoes_ativas": "2026-04-09",
     "politica_publicacao": "Leite, Boi Gordo e Carne Bovina só entram na tabela principal quando a CONAB informa preço ao produtor. Varejo, atacado e nível não informado continuam bloqueados.",
     "totais_gerais": {
       "brutas_conab": 7861,
@@ -1333,7 +1333,7 @@
       "Leite": {
         "produto": "Leite",
         "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
-        "data_corte_cotacoes_ativas": "2026-02-07",
+        "data_corte_cotacoes_ativas": "2026-04-09",
         "conclusao": "Leite CONAB entrou na tabela final.",
         "totais": {
           "brutas_conab": 4845,
@@ -9426,7 +9426,7 @@
       "Boi Gordo": {
         "produto": "Boi Gordo",
         "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
-        "data_corte_cotacoes_ativas": "2026-02-07",
+        "data_corte_cotacoes_ativas": "2026-04-09",
         "conclusao": "Boi Gordo CONAB entrou na tabela final.",
         "totais": {
           "brutas_conab": 394,
@@ -13496,7 +13496,7 @@
       "Carne Bovina": {
         "produto": "Carne Bovina",
         "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
-        "data_corte_cotacoes_ativas": "2026-02-07",
+        "data_corte_cotacoes_ativas": "2026-04-09",
         "conclusao": "Carne Bovina CONAB foi coletado, mas foi bloqueado pelo nível de comercialização. Provável atacado, varejo ou nível não permitido para tabela principal.",
         "totais": {
           "brutas_conab": 2622,
@@ -18412,61 +18412,6 @@
   "debug_pecuaria": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_pecuaria_fontes.json",
   "cotacoes": [
     {
-      "produto": "Feijão — Produtor",
-      "produto_base": "Feijão",
-      "produto_original": "FEIJAO",
-      "tipo_produto": "Padrão",
-      "produto_slug": "feijao-produtor",
-      "uf": "AL",
-      "estado": "Alagoas",
-      "praca": "Média UF",
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Kg",
-      "preco": 300.0,
-      "preco_original": 5.0,
-      "preco_formatado": "R$ 300,00",
-      "fator_conversao": 60.0,
-      "conversao_aplicada": true,
-      "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2026-03-13",
-      "data_referencia_inicio": "2026-03-09",
-      "data_referencia_fim": "2026-03-13",
-      "periodo_referencia": "09/03/2026 a 13/03/2026",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Produtor",
-      "nivel_comercializacao_chave": "preco_produtor",
-      "prioridade_nivel_preco": 1,
-      "categoria": "commodity_agricola",
-      "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários / Preços de Mercado. Nível identificado: Produtor.",
-      "historico_30_dias": [
-        {
-          "data": "2026-02-13",
-          "valor": 257.4
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 277.8
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 272.4
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 289.8
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 300.0
-        }
-      ],
-      "validacao_publicacao": "ok",
-      "politica_publicacao": "produtor_regional_ou_referencia_conab"
-    },
-    {
       "produto": "Leite — Vaca — Produtor",
       "produto_base": "Leite",
       "produto_original": "LEITE DE VACA",
@@ -18497,38 +18442,6 @@
       "categoria": "pecuaria_leite",
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários - somente preço ao produtor. Nível identificado: Produtor. Regra Nordeste Agro: leite ao produtor permanece em R$/litro.",
       "historico_30_dias": [
-        {
-          "data": "2026-02-13",
-          "valor": 1.99
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 2.04
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 2.09
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 2.14
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 2.18
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 2.18
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 2.23
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 2.28
-        },
         {
           "data": "2026-04-10",
           "valor": 2.23
@@ -18581,38 +18494,6 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários - somente preço ao produtor. Nível identificado: Produtor. Regra Nordeste Agro: quando a CONAB informar BOI/BOI GORDO em R$/kg, o coletor converte para Arroba (@) usando 1 @ = 15 kg, mantendo o preço original no JSON.",
       "historico_30_dias": [
         {
-          "data": "2026-02-13",
-          "valor": 318.9
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 318.9
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 324.3
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 333.3
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 341.7
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 336.6
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 325.5
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 331.65
-        },
-        {
           "data": "2026-04-10",
           "valor": 338.85
         },
@@ -18664,38 +18545,6 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários / Preços de Mercado. Nível identificado: Produtor.",
       "historico_30_dias": [
         {
-          "data": "2026-02-13",
-          "valor": 310.2
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 310.2
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 334.8
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 349.8
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 352.8
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 327.6
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 319.8
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 302.4
-        },
-        {
           "data": "2026-04-10",
           "valor": 307.8
         },
@@ -18746,38 +18595,6 @@
       "categoria": "pecuaria_leite",
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários - somente preço ao produtor. Nível identificado: Produtor. Regra Nordeste Agro: leite ao produtor permanece em R$/litro.",
       "historico_30_dias": [
-        {
-          "data": "2026-02-13",
-          "valor": 2.08
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 2.06
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 2.01
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 2.01
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 2.01
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 2.01
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 2.01
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 2.01
-        },
         {
           "data": "2026-04-10",
           "valor": 2.06
@@ -18869,38 +18686,6 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários - somente preço ao produtor. Nível identificado: Produtor. Regra Nordeste Agro: leite ao produtor permanece em R$/litro.",
       "historico_30_dias": [
         {
-          "data": "2026-02-13",
-          "valor": 2.06
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 2.03
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 2.02
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 2.07
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 2.07
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 2.07
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 2.11
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 2.11
-        },
-        {
           "data": "2026-04-10",
           "valor": 2.15
         },
@@ -18951,38 +18736,6 @@
       "categoria": "pecuaria_leite",
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários - somente preço ao produtor. Nível identificado: Produtor. Regra Nordeste Agro: leite ao produtor permanece em R$/litro.",
       "historico_30_dias": [
-        {
-          "data": "2026-02-13",
-          "valor": 1.65
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 1.72
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 1.72
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 1.63
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 1.61
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 1.61
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 1.63
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 1.64
-        },
         {
           "data": "2026-04-10",
           "valor": 1.72
@@ -19035,38 +18788,6 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários - somente preço ao produtor. Nível identificado: Produtor. Regra Nordeste Agro: quando a CONAB informar BOI/BOI GORDO em R$/kg, o coletor converte para Arroba (@) usando 1 @ = 15 kg, mantendo o preço original no JSON.",
       "historico_30_dias": [
         {
-          "data": "2026-02-13",
-          "valor": 313.35
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 313.95
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 319.95
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 320.85
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 323.4
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 325.95
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 331.5
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 340.95
-        },
-        {
           "data": "2026-04-10",
           "valor": 347.55
         },
@@ -19117,38 +18838,6 @@
       "categoria": "commodity_agricola",
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários / Preços de Mercado. Nível identificado: Produtor.",
       "historico_30_dias": [
-        {
-          "data": "2026-02-13",
-          "valor": 270.6
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 271.2
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 268.8
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 272.4
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 289.2
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 308.4
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 319.8
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 319.8
-        },
         {
           "data": "2026-04-10",
           "valor": 319.8
@@ -19201,38 +18890,6 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários - somente preço ao produtor. Nível identificado: Produtor. Regra Nordeste Agro: leite ao produtor permanece em R$/litro.",
       "historico_30_dias": [
         {
-          "data": "2026-02-13",
-          "valor": 1.83
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 1.83
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 1.79
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 1.79
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 1.79
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 1.75
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 1.75
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 1.77
-        },
-        {
           "data": "2026-04-10",
           "valor": 1.68
         },
@@ -19283,38 +18940,6 @@
       "categoria": "pecuaria_leite",
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários - somente preço ao produtor. Nível identificado: Produtor. Regra Nordeste Agro: leite ao produtor permanece em R$/litro.",
       "historico_30_dias": [
-        {
-          "data": "2026-02-13",
-          "valor": 3.01
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 3.01
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 3.01
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 3.01
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 3.01
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 3.3
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 3.3
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 3.3
-        },
         {
           "data": "2026-04-10",
           "valor": 3.3
@@ -19367,38 +18992,6 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários / Preços de Mercado. Nível identificado: Produtor.",
       "historico_30_dias": [
         {
-          "data": "2026-02-13",
-          "valor": 313.8
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 313.8
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 300.6
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 309.0
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 297.6
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 301.2
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 288.6
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 284.4
-        },
-        {
           "data": "2026-04-10",
           "valor": 288.0
         },
@@ -19449,38 +19042,6 @@
       "categoria": "pecuaria_leite",
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários - somente preço ao produtor. Nível identificado: Produtor. Regra Nordeste Agro: leite ao produtor permanece em R$/litro.",
       "historico_30_dias": [
-        {
-          "data": "2026-02-13",
-          "valor": 2.05
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 2.05
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 2.12
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 2.08
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 2.08
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 2.08
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 2.13
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 2.14
-        },
         {
           "data": "2026-04-10",
           "valor": 2.15
@@ -19533,38 +19094,6 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários - somente preço ao produtor. Nível identificado: Produtor. Regra Nordeste Agro: leite ao produtor permanece em R$/litro.",
       "historico_30_dias": [
         {
-          "data": "2026-02-13",
-          "valor": 2.34
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 2.34
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 2.34
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 2.34
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 2.34
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 2.34
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 2.34
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 2.34
-        },
-        {
           "data": "2026-04-10",
           "valor": 2.38
         },
@@ -19615,38 +19144,6 @@
       "categoria": "pecuaria_leite",
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários - somente preço ao produtor. Nível identificado: Produtor. Regra Nordeste Agro: leite ao produtor permanece em R$/litro.",
       "historico_30_dias": [
-        {
-          "data": "2026-02-13",
-          "valor": 2.05
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 2.04
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 2.03
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 2.03
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 2.04
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 2.05
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 2.05
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 2.05
-        },
         {
           "data": "2026-04-10",
           "valor": 2.05
@@ -19699,38 +19196,6 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários - somente preço ao produtor. Nível identificado: Produtor. Regra Nordeste Agro: leite ao produtor permanece em R$/litro.",
       "historico_30_dias": [
         {
-          "data": "2026-02-13",
-          "valor": 1.89
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 1.94
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 1.94
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 1.89
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 1.89
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 1.89
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 1.94
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 2.14
-        },
-        {
           "data": "2026-04-10",
           "valor": 2.14
         },
@@ -19781,38 +19246,6 @@
       "categoria": "pecuaria_corte",
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários - somente preço ao produtor. Nível identificado: Produtor. Regra Nordeste Agro: quando a CONAB informar BOI/BOI GORDO em R$/kg, o coletor converte para Arroba (@) usando 1 @ = 15 kg, mantendo o preço original no JSON.",
       "historico_30_dias": [
-        {
-          "data": "2026-02-13",
-          "valor": 306.45
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 306.45
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 313.5
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 320.85
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 322.05
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 319.05
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 321.3
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 323.85
-        },
         {
           "data": "2026-04-10",
           "valor": 334.8
@@ -19865,38 +19298,6 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários / Preços de Mercado. Nível identificado: Produtor.",
       "historico_30_dias": [
         {
-          "data": "2026-02-13",
-          "valor": 145.2
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 190.2
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 145.2
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 190.2
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 190.2
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 145.2
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 205.2
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 150.0
-        },
-        {
           "data": "2026-04-10",
           "valor": 150.0
         },
@@ -19948,38 +19349,6 @@
       "observacao": "Preço agropecuário oficial/compilado pela CONAB e parceiros. Fonte operacional: CONAB Preços Agropecuários - somente preço ao produtor. Nível identificado: Produtor. Regra Nordeste Agro: leite ao produtor permanece em R$/litro.",
       "historico_30_dias": [
         {
-          "data": "2026-02-13",
-          "valor": 2.14
-        },
-        {
-          "data": "2026-02-20",
-          "valor": 2.14
-        },
-        {
-          "data": "2026-02-27",
-          "valor": 2.14
-        },
-        {
-          "data": "2026-03-06",
-          "valor": 2.14
-        },
-        {
-          "data": "2026-03-13",
-          "valor": 2.14
-        },
-        {
-          "data": "2026-03-20",
-          "valor": 2.14
-        },
-        {
-          "data": "2026-03-27",
-          "valor": 2.14
-        },
-        {
-          "data": "2026-04-03",
-          "valor": 2.14
-        },
-        {
           "data": "2026-04-10",
           "valor": 2.14
         },
@@ -20017,9 +19386,9 @@
       "conversao_aplicada": false,
       "moeda": "BRL",
       "variacao_percentual": -1.52,
-      "data_referencia": "2026-05-08",
-      "data_referencia_inicio": "2026-05-08",
-      "data_referencia_fim": "2026-05-08",
+      "data_referencia": "2026-05-09",
+      "data_referencia_inicio": "2026-05-09",
+      "data_referencia_fim": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
@@ -20031,7 +19400,7 @@
       "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
       "historico_30_dias": [
         {
-          "data": "2026-05-08",
+          "data": "2026-05-09",
           "valor": 1083.33
         }
       ],
@@ -20056,9 +19425,9 @@
       "conversao_aplicada": false,
       "moeda": "BRL",
       "variacao_percentual": 0.93,
-      "data_referencia": "2026-05-08",
-      "data_referencia_inicio": "2026-05-08",
-      "data_referencia_fim": "2026-05-08",
+      "data_referencia": "2026-05-09",
+      "data_referencia_inicio": "2026-05-09",
+      "data_referencia_fim": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
@@ -20070,7 +19439,7 @@
       "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
       "historico_30_dias": [
         {
-          "data": "2026-05-08",
+          "data": "2026-05-09",
           "valor": 136.25
         }
       ],
@@ -20095,9 +19464,9 @@
       "conversao_aplicada": false,
       "moeda": "BRL",
       "variacao_percentual": 0.0,
-      "data_referencia": "2026-05-08",
-      "data_referencia_inicio": "2026-05-08",
-      "data_referencia_fim": "2026-05-08",
+      "data_referencia": "2026-05-09",
+      "data_referencia_inicio": "2026-05-09",
+      "data_referencia_fim": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
@@ -20109,7 +19478,7 @@
       "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
       "historico_30_dias": [
         {
-          "data": "2026-05-08",
+          "data": "2026-05-09",
           "valor": 78.5
         }
       ],
@@ -20134,9 +19503,9 @@
       "conversao_aplicada": false,
       "moeda": "BRL",
       "variacao_percentual": 0.0,
-      "data_referencia": "2026-05-08",
-      "data_referencia_inicio": "2026-05-08",
-      "data_referencia_fim": "2026-05-08",
+      "data_referencia": "2026-05-09",
+      "data_referencia_inicio": "2026-05-09",
+      "data_referencia_fim": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
@@ -20148,7 +19517,7 @@
       "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
       "historico_30_dias": [
         {
-          "data": "2026-05-08",
+          "data": "2026-05-09",
           "valor": 402.5
         }
       ],
@@ -20173,9 +19542,9 @@
       "conversao_aplicada": false,
       "moeda": "BRL",
       "variacao_percentual": 0.0,
-      "data_referencia": "2026-05-08",
-      "data_referencia_inicio": "2026-05-08",
-      "data_referencia_fim": "2026-05-08",
+      "data_referencia": "2026-05-09",
+      "data_referencia_inicio": "2026-05-09",
+      "data_referencia_fim": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
@@ -20187,7 +19556,7 @@
       "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
       "historico_30_dias": [
         {
-          "data": "2026-05-08",
+          "data": "2026-05-09",
           "valor": 54.5
         }
       ],
@@ -20212,9 +19581,9 @@
       "conversao_aplicada": false,
       "moeda": "BRL",
       "variacao_percentual": 0.0,
-      "data_referencia": "2026-05-08",
-      "data_referencia_inicio": "2026-05-08",
-      "data_referencia_fim": "2026-05-08",
+      "data_referencia": "2026-05-09",
+      "data_referencia_inicio": "2026-05-09",
+      "data_referencia_fim": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
@@ -20226,7 +19595,7 @@
       "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
       "historico_30_dias": [
         {
-          "data": "2026-05-08",
+          "data": "2026-05-09",
           "valor": 110.33
         }
       ],
@@ -20251,9 +19620,9 @@
       "conversao_aplicada": false,
       "moeda": "BRL",
       "variacao_percentual": -0.22,
-      "data_referencia": "2026-05-08",
-      "data_referencia_inicio": "2026-05-08",
-      "data_referencia_fim": "2026-05-08",
+      "data_referencia": "2026-05-09",
+      "data_referencia_inicio": "2026-05-09",
+      "data_referencia_fim": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
@@ -20265,7 +19634,7 @@
       "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
       "historico_30_dias": [
         {
-          "data": "2026-05-08",
+          "data": "2026-05-09",
           "valor": 112.5
         }
       ],
@@ -20290,9 +19659,9 @@
       "conversao_aplicada": false,
       "moeda": "BRL",
       "variacao_percentual": 0.0,
-      "data_referencia": "2026-05-08",
-      "data_referencia_inicio": "2026-05-08",
-      "data_referencia_fim": "2026-05-08",
+      "data_referencia": "2026-05-09",
+      "data_referencia_inicio": "2026-05-09",
+      "data_referencia_fim": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
@@ -20304,7 +19673,7 @@
       "observacao": "Cotação regional do Oeste Baiano/MATOPIBA.",
       "historico_30_dias": [
         {
-          "data": "2026-05-08",
+          "data": "2026-05-09",
           "valor": 42.0
         }
       ],
@@ -20934,194 +20303,9 @@
       ],
       "validacao_publicacao": "ok",
       "politica_publicacao": "produtor_regional_ou_referencia_conab"
-    },
-    {
-      "produto": "Leite — Produtor",
-      "produto_base": "Leite",
-      "produto_original": "Leite — Preço ao Produtor CEPEA/ESALQ",
-      "tipo_produto": "Padrão",
-      "produto_slug": "leite-produtor",
-      "uf": "BA",
-      "estado": "Bahia",
-      "praca": "Bahia",
-      "unidade": "Litro",
-      "unidade_original": "Litro",
-      "preco": 2.2011,
-      "preco_original": 2.2011,
-      "preco_formatado": "R$ 2,2011",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2025-11-01",
-      "data_referencia_inicio": "2025-11-01",
-      "data_referencia_fim": "2025-11-01",
-      "periodo_referencia": "nov/25",
-      "fonte": "CEPEA/ESALQ",
-      "fonte_url": "https://cepea.org.br/br/indicador/leite.aspx",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Referência CEPEA/ESALQ",
-      "nivel_comercializacao_chave": "referencia_cepea_pecuaria",
-      "prioridade_nivel_preco": 7,
-      "categoria": "pecuaria_leite",
-      "observacao": "Referência regional CEPEA/ESALQ para Bahia. Não deve ser exibida como preço local de PI, MA ou PA. Fallback operacional usado porque: erro_coleta_cepea_leite:403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/leite.aspx Referência CEPEA/ESALQ publicada de forma transparente: não é preço local da praça selecionada. Exceção de atualidade: referência CEPEA/ESALQ mantida na tabela mesmo fora da janela de 90 dias, por ser indicador institucional/mensal e não preço local.",
-      "historico_30_dias": [
-        {
-          "data": "2025-11-01",
-          "valor": 2.2011
-        }
-      ],
-      "fallback_operacional": true,
-      "motivo_fallback": "erro_coleta_cepea_leite:403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/leite.aspx",
-      "politica_publicacao": "produtor_regional_ou_referencia_conab",
-      "validacao_publicacao": "ok",
-      "referencia_fora_janela_90d": true
-    },
-    {
-      "produto": "Leite — Produtor",
-      "produto_base": "Leite",
-      "produto_original": "Leite — Preço ao Produtor CEPEA/ESALQ",
-      "tipo_produto": "Padrão",
-      "produto_slug": "leite-produtor",
-      "uf": "REF",
-      "estado": "Referência CEPEA",
-      "praca": "Brasil",
-      "unidade": "Litro",
-      "unidade_original": "Litro",
-      "preco": 2.1122,
-      "preco_original": 2.1122,
-      "preco_formatado": "R$ 2,1122",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "moeda": "BRL",
-      "variacao_percentual": null,
-      "data_referencia": "2025-11-01",
-      "data_referencia_inicio": "2025-11-01",
-      "data_referencia_fim": "2025-11-01",
-      "periodo_referencia": "nov/25",
-      "fonte": "CEPEA/ESALQ",
-      "fonte_url": "https://cepea.org.br/br/indicador/leite.aspx",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Referência CEPEA/ESALQ",
-      "nivel_comercializacao_chave": "referencia_cepea_pecuaria",
-      "prioridade_nivel_preco": 7,
-      "categoria": "pecuaria_leite",
-      "observacao": "Preço médio do leite ao produtor CEPEA/ESALQ para Brasil. Referência mensal em R$/litro; não é cotação local de PI, MA ou PA. Fallback operacional usado porque: erro_coleta_cepea_leite:403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/leite.aspx Referência CEPEA/ESALQ publicada de forma transparente: não é preço local da praça selecionada. Exceção de atualidade: referência CEPEA/ESALQ mantida na tabela mesmo fora da janela de 90 dias, por ser indicador institucional/mensal e não preço local.",
-      "historico_30_dias": [
-        {
-          "data": "2025-11-01",
-          "valor": 2.1122
-        }
-      ],
-      "fallback_operacional": true,
-      "motivo_fallback": "erro_coleta_cepea_leite:403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/leite.aspx",
-      "politica_publicacao": "produtor_regional_ou_referencia_conab",
-      "validacao_publicacao": "ok",
-      "referencia_fora_janela_90d": true
-    },
-    {
-      "produto": "Boi Gordo — Produtor",
-      "produto_base": "Boi Gordo",
-      "produto_original": "Boi Gordo — Indicador CEPEA/ESALQ",
-      "tipo_produto": "Gordo",
-      "produto_slug": "boi-gordo-produtor",
-      "uf": "REF",
-      "estado": "Referência CEPEA",
-      "praca": "Indicador CEPEA/ESALQ",
-      "unidade": "Arroba (@)",
-      "unidade_original": "Arroba (@)",
-      "preco": 326.0,
-      "preco_original": 326.0,
-      "preco_formatado": "R$ 326,00",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "moeda": "BRL",
-      "variacao_percentual": 0.9,
-      "data_referencia": "2026-01-28",
-      "data_referencia_inicio": "2026-01-28",
-      "data_referencia_fim": "2026-01-28",
-      "periodo_referencia": "28/01/2026",
-      "fonte": "CEPEA/ESALQ",
-      "fonte_url": "https://cepea.org.br/br/indicador/boi-gordo.aspx",
-      "tipo": "oficial",
-      "nivel_comercializacao": "Referência CEPEA/ESALQ",
-      "nivel_comercializacao_chave": "referencia_cepea_pecuaria",
-      "prioridade_nivel_preco": 7,
-      "categoria": "pecuaria_corte",
-      "observacao": "Indicador do Boi Gordo CEPEA/ESALQ. Valor à vista por arroba de 15 kg, sem Funrural. Referência de mercado; não representa preço local da praça selecionada. Fallback operacional usado porque: erro_coleta_cepea_boi:403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/boi-gordo.aspx Referência CEPEA/ESALQ publicada de forma transparente: não é preço local da praça selecionada. Exceção de atualidade: referência CEPEA/ESALQ mantida na tabela mesmo fora da janela de 90 dias, por ser indicador institucional/mensal e não preço local.",
-      "historico_30_dias": [
-        {
-          "data": "2026-01-28",
-          "valor": 326.0
-        }
-      ],
-      "fallback_operacional": true,
-      "motivo_fallback": "erro_coleta_cepea_boi:403 Client Error: Forbidden for url: https://cepea.org.br/br/indicador/boi-gordo.aspx",
-      "politica_publicacao": "produtor_regional_ou_referencia_conab",
-      "validacao_publicacao": "ok",
-      "referencia_fora_janela_90d": true
     }
   ],
   "dados": [
-    {
-      "estado": "AL",
-      "cidade": "Média UF",
-      "regiao": "Alagoas",
-      "produto": "Feijão — Produtor",
-      "produto_base": "Feijão",
-      "produto_original": "FEIJAO",
-      "tipo_produto": "Padrão",
-      "nivel_comercializacao": "Produtor",
-      "nivel_comercializacao_chave": "preco_produtor",
-      "prioridade_nivel_preco": 1,
-      "categoria": "commodity_agricola",
-      "valor": 300.0,
-      "preco": "R$ 300,00",
-      "preco_original": 5.0,
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Kg",
-      "fator_conversao": 60.0,
-      "conversao_aplicada": true,
-      "data": "09/03/2026 a 13/03/2026",
-      "data_iso": "2026-03-13",
-      "data_inicio_iso": "2026-03-09",
-      "data_fim_iso": "2026-03-13",
-      "periodo_referencia": "09/03/2026 a 13/03/2026",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "historico_30d": [
-        {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 257.4,
-          "preco": "R$ 257,40"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 277.8,
-          "preco": "R$ 277,80"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 272.4,
-          "preco": "R$ 272,40"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 289.8,
-          "preco": "R$ 289,80"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 300.0,
-          "preco": "R$ 300,00"
-        }
-      ]
-    },
     {
       "estado": "AL",
       "cidade": "Média UF",
@@ -21149,54 +20333,6 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
       "historico_30d": [
-        {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 1.99,
-          "preco": "R$ 1,9900"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 2.04,
-          "preco": "R$ 2,0400"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 2.09,
-          "preco": "R$ 2,0900"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 2.14,
-          "preco": "R$ 2,1400"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 2.18,
-          "preco": "R$ 2,1800"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 2.18,
-          "preco": "R$ 2,1800"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 2.23,
-          "preco": "R$ 2,2300"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 2.28,
-          "preco": "R$ 2,2800"
-        },
         {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
@@ -21251,54 +20387,6 @@
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
       "historico_30d": [
         {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 318.9,
-          "preco": "R$ 318,90"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 318.9,
-          "preco": "R$ 318,90"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 324.3,
-          "preco": "R$ 324,30"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 333.3,
-          "preco": "R$ 333,30"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 341.7,
-          "preco": "R$ 341,70"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 336.6,
-          "preco": "R$ 336,60"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 325.5,
-          "preco": "R$ 325,50"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 331.65,
-          "preco": "R$ 331,65"
-        },
-        {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
           "valor": 338.85,
@@ -21352,54 +20440,6 @@
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "historico_30d": [
         {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 310.2,
-          "preco": "R$ 310,20"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 310.2,
-          "preco": "R$ 310,20"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 334.8,
-          "preco": "R$ 334,80"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 349.8,
-          "preco": "R$ 349,80"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 352.8,
-          "preco": "R$ 352,80"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 327.6,
-          "preco": "R$ 327,60"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 319.8,
-          "preco": "R$ 319,80"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 302.4,
-          "preco": "R$ 302,40"
-        },
-        {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
           "valor": 307.8,
@@ -21452,54 +20492,6 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
       "historico_30d": [
-        {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 2.08,
-          "preco": "R$ 2,0800"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 2.06,
-          "preco": "R$ 2,0600"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 2.01,
-          "preco": "R$ 2,0100"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 2.01,
-          "preco": "R$ 2,0100"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 2.01,
-          "preco": "R$ 2,0100"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 2.01,
-          "preco": "R$ 2,0100"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 2.01,
-          "preco": "R$ 2,0100"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 2.01,
-          "preco": "R$ 2,0100"
-        },
         {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
@@ -21589,54 +20581,6 @@
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
       "historico_30d": [
         {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 2.06,
-          "preco": "R$ 2,0600"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 2.03,
-          "preco": "R$ 2,0300"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 2.02,
-          "preco": "R$ 2,0200"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 2.07,
-          "preco": "R$ 2,0700"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 2.07,
-          "preco": "R$ 2,0700"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 2.07,
-          "preco": "R$ 2,0700"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 2.11,
-          "preco": "R$ 2,1100"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 2.11,
-          "preco": "R$ 2,1100"
-        },
-        {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
           "valor": 2.15,
@@ -21689,54 +20633,6 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
       "historico_30d": [
-        {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 1.65,
-          "preco": "R$ 1,6500"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 1.72,
-          "preco": "R$ 1,7200"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 1.72,
-          "preco": "R$ 1,7200"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 1.63,
-          "preco": "R$ 1,6300"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 1.61,
-          "preco": "R$ 1,6100"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 1.61,
-          "preco": "R$ 1,6100"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 1.63,
-          "preco": "R$ 1,6300"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 1.64,
-          "preco": "R$ 1,6400"
-        },
         {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
@@ -21791,54 +20687,6 @@
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
       "historico_30d": [
         {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 313.35,
-          "preco": "R$ 313,35"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 313.95,
-          "preco": "R$ 313,95"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 319.95,
-          "preco": "R$ 319,95"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 320.85,
-          "preco": "R$ 320,85"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 323.4,
-          "preco": "R$ 323,40"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 325.95,
-          "preco": "R$ 325,95"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 331.5,
-          "preco": "R$ 331,50"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 340.95,
-          "preco": "R$ 340,95"
-        },
-        {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
           "valor": 347.55,
@@ -21891,54 +20739,6 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "historico_30d": [
-        {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 270.6,
-          "preco": "R$ 270,60"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 271.2,
-          "preco": "R$ 271,20"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 268.8,
-          "preco": "R$ 268,80"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 272.4,
-          "preco": "R$ 272,40"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 289.2,
-          "preco": "R$ 289,20"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 308.4,
-          "preco": "R$ 308,40"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 319.8,
-          "preco": "R$ 319,80"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 319.8,
-          "preco": "R$ 319,80"
-        },
         {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
@@ -21993,54 +20793,6 @@
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
       "historico_30d": [
         {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 1.83,
-          "preco": "R$ 1,8300"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 1.83,
-          "preco": "R$ 1,8300"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 1.79,
-          "preco": "R$ 1,7900"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 1.79,
-          "preco": "R$ 1,7900"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 1.79,
-          "preco": "R$ 1,7900"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 1.75,
-          "preco": "R$ 1,7500"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 1.75,
-          "preco": "R$ 1,7500"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 1.77,
-          "preco": "R$ 1,7700"
-        },
-        {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
           "valor": 1.68,
@@ -22093,54 +20845,6 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
       "historico_30d": [
-        {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 3.01,
-          "preco": "R$ 3,0100"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 3.01,
-          "preco": "R$ 3,0100"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 3.01,
-          "preco": "R$ 3,0100"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 3.01,
-          "preco": "R$ 3,0100"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 3.01,
-          "preco": "R$ 3,0100"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 3.3,
-          "preco": "R$ 3,3000"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 3.3,
-          "preco": "R$ 3,3000"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 3.3,
-          "preco": "R$ 3,3000"
-        },
         {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
@@ -22195,54 +20899,6 @@
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "historico_30d": [
         {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 313.8,
-          "preco": "R$ 313,80"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 313.8,
-          "preco": "R$ 313,80"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 300.6,
-          "preco": "R$ 300,60"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 309.0,
-          "preco": "R$ 309,00"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 297.6,
-          "preco": "R$ 297,60"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 301.2,
-          "preco": "R$ 301,20"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 288.6,
-          "preco": "R$ 288,60"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 284.4,
-          "preco": "R$ 284,40"
-        },
-        {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
           "valor": 288.0,
@@ -22295,54 +20951,6 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
       "historico_30d": [
-        {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 2.05,
-          "preco": "R$ 2,0500"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 2.05,
-          "preco": "R$ 2,0500"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 2.12,
-          "preco": "R$ 2,1200"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 2.08,
-          "preco": "R$ 2,0800"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 2.08,
-          "preco": "R$ 2,0800"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 2.08,
-          "preco": "R$ 2,0800"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 2.13,
-          "preco": "R$ 2,1300"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 2.14,
-          "preco": "R$ 2,1400"
-        },
         {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
@@ -22397,54 +21005,6 @@
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
       "historico_30d": [
         {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 2.34,
-          "preco": "R$ 2,3400"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 2.34,
-          "preco": "R$ 2,3400"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 2.34,
-          "preco": "R$ 2,3400"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 2.34,
-          "preco": "R$ 2,3400"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 2.34,
-          "preco": "R$ 2,3400"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 2.34,
-          "preco": "R$ 2,3400"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 2.34,
-          "preco": "R$ 2,3400"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 2.34,
-          "preco": "R$ 2,3400"
-        },
-        {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
           "valor": 2.38,
@@ -22497,54 +21057,6 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
       "historico_30d": [
-        {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 2.05,
-          "preco": "R$ 2,0500"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 2.04,
-          "preco": "R$ 2,0400"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 2.03,
-          "preco": "R$ 2,0300"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 2.03,
-          "preco": "R$ 2,0300"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 2.04,
-          "preco": "R$ 2,0400"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 2.05,
-          "preco": "R$ 2,0500"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 2.05,
-          "preco": "R$ 2,0500"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 2.05,
-          "preco": "R$ 2,0500"
-        },
         {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
@@ -22599,54 +21111,6 @@
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
       "historico_30d": [
         {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 1.89,
-          "preco": "R$ 1,8900"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 1.94,
-          "preco": "R$ 1,9400"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 1.94,
-          "preco": "R$ 1,9400"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 1.89,
-          "preco": "R$ 1,8900"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 1.89,
-          "preco": "R$ 1,8900"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 1.89,
-          "preco": "R$ 1,8900"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 1.94,
-          "preco": "R$ 1,9400"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 2.14,
-          "preco": "R$ 2,1400"
-        },
-        {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
           "valor": 2.14,
@@ -22699,54 +21163,6 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
       "historico_30d": [
-        {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 306.45,
-          "preco": "R$ 306,45"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 306.45,
-          "preco": "R$ 306,45"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 313.5,
-          "preco": "R$ 313,50"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 320.85,
-          "preco": "R$ 320,85"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 322.05,
-          "preco": "R$ 322,05"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 319.05,
-          "preco": "R$ 319,05"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 321.3,
-          "preco": "R$ 321,30"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 323.85,
-          "preco": "R$ 323,85"
-        },
         {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
@@ -22801,54 +21217,6 @@
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "historico_30d": [
         {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 145.2,
-          "preco": "R$ 145,20"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 190.2,
-          "preco": "R$ 190,20"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 145.2,
-          "preco": "R$ 145,20"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 190.2,
-          "preco": "R$ 190,20"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 190.2,
-          "preco": "R$ 190,20"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 145.2,
-          "preco": "R$ 145,20"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 205.2,
-          "preco": "R$ 205,20"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 150.0,
-          "preco": "R$ 150,00"
-        },
-        {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
           "valor": 150.0,
@@ -22902,54 +21270,6 @@
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
       "historico_30d": [
         {
-          "data": "13/02/2026",
-          "data_iso": "2026-02-13",
-          "valor": 2.14,
-          "preco": "R$ 2,1400"
-        },
-        {
-          "data": "20/02/2026",
-          "data_iso": "2026-02-20",
-          "valor": 2.14,
-          "preco": "R$ 2,1400"
-        },
-        {
-          "data": "27/02/2026",
-          "data_iso": "2026-02-27",
-          "valor": 2.14,
-          "preco": "R$ 2,1400"
-        },
-        {
-          "data": "06/03/2026",
-          "data_iso": "2026-03-06",
-          "valor": 2.14,
-          "preco": "R$ 2,1400"
-        },
-        {
-          "data": "13/03/2026",
-          "data_iso": "2026-03-13",
-          "valor": 2.14,
-          "preco": "R$ 2,1400"
-        },
-        {
-          "data": "20/03/2026",
-          "data_iso": "2026-03-20",
-          "valor": 2.14,
-          "preco": "R$ 2,1400"
-        },
-        {
-          "data": "27/03/2026",
-          "data_iso": "2026-03-27",
-          "valor": 2.14,
-          "preco": "R$ 2,1400"
-        },
-        {
-          "data": "03/04/2026",
-          "data_iso": "2026-04-03",
-          "valor": 2.14,
-          "preco": "R$ 2,1400"
-        },
-        {
           "data": "10/04/2026",
           "data_iso": "2026-04-10",
           "valor": 2.14,
@@ -22994,17 +21314,17 @@
       "unidade_original": "Tonelada",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "08/05/2026",
-      "data_iso": "2026-05-08",
-      "data_inicio_iso": "2026-05-08",
-      "data_fim_iso": "2026-05-08",
+      "data": "09/05/2026",
+      "data_iso": "2026-05-09",
+      "data_inicio_iso": "2026-05-09",
+      "data_fim_iso": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "historico_30d": [
         {
-          "data": "08/05/2026",
-          "data_iso": "2026-05-08",
+          "data": "09/05/2026",
+          "data_iso": "2026-05-09",
           "valor": 1083.33,
           "preco": "R$ 1083,33"
         }
@@ -23029,17 +21349,17 @@
       "unidade_original": "Arroba (@)",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "08/05/2026",
-      "data_iso": "2026-05-08",
-      "data_inicio_iso": "2026-05-08",
-      "data_fim_iso": "2026-05-08",
+      "data": "09/05/2026",
+      "data_iso": "2026-05-09",
+      "data_inicio_iso": "2026-05-09",
+      "data_fim_iso": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "historico_30d": [
         {
-          "data": "08/05/2026",
-          "data_iso": "2026-05-08",
+          "data": "09/05/2026",
+          "data_iso": "2026-05-09",
           "valor": 136.25,
           "preco": "R$ 136,25"
         }
@@ -23064,17 +21384,17 @@
       "unidade_original": "Saca 60kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "08/05/2026",
-      "data_iso": "2026-05-08",
-      "data_inicio_iso": "2026-05-08",
-      "data_fim_iso": "2026-05-08",
+      "data": "09/05/2026",
+      "data_iso": "2026-05-09",
+      "data_inicio_iso": "2026-05-09",
+      "data_fim_iso": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "historico_30d": [
         {
-          "data": "08/05/2026",
-          "data_iso": "2026-05-08",
+          "data": "09/05/2026",
+          "data_iso": "2026-05-09",
           "valor": 78.5,
           "preco": "R$ 78,50"
         }
@@ -23099,17 +21419,17 @@
       "unidade_original": "Saca 60kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "08/05/2026",
-      "data_iso": "2026-05-08",
-      "data_inicio_iso": "2026-05-08",
-      "data_fim_iso": "2026-05-08",
+      "data": "09/05/2026",
+      "data_iso": "2026-05-09",
+      "data_inicio_iso": "2026-05-09",
+      "data_fim_iso": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "historico_30d": [
         {
-          "data": "08/05/2026",
-          "data_iso": "2026-05-08",
+          "data": "09/05/2026",
+          "data_iso": "2026-05-09",
           "valor": 402.5,
           "preco": "R$ 402,50"
         }
@@ -23134,17 +21454,17 @@
       "unidade_original": "Saca 60kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "08/05/2026",
-      "data_iso": "2026-05-08",
-      "data_inicio_iso": "2026-05-08",
-      "data_fim_iso": "2026-05-08",
+      "data": "09/05/2026",
+      "data_iso": "2026-05-09",
+      "data_inicio_iso": "2026-05-09",
+      "data_fim_iso": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "historico_30d": [
         {
-          "data": "08/05/2026",
-          "data_iso": "2026-05-08",
+          "data": "09/05/2026",
+          "data_iso": "2026-05-09",
           "valor": 54.5,
           "preco": "R$ 54,50"
         }
@@ -23169,17 +21489,17 @@
       "unidade_original": "Saca 60kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "08/05/2026",
-      "data_iso": "2026-05-08",
-      "data_inicio_iso": "2026-05-08",
-      "data_fim_iso": "2026-05-08",
+      "data": "09/05/2026",
+      "data_iso": "2026-05-09",
+      "data_inicio_iso": "2026-05-09",
+      "data_fim_iso": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "historico_30d": [
         {
-          "data": "08/05/2026",
-          "data_iso": "2026-05-08",
+          "data": "09/05/2026",
+          "data_iso": "2026-05-09",
           "valor": 110.33,
           "preco": "R$ 110,33"
         }
@@ -23204,17 +21524,17 @@
       "unidade_original": "Saca 60kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "08/05/2026",
-      "data_iso": "2026-05-08",
-      "data_inicio_iso": "2026-05-08",
-      "data_fim_iso": "2026-05-08",
+      "data": "09/05/2026",
+      "data_iso": "2026-05-09",
+      "data_inicio_iso": "2026-05-09",
+      "data_fim_iso": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "historico_30d": [
         {
-          "data": "08/05/2026",
-          "data_iso": "2026-05-08",
+          "data": "09/05/2026",
+          "data_iso": "2026-05-09",
           "valor": 112.5,
           "preco": "R$ 112,50"
         }
@@ -23239,17 +21559,17 @@
       "unidade_original": "Saca 60kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "08/05/2026",
-      "data_iso": "2026-05-08",
-      "data_inicio_iso": "2026-05-08",
-      "data_fim_iso": "2026-05-08",
+      "data": "09/05/2026",
+      "data_iso": "2026-05-09",
+      "data_inicio_iso": "2026-05-09",
+      "data_fim_iso": "2026-05-09",
       "periodo_referencia": "",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "historico_30d": [
         {
-          "data": "08/05/2026",
-          "data_iso": "2026-05-08",
+          "data": "09/05/2026",
+          "data_iso": "2026-05-09",
           "valor": 42.0,
           "preco": "R$ 42,00"
         }
@@ -23812,111 +22132,6 @@
           "data_iso": "2026-05-01",
           "valor": 105.0,
           "preco": "R$ 105,00"
-        }
-      ]
-    },
-    {
-      "estado": "BA",
-      "cidade": "Bahia",
-      "regiao": "Bahia",
-      "produto": "Leite — Produtor",
-      "produto_base": "Leite",
-      "produto_original": "Leite — Preço ao Produtor CEPEA/ESALQ",
-      "tipo_produto": "Padrão",
-      "nivel_comercializacao": "Referência CEPEA/ESALQ",
-      "nivel_comercializacao_chave": "referencia_cepea_pecuaria",
-      "prioridade_nivel_preco": 7,
-      "categoria": "pecuaria_leite",
-      "valor": 2.2011,
-      "preco": "R$ 2,2011",
-      "preco_original": 2.2011,
-      "unidade": "Litro",
-      "unidade_original": "Litro",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "data": "nov/25",
-      "data_iso": "2025-11-01",
-      "data_inicio_iso": "2025-11-01",
-      "data_fim_iso": "2025-11-01",
-      "periodo_referencia": "nov/25",
-      "fonte": "CEPEA/ESALQ",
-      "fonte_url": "https://cepea.org.br/br/indicador/leite.aspx",
-      "historico_30d": [
-        {
-          "data": "01/11/2025",
-          "data_iso": "2025-11-01",
-          "valor": 2.2011,
-          "preco": "R$ 2,2011"
-        }
-      ]
-    },
-    {
-      "estado": "REF",
-      "cidade": "Brasil",
-      "regiao": "Referência CEPEA",
-      "produto": "Leite — Produtor",
-      "produto_base": "Leite",
-      "produto_original": "Leite — Preço ao Produtor CEPEA/ESALQ",
-      "tipo_produto": "Padrão",
-      "nivel_comercializacao": "Referência CEPEA/ESALQ",
-      "nivel_comercializacao_chave": "referencia_cepea_pecuaria",
-      "prioridade_nivel_preco": 7,
-      "categoria": "pecuaria_leite",
-      "valor": 2.1122,
-      "preco": "R$ 2,1122",
-      "preco_original": 2.1122,
-      "unidade": "Litro",
-      "unidade_original": "Litro",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "data": "nov/25",
-      "data_iso": "2025-11-01",
-      "data_inicio_iso": "2025-11-01",
-      "data_fim_iso": "2025-11-01",
-      "periodo_referencia": "nov/25",
-      "fonte": "CEPEA/ESALQ",
-      "fonte_url": "https://cepea.org.br/br/indicador/leite.aspx",
-      "historico_30d": [
-        {
-          "data": "01/11/2025",
-          "data_iso": "2025-11-01",
-          "valor": 2.1122,
-          "preco": "R$ 2,1122"
-        }
-      ]
-    },
-    {
-      "estado": "REF",
-      "cidade": "Indicador CEPEA/ESALQ",
-      "regiao": "Referência CEPEA",
-      "produto": "Boi Gordo — Produtor",
-      "produto_base": "Boi Gordo",
-      "produto_original": "Boi Gordo — Indicador CEPEA/ESALQ",
-      "tipo_produto": "Gordo",
-      "nivel_comercializacao": "Referência CEPEA/ESALQ",
-      "nivel_comercializacao_chave": "referencia_cepea_pecuaria",
-      "prioridade_nivel_preco": 7,
-      "categoria": "pecuaria_corte",
-      "valor": 326.0,
-      "preco": "R$ 326,00",
-      "preco_original": 326.0,
-      "unidade": "Arroba (@)",
-      "unidade_original": "Arroba (@)",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "data": "28/01/2026",
-      "data_iso": "2026-01-28",
-      "data_inicio_iso": "2026-01-28",
-      "data_fim_iso": "2026-01-28",
-      "periodo_referencia": "28/01/2026",
-      "fonte": "CEPEA/ESALQ",
-      "fonte_url": "https://cepea.org.br/br/indicador/boi-gordo.aspx",
-      "historico_30d": [
-        {
-          "data": "28/01/2026",
-          "data_iso": "2026-01-28",
-          "valor": 326.0,
-          "preco": "R$ 326,00"
         }
       ]
     }
@@ -24762,8 +22977,7 @@
     "niveis_permitidos": [
       "preco_produtor",
       "preco_regional",
-      "preco_referencia_conab",
-      "referencia_cepea_pecuaria"
+      "preco_referencia_conab"
     ],
     "niveis_bloqueados": [
       "preco_varejo",

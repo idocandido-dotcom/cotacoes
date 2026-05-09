@@ -1,7 +1,7 @@
 {
   "produto": "Sorgo",
   "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
-  "data_corte_cotacoes_ativas": "2026-02-07",
+  "data_corte_cotacoes_ativas": "2026-04-09",
   "conclusao": "Nenhum registro bruto de Sorgo foi encontrado nos arquivos semanais da CONAB para os estados monitorados.",
   "totais": {
     "brutas_sorgo_conab": 0,

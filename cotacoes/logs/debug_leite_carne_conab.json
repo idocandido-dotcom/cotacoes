@@ -5,7 +5,7 @@
     "Carne Bovina"
   ],
   "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
-  "data_corte_cotacoes_ativas": "2026-02-07",
+  "data_corte_cotacoes_ativas": "2026-04-09",
   "politica_publicacao": "Leite, Boi Gordo e Carne Bovina só entram na tabela principal quando a CONAB informa preço ao produtor. Varejo, atacado e nível não informado continuam bloqueados.",
   "totais_gerais": {
     "brutas_conab": 7861,
@@ -22,7 +22,7 @@
     "Leite": {
       "produto": "Leite",
       "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
-      "data_corte_cotacoes_ativas": "2026-02-07",
+      "data_corte_cotacoes_ativas": "2026-04-09",
       "conclusao": "Leite CONAB entrou na tabela final.",
       "totais": {
         "brutas_conab": 4845,
@@ -8115,7 +8115,7 @@
     "Boi Gordo": {
       "produto": "Boi Gordo",
       "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
-      "data_corte_cotacoes_ativas": "2026-02-07",
+      "data_corte_cotacoes_ativas": "2026-04-09",
       "conclusao": "Boi Gordo CONAB entrou na tabela final.",
       "totais": {
         "brutas_conab": 394,
@@ -12185,7 +12185,7 @@
     "Carne Bovina": {
       "produto": "Carne Bovina",
       "fonte": "CONAB - Preços Agropecuários Semanal UF/Município",
-      "data_corte_cotacoes_ativas": "2026-02-07",
+      "data_corte_cotacoes_ativas": "2026-04-09",
       "conclusao": "Carne Bovina CONAB foi coletado, mas foi bloqueado pelo nível de comercialização. Provável atacado, varejo ou nível não permitido para tabela principal.",
       "totais": {
         "brutas_conab": 2622,
