@@ -2,7 +2,7 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.3.6",
-  "gerado_em": "2026-05-09T09:04:25.850576-03:00",
+  "gerado_em": "2026-05-09T09:06:40.054985-03:00",
   "objetivo": "Coletar diretamente do CONAB Produtos 360º/Pentaho a consulta CDA dataAccessId=precoProduto para Soja, Milho e Algodão.",
   "total_itens_extraidos_pelo_parser_atual": 19,
   "total_respostas_debug": 4,

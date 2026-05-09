@@ -4,9 +4,9 @@
   "modulo": "cotacoes",
   "repositorio": "idocandido-dotcom/cotacoes",
   "versao": "1.3.6",
-  "ultima_sincronizacao": "2026-05-09 09:04:55",
-  "ultima_sincronizacao_iso": "2026-05-09T09:04:55.723931-03:00",
-  "gerado_em": "09/05/2026 09:04",
+  "ultima_sincronizacao": "2026-05-09 09:07:02",
+  "ultima_sincronizacao_iso": "2026-05-09T09:07:02.631530-03:00",
+  "gerado_em": "09/05/2026 09:07",
   "fuso_horario": "America/Fortaleza",
   "frequencia_atualizacao": "diaria",
   "dias_maximos_cotacao_ativa": 30,
@@ -75,7 +75,7 @@
       "CONAB - Preços Agropecuários Semanal Município"
     ],
     "total_fontes_com_erro": 0,
-    "tempo_execucao_segundos": 41.6
+    "tempo_execucao_segundos": 37.22
   },
   "fontes": [
     {
