@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.5.1 enxuto
+Nordeste Agro — Coletor Automático de Cotações v1.5.2 enxuto
 
 Objetivo:
 - Manter o mesmo nome do arquivo principal do projeto:
@@ -51,7 +51,7 @@ from bs4 import BeautifulSoup
 # Configuração geral
 # =============================================================================
 
-VERSAO = "1.5.1"
+VERSAO = "1.5.2"
 PROJETO = "Nordeste Agro"
 MODULO = "cotacoes"
 TZ = ZoneInfo("America/Fortaleza")
@@ -109,6 +109,14 @@ UFS_BRASIL = {
     "SE": "Sergipe", "TO": "Tocantins",
 }
 UFS_NORDESTE_AMPLIADO = {"AL", "BA", "CE", "MA", "PB", "PE", "PI", "RN", "SE", "PA", "TO"}
+
+
+def uf_monitorada(uf: Any) -> bool:
+    """
+    Região oficial da página Cotações:
+    Nordeste + Tocantins + Pará.
+    """
+    return limpar_texto(uf).upper() in UFS_NORDESTE_AMPLIADO
 
 PRODUTOS_360 = {
     "Soja": {
@@ -332,6 +340,39 @@ def periodo_e_datas_de_linha(row: list[Any], contexto: Optional[dict[str, Any]] 
     data_fim = periodo.get("data_fim") or data_inicio
     periodo_ref = periodo.get("periodo_referencia") or f"Semana de {data_para_br(data_fim)}"
     return data_inicio, data_fim, periodo_ref
+
+
+def periodo_semanal_padrao(data_inicio_iso: Optional[str], data_fim_iso: Optional[str] = None) -> tuple[str, str, str]:
+    """
+    Padroniza a data exibida no site como:
+    DD/MM/AAAA a DD/MM/AAAA
+
+    Quando a fonte semanal traz somente uma data, tratamos essa data como
+    início da semana de referência e usamos +4 dias para fechar sexta-feira.
+    Isso evita exibir apenas "27/04/2026" quando a referência real é
+    "27/04/2026 a 01/05/2026".
+    """
+    inicio = data_inicio_iso or agora_local().date().isoformat()
+
+    try:
+        d_ini = datetime.strptime(inicio[:10], "%Y-%m-%d").date()
+    except Exception:
+        d_ini = agora_local().date()
+        inicio = d_ini.isoformat()
+
+    if data_fim_iso:
+        fim = data_fim_iso
+        try:
+            d_fim = datetime.strptime(fim[:10], "%Y-%m-%d").date()
+        except Exception:
+            d_fim = d_ini + timedelta(days=4)
+            fim = d_fim.isoformat()
+    else:
+        d_fim = d_ini + timedelta(days=4)
+        fim = d_fim.isoformat()
+
+    periodo_ref = f"{d_ini.strftime('%d/%m/%Y')} a {d_fim.strftime('%d/%m/%Y')}"
+    return inicio, fim, periodo_ref
 
 
 # =============================================================================
@@ -567,7 +608,7 @@ def coletar_conab_360(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any
                 continue
 
             uf = limpar_texto(row[0]).upper()
-            if uf not in UFS_NORDESTE_AMPLIADO:
+            if not uf_monitorada(uf):
                 continue
 
             preco = parse_preco(row[1])
@@ -760,6 +801,8 @@ def extrair_itens_siagro(data: dict[str, Any], produto_base: str, contexto: dict
         uf = uf_da_linha(row)
         if not uf:
             continue
+        if not uf_monitorada(uf):
+            continue
 
         preco_original = preco_siagro_da_linha(row, produto_base)
         if preco_original is None:
@@ -891,7 +934,7 @@ def coletar_siagro(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "total_registros": len(itens),
             "produtos_monitorados": ["Sorgo Granífero", "Arroz", "Feijão", "Boi Gordo", "Leite"],
             "observacao": (
-                "v1.5.1 enxuta: usa RankingPrecoMedioUF por POST. "
+                "v1.5.2 enxuta: usa RankingPrecoMedioUF por POST. "
                 "Grãos em Saca 60 kg, Boi em @, Leite em litro."
             ),
         }
@@ -970,6 +1013,18 @@ def coletar_conab_semanal_fallback(
             )
             col_nivel = detectar_coluna(colunas, ["nivel"]) or detectar_coluna(colunas, ["comercializacao"])
             col_data = detectar_coluna(colunas, ["data"]) or detectar_coluna(colunas, ["dt"])
+            col_data_inicio = (
+                detectar_coluna(colunas, ["data", "inicial"])
+                or detectar_coluna(colunas, ["dt", "inicial"])
+                or detectar_coluna(colunas, ["inicio"])
+                or detectar_coluna(colunas, ["inicial"])
+            )
+            col_data_fim = (
+                detectar_coluna(colunas, ["data", "final"])
+                or detectar_coluna(colunas, ["dt", "final"])
+                or detectar_coluna(colunas, ["fim"])
+                or detectar_coluna(colunas, ["final"])
+            )
             col_praca = detectar_coluna(colunas, ["municipio"]) or detectar_coluna(colunas, ["praca"])
 
             if not col_produto or not col_uf or not col_preco:
@@ -986,6 +1041,8 @@ def coletar_conab_semanal_fallback(
                 uf = limpar_texto(row.get(col_uf, "")).upper()
                 if uf not in UFS_BRASIL:
                     continue
+                if not uf_monitorada(uf):
+                    continue
 
                 nivel = limpar_texto(row.get(col_nivel, "")) if col_nivel else "Preço Recebido pelo Produtor"
                 if not nivel_produtor(nivel):
@@ -995,8 +1052,19 @@ def coletar_conab_semanal_fallback(
                 if preco is None:
                     continue
 
+                data_inicio_iso = parse_data_qualquer(row.get(col_data_inicio)) if col_data_inicio else None
+                data_fim_iso = parse_data_qualquer(row.get(col_data_fim)) if col_data_fim else None
                 data_iso = parse_data_qualquer(row.get(col_data)) if col_data else None
-                data_iso = data_iso or agora_local().date().isoformat()
+
+                # Se a CONAB Semanal trouxer apenas uma data, padroniza como período semanal.
+                # Ex.: 27/04/2026 -> 27/04/2026 a 01/05/2026.
+                data_inicio_padrao = data_inicio_iso or data_iso or agora_local().date().isoformat()
+                data_inicio_padrao, data_fim_padrao, periodo_padrao = periodo_semanal_padrao(
+                    data_inicio_padrao,
+                    data_fim_iso,
+                )
+                data_iso = data_fim_padrao
+
                 praca = limpar_texto(row.get(col_praca, "")) if col_praca else ""
                 praca = praca or praca_padrao or f"{UFS_BRASIL.get(uf, uf)} - Média estadual CONAB"
 
@@ -1010,9 +1078,9 @@ def coletar_conab_semanal_fallback(
                         unidade_original="Kg" if produto_base != "Leite" else "Litro",
                         preco_original=preco,
                         data_referencia=data_iso,
-                        data_inicio=data_iso,
-                        data_fim=data_iso,
-                        periodo_referencia=data_para_br(data_iso),
+                        data_inicio=data_inicio_padrao,
+                        data_fim=data_fim_padrao,
+                        periodo_referencia=periodo_padrao,
                         fonte=nome,
                         fonte_url=url,
                         tipo_fonte="oficial",
@@ -1030,7 +1098,7 @@ def coletar_conab_semanal_fallback(
                     "status": "ok",
                     "total_registros": total,
                     "produtos_fallback": sorted(produtos_necessarios),
-                    "observacao": "Fallback para Arroz, Feijão, Sorgo, Boi Gordo e Leite quando SIAGRO falhar.",
+                    "observacao": "Fallback para Arroz, Feijão, Sorgo, Boi Gordo e Leite quando SIAGRO falhar; filtrado para Nordeste + Tocantins + Pará.",
                 }
             )
 
