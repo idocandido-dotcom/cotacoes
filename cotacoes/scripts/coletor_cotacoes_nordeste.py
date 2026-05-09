@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.5.3 enxuto
+Nordeste Agro — Coletor Automático de Cotações v1.5.4 enxuto
 
 Objetivo:
 - Manter o mesmo nome do arquivo principal do projeto:
@@ -51,7 +51,7 @@ from bs4 import BeautifulSoup
 # Configuração geral
 # =============================================================================
 
-VERSAO = "1.5.3"
+VERSAO = "1.5.4"
 PROJETO = "Nordeste Agro"
 MODULO = "cotacoes"
 TZ = ZoneInfo("America/Fortaleza")
@@ -347,7 +347,7 @@ def periodo_semanal_padrao(data_inicio_iso: Optional[str], data_fim_iso: Optiona
     Padroniza a data exibida no site como:
     DD/MM/AAAA a DD/MM/AAAA
 
-    Regra v1.5.3:
+    Regra v1.5.4:
     - Se a fonte trouxer data inicial e final diferentes, usa as duas.
     - Se a fonte trouxer só uma data, ou se inicial e final vierem iguais,
       trata essa data como início da semana e soma +4 dias.
@@ -538,6 +538,8 @@ def item_para_html(item: dict[str, Any]) -> dict[str, Any]:
         "periodo_referencia": item.get("periodo_referencia") or "",
         "fonte": item.get("fonte") or "",
         "fonte_url": item.get("fonte_url") or "",
+        "variacao_valor": item.get("variacao_valor"),
+        "variacao_percentual": item.get("variacao_percentual"),
         "historico_30d": [
             {
                 "data": data_para_br(p.get("data")),
@@ -940,13 +942,215 @@ def coletar_siagro(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "total_registros": len(itens),
             "produtos_monitorados": ["Sorgo Granífero", "Arroz", "Feijão", "Boi Gordo", "Leite"],
             "observacao": (
-                "v1.5.3 enxuta: usa RankingPrecoMedioUF por POST. "
+                "v1.5.4 enxuta: usa RankingPrecoMedioUF por POST. "
                 "Grãos em Saca 60 kg, Boi em @, Leite em litro."
             ),
         }
     )
 
     return itens
+
+
+
+# =============================================================================
+# Histórico CONAB Semanal UF para CONAB 360
+# =============================================================================
+
+def converter_preco_historico_360(produto_base: str, preco_kg: float) -> Optional[float]:
+    """
+    Histórico de Soja, Milho e Algodão vindo da CONAB Semanal UF.
+
+    A coluna semanal da CONAB vem em R$/kg.
+    Para a visualização do site:
+    - Soja/Milho: R$/kg x 60 = Saca 60 kg
+    - Algodão: R$/kg x 15 = Arroba (@)
+    """
+    if produto_base in {"Soja", "Milho"}:
+        return round(preco_kg * 60, 2)
+    if produto_base == "Algodão":
+        return round(preco_kg * 15, 2)
+    return None
+
+
+def coletar_historico_conab_semanal_para_360(status_fontes: list[dict[str, Any]]) -> dict[tuple[str, str], list[dict[str, Any]]]:
+    """
+    v1.5.4:
+    Mantém CONAB Produtos 360º como fonte principal para Soja, Milho e Algodão,
+    mas usa a CONAB Preços Agropecuários Semanal UF para montar o histórico
+    de 30 dias desses produtos.
+
+    Isso resolve o gráfico com um único ponto e permite calcular:
+    - preço inicial;
+    - preço atual;
+    - variação em R$;
+    - variação %.
+    """
+    historicos: dict[tuple[str, str], dict[str, float]] = {}
+    data_corte = (agora_local().date() - timedelta(days=DIAS_MAXIMOS_COTACAO_ATIVA)).isoformat()
+
+    try:
+        texto = baixar_texto(CONAB_SEMANAL_UF_URL, timeout=30)
+        registros = ler_csv_conab_texto(texto)
+
+        if not registros:
+            raise RuntimeError("arquivo CONAB Semanal UF sem registros")
+
+        colunas = list(registros[0].keys())
+        col_produto = detectar_coluna(colunas, ["produto"]) or "produto"
+        col_uf = detectar_coluna(colunas, ["uf"]) or detectar_coluna(colunas, ["sigla"])
+        col_preco = (
+            detectar_coluna(colunas, ["valor", "kg"])
+            or detectar_coluna(colunas, ["preco"])
+            or detectar_coluna(colunas, ["valor"])
+        )
+        col_nivel = detectar_coluna(colunas, ["nivel"]) or detectar_coluna(colunas, ["comercializacao"])
+        col_data = detectar_coluna(colunas, ["data"]) or detectar_coluna(colunas, ["dt"])
+        col_data_inicio = (
+            detectar_coluna(colunas, ["data", "inicial"])
+            or detectar_coluna(colunas, ["dt", "inicial"])
+            or detectar_coluna(colunas, ["inicio"])
+            or detectar_coluna(colunas, ["inicial"])
+        )
+        col_data_fim = (
+            detectar_coluna(colunas, ["data", "final"])
+            or detectar_coluna(colunas, ["dt", "final"])
+            or detectar_coluna(colunas, ["fim"])
+            or detectar_coluna(colunas, ["final"])
+        )
+
+        if not col_produto or not col_uf or not col_preco:
+            raise RuntimeError(f"colunas essenciais não encontradas: {colunas[:20]}")
+
+        total_pontos = 0
+
+        for row in registros:
+            produto_base = normalizar_produto_base(row.get(col_produto, ""))
+
+            if produto_base not in {"Soja", "Milho", "Algodão"}:
+                continue
+
+            uf = limpar_texto(row.get(col_uf, "")).upper()
+            if not uf_monitorada(uf):
+                continue
+
+            nivel = limpar_texto(row.get(col_nivel, "")) if col_nivel else "Preço Recebido pelo Produtor"
+            if not nivel_produtor(nivel):
+                continue
+
+            preco_kg = parse_preco(row.get(col_preco))
+            if preco_kg is None:
+                continue
+
+            valor_convertido = converter_preco_historico_360(produto_base, preco_kg)
+            if valor_convertido is None:
+                continue
+
+            data_inicio_iso = parse_data_qualquer(row.get(col_data_inicio)) if col_data_inicio else None
+            data_fim_iso = parse_data_qualquer(row.get(col_data_fim)) if col_data_fim else None
+            data_iso = parse_data_qualquer(row.get(col_data)) if col_data else None
+
+            data_inicio_padrao = data_inicio_iso or data_iso or agora_local().date().isoformat()
+            data_inicio_padrao, data_fim_padrao, periodo_padrao = periodo_semanal_padrao(
+                data_inicio_padrao,
+                data_fim_iso,
+            )
+
+            if data_fim_padrao < data_corte:
+                continue
+
+            chave = (produto_base, uf)
+            historicos.setdefault(chave, {})
+            historicos[chave][data_fim_padrao] = valor_convertido
+            total_pontos += 1
+
+        saida = {
+            chave: [
+                {"data": data_iso, "valor": valor}
+                for data_iso, valor in sorted(pontos.items())
+            ]
+            for chave, pontos in historicos.items()
+        }
+
+        status_fontes.append(
+            {
+                "fonte": "CONAB - Preços Agropecuários Semanal UF / Histórico 360",
+                "url": CONAB_SEMANAL_UF_URL,
+                "status": "ok",
+                "total_registros": total_pontos,
+                "produtos_historico": ["Soja", "Milho", "Algodão"],
+                "observacao": (
+                    "v1.5.4: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. "
+                    "O preço atual continua vindo do CONAB Produtos 360º."
+                ),
+            }
+        )
+
+        return saida
+
+    except Exception as erro:
+        status_fontes.append(
+            {
+                "fonte": "CONAB - Preços Agropecuários Semanal UF / Histórico 360",
+                "url": CONAB_SEMANAL_UF_URL,
+                "status": "erro",
+                "total_registros": 0,
+                "erro": repr(erro),
+            }
+        )
+        return {}
+
+
+def aplicar_historico_360(
+    itens_tabela: list[dict[str, Any]],
+    historicos_360: dict[tuple[str, str], list[dict[str, Any]]],
+) -> None:
+    """
+    Aplica histórico nos itens atuais do CONAB Produtos 360º.
+
+    Mantém o item do 360 como preço atual, mas injeta pontos semanais
+    da CONAB Semanal UF para que o frontend consiga desenhar gráfico
+    e mostrar variação.
+    """
+    for item in itens_tabela:
+        if item.get("fonte") != "CONAB - Produtos 360º":
+            continue
+
+        produto_base = limpar_texto(item.get("produto_base"))
+        uf = limpar_texto(item.get("uf")).upper()
+
+        if produto_base not in {"Soja", "Milho", "Algodão"}:
+            continue
+
+        pontos = list(historicos_360.get((produto_base, uf), []))
+
+        # Garante que o preço atual do Produtos 360º esteja no histórico.
+        data_atual = limpar_texto(item.get("data_referencia"))
+        valor_atual = item.get("preco")
+
+        if data_atual and valor_atual is not None:
+            pontos = [p for p in pontos if p.get("data") != data_atual]
+            pontos.append({"data": data_atual, "valor": float(valor_atual)})
+
+        pontos = sorted(pontos, key=lambda p: limpar_texto(p.get("data")))[-30:]
+        item["historico_30_dias"] = pontos
+
+        if len(pontos) >= 2:
+            inicial = parse_preco(pontos[0].get("valor"))
+            atual = parse_preco(pontos[-1].get("valor"))
+
+            if inicial is not None and atual is not None:
+                variacao_valor = round(atual - inicial, 2)
+                item["variacao_valor"] = variacao_valor
+
+                if inicial != 0:
+                    item["variacao_percentual"] = round((variacao_valor / inicial) * 100, 4)
+                else:
+                    item["variacao_percentual"] = None
+
+                item["observacao"] = (
+                    limpar_texto(item.get("observacao"))
+                    + " Histórico de 30 dias montado pela CONAB Semanal UF para cálculo de variação."
+                ).strip()
 
 
 # =============================================================================
@@ -1444,6 +1648,7 @@ def main() -> None:
 
     brutas: list[dict[str, Any]] = []
     brutas.extend(coletar_conab_360(status_fontes))
+    historicos_360 = coletar_historico_conab_semanal_para_360(status_fontes)
 
     siagro = coletar_siagro(status_fontes)
     brutas.extend(siagro)
@@ -1468,6 +1673,7 @@ def main() -> None:
 
     data_corte = (agora_local().date() - timedelta(days=DIAS_MAXIMOS_COTACAO_ATIVA)).isoformat()
     tabela, stats = consolidar(brutas, data_corte)
+    aplicar_historico_360(tabela, historicos_360)
     stats["brutas"] = len(brutas)
 
     salvar_csv(tabela)
