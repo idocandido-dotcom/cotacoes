@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.5.6 enxuto
+Nordeste Agro — Coletor Automático de Cotações v1.5.7 enxuto
 
 Objetivo:
 - Manter o mesmo nome do arquivo principal do projeto:
@@ -51,7 +51,7 @@ from bs4 import BeautifulSoup
 # Configuração geral
 # =============================================================================
 
-VERSAO = "1.5.6"
+VERSAO = "1.5.7"
 PROJETO = "Nordeste Agro"
 MODULO = "cotacoes"
 TZ = ZoneInfo("America/Fortaleza")
@@ -68,6 +68,7 @@ OUTPUT_DEBUG_CONAB360 = LOGS_DIR / "debug_conab_produtos_360.json"
 OUTPUT_DEBUG_SIAGRO = LOGS_DIR / "debug_sorgo_conab.json"
 OUTPUT_DEBUG_PRIORIDADE = LOGS_DIR / "debug_prioridade_siagro.json"
 OUTPUT_HISTORICO_AIBA = LOGS_DIR / "historico_aiba.json"
+OUTPUT_DEBUG_AIBA_DUPLICADOS = LOGS_DIR / "debug_aiba_duplicados.json"
 
 DIAS_MAXIMOS_COTACAO_ATIVA = 30
 
@@ -348,7 +349,7 @@ def periodo_semanal_padrao(data_inicio_iso: Optional[str], data_fim_iso: Optiona
     Padroniza a data exibida no site como:
     DD/MM/AAAA a DD/MM/AAAA
 
-    Regra v1.5.6:
+    Regra v1.5.7:
     - Se a fonte trouxer data inicial e final diferentes, usa as duas.
     - Se a fonte trouxer só uma data, ou se inicial e final vierem iguais,
       trata essa data como início da semana e soma +4 dias.
@@ -943,7 +944,7 @@ def coletar_siagro(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "total_registros": len(itens),
             "produtos_monitorados": ["Sorgo Granífero", "Arroz", "Feijão", "Boi Gordo", "Leite"],
             "observacao": (
-                "v1.5.6 enxuta: usa RankingPrecoMedioUF por POST. "
+                "v1.5.7 enxuta: usa RankingPrecoMedioUF por POST. "
                 "Grãos em Saca 60 kg, Boi em @, Leite em litro."
             ),
         }
@@ -975,7 +976,7 @@ def converter_preco_historico_semanal(produto_base: str, preco_kg: float) -> Opt
 
 def coletar_historico_conab_semanal_para_360_e_sorgo(status_fontes: list[dict[str, Any]]) -> dict[tuple[str, str], list[dict[str, Any]]]:
     """
-    v1.5.6:
+    v1.5.7:
     Mantém CONAB Produtos 360º como fonte principal para Soja, Milho e Algodão,
     e SIAGRO como fonte principal para Sorgo, mas usa a CONAB Preços
     Agropecuários Semanal UF para montar histórico de 30 dias quando houver
@@ -1081,7 +1082,7 @@ def coletar_historico_conab_semanal_para_360_e_sorgo(status_fontes: list[dict[st
                 "total_registros": total_pontos,
                 "produtos_historico": ["Soja", "Milho", "Algodão", "Sorgo"],
                 "observacao": (
-                    "v1.5.6: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. "
+                    "v1.5.7: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. "
                     "O preço atual continua vindo do CONAB Produtos 360º."
                 ),
             }
@@ -1241,7 +1242,7 @@ def chave_historico_tuple(chave: str) -> tuple[str, str, str, str]:
 
 def carregar_historico_aiba_persistente() -> dict[tuple[str, str, str, str], list[dict[str, Any]]]:
     """
-    v1.5.6:
+    v1.5.7:
     Histórico persistente da AIBA em arquivo próprio:
     cotacoes/logs/historico_aiba.json
 
@@ -1386,7 +1387,7 @@ def aplicar_historico_acumulado_aiba_e_sorgo(
     historicos_anteriores: dict[tuple[str, str, str, str], list[dict[str, Any]]],
 ) -> None:
     """
-    v1.5.6:
+    v1.5.7:
     AIBA/regional passa a acumular histórico próprio a cada execução.
     Sorgo também reaproveita histórico anterior se a CONAB Semanal UF não
     trouxer pontos suficientes para cálculo de variação.
@@ -1743,6 +1744,173 @@ def carregar_regionais_anteriores() -> list[dict[str, Any]]:
     return saida
 
 
+
+# =============================================================================
+# Deduplicação AIBA / regional
+# =============================================================================
+
+def chave_deduplicacao_aiba(item: dict[str, Any]) -> tuple[str, str, str, str, str, str]:
+    """
+    Agrupa a AIBA/regional para evitar duas linhas visivelmente iguais no site.
+
+    Regra visual:
+    1 linha por produto + UF + praça + fonte + data + unidade.
+    """
+    return (
+        slugify(item.get("produto_base")),
+        limpar_texto(item.get("uf")).upper(),
+        slugify(item.get("praca")),
+        slugify(item.get("fonte")),
+        limpar_texto(item.get("data_referencia"))[:10],
+        slugify(item.get("unidade")),
+    )
+
+
+def score_preferencia_aiba(item: dict[str, Any]) -> tuple[int, int, float]:
+    """
+    Define qual duplicata fica visível.
+
+    Quanto maior o score, maior a preferência.
+    - Prioriza registros atuais, não preservados.
+    - Prioriza descrições sem termos típicos de contrato/futuro.
+    - Em empate, mantém o maior preço como referência regional.
+    """
+    texto = remover_acentos(
+        " ".join([
+            limpar_texto(item.get("produto_original")),
+            limpar_texto(item.get("observacao")),
+            limpar_texto(item.get("praca")),
+        ])
+    ).lower()
+
+    score = 0
+
+    if not item.get("preservado_por_falha_fonte"):
+        score += 20
+
+    termos_preferidos = ["disponivel", "produtor", "balcao", "regional"]
+    if any(t in texto for t in termos_preferidos):
+        score += 5
+
+    termos_menos_preferidos = ["futuro", "contrato", "exportacao", "exportação", "indicativo"]
+    if any(t in texto for t in termos_menos_preferidos):
+        score -= 5
+
+    preco = parse_preco(item.get("preco")) or 0.0
+    return (score, 1 if preco else 0, float(preco))
+
+
+def deduplicar_aiba_regionais(itens_tabela: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """
+    v1.5.7:
+    Remove duplicidade visual da AIBA/regional na tabela principal.
+
+    Exemplo corrigido:
+    BA | Oeste da Bahia - AIBA | R$ 112,51
+    BA | Oeste da Bahia - AIBA | R$ 110,34
+
+    A tabela mantém apenas uma linha e registra as duplicatas removidas em:
+    cotacoes/logs/debug_aiba_duplicados.json
+    """
+    grupos: dict[tuple[str, str, str, str, str, str], list[dict[str, Any]]] = {}
+    saida: list[dict[str, Any]] = []
+    debug: list[dict[str, Any]] = []
+
+    for item in itens_tabela:
+        fonte = limpar_texto(item.get("fonte"))
+        tipo = limpar_texto(item.get("tipo")).lower()
+        eh_aiba_ou_regional = "AIBA" in fonte.upper() or tipo == "regional"
+
+        if not eh_aiba_ou_regional:
+            saida.append(item)
+            continue
+
+        grupos.setdefault(chave_deduplicacao_aiba(item), []).append(item)
+
+    for chave, grupo in grupos.items():
+        if len(grupo) == 1:
+            saida.append(grupo[0])
+            continue
+
+        ordenado = sorted(grupo, key=score_preferencia_aiba, reverse=True)
+        mantido = ordenado[0]
+        removidos = ordenado[1:]
+
+        # Junta histórico dos duplicados no item mantido para não perder informação.
+        historico_por_data: dict[str, float] = {}
+        for candidato in ordenado:
+            for p in candidato.get("historico_30_dias") or []:
+                if not isinstance(p, dict):
+                    continue
+                data_p = parse_data_qualquer(p.get("data")) or limpar_texto(p.get("data"))[:10]
+                valor_p = parse_preco(p.get("valor"))
+                if data_p and valor_p is not None:
+                    historico_por_data[data_p] = float(valor_p)
+
+            data_item = limpar_texto(candidato.get("data_referencia"))[:10]
+            valor_item = parse_preco(candidato.get("preco"))
+            if data_item and valor_item is not None:
+                historico_por_data[data_item] = float(valor_item)
+
+        mantido = dict(mantido)
+        if historico_por_data:
+            mantido["historico_30_dias"] = [
+                {"data": data_iso, "valor": valor}
+                for data_iso, valor in sorted(historico_por_data.items())
+            ][-30:]
+
+        debug.append(
+            {
+                "chave": {
+                    "produto_base": chave[0],
+                    "uf": chave[1],
+                    "praca": chave[2],
+                    "fonte": chave[3],
+                    "data": chave[4],
+                    "unidade": chave[5],
+                },
+                "mantido": {
+                    "produto_original": mantido.get("produto_original"),
+                    "preco": mantido.get("preco"),
+                    "preco_formatado": mantido.get("preco_formatado"),
+                    "data": mantido.get("data_referencia"),
+                },
+                "removidos": [
+                    {
+                        "produto_original": r.get("produto_original"),
+                        "preco": r.get("preco"),
+                        "preco_formatado": r.get("preco_formatado"),
+                        "data": r.get("data_referencia"),
+                    }
+                    for r in removidos
+                ],
+            }
+        )
+
+        saida.append(mantido)
+
+    try:
+        OUTPUT_DEBUG_AIBA_DUPLICADOS.write_text(
+            json.dumps(
+                {
+                    "ok": True,
+                    "versao": VERSAO,
+                    "gerado_em": agora_local().isoformat(),
+                    "regra": "AIBA/regional: 1 linha por produto + UF + praça + fonte + data + unidade.",
+                    "total_grupos_duplicados": len(debug),
+                    "duplicados": debug,
+                },
+                ensure_ascii=False,
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+    except Exception:
+        pass
+
+    return saida
+
+
 # =============================================================================
 # Filtro, consolidação e saída
 # =============================================================================
@@ -1907,7 +2075,7 @@ def salvar_jsons(
         "politica": (
             "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; "
             "SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; "
-            "regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json a cada execução."
+            "regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data."
         ),
         "fontes": status_fontes,
         "resumo": resumo,
@@ -1930,6 +2098,7 @@ def salvar_jsons(
     status["debug_conab_produtos_360"] = str(OUTPUT_DEBUG_CONAB360)
     status["debug_sorgo_conab"] = str(OUTPUT_DEBUG_SIAGRO)
     status["historico_aiba"] = str(OUTPUT_HISTORICO_AIBA)
+    status["debug_aiba_duplicados"] = str(OUTPUT_DEBUG_AIBA_DUPLICADOS)
     OUTPUT_STATUS.write_text(json.dumps(status, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
@@ -1979,6 +2148,7 @@ def main() -> None:
     tabela, stats = consolidar(brutas, data_corte)
     aplicar_historico_360_e_sorgo(tabela, historicos_360)
     aplicar_historico_acumulado_aiba_e_sorgo(tabela, historicos_anteriores)
+    tabela = deduplicar_aiba_regionais(tabela)
     salvar_historico_aiba_persistente(tabela)
     stats["brutas"] = len(brutas)
 
@@ -1997,7 +2167,7 @@ def main() -> None:
                 "regra": (
                     "SIAGRO é principal para Sorgo, Arroz, Feijão, Boi Gordo e Leite. "
                     "CONAB Semanal é fallback quando SIAGRO não retorna dado válido. "
-                    "v1.5.6: AIBA acumula histórico próprio persistente e Sorgo recebe variação por histórico semanal/acumulado."
+                    "v1.5.7: AIBA acumula histórico próprio persistente e Sorgo recebe variação por histórico semanal/acumulado."
                 ),
                 "produtos_siagro_ok": sorted(produtos_siagro_ok),
                 "produtos_fallback": sorted(produtos_fallback),
