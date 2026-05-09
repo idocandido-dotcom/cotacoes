@@ -160,6 +160,9 @@ jobs:
               painel = debug.get("coleta_painel_siagro", {})
               print("Painel SIAGRO total_sorgo_extraido:", painel.get("total_sorgo_extraido"))
               print("Painel SIAGRO total_arroz_extraido:", painel.get("total_arroz_extraido"))
+              print("Painel SIAGRO total_feijao_extraido:", painel.get("total_feijao_extraido"))
+              print("Painel SIAGRO total_boi_gordo_extraido:", painel.get("total_boi_gordo_extraido"))
+              print("Painel SIAGRO total_leite_extraido:", painel.get("total_leite_extraido"))
               tentativas = painel.get("tentativas", [])
               boas = [t for t in tentativas if t.get("itens_extraidos", 0)]
               print("Tentativas SIAGRO com itens extraídos:", len(boas))
@@ -189,6 +192,7 @@ jobs:
           git add cotacoes/logs/debug_leite_carne_conab.json || true
           git add cotacoes/logs/debug_pecuaria_fontes.json || true
           git add cotacoes/logs/debug_ceasas.json || true
+          git add cotacoes/logs/debug_prioridade_siagro.json || true
 
           if git diff --cached --quiet; then
             echo "Nenhuma alteração para commitar."
