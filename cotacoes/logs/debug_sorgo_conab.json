@@ -1,10 +1,10 @@
 {
   "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
-  "versao": "1.5.1",
+  "versao": "1.5.2",
   "modo": "enxuto",
   "html_status": "http_200",
-  "total_itens_extraidos": 10,
-  "total_sorgo_extraido": 10,
+  "total_itens_extraidos": 3,
+  "total_sorgo_extraido": 3,
   "total_arroz_extraido": 0,
   "total_feijao_extraido": 0,
   "total_boi_gordo_extraido": 0,
@@ -16,7 +16,7 @@
       "classificacao": "EM GRÃOS",
       "periodo": "27/04/2026 a 01/05/2026",
       "resultset": 10,
-      "itens_extraidos": 10,
+      "itens_extraidos": 3,
       "metadata": [
         "UF.UF",
         "Preco Medio KG"

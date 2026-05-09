@@ -2,9 +2,9 @@
   "ok": true,
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
-  "versao": "1.5.1",
-  "gerado_em": "2026-05-09T12:39:53-03:00",
-  "ultima_sincronizacao": "2026-05-09 12:39:53",
+  "versao": "1.5.2",
+  "gerado_em": "2026-05-09T12:48:16-03:00",
+  "ultima_sincronizacao": "2026-05-09 12:48:16",
   "data_limite_cotacoes_ativas": "2026-04-09",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal.",
@@ -25,7 +25,7 @@
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
       "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/%3Ahome%3ASIAGRO%3APrecoMedio.wcdf/generatedContent?userid=pentaho&password=password",
       "status": "ok",
-      "total_registros": 10,
+      "total_registros": 3,
       "produtos_monitorados": [
         "Sorgo Granífero",
         "Arroz",
@@ -33,33 +33,33 @@
         "Boi Gordo",
         "Leite"
       ],
-      "observacao": "v1.5.1 enxuta: usa RankingPrecoMedioUF por POST. Grãos em Saca 60 kg, Boi em @, Leite em litro."
+      "observacao": "v1.5.2 enxuta: usa RankingPrecoMedioUF por POST. Grãos em Saca 60 kg, Boi em @, Leite em litro."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 4306,
+      "total_registros": 1829,
       "produtos_fallback": [
         "Arroz",
         "Boi Gordo",
         "Feijão",
         "Leite"
       ],
-      "observacao": "Fallback para Arroz, Feijão, Sorgo, Boi Gordo e Leite quando SIAGRO falhar."
+      "observacao": "Fallback para Arroz, Feijão, Sorgo, Boi Gordo e Leite quando SIAGRO falhar; filtrado para Nordeste + Tocantins + Pará."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
       "status": "ok",
-      "total_registros": 8120,
+      "total_registros": 2973,
       "produtos_fallback": [
         "Arroz",
         "Boi Gordo",
         "Feijão",
         "Leite"
       ],
-      "observacao": "Fallback para Arroz, Feijão, Sorgo, Boi Gordo e Leite quando SIAGRO falhar."
+      "observacao": "Fallback para Arroz, Feijão, Sorgo, Boi Gordo e Leite quando SIAGRO falhar; filtrado para Nordeste + Tocantins + Pará."
     },
     {
       "fonte": "AIBA",
@@ -69,16 +69,16 @@
     }
   ],
   "resumo": {
-    "total_cotacoes_tabela": 109,
-    "total_dados_html": 109,
-    "total_cotacoes_brutas": 12463,
+    "total_cotacoes_tabela": 58,
+    "total_dados_html": 58,
+    "total_cotacoes_brutas": 4832,
     "total_cotacoes_descartadas_por_validacao": 1,
-    "grupos_descartados_por_data_antiga": 12183,
-    "total_sorgo_conab_tabela": 10,
-    "total_arroz_extraido": 18,
-    "total_feijao_extraido": 21,
-    "total_boi_gordo_extraido": 9,
-    "total_leite_extraido": 30,
+    "grupos_descartados_por_data_antiga": 4703,
+    "total_sorgo_conab_tabela": 3,
+    "total_arroz_extraido": 10,
+    "total_feijao_extraido": 6,
+    "total_boi_gordo_extraido": 3,
+    "total_leite_extraido": 15,
     "total_regionais": 7
   },
   "total_cotacoes_tabela": 7,
