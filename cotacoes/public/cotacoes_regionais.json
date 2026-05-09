@@ -2,9 +2,9 @@
   "ok": true,
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
-  "versao": "1.5.3",
-  "gerado_em": "2026-05-09T12:55:07-03:00",
-  "ultima_sincronizacao": "2026-05-09 12:55:07",
+  "versao": "1.5.4",
+  "gerado_em": "2026-05-09T13:05:58-03:00",
+  "ultima_sincronizacao": "2026-05-09 13:05:58",
   "data_limite_cotacoes_ativas": "2026-04-09",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal.",
@@ -22,6 +22,18 @@
       "observacao": "Fonte principal para Soja, Milho e Algodão."
     },
     {
+      "fonte": "CONAB - Preços Agropecuários Semanal UF / Histórico 360",
+      "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "status": "ok",
+      "total_registros": 72,
+      "produtos_historico": [
+        "Soja",
+        "Milho",
+        "Algodão"
+      ],
+      "observacao": "v1.5.4: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. O preço atual continua vindo do CONAB Produtos 360º."
+    },
+    {
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
       "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/%3Ahome%3ASIAGRO%3APrecoMedio.wcdf/generatedContent?userid=pentaho&password=password",
       "status": "ok",
@@ -33,7 +45,7 @@
         "Boi Gordo",
         "Leite"
       ],
-      "observacao": "v1.5.3 enxuta: usa RankingPrecoMedioUF por POST. Grãos em Saca 60 kg, Boi em @, Leite em litro."
+      "observacao": "v1.5.4 enxuta: usa RankingPrecoMedioUF por POST. Grãos em Saca 60 kg, Boi em @, Leite em litro."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
@@ -110,6 +122,8 @@
       "periodo_referencia": "09/05/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
+      "variacao_valor": null,
+      "variacao_percentual": null,
       "historico_30d": [
         {
           "data": "09/05/2026",
@@ -145,6 +159,8 @@
       "periodo_referencia": "09/05/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
+      "variacao_valor": null,
+      "variacao_percentual": null,
       "historico_30d": [
         {
           "data": "09/05/2026",
@@ -180,6 +196,8 @@
       "periodo_referencia": "09/05/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
+      "variacao_valor": null,
+      "variacao_percentual": null,
       "historico_30d": [
         {
           "data": "09/05/2026",
@@ -215,6 +233,8 @@
       "periodo_referencia": "09/05/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
+      "variacao_valor": null,
+      "variacao_percentual": null,
       "historico_30d": [
         {
           "data": "09/05/2026",
@@ -250,6 +270,8 @@
       "periodo_referencia": "09/05/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
+      "variacao_valor": null,
+      "variacao_percentual": null,
       "historico_30d": [
         {
           "data": "09/05/2026",
@@ -285,6 +307,8 @@
       "periodo_referencia": "09/05/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
+      "variacao_valor": null,
+      "variacao_percentual": null,
       "historico_30d": [
         {
           "data": "09/05/2026",
@@ -320,6 +344,8 @@
       "periodo_referencia": "09/05/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
+      "variacao_valor": null,
+      "variacao_percentual": null,
       "historico_30d": [
         {
           "data": "09/05/2026",
