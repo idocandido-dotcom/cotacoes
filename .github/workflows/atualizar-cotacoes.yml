@@ -106,6 +106,8 @@ jobs:
           print("Milho/Soja/Algodão com histórico 360:", sum(1 for x in dados_json if x.get("produto_base") in ["Soja", "Milho", "Algodão"] and len(x.get("historico_30d", [])) >= 2))
           print("Sorgo com histórico:", sum(1 for x in dados_json if x.get("produto_base") == "Sorgo" and len(x.get("historico_30d", [])) >= 2))
           print("AIBA/regionais com histórico:", sum(1 for x in dados_json if ("AIBA" in str(x.get("fonte", "")) or x.get("nivel_comercializacao") == "Regional") and len(x.get("historico_30d", [])) >= 2))
+          hist_aiba = Path("cotacoes/logs/historico_aiba.json")
+          print("Histórico AIBA persistente:", "sim" if hist_aiba.exists() else "não")
 
           for fonte in status.get("fontes", []):
               print("-", fonte.get("fonte"), "|", fonte.get("status"), "|", fonte.get("total_registros"))
@@ -130,6 +132,7 @@ jobs:
           git add cotacoes/logs/debug_conab_produtos_360.json || true
           git add cotacoes/logs/debug_sorgo_conab.json || true
           git add cotacoes/logs/debug_prioridade_siagro.json || true
+          git add cotacoes/logs/historico_aiba.json || true
 
           if git diff --cached --quiet; then
             echo "Nenhuma alteração para commitar."
