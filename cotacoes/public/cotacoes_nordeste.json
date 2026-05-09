@@ -2,12 +2,12 @@
   "ok": true,
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
-  "versao": "1.5.4",
-  "gerado_em": "2026-05-09T13:05:58-03:00",
-  "ultima_sincronizacao": "2026-05-09 13:05:58",
+  "versao": "1.5.5",
+  "gerado_em": "2026-05-09T13:20:56-03:00",
+  "ultima_sincronizacao": "2026-05-09 13:20:56",
   "data_limite_cotacoes_ativas": "2026-04-09",
   "dias_maximos_cotacao_ativa": 30,
-  "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal.",
+  "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio a cada execução.",
   "fontes": [
     {
       "fonte": "CONAB - Produtos 360º",
@@ -25,13 +25,14 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF / Histórico 360",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 72,
+      "total_registros": 84,
       "produtos_historico": [
         "Soja",
         "Milho",
-        "Algodão"
+        "Algodão",
+        "Sorgo"
       ],
-      "observacao": "v1.5.4: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. O preço atual continua vindo do CONAB Produtos 360º."
+      "observacao": "v1.5.5: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. O preço atual continua vindo do CONAB Produtos 360º."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
@@ -45,7 +46,7 @@
         "Boi Gordo",
         "Leite"
       ],
-      "observacao": "v1.5.4 enxuta: usa RankingPrecoMedioUF por POST. Grãos em Saca 60 kg, Boi em @, Leite em litro."
+      "observacao": "v1.5.5 enxuta: usa RankingPrecoMedioUF por POST. Grãos em Saca 60 kg, Boi em @, Leite em litro."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
@@ -2959,9 +2960,27 @@
       "periodo_referencia": "27/04/2026 a 01/05/2026",
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
-      "variacao_valor": null,
-      "variacao_percentual": null,
+      "variacao_valor": 0.0,
+      "variacao_percentual": 0.0,
       "historico_30d": [
+        {
+          "data": "10/04/2026",
+          "data_iso": "2026-04-10",
+          "valor": 42.0,
+          "preco": "R$ 42,00/Saca 60 kg"
+        },
+        {
+          "data": "17/04/2026",
+          "data_iso": "2026-04-17",
+          "valor": 42.0,
+          "preco": "R$ 42,00/Saca 60 kg"
+        },
+        {
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
+          "valor": 42.6,
+          "preco": "R$ 42,60/Saca 60 kg"
+        },
         {
           "data": "01/05/2026",
           "data_iso": "2026-05-01",
@@ -3033,9 +3052,27 @@
       "periodo_referencia": "27/04/2026 a 01/05/2026",
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
-      "variacao_valor": null,
-      "variacao_percentual": null,
+      "variacao_valor": -3.0,
+      "variacao_percentual": -5.4945,
       "historico_30d": [
+        {
+          "data": "10/04/2026",
+          "data_iso": "2026-04-10",
+          "valor": 54.6,
+          "preco": "R$ 54,60/Saca 60 kg"
+        },
+        {
+          "data": "17/04/2026",
+          "data_iso": "2026-04-17",
+          "valor": 54.0,
+          "preco": "R$ 54,00/Saca 60 kg"
+        },
+        {
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
+          "valor": 51.6,
+          "preco": "R$ 51,60/Saca 60 kg"
+        },
         {
           "data": "01/05/2026",
           "data_iso": "2026-05-01",
@@ -3070,9 +3107,27 @@
       "periodo_referencia": "27/04/2026 a 01/05/2026",
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
-      "variacao_valor": null,
-      "variacao_percentual": null,
+      "variacao_valor": 0.0,
+      "variacao_percentual": 0.0,
       "historico_30d": [
+        {
+          "data": "10/04/2026",
+          "data_iso": "2026-04-10",
+          "valor": 39.0,
+          "preco": "R$ 39,00/Saca 60 kg"
+        },
+        {
+          "data": "17/04/2026",
+          "data_iso": "2026-04-17",
+          "valor": 39.0,
+          "preco": "R$ 39,00/Saca 60 kg"
+        },
+        {
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
+          "valor": 39.0,
+          "preco": "R$ 39,00/Saca 60 kg"
+        },
         {
           "data": "01/05/2026",
           "data_iso": "2026-05-01",
