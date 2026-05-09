@@ -2,9 +2,9 @@
   "ok": true,
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
-  "versao": "1.5.2",
-  "gerado_em": "2026-05-09T12:49:09-03:00",
-  "ultima_sincronizacao": "2026-05-09 12:49:09",
+  "versao": "1.5.3",
+  "gerado_em": "2026-05-09T12:55:07-03:00",
+  "ultima_sincronizacao": "2026-05-09 12:55:07",
   "data_limite_cotacoes_ativas": "2026-04-09",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal.",
@@ -33,7 +33,7 @@
         "Boi Gordo",
         "Leite"
       ],
-      "observacao": "v1.5.2 enxuta: usa RankingPrecoMedioUF por POST. Grãos em Saca 60 kg, Boi em @, Leite em litro."
+      "observacao": "v1.5.3 enxuta: usa RankingPrecoMedioUF por POST. Grãos em Saca 60 kg, Boi em @, Leite em litro."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
@@ -73,7 +73,7 @@
     "total_dados_html": 58,
     "total_cotacoes_brutas": 4832,
     "total_cotacoes_descartadas_por_validacao": 1,
-    "grupos_descartados_por_data_antiga": 4703,
+    "grupos_descartados_por_data_antiga": 4669,
     "total_sorgo_conab_tabela": 3,
     "total_arroz_extraido": 10,
     "total_feijao_extraido": 6,
