@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.5.5 enxuto
+Nordeste Agro — Coletor Automático de Cotações v1.5.6 enxuto
 
 Objetivo:
 - Manter o mesmo nome do arquivo principal do projeto:
@@ -51,7 +51,7 @@ from bs4 import BeautifulSoup
 # Configuração geral
 # =============================================================================
 
-VERSAO = "1.5.5"
+VERSAO = "1.5.6"
 PROJETO = "Nordeste Agro"
 MODULO = "cotacoes"
 TZ = ZoneInfo("America/Fortaleza")
@@ -67,6 +67,7 @@ OUTPUT_STATUS = LOGS_DIR / "status_ultima_execucao.json"
 OUTPUT_DEBUG_CONAB360 = LOGS_DIR / "debug_conab_produtos_360.json"
 OUTPUT_DEBUG_SIAGRO = LOGS_DIR / "debug_sorgo_conab.json"
 OUTPUT_DEBUG_PRIORIDADE = LOGS_DIR / "debug_prioridade_siagro.json"
+OUTPUT_HISTORICO_AIBA = LOGS_DIR / "historico_aiba.json"
 
 DIAS_MAXIMOS_COTACAO_ATIVA = 30
 
@@ -347,7 +348,7 @@ def periodo_semanal_padrao(data_inicio_iso: Optional[str], data_fim_iso: Optiona
     Padroniza a data exibida no site como:
     DD/MM/AAAA a DD/MM/AAAA
 
-    Regra v1.5.5:
+    Regra v1.5.6:
     - Se a fonte trouxer data inicial e final diferentes, usa as duas.
     - Se a fonte trouxer só uma data, ou se inicial e final vierem iguais,
       trata essa data como início da semana e soma +4 dias.
@@ -942,7 +943,7 @@ def coletar_siagro(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
             "total_registros": len(itens),
             "produtos_monitorados": ["Sorgo Granífero", "Arroz", "Feijão", "Boi Gordo", "Leite"],
             "observacao": (
-                "v1.5.5 enxuta: usa RankingPrecoMedioUF por POST. "
+                "v1.5.6 enxuta: usa RankingPrecoMedioUF por POST. "
                 "Grãos em Saca 60 kg, Boi em @, Leite em litro."
             ),
         }
@@ -974,7 +975,7 @@ def converter_preco_historico_semanal(produto_base: str, preco_kg: float) -> Opt
 
 def coletar_historico_conab_semanal_para_360_e_sorgo(status_fontes: list[dict[str, Any]]) -> dict[tuple[str, str], list[dict[str, Any]]]:
     """
-    v1.5.5:
+    v1.5.6:
     Mantém CONAB Produtos 360º como fonte principal para Soja, Milho e Algodão,
     e SIAGRO como fonte principal para Sorgo, mas usa a CONAB Preços
     Agropecuários Semanal UF para montar histórico de 30 dias quando houver
@@ -1080,7 +1081,7 @@ def coletar_historico_conab_semanal_para_360_e_sorgo(status_fontes: list[dict[st
                 "total_registros": total_pontos,
                 "produtos_historico": ["Soja", "Milho", "Algodão", "Sorgo"],
                 "observacao": (
-                    "v1.5.5: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. "
+                    "v1.5.6: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. "
                     "O preço atual continua vindo do CONAB Produtos 360º."
                 ),
             }
@@ -1226,12 +1227,166 @@ def carregar_historicos_do_json_anterior() -> dict[tuple[str, str, str, str], li
     return historicos
 
 
+
+def chave_historico_str(chave: tuple[str, str, str, str]) -> str:
+    return "||".join(limpar_texto(x) for x in chave)
+
+
+def chave_historico_tuple(chave: str) -> tuple[str, str, str, str]:
+    partes = chave.split("||")
+    while len(partes) < 4:
+        partes.append("")
+    return (partes[0], partes[1], partes[2], partes[3])
+
+
+def carregar_historico_aiba_persistente() -> dict[tuple[str, str, str, str], list[dict[str, Any]]]:
+    """
+    v1.5.6:
+    Histórico persistente da AIBA em arquivo próprio:
+    cotacoes/logs/historico_aiba.json
+
+    Isso evita depender apenas do JSON principal anterior e cria uma base
+    regional contínua para variação e gráfico da AIBA.
+    """
+    if not OUTPUT_HISTORICO_AIBA.exists():
+        return {}
+
+    try:
+        obj = json.loads(OUTPUT_HISTORICO_AIBA.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+    dados = obj.get("historicos", {}) if isinstance(obj, dict) else {}
+    if not isinstance(dados, dict):
+        return {}
+
+    saida: dict[tuple[str, str, str, str], list[dict[str, Any]]] = {}
+
+    for chave_str, pontos in dados.items():
+        if not isinstance(pontos, list):
+            continue
+
+        normalizados: dict[str, float] = {}
+        for p in pontos:
+            if not isinstance(p, dict):
+                continue
+            data_p = parse_data_qualquer(p.get("data")) or limpar_texto(p.get("data"))[:10]
+            valor_p = parse_preco(p.get("valor"))
+            if data_p and valor_p is not None:
+                normalizados[data_p] = float(valor_p)
+
+        if normalizados:
+            saida[chave_historico_tuple(chave_str)] = [
+                {"data": data_iso, "valor": valor}
+                for data_iso, valor in sorted(normalizados.items())
+            ]
+
+    return saida
+
+
+def mesclar_historicos(
+    *fontes: dict[tuple[str, str, str, str], list[dict[str, Any]]]
+) -> dict[tuple[str, str, str, str], list[dict[str, Any]]]:
+    resultado: dict[tuple[str, str, str, str], list[dict[str, Any]]] = {}
+
+    for fonte in fontes:
+        for chave, pontos in fonte.items():
+            por_data: dict[str, float] = {}
+
+            for existente in resultado.get(chave, []):
+                data_e = parse_data_qualquer(existente.get("data")) or limpar_texto(existente.get("data"))[:10]
+                valor_e = parse_preco(existente.get("valor"))
+                if data_e and valor_e is not None:
+                    por_data[data_e] = float(valor_e)
+
+            for p in pontos:
+                if not isinstance(p, dict):
+                    continue
+                data_p = parse_data_qualquer(p.get("data")) or limpar_texto(p.get("data"))[:10]
+                valor_p = parse_preco(p.get("valor"))
+                if data_p and valor_p is not None:
+                    por_data[data_p] = float(valor_p)
+
+            resultado[chave] = [
+                {"data": data_iso, "valor": valor}
+                for data_iso, valor in sorted(por_data.items())
+            ]
+
+    return resultado
+
+
+def salvar_historico_aiba_persistente(itens_tabela: list[dict[str, Any]]) -> None:
+    """
+    Salva histórico AIBA/regional consolidado para as próximas execuções.
+
+    Observação importante:
+    - Não simula valores passados.
+    - A variação aparece quando houver pelo menos duas datas reais diferentes.
+    """
+    data_corte = (agora_local().date() - timedelta(days=DIAS_MAXIMOS_COTACAO_ATIVA)).isoformat()
+    historicos: dict[str, list[dict[str, Any]]] = {}
+
+    for item in itens_tabela:
+        fonte = limpar_texto(item.get("fonte"))
+        tipo = limpar_texto(item.get("tipo")).lower()
+        eh_aiba_ou_regional = "AIBA" in fonte.upper() or tipo == "regional"
+
+        if not eh_aiba_ou_regional:
+            continue
+
+        chave = (
+            limpar_texto(item.get("produto_base")),
+            limpar_texto(item.get("uf")).upper(),
+            limpar_texto(item.get("praca")),
+            fonte,
+        )
+        chave_str = chave_historico_str(chave)
+
+        por_data: dict[str, float] = {}
+
+        for p in item.get("historico_30_dias") or []:
+            if not isinstance(p, dict):
+                continue
+            data_p = parse_data_qualquer(p.get("data")) or limpar_texto(p.get("data"))[:10]
+            valor_p = parse_preco(p.get("valor"))
+            if data_p and data_p >= data_corte and valor_p is not None:
+                por_data[data_p] = float(valor_p)
+
+        data_item = limpar_texto(item.get("data_referencia"))[:10]
+        valor_item = parse_preco(item.get("preco"))
+        if data_item and data_item >= data_corte and valor_item is not None:
+            por_data[data_item] = float(valor_item)
+
+        historicos[chave_str] = [
+            {"data": data_iso, "valor": valor}
+            for data_iso, valor in sorted(por_data.items())
+        ][-30:]
+
+    OUTPUT_HISTORICO_AIBA.write_text(
+        json.dumps(
+            {
+                "ok": True,
+                "versao": VERSAO,
+                "gerado_em": agora_local().isoformat(),
+                "regra": (
+                    "Histórico persistente da AIBA/regional. "
+                    "Acumula uma cotação por data real, sem simular valores."
+                ),
+                "historicos": historicos,
+            },
+            ensure_ascii=False,
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+
 def aplicar_historico_acumulado_aiba_e_sorgo(
     itens_tabela: list[dict[str, Any]],
     historicos_anteriores: dict[tuple[str, str, str, str], list[dict[str, Any]]],
 ) -> None:
     """
-    v1.5.5:
+    v1.5.6:
     AIBA/regional passa a acumular histórico próprio a cada execução.
     Sorgo também reaproveita histórico anterior se a CONAB Semanal UF não
     trouxer pontos suficientes para cálculo de variação.
@@ -1752,7 +1907,7 @@ def salvar_jsons(
         "politica": (
             "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; "
             "SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; "
-            "regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio a cada execução."
+            "regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json a cada execução."
         ),
         "fontes": status_fontes,
         "resumo": resumo,
@@ -1774,6 +1929,7 @@ def salvar_jsons(
     status.pop("dados", None)
     status["debug_conab_produtos_360"] = str(OUTPUT_DEBUG_CONAB360)
     status["debug_sorgo_conab"] = str(OUTPUT_DEBUG_SIAGRO)
+    status["historico_aiba"] = str(OUTPUT_HISTORICO_AIBA)
     OUTPUT_STATUS.write_text(json.dumps(status, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
@@ -1786,7 +1942,12 @@ def main() -> None:
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
 
     status_fontes: list[dict[str, Any]] = []
-    historicos_anteriores = carregar_historicos_do_json_anterior()
+    historicos_anteriores_json = carregar_historicos_do_json_anterior()
+    historicos_anteriores_persistentes = carregar_historico_aiba_persistente()
+    historicos_anteriores = mesclar_historicos(
+        historicos_anteriores_json,
+        historicos_anteriores_persistentes,
+    )
     preservados_regionais = carregar_regionais_anteriores()
 
     brutas: list[dict[str, Any]] = []
@@ -1818,6 +1979,7 @@ def main() -> None:
     tabela, stats = consolidar(brutas, data_corte)
     aplicar_historico_360_e_sorgo(tabela, historicos_360)
     aplicar_historico_acumulado_aiba_e_sorgo(tabela, historicos_anteriores)
+    salvar_historico_aiba_persistente(tabela)
     stats["brutas"] = len(brutas)
 
     salvar_csv(tabela)
@@ -1835,7 +1997,7 @@ def main() -> None:
                 "regra": (
                     "SIAGRO é principal para Sorgo, Arroz, Feijão, Boi Gordo e Leite. "
                     "CONAB Semanal é fallback quando SIAGRO não retorna dado válido. "
-                    "v1.5.5: AIBA acumula histórico próprio e Sorgo recebe variação por histórico semanal/acumulado."
+                    "v1.5.6: AIBA acumula histórico próprio persistente e Sorgo recebe variação por histórico semanal/acumulado."
                 ),
                 "produtos_siagro_ok": sorted(produtos_siagro_ok),
                 "produtos_fallback": sorted(produtos_fallback),
