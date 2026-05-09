@@ -110,18 +110,19 @@ jobs:
               with log_path.open("r", encoding="utf-8") as f:
                   log = json.load(f)
 
+              resumo = log.get("resumo", {})
               print("Resumo do status:")
               print("Projeto:", log.get("projeto"))
               print("Módulo:", log.get("modulo"))
               print("Versão:", log.get("versao"))
               print("Última sincronização:", log.get("ultima_sincronizacao"))
-              print("Total tabela:", log.get("resumo", {}).get("total_cotacoes_tabela", log.get("total_cotacoes_tabela")))
-              print("Total HTML:", log.get("resumo", {}).get("total_dados_html", log.get("total_dados_html")))
-              print("Sorgo CONAB bruto:", log.get("resumo", {}).get("total_sorgo_conab_bruto"))
-              print("Sorgo CONAB tabela:", log.get("resumo", {}).get("total_sorgo_conab_tabela"))
-              print("Arroz total:", log.get("resumo", {}).get("total_cotacoes_arroz"))
-              print("Sorgo total:", log.get("resumo", {}).get("total_cotacoes_sorgo"))
-              print("Referências complementares CONAB Arroz/Sorgo:", log.get("resumo", {}).get("total_referencias_complementares_conab_arroz_sorgo"))
+              print("Total tabela:", resumo.get("total_cotacoes_tabela", log.get("total_cotacoes_tabela")))
+              print("Total HTML:", resumo.get("total_dados_html", log.get("total_dados_html")))
+              print("Sorgo CONAB bruto:", resumo.get("total_sorgo_conab_bruto"))
+              print("Sorgo CONAB tabela:", resumo.get("total_sorgo_conab_tabela"))
+              print("Sorgo total:", resumo.get("total_cotacoes_sorgo"))
+              print("Arroz total:", resumo.get("total_cotacoes_arroz"))
+              print("Painel SIAGRO / referências CONAB:", resumo.get("total_referencias_complementares_conab_arroz_sorgo"))
 
           if json_path.exists():
               with json_path.open("r", encoding="utf-8") as f:
@@ -159,6 +160,11 @@ jobs:
               painel = debug.get("coleta_painel_siagro", {})
               print("Painel SIAGRO total_sorgo_extraido:", painel.get("total_sorgo_extraido"))
               print("Painel SIAGRO total_arroz_extraido:", painel.get("total_arroz_extraido"))
+              tentativas = painel.get("tentativas", [])
+              boas = [t for t in tentativas if t.get("itens_extraidos", 0)]
+              print("Tentativas SIAGRO com itens extraídos:", len(boas))
+              for t in boas[:10]:
+                  print(" -", t.get("dataAccessId"), t.get("produto"), t.get("produto_valor"), t.get("mesAnoUF"), t.get("itens_extraidos"))
           PY
 
       - name: Commit automático dos arquivos atualizados
