@@ -321,7 +321,7 @@ PRODUTOS_SACA_60KG = {"Soja", "Milho", "Sorgo", "Arroz", "Feijão"}
 # Regra v1.3.0: na CONAB vamos publicar somente os 5 produtos definidos
 # para esta etapa da página Cotações. Isso evita que leite/carne/boi entrem
 # pela CONAB com unidade ou nível de comercialização inadequado.
-PRODUTOS_CONAB_OFICIAIS = {"Soja", "Milho", "Algodão", "Feijão", "Sorgo"}
+PRODUTOS_CONAB_OFICIAIS = {"Soja", "Milho", "Algodão", "Feijão", "Sorgo", "Leite", "Boi Gordo", "Carne Bovina"}
 
 # v1.3.0: soja, milho e algodão não devem mais sair dos arquivos semanais,
 # porque esses arquivos trouxeram datas antigas. Para esses três produtos,
