@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Nordeste Agro — Coletor Automático de Cotações v1.3.3
+Nordeste Agro — Coletor Automático de Cotações v1.3.4
 
 Melhorias desta versão:
 - Mantém AIBA funcionando.
@@ -69,6 +69,12 @@ Melhorias desta versão:
   * mantém Leite ao Produtor em Litro;
   * marca Boi Gordo como pecuaria_corte e Leite como pecuaria_leite;
   * não altera soja, milho, algodão, feijão, sorgo e demais produtos já estabelecidos.
+- v1.3.4: reforça a regra definida para pecuária CONAB:
+  * quando Leite ou Boi Gordo vierem dos arquivos de Preços Agropecuários sem coluna explícita de nível,
+    e a linha não indicar atacado, varejo ou consumidor final, o coletor trata como Preço Recebido pelo Produtor;
+  * Boi Gordo continua convertido de Kg para Arroba (@), fator 15;
+  * Leite continua sem conversão, em Litro;
+  * mantém todos os produtos, caminhos, JSONs e rotinas já existentes.
 - Gera:
   * cotacoes/public/cotacoes_nordeste.json
   * cotacoes/public/cotacoes_regionais.json
@@ -327,6 +333,12 @@ PRODUTOS_CONAB_360 = {"Soja", "Milho", "Algodão"}
 # mas com regra mais rígida: só entram na tabela se a linha vier claramente
 # como preço ao produtor. Varejo, atacado e nível não informado continuam fora.
 PRODUTOS_CONAB_TXT = {"Feijão", "Sorgo", "Leite", "Boi Gordo", "Carne Bovina"}
+
+# Regra definida no projeto Nordeste Agro:
+# Leite e Boi Gordo devem usar CONAB Preços Agropecuários como preço recebido pelo produtor
+# quando a linha não indicar atacado, varejo, consumidor final ou outra categoria bloqueada.
+# Essa exceção não altera os produtos agrícolas já estabelecidos.
+PRODUTOS_CONAB_PECUARIA_PRECO_RECEBIDO = {"Leite", "Boi Gordo"}
 
 FONTE_CONAB_POR_PRODUTO = {
     "Soja": "CONAB Produtos 360º / Preços Agropecuários",
@@ -1659,6 +1671,14 @@ def detectar_nivel_conab(
     if "produtor" in texto_norm or "recebido" in texto_norm or "pago" in texto_norm:
         return texto
 
+    if produto_base in PRODUTOS_CONAB_PECUARIA_PRECO_RECEBIDO and tipo_fonte_conab in {"semanal_uf", "semanal_municipio"}:
+        # Regra v1.3.4:
+        # Os arquivos da CONAB Preços Agropecuários podem não trazer uma coluna explícita
+        # com o texto do filtro visual "Preço Recebido". Para Leite e Boi Gordo,
+        # quando a linha não indicar atacado, varejo ou consumidor final, tratamos como
+        # preço recebido pelo produtor, conforme definição operacional do Nordeste Agro.
+        return "preço recebido pelo produtor conab"
+
     if produto_base in PRODUTOS_CONAB_OFICIAIS and tipo_fonte_conab == "semanal_municipio":
         # Regra v1.3.0: quando a base semanal por município da CONAB não informa
         # explicitamente atacado, varejo ou produtor, ela entra como referência
@@ -2667,7 +2687,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     debug_payload = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
-        "versao": "1.3.3",
+        "versao": "1.3.4",
         "gerado_em": agora_local().isoformat(),
         "objetivo": (
             "Coletar diretamente do CONAB Produtos 360º/Pentaho a consulta CDA "
@@ -3280,7 +3300,7 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
     debug: dict[str, Any] = {
         "projeto": "Nordeste Agro",
         "modulo": "pecuaria_leite_boi",
-        "versao": "1.3.3",
+        "versao": "1.3.4",
         "gerado_em": agora_local().isoformat(),
         "politica": "Leite e Boi Gordo entram por CEPEA/ESALQ como referência segura e por CONAB apenas quando a linha for preço ao produtor. Carne bovina em kg não é publicada na tabela principal.",
         "fontes": [],
@@ -3756,7 +3776,7 @@ def coletar_ceasas(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     debug = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes_ceasas",
-        "versao": "1.3.3",
+        "versao": "1.3.4",
         "gerado_em": agora_local().isoformat(),
         "politica": "CEASA/Hortifruti é preço de atacado. Não misturar com preço ao produtor.",
         "fontes": [],
@@ -3921,11 +3941,19 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     if nivel_chave in {"nao_informado", "media_uf"}:
                         texto_nivel_norm = remover_acentos(nivel_texto).lower()
                         if "atacado" not in texto_nivel_norm and "varejo" not in texto_nivel_norm and "consumidor" not in texto_nivel_norm:
-                            if fonte.get("tipo", "") == "semanal_municipio":
+                            if produto_base_conab in PRODUTOS_CONAB_PECUARIA_PRECO_RECEBIDO:
+                                nivel_texto = "preço recebido pelo produtor conab"
+                            elif fonte.get("tipo", "") == "semanal_municipio":
                                 nivel_texto = "referencia conab municipal"
                             else:
                                 nivel_texto = "referencia conab estadual"
                             nivel_chave, nivel_label, _ = normalizar_nivel_preco(nivel_texto)
+
+                    fonte_url_item = (
+                        CONAB_PRECOS_AGROPECUARIOS_URL
+                        if produto_base_conab in PRODUTOS_CONAB_PECUARIA_PRECO_RECEBIDO
+                        else url
+                    )
 
                     cotacoes.append(
                         criar_item(
@@ -3941,7 +3969,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                             data_referencia_fim=data_fim_conab,
                             periodo_referencia=periodo_referencia_conab,
                             fonte=nome,
-                            fonte_url=url,
+                            fonte_url=fonte_url_item,
                             tipo_fonte="oficial",
                             nivel_comercializacao=nivel_texto,
                             categoria=categoria_conab_produto(produto_base_conab),
@@ -3960,7 +3988,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "colunas_preco_identificadas": colunas_preco,
                     "coluna_nivel_identificada": col_nivel,
                     "produtos_conab_publicaveis": sorted(PRODUTOS_CONAB_TXT),
-                    "observacao": "v1.3.3: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. Varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º.",
+                    "observacao": "v1.3.4: arquivos semanais usados para Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. Varejo, atacado e nível não informado seguem bloqueados. Soja, Milho e Algodão saem do Produtos 360º.",
                 }
             )
 
@@ -4706,7 +4734,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.3.3",
+        "versao": "1.3.4",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
