@@ -21,10 +21,13 @@ permissions:
 jobs:
   atualizar-cotacoes:
     runs-on: ubuntu-latest
+    timeout-minutes: 35
 
     steps:
       - name: Baixar repositório
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Configurar Python
         uses: actions/setup-python@v5
@@ -53,9 +56,6 @@ jobs:
       - name: Mostrar coletor selecionado
         run: |
           echo "Coletor selecionado: $COLETOR"
-
-      - name: Validar sintaxe do coletor
-        run: |
           python -m py_compile "$COLETOR"
 
       - name: Rodar coletor de cotações
@@ -104,8 +104,7 @@ jobs:
 
           log_path = Path("cotacoes/logs/status_ultima_execucao.json")
           json_path = Path("cotacoes/public/cotacoes_nordeste.json")
-          regional_path = Path("cotacoes/public/cotacoes_regionais.json")
-          debug_sorgo_path = Path("cotacoes/logs/debug_sorgo_conab.json")
+          debug_sorgo = Path("cotacoes/logs/debug_sorgo_conab.json")
 
           if log_path.exists():
               with log_path.open("r", encoding="utf-8") as f:
@@ -116,53 +115,50 @@ jobs:
               print("Módulo:", log.get("modulo"))
               print("Versão:", log.get("versao"))
               print("Última sincronização:", log.get("ultima_sincronizacao"))
-              print("Total tabela:", log.get("total_cotacoes_tabela"))
-              print("Total HTML:", log.get("total_dados_html"))
-              print("Dias máximos cotação ativa:", log.get("dias_maximos_cotacao_ativa"))
-
-              resumo = log.get("resumo", {}) if isinstance(log.get("resumo"), dict) else {}
-              print("Leite CONAB tabela:", resumo.get("total_leite_conab_tabela"))
-              print("Boi Gordo CONAB tabela:", resumo.get("total_boi_gordo_conab_tabela"))
-              print("Sorgo CONAB tabela:", resumo.get("total_sorgo_conab_tabela"))
-              print("Total Arroz:", resumo.get("total_cotacoes_arroz"))
-              print("Total Sorgo:", resumo.get("total_cotacoes_sorgo"))
+              print("Total tabela:", log.get("resumo", {}).get("total_cotacoes_tabela", log.get("total_cotacoes_tabela")))
+              print("Total HTML:", log.get("resumo", {}).get("total_dados_html", log.get("total_dados_html")))
+              print("Sorgo CONAB bruto:", log.get("resumo", {}).get("total_sorgo_conab_bruto"))
+              print("Sorgo CONAB tabela:", log.get("resumo", {}).get("total_sorgo_conab_tabela"))
+              print("Arroz total:", log.get("resumo", {}).get("total_cotacoes_arroz"))
+              print("Sorgo total:", log.get("resumo", {}).get("total_cotacoes_sorgo"))
+              print("Referências complementares CONAB Arroz/Sorgo:", log.get("resumo", {}).get("total_referencias_complementares_conab_arroz_sorgo"))
 
           if json_path.exists():
               with json_path.open("r", encoding="utf-8") as f:
                   dados = json.load(f)
+
               lista = dados.get("dados", [])
               print("")
-              print("Resumo do JSON principal:", len(lista), "itens")
+              print("Itens de Leite, Boi Gordo, Arroz e Sorgo no JSON principal:")
               for produto_alvo in ["Leite", "Boi Gordo", "Arroz", "Sorgo"]:
-                  itens = [x for x in lista if produto_alvo.lower() in str(x.get("produto_base", x.get("produto", ""))).lower()]
+                  itens = [
+                      x for x in lista
+                      if produto_alvo.lower() in str(x.get("produto_base") or x.get("produto") or "").lower()
+                  ]
                   print(produto_alvo + ":", len(itens))
-                  for item in itens[:12]:
-                      print(" -", item.get("estado") or item.get("uf"), item.get("praca") or item.get("cidade"), item.get("produto"), item.get("preco"), item.get("unidade"), item.get("fonte"), item.get("data") or item.get("periodo_referencia"))
+                  for item in itens[:15]:
+                      print(
+                          " -",
+                          item.get("uf") or item.get("estado"),
+                          item.get("praca") or item.get("cidade"),
+                          item.get("produto"),
+                          item.get("preco"),
+                          item.get("unidade"),
+                          item.get("fonte"),
+                          item.get("periodo_referencia") or item.get("data_referencia"),
+                          "preservado=" + str(item.get("preservado_por_falha_fonte"))
+                      )
 
-          if regional_path.exists():
-              with regional_path.open("r", encoding="utf-8") as f:
-                  regional = json.load(f)
-              lista = regional.get("dados", [])
+          if debug_sorgo.exists():
+              with debug_sorgo.open("r", encoding="utf-8") as f:
+                  debug = json.load(f)
               print("")
-              print("Resumo do JSON regional:", len(lista), "itens")
-              for produto_alvo in ["Arroz", "Sorgo"]:
-                  itens = [x for x in lista if produto_alvo.lower() in str(x.get("produto_base", x.get("produto", ""))).lower()]
-                  print(produto_alvo + " regional/principal:", len(itens))
-                  for item in itens[:12]:
-                      print(" -", item.get("estado") or item.get("uf"), item.get("praca") or item.get("cidade"), item.get("produto"), item.get("preco"), item.get("unidade"), item.get("fonte"), item.get("data") or item.get("periodo_referencia"), "preservado=", item.get("preservado_por_falha_fonte"))
-
-          if debug_sorgo_path.exists():
-              with debug_sorgo_path.open("r", encoding="utf-8") as f:
-                  debug_sorgo = json.load(f)
-              print("")
-              print("Debug Sorgo CONAB:")
-              print("Conclusão:", debug_sorgo.get("conclusao"))
-              print("Totais:", debug_sorgo.get("totais"))
-              painel = debug_sorgo.get("coleta_painel_siagro", {})
-              if painel:
-                  print("Painel SIAGRO total itens:", painel.get("total_itens_extraidos"))
-                  print("Painel SIAGRO total sorgo:", painel.get("total_sorgo_extraido"))
-                  print("Painel SIAGRO total arroz:", painel.get("total_arroz_extraido"))
+              print("Diagnóstico Sorgo CONAB:")
+              print(debug.get("conclusao"))
+              print("Totais:", debug.get("totais"))
+              painel = debug.get("coleta_painel_siagro", {})
+              print("Painel SIAGRO total_sorgo_extraido:", painel.get("total_sorgo_extraido"))
+              print("Painel SIAGRO total_arroz_extraido:", painel.get("total_arroz_extraido"))
           PY
 
       - name: Commit automático dos arquivos atualizados
