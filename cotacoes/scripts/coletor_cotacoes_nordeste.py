@@ -305,6 +305,52 @@ UFS_NORDESTE = {
     "TO": "Tocantins",
 }
 
+# v1.4.0 — Referências complementares CONAB:
+# O portal Nordeste Agro continua focado em Nordeste + PA/TO, mas alguns produtos
+# como Sorgo Granífero podem aparecer na CONAB somente em praças/UFs de referência
+# fora da região monitorada. Para não ocultar um produto que existe no painel oficial,
+# o coletor aceita Arroz e Sorgo do Preços Agropecuários Semanal UF como
+# "Referência CONAB complementar" quando não houver registro regional local.
+UFS_BRASIL_CONAB = {
+    "AC": "Acre",
+    "AL": "Alagoas",
+    "AP": "Amapá",
+    "AM": "Amazonas",
+    "BA": "Bahia",
+    "CE": "Ceará",
+    "DF": "Distrito Federal",
+    "ES": "Espírito Santo",
+    "GO": "Goiás",
+    "MA": "Maranhão",
+    "MT": "Mato Grosso",
+    "MS": "Mato Grosso do Sul",
+    "MG": "Minas Gerais",
+    "PA": "Pará",
+    "PB": "Paraíba",
+    "PR": "Paraná",
+    "PE": "Pernambuco",
+    "PI": "Piauí",
+    "RJ": "Rio de Janeiro",
+    "RN": "Rio Grande do Norte",
+    "RS": "Rio Grande do Sul",
+    "RO": "Rondônia",
+    "RR": "Roraima",
+    "SC": "Santa Catarina",
+    "SP": "São Paulo",
+    "SE": "Sergipe",
+    "TO": "Tocantins",
+}
+
+PRODUTOS_CONAB_REFERENCIA_COMPLEMENTAR = {"Arroz", "Sorgo"}
+
+# UFs onde Arroz/Sorgo podem ser usados como referência oficial complementar
+# quando a própria CONAB não trouxer registro recente nos estados monitorados.
+UFS_REFERENCIA_COMPLEMENTAR_CONAB = set(UFS_BRASIL_CONAB.keys())
+
+
+def nome_estado_conab(uf: str) -> str:
+    return UFS_NORDESTE.get(uf) or UFS_BRASIL_CONAB.get(uf) or uf
+
 PRODUTOS_ALVO = [
     "soja",
     "milho",
@@ -1854,7 +1900,7 @@ def salvar_debug_sorgo_conab(debug: dict[str, Any]) -> None:
     Salva o diagnóstico do Sorgo sem apagar diagnósticos complementares.
 
     Na v1.3.8 o painel SIAGRO escrevia uma seção chamada coleta_painel_siagro,
-    mas depois o diagnóstico final sobrescrevia o arquivo. Na v1.3.9 o arquivo
+    mas depois o diagnóstico final sobrescrevia o arquivo. Na v1.4.0 o arquivo
     passa a ser mesclado para manter:
     - diagnóstico dos TXT semanais;
     - diagnóstico do painel SIAGRO;
@@ -2348,7 +2394,7 @@ def item_conab_360_preco_produto(produto_base: str, linha: dict[str, Any]) -> Op
     return criar_item(
         produto_original=produto_original,
         uf=uf,
-        estado_nome=UFS_NORDESTE[uf],
+        estado_nome=nome_estado_conab(uf),
         praca="Referência UF CONAB",
         unidade=unidade,
         preco=preco,
@@ -2770,7 +2816,7 @@ def coletar_conab_produtos_360(status_fontes: list[dict[str, Any]]) -> list[dict
     debug_payload = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
-        "versao": "1.3.9",
+        "versao": "1.4.0",
         "gerado_em": agora_local().isoformat(),
         "objetivo": (
             "Coletar diretamente do CONAB Produtos 360º/Pentaho a consulta CDA "
@@ -3384,7 +3430,7 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
         debug: dict[str, Any] = {
             "projeto": "Nordeste Agro",
             "modulo": "pecuaria_leite_boi",
-            "versao": "1.3.9",
+            "versao": "1.4.0",
             "gerado_em": agora_local().isoformat(),
             "politica": (
                 "Leite e Boi Gordo na tabela principal usam somente CONAB Preços Agropecuários Semanal, "
@@ -3454,7 +3500,7 @@ def coletar_pecuaria_leite_boi(status_fontes: list[dict[str, Any]]) -> list[dict
     debug: dict[str, Any] = {
         "projeto": "Nordeste Agro",
         "modulo": "pecuaria_leite_boi",
-        "versao": "1.3.9",
+        "versao": "1.4.0",
         "gerado_em": agora_local().isoformat(),
         "politica": "Leite e Boi Gordo entram por CEPEA/ESALQ como referência segura e por CONAB apenas quando a linha for preço ao produtor. Carne bovina em kg não é publicada na tabela principal.",
         "fontes": [],
@@ -3930,7 +3976,7 @@ def coletar_ceasas(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
     debug = {
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes_ceasas",
-        "versao": "1.3.9",
+        "versao": "1.4.0",
         "gerado_em": agora_local().isoformat(),
         "politica": "CEASA/Hortifruti é preço de atacado. Não misturar com preço ao produtor.",
         "fontes": [],
@@ -4041,10 +4087,6 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
             for linha in registros:
                 uf = limpar_texto(linha.get(col_uf, "")).upper()
-
-                if uf not in UFS_NORDESTE:
-                    continue
-
                 produto_original = limpar_texto(linha.get(col_produto, ""))
 
                 if not produto_deve_entrar_na_base(produto_original):
@@ -4055,10 +4097,27 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 if produto_base_conab not in PRODUTOS_CONAB_TXT:
                     continue
 
+                uf_eh_monitorada = uf in UFS_NORDESTE
+                uf_eh_referencia_complementar = (
+                    produto_base_conab in PRODUTOS_CONAB_REFERENCIA_COMPLEMENTAR
+                    and fonte.get("tipo", "") == "semanal_uf"
+                    and uf in UFS_REFERENCIA_COMPLEMENTAR_CONAB
+                )
+
+                if not uf_eh_monitorada and not uf_eh_referencia_complementar:
+                    continue
+
                 praca = "Média UF"
 
                 if col_praca:
                     praca = limpar_texto(linha.get(col_praca, "")) or "Média UF"
+
+                if (
+                    produto_base_conab in PRODUTOS_CONAB_REFERENCIA_COMPLEMENTAR
+                    and fonte.get("tipo", "") == "semanal_uf"
+                    and uf not in UFS_NORDESTE
+                ):
+                    praca = f"Referência CONAB UF - {uf}"
 
                 unidade = limpar_texto(linha.get(col_unidade, "")) if col_unidade else ""
 
@@ -4109,11 +4168,22 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                         else url
                     )
 
+                    observacao_item_conab = observacao_conab_produto(produto_base_conab, nivel_label)
+                    if (
+                        produto_base_conab in PRODUTOS_CONAB_REFERENCIA_COMPLEMENTAR
+                        and fonte.get("tipo", "") == "semanal_uf"
+                        and uf not in UFS_NORDESTE
+                    ):
+                        observacao_item_conab += (
+                            " Referência complementar CONAB UF publicada porque não houve registro local/regional "
+                            "recente suficiente para este produto nos estados monitorados do Nordeste Agro."
+                        )
+
                     cotacoes.append(
                         criar_item(
                             produto_original=produto_original,
                             uf=uf,
-                            estado_nome=UFS_NORDESTE[uf],
+                            estado_nome=nome_estado_conab(uf),
                             praca=praca,
                             unidade=unidade,
                             preco=preco,
@@ -4127,7 +4197,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                             tipo_fonte="oficial",
                             nivel_comercializacao=nivel_texto,
                             categoria=categoria_conab_produto(produto_base_conab),
-                            observacao=observacao_conab_produto(produto_base_conab, nivel_label),
+                            observacao=observacao_item_conab,
                         )
                     )
 
@@ -4142,7 +4212,7 @@ def coletar_conab(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
                     "colunas_preco_identificadas": colunas_preco,
                     "coluna_nivel_identificada": col_nivel,
                     "produtos_conab_publicaveis": sorted(PRODUTOS_CONAB_TXT),
-                    "observacao": "v1.3.6: arquivos semanais usados para Arroz, Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. CEPEA/fallback não alimenta pecuária no JSON principal.",
+                    "observacao": "v1.4.0: arquivos semanais usados para Arroz, Feijão, Sorgo, Leite, Boi Gordo e Carne Bovina. Arroz e Sorgo podem usar referência complementar CONAB UF quando não houver registro regional/local. Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível vier como PREÇO RECEBIDO/Produtor. Boi em R$/kg é convertido para Arroba (@) com fator 15; Leite permanece em Litro. CEPEA/fallback não alimenta pecuária no JSON principal.",
                 }
             )
 
@@ -4485,7 +4555,7 @@ def linha_resultset_para_item_preco_medio(
     item = criar_item(
         produto_original=produto_original,
         uf=uf,
-        estado_nome=UFS_NORDESTE[uf],
+        estado_nome=nome_estado_conab(uf),
         praca=f"{UFS_NORDESTE[uf]} - Média estadual CONAB",
         unidade="Kg",
         preco=preco,
@@ -4538,7 +4608,7 @@ def coletar_conab_preco_medio_painel_siagro(status_fontes: list[dict[str, Any]])
     """
     Coleta complementar do painel CONAB Preços Agropecuários visto no navegador.
 
-    v1.3.9:
+    v1.4.0:
     - usa último dia útil como Data de Referência, não apenas a data do dia;
     - busca scripts/recursos do painel para descobrir dataAccessId/path reais;
     - testa POST e GET em combinações controladas;
@@ -4680,7 +4750,7 @@ def coletar_conab_preco_medio_painel_siagro(status_fontes: list[dict[str, Any]])
             "total_registros": len(itens),
             "produtos_monitorados": ["Sorgo Granífero", "Arroz"],
             "observacao": (
-                "v1.3.9: consulta complementar ao painel Preço Médio/Preços Agropecuários. "
+                "v1.4.0: consulta complementar ao painel Preço Médio/Preços Agropecuários. "
                 "Testa dataAccessId/path reais encontrados no HTML/JS e usa o último dia útil como referência."
             ),
         })
@@ -4706,7 +4776,7 @@ def coletar_conab_preco_medio_painel_siagro(status_fontes: list[dict[str, Any]])
 
         debug_existente["coleta_painel_siagro"] = {
             "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
-            "versao_rotina": "1.3.9",
+            "versao_rotina": "1.4.0",
             "url": CONAB_PRECO_MEDIO_WCDF_URL,
             "total_itens_extraidos": len(itens),
             "total_sorgo_extraido": len([x for x in itens if x.get("produto_base") == "Sorgo"]),
@@ -5333,7 +5403,7 @@ def diagnosticar_sorgo_conab(
     if tabela:
         conclusao = "Sorgo CONAB entrou na tabela final."
     elif not brutas:
-        conclusao = "Nenhum registro bruto de Sorgo foi encontrado nos arquivos semanais da CONAB para os estados monitorados."
+        conclusao = "Nenhum registro bruto de Sorgo foi encontrado nos arquivos semanais da CONAB para os estados monitorados e referências complementares configuradas."
     elif descartadas_validacao and not validas:
         conclusao = "Sorgo CONAB foi coletado, mas caiu na validação comercial/unidade/preço."
     elif descartadas_nivel and not nivel_ok:
@@ -5554,7 +5624,7 @@ def main() -> None:
         "projeto": "Nordeste Agro",
         "modulo": "cotacoes",
         "repositorio": "idocandido-dotcom/cotacoes",
-        "versao": "1.3.9",
+        "versao": "1.4.0",
         "ultima_sincronizacao": agora_local().strftime("%Y-%m-%d %H:%M:%S"),
         "ultima_sincronizacao_iso": agora_local().isoformat(),
         "gerado_em": agora_local().strftime("%d/%m/%Y %H:%M"),
@@ -5563,10 +5633,10 @@ def main() -> None:
         "dias_maximos_cotacao_ativa": DIAS_MAXIMOS_COTACAO_ATIVA,
         "data_limite_cotacoes_ativas": data_corte_iso,
         "politica_atualidade": "A tabela principal exibe somente cotações com data dentro dos últimos 30 dias. Para Leite e Boi Gordo, a fonte publicável é somente CONAB Preços Agropecuários Semanal.",
-        "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; CONAB Preços Agropecuários Semanal para arroz, feijão, sorgo granífero, leite e boi gordo; AIBA/regionais preservados quando a fonte regional falhar.",
+        "fonte_principal": "AIBA/CONAB Produtos 360º para soja, milho e algodão; CONAB Preços Agropecuários Semanal para arroz, feijão, sorgo granífero, leite e boi gordo; Sorgo/Arroz podem usar referência complementar CONAB UF quando não houver praça local; AIBA/regionais preservados quando a fonte regional falhar.",
         "fontes_complementares": ["SEAGRI-BA como referência estadual", "ACRIOESTE e Agrolink em diagnóstico", "CEPEA/ESALQ somente como widget visual separado, sem alimentar Leite e Boi Gordo no JSON principal"],
         "politica_classificacao_preco": (
-            "Política v1.3.9: a tabela principal publica preço pago ao produtor quando a fonte informar, "
+            "Política v1.4.0: a tabela principal publica preço pago ao produtor quando a fonte informar, "
             "cotação regional produtiva, referência SEAGRI-BA e referência oficial CONAB para soja, milho, algodão, arroz, feijão e sorgo. "
             "Leite e Boi Gordo entram somente pela CONAB Preços Agropecuários Semanal quando o nível for PREÇO RECEBIDO/Produtor. "
             "CEPEA/ESALQ e fallback CEPEA não alimentam Leite e Boi Gordo no JSON principal. "
@@ -5612,6 +5682,12 @@ def main() -> None:
             "total_sorgo_conab_grupos_antigos": diagnostico_sorgo_conab.get("totais", {}).get("grupos_antigos", 0),
             "total_cotacoes_arroz": len([item for item in dados_html if _produto_html_normalizado(item) == "arroz"]),
             "total_cotacoes_sorgo": len([item for item in dados_html if _produto_html_normalizado(item) == "sorgo"]),
+            "total_referencias_complementares_conab_arroz_sorgo": len([
+                item for item in dados_html
+                if _produto_html_normalizado(item) in {"arroz", "sorgo"}
+                and limpar_texto(item.get("uf")) not in UFS_NORDESTE
+                and "CONAB" in limpar_texto(item.get("fonte"))
+            ]),
             "total_regionais_preservados_arroz_sorgo": len(regionais_preservados_arroz_sorgo),
             "total_indicadores_mercado": len([item for item in cotacoes_tabela if item.get("categoria") == "indicador_mercado"]),
             "fontes_com_sucesso": fontes_ok,
@@ -5619,7 +5695,7 @@ def main() -> None:
             "tempo_execucao_segundos": round((agora_local() - inicio).total_seconds(), 2),
         },
         "fontes": status_fontes,
-        "regra_preservacao_regional": "Se AIBA/SEAGRI-BA falhar, Arroz e Sorgo regionais válidos do JSON anterior são preservados; Arroz e Sorgo Granífero também são buscados na CONAB Preços Agropecuários Semanal.",
+        "regra_preservacao_regional": "Se AIBA/SEAGRI-BA falhar, Arroz e Sorgo regionais válidos do JSON anterior são preservados; Arroz e Sorgo Granífero também são buscados na CONAB Preços Agropecuários Semanal UF/Município, com referência complementar CONAB quando não houver praça local.",
         "regionais_preservados_arroz_sorgo": regionais_preservados_arroz_sorgo,
         "diagnostico_sorgo_conab": diagnostico_sorgo_conab,
         "diagnostico_leite_carne_conab": diagnostico_leite_carne_conab,
