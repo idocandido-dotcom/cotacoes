@@ -1,7 +1,7 @@
 {
   "ok": true,
   "versao": "1.5.7",
-  "gerado_em": "2026-05-10T00:12:51-03:00",
+  "gerado_em": "2026-05-10T03:12:48-03:00",
   "regra": "AIBA/regional: 1 linha por produto + UF + praça + fonte + data + unidade.",
   "total_grupos_duplicados": 1,
   "duplicados": [
