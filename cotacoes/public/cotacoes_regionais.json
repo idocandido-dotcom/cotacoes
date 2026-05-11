@@ -3,9 +3,9 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.7",
-  "gerado_em": "2026-05-10T21:12:53-03:00",
-  "ultima_sincronizacao": "2026-05-10 21:12:53",
-  "data_limite_cotacoes_ativas": "2026-04-10",
+  "gerado_em": "2026-05-11T03:12:44-03:00",
+  "ultima_sincronizacao": "2026-05-11 03:12:44",
+  "data_limite_cotacoes_ativas": "2026-04-11",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
   "fontes": [
@@ -25,7 +25,7 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF / Histórico 360",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 84,
+      "total_registros": 63,
       "produtos_historico": [
         "Soja",
         "Milho",
@@ -86,7 +86,7 @@
     "total_dados_html": 57,
     "total_cotacoes_brutas": 4832,
     "total_cotacoes_descartadas_por_validacao": 1,
-    "grupos_descartados_por_data_antiga": 4669,
+    "grupos_descartados_por_data_antiga": 4703,
     "total_sorgo_conab_tabela": 3,
     "total_arroz_extraido": 10,
     "total_feijao_extraido": 6,
@@ -116,11 +116,11 @@
       "unidade_original": "Arroba (@)",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "10/05/2026",
-      "data_iso": "2026-05-10",
-      "data_inicio_iso": "2026-05-10",
-      "data_fim_iso": "2026-05-10",
-      "periodo_referencia": "10/05/2026",
+      "data": "11/05/2026",
+      "data_iso": "2026-05-11",
+      "data_inicio_iso": "2026-05-11",
+      "data_fim_iso": "2026-05-11",
+      "periodo_referencia": "11/05/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "variacao_valor": 0.0,
@@ -135,6 +135,12 @@
         {
           "data": "10/05/2026",
           "data_iso": "2026-05-10",
+          "valor": 136.25,
+          "preco": "R$ 136,25/Arroba (@)"
+        },
+        {
+          "data": "11/05/2026",
+          "data_iso": "2026-05-11",
           "valor": 136.25,
           "preco": "R$ 136,25/Arroba (@)"
         }
@@ -159,11 +165,11 @@
       "unidade_original": "Saca 60 kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "10/05/2026",
-      "data_iso": "2026-05-10",
-      "data_inicio_iso": "2026-05-10",
-      "data_fim_iso": "2026-05-10",
-      "periodo_referencia": "10/05/2026",
+      "data": "11/05/2026",
+      "data_iso": "2026-05-11",
+      "data_inicio_iso": "2026-05-11",
+      "data_fim_iso": "2026-05-11",
+      "periodo_referencia": "11/05/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "variacao_valor": 0.0,
@@ -178,6 +184,12 @@
         {
           "data": "10/05/2026",
           "data_iso": "2026-05-10",
+          "valor": 78.5,
+          "preco": "R$ 78,50/Saca 60 kg"
+        },
+        {
+          "data": "11/05/2026",
+          "data_iso": "2026-05-11",
           "valor": 78.5,
           "preco": "R$ 78,50/Saca 60 kg"
         }
@@ -202,11 +214,11 @@
       "unidade_original": "Saca 60 kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "10/05/2026",
-      "data_iso": "2026-05-10",
-      "data_inicio_iso": "2026-05-10",
-      "data_fim_iso": "2026-05-10",
-      "periodo_referencia": "10/05/2026",
+      "data": "11/05/2026",
+      "data_iso": "2026-05-11",
+      "data_inicio_iso": "2026-05-11",
+      "data_fim_iso": "2026-05-11",
+      "periodo_referencia": "11/05/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "variacao_valor": 0.0,
@@ -221,6 +233,12 @@
         {
           "data": "10/05/2026",
           "data_iso": "2026-05-10",
+          "valor": 402.5,
+          "preco": "R$ 402,50/Saca 60 kg"
+        },
+        {
+          "data": "11/05/2026",
+          "data_iso": "2026-05-11",
           "valor": 402.5,
           "preco": "R$ 402,50/Saca 60 kg"
         }
@@ -245,11 +263,11 @@
       "unidade_original": "Saca 60 kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "10/05/2026",
-      "data_iso": "2026-05-10",
-      "data_inicio_iso": "2026-05-10",
-      "data_fim_iso": "2026-05-10",
-      "periodo_referencia": "10/05/2026",
+      "data": "11/05/2026",
+      "data_iso": "2026-05-11",
+      "data_inicio_iso": "2026-05-11",
+      "data_fim_iso": "2026-05-11",
+      "periodo_referencia": "11/05/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "variacao_valor": 0.0,
@@ -264,6 +282,12 @@
         {
           "data": "10/05/2026",
           "data_iso": "2026-05-10",
+          "valor": 54.5,
+          "preco": "R$ 54,50/Saca 60 kg"
+        },
+        {
+          "data": "11/05/2026",
+          "data_iso": "2026-05-11",
           "valor": 54.5,
           "preco": "R$ 54,50/Saca 60 kg"
         }
@@ -288,11 +312,11 @@
       "unidade_original": "Saca 60 kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "10/05/2026",
-      "data_iso": "2026-05-10",
-      "data_inicio_iso": "2026-05-10",
-      "data_fim_iso": "2026-05-10",
-      "periodo_referencia": "10/05/2026",
+      "data": "11/05/2026",
+      "data_iso": "2026-05-11",
+      "data_inicio_iso": "2026-05-11",
+      "data_fim_iso": "2026-05-11",
+      "periodo_referencia": "11/05/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "variacao_valor": 0.0,
@@ -307,6 +331,12 @@
         {
           "data": "10/05/2026",
           "data_iso": "2026-05-10",
+          "valor": 112.5,
+          "preco": "R$ 112,50/Saca 60 kg"
+        },
+        {
+          "data": "11/05/2026",
+          "data_iso": "2026-05-11",
           "valor": 110.33,
           "preco": "R$ 110,33/Saca 60 kg"
         }
@@ -331,11 +361,11 @@
       "unidade_original": "Saca 60 kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "10/05/2026",
-      "data_iso": "2026-05-10",
-      "data_inicio_iso": "2026-05-10",
-      "data_fim_iso": "2026-05-10",
-      "periodo_referencia": "10/05/2026",
+      "data": "11/05/2026",
+      "data_iso": "2026-05-11",
+      "data_inicio_iso": "2026-05-11",
+      "data_fim_iso": "2026-05-11",
+      "periodo_referencia": "11/05/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "variacao_valor": 0.0,
@@ -350,6 +380,12 @@
         {
           "data": "10/05/2026",
           "data_iso": "2026-05-10",
+          "valor": 42.0,
+          "preco": "R$ 42,00/Saca 60 kg"
+        },
+        {
+          "data": "11/05/2026",
+          "data_iso": "2026-05-11",
           "valor": 42.0,
           "preco": "R$ 42,00/Saca 60 kg"
         }

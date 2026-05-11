@@ -14,6 +14,42 @@
       "produto": "Sorgo",
       "produto_valor": "SORGO GRANIFERO",
       "classificacao": "EM GRÃOS",
+      "periodo": "04/05/2026 a 08/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Sorgo",
+      "produto_valor": "[Produto].[SORGO GRANIFERO]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "04/05/2026 a 08/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Sorgo",
+      "produto_valor": "SORGO GRANIFERO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "11/05/2026 a 15/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Sorgo",
+      "produto_valor": "[Produto].[SORGO GRANIFERO]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "11/05/2026 a 15/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Sorgo",
+      "produto_valor": "SORGO GRANIFERO",
+      "classificacao": "EM GRÃOS",
       "periodo": "27/04/2026 a 01/05/2026",
       "resultset": 10,
       "itens_extraidos": 3,
@@ -26,33 +62,6 @@
       "produto": "Arroz",
       "produto_valor": "ARROZ",
       "classificacao": "EM GRÃOS",
-      "periodo": "27/04/2026 a 01/05/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ EM CASCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "27/04/2026 a 01/05/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "[Produto].[ARROZ]",
-      "classificacao": "EM GRÃOS",
-      "periodo": "27/04/2026 a 01/05/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ",
-      "classificacao": "EM GRÃOS",
       "periodo": "04/05/2026 a 08/05/2026",
       "resultset": 0,
       "itens_extraidos": 0,
@@ -80,6 +89,60 @@
       "produto": "Arroz",
       "produto_valor": "ARROZ",
       "classificacao": "EM GRÃOS",
+      "periodo": "11/05/2026 a 15/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ EM CASCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "11/05/2026 a 15/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "[Produto].[ARROZ]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "11/05/2026 a 15/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ",
+      "classificacao": "EM GRÃOS",
+      "periodo": "27/04/2026 a 01/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ EM CASCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "27/04/2026 a 01/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "[Produto].[ARROZ]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "27/04/2026 a 01/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ",
+      "classificacao": "EM GRÃOS",
       "periodo": "20/04/2026 a 24/04/2026",
       "resultset": 0,
       "itens_extraidos": 0,
@@ -158,28 +221,55 @@
       "metadata": []
     },
     {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ",
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO",
       "classificacao": "EM GRÃOS",
-      "periodo": "30/03/2026 a 03/04/2026",
+      "periodo": "04/05/2026 a 08/05/2026",
       "resultset": 0,
       "itens_extraidos": 0,
       "metadata": []
     },
     {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ EM CASCA",
+      "produto": "Feijão",
+      "produto_valor": "FEIJÃO",
       "classificacao": "EM GRÃOS",
-      "periodo": "30/03/2026 a 03/04/2026",
+      "periodo": "04/05/2026 a 08/05/2026",
       "resultset": 0,
       "itens_extraidos": 0,
       "metadata": []
     },
     {
-      "produto": "Arroz",
-      "produto_valor": "[Produto].[ARROZ]",
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO CARIOCA",
       "classificacao": "EM GRÃOS",
-      "periodo": "30/03/2026 a 03/04/2026",
+      "periodo": "04/05/2026 a 08/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "11/05/2026 a 15/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJÃO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "11/05/2026 a 15/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO CARIOCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "11/05/2026 a 15/05/2026",
       "resultset": 0,
       "itens_extraidos": 0,
       "metadata": []
@@ -215,33 +305,6 @@
       "produto": "Feijão",
       "produto_valor": "FEIJAO",
       "classificacao": "EM GRÃOS",
-      "periodo": "04/05/2026 a 08/05/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJÃO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "04/05/2026 a 08/05/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO CARIOCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "04/05/2026 a 08/05/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO",
-      "classificacao": "EM GRÃOS",
       "periodo": "20/04/2026 a 24/04/2026",
       "resultset": 0,
       "itens_extraidos": 0,
@@ -320,28 +383,73 @@
       "metadata": []
     },
     {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "30/03/2026 a 03/04/2026",
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "BOI GORDO",
+      "periodo": "04/05/2026 a 08/05/2026",
       "resultset": 0,
       "itens_extraidos": 0,
       "metadata": []
     },
     {
-      "produto": "Feijão",
-      "produto_valor": "FEIJÃO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "30/03/2026 a 03/04/2026",
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "",
+      "periodo": "04/05/2026 a 08/05/2026",
       "resultset": 0,
       "itens_extraidos": 0,
       "metadata": []
     },
     {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO CARIOCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "30/03/2026 a 03/04/2026",
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "BOI GORDO",
+      "periodo": "04/05/2026 a 08/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "",
+      "periodo": "04/05/2026 a 08/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "BOI GORDO",
+      "periodo": "11/05/2026 a 15/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "",
+      "periodo": "11/05/2026 a 15/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "BOI GORDO",
+      "periodo": "11/05/2026 a 15/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "",
+      "periodo": "11/05/2026 a 15/05/2026",
       "resultset": 0,
       "itens_extraidos": 0,
       "metadata": []
@@ -378,42 +486,6 @@
       "produto_valor": "BOVINO",
       "classificacao": "",
       "periodo": "27/04/2026 a 01/05/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "BOI GORDO",
-      "periodo": "04/05/2026 a 08/05/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "",
-      "periodo": "04/05/2026 a 08/05/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "BOI GORDO",
-      "periodo": "04/05/2026 a 08/05/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "",
-      "periodo": "04/05/2026 a 08/05/2026",
       "resultset": 0,
       "itens_extraidos": 0,
       "metadata": []
@@ -527,37 +599,73 @@
       "metadata": []
     },
     {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "BOI GORDO",
-      "periodo": "30/03/2026 a 03/04/2026",
+      "produto": "Leite",
+      "produto_valor": "LEITE",
+      "classificacao": "LEITE",
+      "periodo": "04/05/2026 a 08/05/2026",
       "resultset": 0,
       "itens_extraidos": 0,
       "metadata": []
     },
     {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
+      "produto": "Leite",
+      "produto_valor": "LEITE",
       "classificacao": "",
-      "periodo": "30/03/2026 a 03/04/2026",
+      "periodo": "04/05/2026 a 08/05/2026",
       "resultset": 0,
       "itens_extraidos": 0,
       "metadata": []
     },
     {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "BOI GORDO",
-      "periodo": "30/03/2026 a 03/04/2026",
+      "produto": "Leite",
+      "produto_valor": "LEITE DE VACA",
+      "classificacao": "LEITE",
+      "periodo": "04/05/2026 a 08/05/2026",
       "resultset": 0,
       "itens_extraidos": 0,
       "metadata": []
     },
     {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
+      "produto": "Leite",
+      "produto_valor": "LEITE DE VACA",
       "classificacao": "",
-      "periodo": "30/03/2026 a 03/04/2026",
+      "periodo": "04/05/2026 a 08/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Leite",
+      "produto_valor": "LEITE",
+      "classificacao": "LEITE",
+      "periodo": "11/05/2026 a 15/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Leite",
+      "produto_valor": "LEITE",
+      "classificacao": "",
+      "periodo": "11/05/2026 a 15/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Leite",
+      "produto_valor": "LEITE DE VACA",
+      "classificacao": "LEITE",
+      "periodo": "11/05/2026 a 15/05/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Leite",
+      "produto_valor": "LEITE DE VACA",
+      "classificacao": "",
+      "periodo": "11/05/2026 a 15/05/2026",
       "resultset": 0,
       "itens_extraidos": 0,
       "metadata": []
@@ -594,42 +702,6 @@
       "produto_valor": "LEITE DE VACA",
       "classificacao": "",
       "periodo": "27/04/2026 a 01/05/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE",
-      "classificacao": "LEITE",
-      "periodo": "04/05/2026 a 08/05/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE",
-      "classificacao": "",
-      "periodo": "04/05/2026 a 08/05/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE DE VACA",
-      "classificacao": "LEITE",
-      "periodo": "04/05/2026 a 08/05/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE DE VACA",
-      "classificacao": "",
-      "periodo": "04/05/2026 a 08/05/2026",
       "resultset": 0,
       "itens_extraidos": 0,
       "metadata": []
@@ -738,42 +810,6 @@
       "produto_valor": "LEITE DE VACA",
       "classificacao": "",
       "periodo": "06/04/2026 a 10/04/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE",
-      "classificacao": "LEITE",
-      "periodo": "30/03/2026 a 03/04/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE",
-      "classificacao": "",
-      "periodo": "30/03/2026 a 03/04/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE DE VACA",
-      "classificacao": "LEITE",
-      "periodo": "30/03/2026 a 03/04/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE DE VACA",
-      "classificacao": "",
-      "periodo": "30/03/2026 a 03/04/2026",
       "resultset": 0,
       "itens_extraidos": 0,
       "metadata": []
