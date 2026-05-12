@@ -2,10 +2,10 @@
   "ok": true,
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
-  "versao": "1.5.7",
-  "gerado_em": "2026-05-11T09:12:51-03:00",
-  "ultima_sincronizacao": "2026-05-11 09:12:51",
-  "data_limite_cotacoes_ativas": "2026-04-11",
+  "versao": "1.5.8",
+  "gerado_em": "2026-05-12T19:55:37-03:00",
+  "ultima_sincronizacao": "2026-05-12 19:55:37",
+  "data_limite_cotacoes_ativas": "2026-04-12",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
   "fontes": [
@@ -25,14 +25,14 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF / Histórico 360",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 63,
+      "total_registros": 84,
       "produtos_historico": [
         "Soja",
         "Milho",
         "Algodão",
         "Sorgo"
       ],
-      "observacao": "v1.5.7: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. O preço atual continua vindo do CONAB Produtos 360º."
+      "observacao": "v1.5.8: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. O preço atual continua vindo do CONAB Produtos 360º."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
@@ -46,13 +46,13 @@
         "Boi Gordo",
         "Leite"
       ],
-      "observacao": "v1.5.7 enxuta: usa RankingPrecoMedioUF por POST. Grãos em Saca 60 kg, Boi em @, Leite em litro."
+      "observacao": "v1.5.8 enxuta: usa RankingPrecoMedioUF por POST. Grãos em Saca 60 kg, Boi em @, Leite em litro."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 1829,
+      "total_registros": 1857,
       "produtos_fallback": [
         "Arroz",
         "Boi Gordo",
@@ -77,15 +77,22 @@
     {
       "fonte": "AIBA",
       "url": "https://aiba.org.br/cotacoes/",
+      "status": "erro",
+      "total_registros": 0,
+      "erro": "HTTPError('403 Client Error: Forbidden for url: https://aiba.org.br/cotacoes/')"
+    },
+    {
+      "fonte": "Regionais preservados",
       "status": "ok",
-      "total_registros": 8
+      "total_registros": 6,
+      "observacao": "AIBA/regionais anteriores preservados por segurança."
     }
   ],
   "resumo": {
     "total_cotacoes_tabela": 57,
     "total_dados_html": 57,
-    "total_cotacoes_brutas": 4832,
-    "total_cotacoes_descartadas_por_validacao": 1,
+    "total_cotacoes_brutas": 4858,
+    "total_cotacoes_descartadas_por_validacao": 0,
     "grupos_descartados_por_data_antiga": 4703,
     "total_sorgo_conab_tabela": 3,
     "total_arroz_extraido": 10,
