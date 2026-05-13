@@ -3,8 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-05-13T09:12:52-03:00",
-  "ultima_sincronizacao": "2026-05-13 09:12:52",
+  "gerado_em": "2026-05-13T12:12:52-03:00",
+  "ultima_sincronizacao": "2026-05-13 12:12:52",
   "data_limite_cotacoes_ativas": "2026-04-13",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -13,9 +13,10 @@
       "fonte": "CONAB - Produtos 360º",
       "url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
       "status": "ok",
-      "total_registros": 9,
+      "total_registros": 19,
       "produtos_extraidos": [
         "Algodão",
+        "Milho",
         "Soja"
       ],
       "observacao": "Fonte principal para Soja, Milho e Algodão."
@@ -88,19 +89,19 @@
     }
   ],
   "resumo": {
-    "total_cotacoes_tabela": 49,
-    "total_dados_html": 49,
-    "total_cotacoes_brutas": 4848,
+    "total_cotacoes_tabela": 57,
+    "total_dados_html": 57,
+    "total_cotacoes_brutas": 4858,
     "total_cotacoes_descartadas_por_validacao": 0,
-    "grupos_descartados_por_data_antiga": 4701,
+    "grupos_descartados_por_data_antiga": 4703,
     "total_sorgo_conab_tabela": 3,
     "total_arroz_extraido": 10,
     "total_feijao_extraido": 6,
     "total_boi_gordo_extraido": 3,
     "total_leite_extraido": 15
   },
-  "total_cotacoes_tabela": 49,
-  "total_dados_html": 49,
+  "total_cotacoes_tabela": 57,
+  "total_dados_html": 57,
   "debug_conab_produtos_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json",
   "debug_sorgo_conab": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_sorgo_conab.json",
   "historico_aiba": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/historico_aiba.json",

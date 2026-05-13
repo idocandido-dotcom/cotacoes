@@ -3,8 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-05-13T09:12:52-03:00",
-  "ultima_sincronizacao": "2026-05-13 09:12:52",
+  "gerado_em": "2026-05-13T12:12:52-03:00",
+  "ultima_sincronizacao": "2026-05-13 12:12:52",
   "data_limite_cotacoes_ativas": "2026-04-13",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -13,9 +13,10 @@
       "fonte": "CONAB - Produtos 360º",
       "url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
       "status": "ok",
-      "total_registros": 9,
+      "total_registros": 19,
       "produtos_extraidos": [
         "Algodão",
+        "Milho",
         "Soja"
       ],
       "observacao": "Fonte principal para Soja, Milho e Algodão."
@@ -88,19 +89,19 @@
     }
   ],
   "resumo": {
-    "total_cotacoes_tabela": 49,
-    "total_dados_html": 49,
-    "total_cotacoes_brutas": 4848,
+    "total_cotacoes_tabela": 57,
+    "total_dados_html": 57,
+    "total_cotacoes_brutas": 4858,
     "total_cotacoes_descartadas_por_validacao": 0,
-    "grupos_descartados_por_data_antiga": 4701,
+    "grupos_descartados_por_data_antiga": 4703,
     "total_sorgo_conab_tabela": 3,
     "total_arroz_extraido": 10,
     "total_feijao_extraido": 6,
     "total_boi_gordo_extraido": 3,
     "total_leite_extraido": 15
   },
-  "total_cotacoes_tabela": 49,
-  "total_dados_html": 49,
+  "total_cotacoes_tabela": 57,
+  "total_dados_html": 57,
   "dados": [
     {
       "estado": "BA",
@@ -1964,6 +1965,440 @@
           "data_iso": "2026-05-08",
           "valor": 1.94,
           "preco": "R$ 1,94/Litro"
+        }
+      ]
+    },
+    {
+      "estado": "AL",
+      "cidade": "Alagoas - Média estadual CONAB",
+      "regiao": "Alagoas",
+      "produto": "Milho",
+      "produto_base": "Milho",
+      "produto_original": "Milho",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "commodity_agricola",
+      "valor": 77.0,
+      "preco": "R$ 77,00/Saca 60 kg",
+      "preco_original": 77.0,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60 kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "04/05/2026 a 08/05/2026",
+      "data_iso": "2026-05-08",
+      "data_inicio_iso": "2026-05-04",
+      "data_fim_iso": "2026-05-08",
+      "periodo_referencia": "04/05/2026 a 08/05/2026",
+      "fonte": "CONAB - Produtos 360º",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
+      "variacao_valor": 2.0,
+      "variacao_percentual": 2.6667,
+      "historico_30d": [
+        {
+          "data": "17/04/2026",
+          "data_iso": "2026-04-17",
+          "valor": 75.0,
+          "preco": "R$ 75,00/Saca 60 kg"
+        },
+        {
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
+          "valor": 78.0,
+          "preco": "R$ 78,00/Saca 60 kg"
+        },
+        {
+          "data": "01/05/2026",
+          "data_iso": "2026-05-01",
+          "valor": 79.8,
+          "preco": "R$ 79,80/Saca 60 kg"
+        },
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 77.0,
+          "preco": "R$ 77,00/Saca 60 kg"
+        }
+      ]
+    },
+    {
+      "estado": "BA",
+      "cidade": "Bahia - Média estadual CONAB",
+      "regiao": "Bahia",
+      "produto": "Milho",
+      "produto_base": "Milho",
+      "produto_original": "Milho",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "commodity_agricola",
+      "valor": 55.72,
+      "preco": "R$ 55,72/Saca 60 kg",
+      "preco_original": 55.72,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60 kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "04/05/2026 a 08/05/2026",
+      "data_iso": "2026-05-08",
+      "data_inicio_iso": "2026-05-04",
+      "data_fim_iso": "2026-05-08",
+      "periodo_referencia": "04/05/2026 a 08/05/2026",
+      "fonte": "CONAB - Produtos 360º",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
+      "variacao_valor": -5.48,
+      "variacao_percentual": -8.9542,
+      "historico_30d": [
+        {
+          "data": "17/04/2026",
+          "data_iso": "2026-04-17",
+          "valor": 61.2,
+          "preco": "R$ 61,20/Saca 60 kg"
+        },
+        {
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
+          "valor": 57.6,
+          "preco": "R$ 57,60/Saca 60 kg"
+        },
+        {
+          "data": "01/05/2026",
+          "data_iso": "2026-05-01",
+          "valor": 56.4,
+          "preco": "R$ 56,40/Saca 60 kg"
+        },
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 55.72,
+          "preco": "R$ 55,72/Saca 60 kg"
+        }
+      ]
+    },
+    {
+      "estado": "MA",
+      "cidade": "Maranhão - Média estadual CONAB",
+      "regiao": "Maranhão",
+      "produto": "Milho",
+      "produto_base": "Milho",
+      "produto_original": "Milho",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "commodity_agricola",
+      "valor": 61.9,
+      "preco": "R$ 61,90/Saca 60 kg",
+      "preco_original": 61.9,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60 kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "04/05/2026 a 08/05/2026",
+      "data_iso": "2026-05-08",
+      "data_inicio_iso": "2026-05-04",
+      "data_fim_iso": "2026-05-08",
+      "periodo_referencia": "04/05/2026 a 08/05/2026",
+      "fonte": "CONAB - Produtos 360º",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
+      "variacao_valor": 0.1,
+      "variacao_percentual": 0.1618,
+      "historico_30d": [
+        {
+          "data": "17/04/2026",
+          "data_iso": "2026-04-17",
+          "valor": 61.8,
+          "preco": "R$ 61,80/Saca 60 kg"
+        },
+        {
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
+          "valor": 63.6,
+          "preco": "R$ 63,60/Saca 60 kg"
+        },
+        {
+          "data": "01/05/2026",
+          "data_iso": "2026-05-01",
+          "valor": 62.4,
+          "preco": "R$ 62,40/Saca 60 kg"
+        },
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 61.9,
+          "preco": "R$ 61,90/Saca 60 kg"
+        }
+      ]
+    },
+    {
+      "estado": "PA",
+      "cidade": "Pará - Média estadual CONAB",
+      "regiao": "Pará",
+      "produto": "Milho",
+      "produto_base": "Milho",
+      "produto_original": "Milho",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "commodity_agricola",
+      "valor": 73.93,
+      "preco": "R$ 73,93/Saca 60 kg",
+      "preco_original": 73.93,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60 kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "04/05/2026 a 08/05/2026",
+      "data_iso": "2026-05-08",
+      "data_inicio_iso": "2026-05-04",
+      "data_fim_iso": "2026-05-08",
+      "periodo_referencia": "04/05/2026 a 08/05/2026",
+      "fonte": "CONAB - Produtos 360º",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
+      "variacao_valor": -1.67,
+      "variacao_percentual": -2.209,
+      "historico_30d": [
+        {
+          "data": "17/04/2026",
+          "data_iso": "2026-04-17",
+          "valor": 75.6,
+          "preco": "R$ 75,60/Saca 60 kg"
+        },
+        {
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
+          "valor": 76.8,
+          "preco": "R$ 76,80/Saca 60 kg"
+        },
+        {
+          "data": "01/05/2026",
+          "data_iso": "2026-05-01",
+          "valor": 73.8,
+          "preco": "R$ 73,80/Saca 60 kg"
+        },
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 73.93,
+          "preco": "R$ 73,93/Saca 60 kg"
+        }
+      ]
+    },
+    {
+      "estado": "PE",
+      "cidade": "Pernambuco - Média estadual CONAB",
+      "regiao": "Pernambuco",
+      "produto": "Milho",
+      "produto_base": "Milho",
+      "produto_original": "Milho",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "commodity_agricola",
+      "valor": 95.67,
+      "preco": "R$ 95,67/Saca 60 kg",
+      "preco_original": 95.67,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60 kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "04/05/2026 a 08/05/2026",
+      "data_iso": "2026-05-08",
+      "data_inicio_iso": "2026-05-04",
+      "data_fim_iso": "2026-05-08",
+      "periodo_referencia": "04/05/2026 a 08/05/2026",
+      "fonte": "CONAB - Produtos 360º",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
+      "variacao_valor": 0.27,
+      "variacao_percentual": 0.283,
+      "historico_30d": [
+        {
+          "data": "17/04/2026",
+          "data_iso": "2026-04-17",
+          "valor": 95.4,
+          "preco": "R$ 95,40/Saca 60 kg"
+        },
+        {
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
+          "valor": 93.0,
+          "preco": "R$ 93,00/Saca 60 kg"
+        },
+        {
+          "data": "01/05/2026",
+          "data_iso": "2026-05-01",
+          "valor": 95.4,
+          "preco": "R$ 95,40/Saca 60 kg"
+        },
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 95.67,
+          "preco": "R$ 95,67/Saca 60 kg"
+        }
+      ]
+    },
+    {
+      "estado": "PI",
+      "cidade": "Piauí - Média estadual CONAB",
+      "regiao": "Piauí",
+      "produto": "Milho",
+      "produto_base": "Milho",
+      "produto_original": "Milho",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "commodity_agricola",
+      "valor": 66.11,
+      "preco": "R$ 66,11/Saca 60 kg",
+      "preco_original": 66.11,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60 kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "04/05/2026 a 08/05/2026",
+      "data_iso": "2026-05-08",
+      "data_inicio_iso": "2026-05-04",
+      "data_fim_iso": "2026-05-08",
+      "periodo_referencia": "04/05/2026 a 08/05/2026",
+      "fonte": "CONAB - Produtos 360º",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
+      "variacao_valor": -5.89,
+      "variacao_percentual": -8.1806,
+      "historico_30d": [
+        {
+          "data": "17/04/2026",
+          "data_iso": "2026-04-17",
+          "valor": 72.0,
+          "preco": "R$ 72,00/Saca 60 kg"
+        },
+        {
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
+          "valor": 69.6,
+          "preco": "R$ 69,60/Saca 60 kg"
+        },
+        {
+          "data": "01/05/2026",
+          "data_iso": "2026-05-01",
+          "valor": 69.6,
+          "preco": "R$ 69,60/Saca 60 kg"
+        },
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 66.11,
+          "preco": "R$ 66,11/Saca 60 kg"
+        }
+      ]
+    },
+    {
+      "estado": "SE",
+      "cidade": "Sergipe - Média estadual CONAB",
+      "regiao": "Sergipe",
+      "produto": "Milho",
+      "produto_base": "Milho",
+      "produto_original": "Milho",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "commodity_agricola",
+      "valor": 72.0,
+      "preco": "R$ 72,00/Saca 60 kg",
+      "preco_original": 72.0,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60 kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "27/04/2026 a 01/05/2026",
+      "data_iso": "2026-05-01",
+      "data_inicio_iso": "2026-04-27",
+      "data_fim_iso": "2026-05-01",
+      "periodo_referencia": "27/04/2026 a 01/05/2026",
+      "fonte": "CONAB - Produtos 360º",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
+      "variacao_valor": 1.2,
+      "variacao_percentual": 1.6949,
+      "historico_30d": [
+        {
+          "data": "17/04/2026",
+          "data_iso": "2026-04-17",
+          "valor": 70.8,
+          "preco": "R$ 70,80/Saca 60 kg"
+        },
+        {
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
+          "valor": 72.0,
+          "preco": "R$ 72,00/Saca 60 kg"
+        },
+        {
+          "data": "01/05/2026",
+          "data_iso": "2026-05-01",
+          "valor": 72.0,
+          "preco": "R$ 72,00/Saca 60 kg"
+        }
+      ]
+    },
+    {
+      "estado": "TO",
+      "cidade": "Tocantins - Média estadual CONAB",
+      "regiao": "Tocantins",
+      "produto": "Milho",
+      "produto_base": "Milho",
+      "produto_original": "Milho",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "commodity_agricola",
+      "valor": 56.0,
+      "preco": "R$ 56,00/Saca 60 kg",
+      "preco_original": 56.0,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Saca 60 kg",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "04/05/2026 a 08/05/2026",
+      "data_iso": "2026-05-08",
+      "data_inicio_iso": "2026-05-04",
+      "data_fim_iso": "2026-05-08",
+      "periodo_referencia": "04/05/2026 a 08/05/2026",
+      "fonte": "CONAB - Produtos 360º",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
+      "variacao_valor": 0.2,
+      "variacao_percentual": 0.3584,
+      "historico_30d": [
+        {
+          "data": "17/04/2026",
+          "data_iso": "2026-04-17",
+          "valor": 55.8,
+          "preco": "R$ 55,80/Saca 60 kg"
+        },
+        {
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
+          "valor": 55.8,
+          "preco": "R$ 55,80/Saca 60 kg"
+        },
+        {
+          "data": "01/05/2026",
+          "data_iso": "2026-05-01",
+          "valor": 55.8,
+          "preco": "R$ 55,80/Saca 60 kg"
+        },
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 56.0,
+          "preco": "R$ 56,00/Saca 60 kg"
         }
       ]
     },
