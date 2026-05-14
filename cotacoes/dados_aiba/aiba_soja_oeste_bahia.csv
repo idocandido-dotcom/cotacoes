@@ -1,2 +1,8 @@
 data,produto,estado,cidade,preco,unidade,fonte,fonte_url,observacao
-2026-05-11,Soja,BA,Oeste da Bahia - AIBA,112.51,Saca 60 kg,AIBA,https://aiba.org.br/cotacoes/,Cotação regional complementar da AIBA via CSV local
+2026-05-13,Soja,BA,Oeste da Bahia - AIBA,113.88,Saca 60 kg,AIBA,https://aiba.org.br/cotacoes/,Soja disponível - cotação regional complementar da AIBA via CSV local
+2026-05-13,Soja,BA,Oeste da Bahia - AIBA Balcão,111.33,Saca 60 kg,AIBA,https://aiba.org.br/cotacoes/,Soja balcão - cotação regional complementar da AIBA via CSV local
+2026-05-13,Arroz,BA,Oeste da Bahia - AIBA,79.50,Saca 60 kg,AIBA,https://aiba.org.br/cotacoes/,Arroz em casca - cotação regional complementar da AIBA via CSV local
+2026-05-13,Sorgo,BA,Oeste da Bahia - AIBA,42.00,Saca 60 kg,AIBA,https://aiba.org.br/cotacoes/,Cotação regional complementar da AIBA via CSV local
+2026-05-13,Milho,BA,Oeste da Bahia - AIBA,53.83,Saca 60 kg,AIBA,https://aiba.org.br/cotacoes/,Cotação regional complementar da AIBA via CSV local
+2026-05-13,Feijão,BA,Oeste da Bahia - AIBA,420.00,Saca 60 kg,AIBA,https://aiba.org.br/cotacoes/,Feijão Carioca - cotação regional complementar da AIBA via CSV local
+2026-05-13,Algodão,BA,Oeste da Bahia - AIBA,140.25,Arroba (@),AIBA,https://aiba.org.br/cotacoes/,Algodão Pluma - cotação regional complementar da AIBA via CSV local
