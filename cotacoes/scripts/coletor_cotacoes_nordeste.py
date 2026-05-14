@@ -100,6 +100,7 @@ CONAB_SEMANAL_UF_URL = "https://portaldeinformacoes.conab.gov.br/downloads/arqui
 CONAB_SEMANAL_MUNICIPIO_URL = "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt"
 
 AIBA_URL = "https://aiba.org.br/cotacoes/"
+AIBA_CSV_LOCAL = ROOT_DIR / "dados_aiba" / "aiba_soja_oeste_bahia.csv"
 
 UFS_BRASIL = {
     "AC": "Acre", "AL": "Alagoas", "AP": "Amapá", "AM": "Amazonas", "BA": "Bahia",
@@ -2298,6 +2299,96 @@ def main() -> None:
         "saida": str(OUTPUT_JSON),
     }, ensure_ascii=False, indent=2))
 
+
+
+# AUTO PATCH AIBA CSV LOCAL - INICIO
+# Fallback estável para AIBA via CSV local.
+# Arquivo: cotacoes/dados_aiba/aiba_soja_oeste_bahia.csv
+
+def coletar_aiba(status_fontes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    itens: list[dict[str, Any]] = []
+
+    try:
+        conteudo = AIBA_CSV_LOCAL.read_text(encoding="utf-8-sig").strip()
+        primeira = conteudo.splitlines()[0] if conteudo.splitlines() else ""
+        separador = ";" if primeira.count(";") > primeira.count(",") else ","
+        registros = list(csv.DictReader(io.StringIO(conteudo), delimiter=separador))
+    except Exception as erro:
+        status_fontes.append({
+            "fonte": "AIBA",
+            "url": AIBA_URL,
+            "status": "erro_csv_local",
+            "total_registros": 0,
+            "arquivo_local": str(AIBA_CSV_LOCAL),
+            "erro": repr(erro),
+            "observacao": "AIBA configurada por CSV local, mas o arquivo não pôde ser lido.",
+        })
+        return []
+
+    for linha in registros:
+        if not isinstance(linha, dict):
+            continue
+
+        produto_original = limpar_texto(linha.get("produto") or "Soja")
+        produto_base = normalizar_produto_base(produto_original)
+        uf = limpar_texto(linha.get("estado") or linha.get("uf") or "BA").upper()
+        cidade = limpar_texto(linha.get("cidade") or linha.get("praca") or "Oeste da Bahia - AIBA")
+        preco = parse_preco(linha.get("preco") or linha.get("valor"))
+        unidade = limpar_texto(linha.get("unidade") or "Saca 60 kg")
+        data_iso = parse_data_qualquer(linha.get("data") or linha.get("data_iso")) or agora_local().date().isoformat()
+        fonte_url = limpar_texto(linha.get("fonte_url") or AIBA_URL)
+        observacao = limpar_texto(linha.get("observacao") or "Cotação regional complementar da AIBA via CSV local.")
+
+        if not uf_monitorada(uf):
+            continue
+        if preco is None:
+            continue
+        if produto_base not in {"Soja", "Milho", "Algodão", "Arroz", "Feijão", "Sorgo"}:
+            continue
+
+        unidade_norm = remover_acentos(unidade).lower()
+        converter = True
+
+        if produto_base in {"Soja", "Milho", "Arroz", "Feijão", "Sorgo"} and "saca" in unidade_norm:
+            converter = False
+            unidade = "Saca 60 kg"
+
+        if produto_base == "Algodão" and ("@" in unidade or "arroba" in unidade_norm):
+            converter = False
+            unidade = "Arroba (@)"
+
+        itens.append(
+            criar_item(
+                produto_original=produto_original,
+                produto_base=produto_base,
+                uf=uf,
+                estado=UFS_BRASIL.get(uf, uf),
+                praca=cidade,
+                unidade_original=unidade,
+                preco_original=preco,
+                data_referencia=data_iso,
+                data_inicio=data_iso,
+                data_fim=data_iso,
+                periodo_referencia=data_para_br(data_iso),
+                fonte="AIBA",
+                fonte_url=fonte_url,
+                tipo_fonte="regional",
+                nivel="Regional",
+                converter=converter,
+                observacao=observacao,
+            )
+        )
+
+    status_fontes.append({
+        "fonte": "AIBA",
+        "url": AIBA_URL,
+        "status": "ok_csv_local" if itens else "csv_local_sem_registros_validos",
+        "total_registros": len(itens),
+        "arquivo_local": str(AIBA_CSV_LOCAL),
+        "observacao": "AIBA configurada como fonte regional complementar por CSV local para evitar bloqueio 403.",
+    })
+    return itens
+# AUTO PATCH AIBA CSV LOCAL - FIM
 
 if __name__ == "__main__":
     main()
