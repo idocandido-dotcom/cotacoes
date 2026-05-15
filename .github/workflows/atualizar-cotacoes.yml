@@ -10,9 +10,10 @@ on:
       - "cotacoes/dados_aiba/aiba_soja_oeste_bahia.csv"
 
   schedule:
-    # Roda todos os dias às 09:00 no horário de Brasília/Fortaleza.
-    # O GitHub Actions usa UTC. 09:00 BRT = 12:00 UTC.
-    - cron: "0 12 * * *"
+    # Roda a cada 3 horas.
+    # O GitHub Actions usa UTC.
+    # Horários aproximados no Brasil (BRT/Fortaleza): 21h, 00h, 03h, 06h, 09h, 12h, 15h e 18h.
+    - cron: "0 */3 * * *"
 
   workflow_dispatch:
 
