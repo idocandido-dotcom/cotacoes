@@ -53,7 +53,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4
 
-      - name: Atualizar CSV local da AIBA automaticamente
+      - name: Tentar atualizar CSV local da AIBA automaticamente
         shell: bash
         run: |
           python - <<'PY'
@@ -305,7 +305,6 @@ jobs:
                   )
 
               if not registros:
-                  # Segunda tentativa: procura preço e usa as duas linhas anteriores como produto/unidade.
                   for i, linha in enumerate(linhas):
                       if "R$" not in linha or i < 2:
                           continue
@@ -365,7 +364,6 @@ jobs:
                   raise RuntimeError(f"AIBA retornou poucos registros válidos: {len(registros)}")
 
               produtos = {r["produto"] for r in registros}
-
               obrigatorios = {"Soja", "Milho", "Algodão", "Arroz", "Feijão", "Sorgo"}
               faltantes = obrigatorios - produtos
 
@@ -376,34 +374,46 @@ jobs:
                   if not r["data"] or not r["preco"] or not r["produto"]:
                       raise RuntimeError(f"Registro AIBA incompleto: {r}")
 
-          html = baixar_html_aiba()
-          linhas = extrair_linhas_aiba(html)
-          registros = montar_registros(linhas)
-          validar_registros(registros)
+          try:
+              html = baixar_html_aiba()
+              linhas = extrair_linhas_aiba(html)
+              registros = montar_registros(linhas)
+              validar_registros(registros)
 
-          SAIDA.parent.mkdir(parents=True, exist_ok=True)
+              SAIDA.parent.mkdir(parents=True, exist_ok=True)
 
-          with SAIDA.open("w", encoding="utf-8", newline="") as f:
-              campos = ["data", "produto", "estado", "cidade", "preco", "unidade", "fonte", "fonte_url", "observacao"]
-              writer = csv.DictWriter(f, fieldnames=campos)
-              writer.writeheader()
-              writer.writerows(registros)
+              with SAIDA.open("w", encoding="utf-8", newline="") as f:
+                  campos = ["data", "produto", "estado", "cidade", "preco", "unidade", "fonte", "fonte_url", "observacao"]
+                  writer = csv.DictWriter(f, fieldnames=campos)
+                  writer.writeheader()
+                  writer.writerows(registros)
 
-          print(f"CSV local da AIBA atualizado automaticamente: {SAIDA}")
-          print(f"Total de registros AIBA: {len(registros)}")
+              print(f"CSV local da AIBA atualizado automaticamente: {SAIDA}")
+              print(f"Total de registros AIBA: {len(registros)}")
 
-          for r in registros:
-              print(
-                  r["data"],
-                  "|",
-                  r["produto"],
-                  "|",
-                  r["cidade"],
-                  "|",
-                  r["preco"],
-                  "|",
-                  r["unidade"],
-              )
+              for r in registros:
+                  print(
+                      r["data"],
+                      "|",
+                      r["produto"],
+                      "|",
+                      r["cidade"],
+                      "|",
+                      r["preco"],
+                      "|",
+                      r["unidade"],
+                  )
+
+          except Exception as erro:
+              print("AVISO: não foi possível atualizar a AIBA automaticamente.")
+              print("Motivo:", repr(erro))
+
+              if SAIDA.exists():
+                  print(f"Será mantido o CSV local já existente: {SAIDA}")
+                  sys.exit(0)
+
+              print("ERRO: CSV local da AIBA não existe. Não há fallback disponível.")
+              sys.exit(1)
           PY
 
       - name: Localizar coletor de cotações
