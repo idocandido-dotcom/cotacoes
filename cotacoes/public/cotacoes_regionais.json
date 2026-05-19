@@ -3,13 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-<<<<<<< Updated upstream
-  "gerado_em": "2026-05-19T08:36:55-03:00",
-  "ultima_sincronizacao": "2026-05-19 08:36:55",
-=======
-  "gerado_em": "2026-05-19T08:37:33-03:00",
-  "ultima_sincronizacao": "2026-05-19 08:37:33",
->>>>>>> Stashed changes
+  "gerado_em": "2026-05-19T08:49:59-03:00",
+  "ultima_sincronizacao": "2026-05-19 08:49:59",
   "data_limite_cotacoes_ativas": "2026-04-19",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -278,27 +273,9 @@
       "periodo_referencia": "13/05/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": 1.38,
-      "variacao_percentual": 1.2267,
+      "variacao_valor": null,
+      "variacao_percentual": null,
       "historico_30d": [
-        {
-          "data": "09/05/2026",
-          "data_iso": "2026-05-09",
-          "valor": 112.5,
-          "preco": "R$ 112,50/Saca 60 kg"
-        },
-        {
-          "data": "10/05/2026",
-          "data_iso": "2026-05-10",
-          "valor": 112.5,
-          "preco": "R$ 112,50/Saca 60 kg"
-        },
-        {
-          "data": "11/05/2026",
-          "data_iso": "2026-05-11",
-          "valor": 112.51,
-          "preco": "R$ 112,51/Saca 60 kg"
-        },
         {
           "data": "13/05/2026",
           "data_iso": "2026-05-13",
