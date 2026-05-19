@@ -53,6 +53,359 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4
 
+      - name: Atualizar CSV local da AIBA automaticamente
+        shell: bash
+        run: |
+          python - <<'PY'
+          import csv
+          import re
+          import sys
+          import time
+          import unicodedata
+          from datetime import datetime
+          from pathlib import Path
+
+          import requests
+          from bs4 import BeautifulSoup
+
+          AIBA_URL = "https://aiba.org.br/cotacoes/"
+          SAIDA = Path("cotacoes/dados_aiba/aiba_soja_oeste_bahia.csv")
+
+          HEADERS_LIST = [
+              {
+                  "User-Agent": (
+                      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                      "AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/124.0.0.0 Safari/537.36"
+                  ),
+                  "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                  "Accept-Language": "pt-BR,pt;q=0.9,en-US;q=0.8,en;q=0.7",
+                  "Cache-Control": "no-cache",
+                  "Pragma": "no-cache",
+                  "Referer": "https://www.google.com/",
+                  "Connection": "keep-alive",
+              },
+              {
+                  "User-Agent": (
+                      "Mozilla/5.0 (X11; Linux x86_64) "
+                      "AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/124.0 Safari/537.36"
+                  ),
+                  "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                  "Accept-Language": "pt-BR,pt;q=0.9",
+                  "Cache-Control": "no-cache",
+                  "Pragma": "no-cache",
+              },
+          ]
+
+          def limpar_texto(valor):
+              if valor is None:
+                  return ""
+              return re.sub(r"\s+", " ", str(valor)).strip()
+
+          def remover_acentos(valor):
+              texto = unicodedata.normalize("NFD", limpar_texto(valor))
+              return "".join(c for c in texto if unicodedata.category(c) != "Mn")
+
+          def normalizar_produto(valor):
+              t = remover_acentos(valor).lower()
+
+              if "caroco" in t or "caroço" in t:
+                  return None
+              if "milheto" in t:
+                  return None
+              if "cafe" in t:
+                  return None
+
+              if "soja" in t:
+                  return "Soja"
+              if "milho" in t:
+                  return "Milho"
+              if "algod" in t:
+                  return "Algodão"
+              if "arroz" in t:
+                  return "Arroz"
+              if "feij" in t:
+                  return "Feijão"
+              if "sorgo" in t:
+                  return "Sorgo"
+
+              return None
+
+          def preco_para_float(valor):
+              texto = limpar_texto(valor)
+              texto = texto.replace("R$", "").replace("\xa0", " ").strip()
+              texto = re.sub(r"[^0-9,.\-]", "", texto)
+
+              if not texto:
+                  return None
+
+              if "," in texto and "." in texto:
+                  texto = texto.replace(".", "").replace(",", ".")
+              elif "," in texto:
+                  texto = texto.replace(",", ".")
+
+              try:
+                  return float(texto)
+              except Exception:
+                  return None
+
+          def formatar_preco_csv(valor):
+              return f"{float(valor):.2f}"
+
+          def unidade_valida(valor):
+              t = remover_acentos(valor).lower()
+              return (
+                  "saca" in t
+                  or "60 kg" in t
+                  or "60kg" in t
+                  or "sc" in t
+                  or "arroba" in t
+                  or "@" in t
+              )
+
+          def normalizar_unidade(produto, unidade):
+              t = remover_acentos(unidade).lower()
+
+              if produto == "Algodão" and ("@" in unidade or "arroba" in t):
+                  return "Arroba (@)"
+
+              if produto in {"Soja", "Milho", "Arroz", "Feijão", "Sorgo"}:
+                  return "Saca 60 kg"
+
+              return limpar_texto(unidade) or "Unidade"
+
+          def extrair_datas(linhas):
+              datas = []
+              for linha in linhas:
+                  for m in re.finditer(r"(\d{2})/(\d{2})/(\d{4})", linha):
+                      d, mth, y = m.groups()
+                      try:
+                          datas.append(datetime.strptime(f"{y}-{mth}-{d}", "%Y-%m-%d").date())
+                      except Exception:
+                          pass
+
+              if not datas:
+                  return None
+
+              return max(datas).isoformat()
+
+          def detectar_cidade(produto_original):
+              t = remover_acentos(produto_original).lower()
+              if "soja" in t and "balcao" in t:
+                  return "Oeste da Bahia - AIBA Balcão"
+              return "Oeste da Bahia - AIBA"
+
+          def detectar_observacao(produto_original, produto_base):
+              t = remover_acentos(produto_original).lower()
+
+              if produto_base == "Soja" and "balcao" in t:
+                  return "Soja balcão - cotação regional complementar da AIBA via CSV local"
+              if produto_base == "Soja":
+                  return "Soja disponível - cotação regional complementar da AIBA via CSV local"
+              if produto_base == "Arroz":
+                  return "Arroz em casca - cotação regional complementar da AIBA via CSV local"
+              if produto_base == "Feijão":
+                  return "Feijão Carioca - cotação regional complementar da AIBA via CSV local"
+              if produto_base == "Algodão":
+                  return "Algodão Pluma - cotação regional complementar da AIBA via CSV local"
+
+              return "Cotação regional complementar da AIBA via CSV local"
+
+          def baixar_html_aiba():
+              erros = []
+
+              for headers in HEADERS_LIST:
+                  try:
+                      resp = requests.get(AIBA_URL, headers=headers, timeout=40)
+                      if resp.status_code == 200 and resp.text.strip():
+                          return resp.text
+                      erros.append(f"HTTP {resp.status_code}")
+                  except Exception as erro:
+                      erros.append(repr(erro))
+
+                  time.sleep(2)
+
+              raise RuntimeError("Não foi possível acessar a AIBA. Tentativas: " + " | ".join(erros))
+
+          def extrair_linhas_aiba(html):
+              soup = BeautifulSoup(html, "html.parser")
+              linhas = [limpar_texto(x) for x in soup.get_text("\n", strip=True).splitlines()]
+              return [x for x in linhas if x]
+
+          def produto_parece_valido(valor):
+              produto = normalizar_produto(valor)
+              if not produto:
+                  return False
+
+              t = remover_acentos(valor).lower()
+              bloqueios = [
+                  "cotacoes",
+                  "cotacao",
+                  "ultima atualizacao",
+                  "mercado bahia",
+                  "siga a aiba",
+                  "inicio",
+                  "pesquisar",
+                  "menu",
+                  "noticias",
+              ]
+
+              return not any(b in t for b in bloqueios)
+
+          def montar_registros(linhas):
+              data_padrao = extrair_datas(linhas)
+              if not data_padrao:
+                  raise RuntimeError("Não foi possível encontrar a data da cotação na página da AIBA.")
+
+              registros = []
+
+              for i in range(0, max(0, len(linhas) - 3)):
+                  produto_original = linhas[i]
+                  unidade = linhas[i + 1]
+                  preco_texto = linhas[i + 2]
+                  detalhe = linhas[i + 3]
+
+                  if not produto_parece_valido(produto_original):
+                      continue
+
+                  if not unidade_valida(unidade):
+                      continue
+
+                  if "R$" not in preco_texto:
+                      continue
+
+                  produto_base = normalizar_produto(produto_original)
+                  preco = preco_para_float(preco_texto)
+
+                  if not produto_base or preco is None:
+                      continue
+
+                  data_item = data_padrao
+                  m_data = re.search(r"(\d{2})/(\d{2})/(\d{4})", detalhe)
+                  if m_data:
+                      d, mth, y = m_data.groups()
+                      try:
+                          data_item = datetime.strptime(f"{y}-{mth}-{d}", "%Y-%m-%d").date().isoformat()
+                      except Exception:
+                          data_item = data_padrao
+
+                  registros.append(
+                      {
+                          "data": data_item,
+                          "produto": produto_base,
+                          "estado": "BA",
+                          "cidade": detectar_cidade(produto_original),
+                          "preco": formatar_preco_csv(preco),
+                          "unidade": normalizar_unidade(produto_base, unidade),
+                          "fonte": "AIBA",
+                          "fonte_url": AIBA_URL,
+                          "observacao": detectar_observacao(produto_original, produto_base),
+                      }
+                  )
+
+              if not registros:
+                  # Segunda tentativa: procura preço e usa as duas linhas anteriores como produto/unidade.
+                  for i, linha in enumerate(linhas):
+                      if "R$" not in linha or i < 2:
+                          continue
+
+                      produto_original = linhas[i - 2]
+                      unidade = linhas[i - 1]
+
+                      if not produto_parece_valido(produto_original):
+                          continue
+
+                      if not unidade_valida(unidade):
+                          continue
+
+                      produto_base = normalizar_produto(produto_original)
+                      preco = preco_para_float(linha)
+
+                      if not produto_base or preco is None:
+                          continue
+
+                      registros.append(
+                          {
+                              "data": data_padrao,
+                              "produto": produto_base,
+                              "estado": "BA",
+                              "cidade": detectar_cidade(produto_original),
+                              "preco": formatar_preco_csv(preco),
+                              "unidade": normalizar_unidade(produto_base, unidade),
+                              "fonte": "AIBA",
+                              "fonte_url": AIBA_URL,
+                              "observacao": detectar_observacao(produto_original, produto_base),
+                          }
+                      )
+
+              unicos = {}
+              for r in registros:
+                  chave = (r["data"], r["produto"], r["cidade"], r["unidade"], r["preco"])
+                  unicos[chave] = r
+
+              registros = list(unicos.values())
+
+              ordem = {
+                  ("Soja", "Oeste da Bahia - AIBA"): 1,
+                  ("Soja", "Oeste da Bahia - AIBA Balcão"): 2,
+                  ("Arroz", "Oeste da Bahia - AIBA"): 3,
+                  ("Sorgo", "Oeste da Bahia - AIBA"): 4,
+                  ("Milho", "Oeste da Bahia - AIBA"): 5,
+                  ("Feijão", "Oeste da Bahia - AIBA"): 6,
+                  ("Algodão", "Oeste da Bahia - AIBA"): 7,
+              }
+
+              registros.sort(key=lambda r: ordem.get((r["produto"], r["cidade"]), 99))
+
+              return registros
+
+          def validar_registros(registros):
+              if len(registros) < 6:
+                  raise RuntimeError(f"AIBA retornou poucos registros válidos: {len(registros)}")
+
+              produtos = {r["produto"] for r in registros}
+
+              obrigatorios = {"Soja", "Milho", "Algodão", "Arroz", "Feijão", "Sorgo"}
+              faltantes = obrigatorios - produtos
+
+              if faltantes:
+                  raise RuntimeError("Produtos obrigatórios ausentes na AIBA: " + ", ".join(sorted(faltantes)))
+
+              for r in registros:
+                  if not r["data"] or not r["preco"] or not r["produto"]:
+                      raise RuntimeError(f"Registro AIBA incompleto: {r}")
+
+          html = baixar_html_aiba()
+          linhas = extrair_linhas_aiba(html)
+          registros = montar_registros(linhas)
+          validar_registros(registros)
+
+          SAIDA.parent.mkdir(parents=True, exist_ok=True)
+
+          with SAIDA.open("w", encoding="utf-8", newline="") as f:
+              campos = ["data", "produto", "estado", "cidade", "preco", "unidade", "fonte", "fonte_url", "observacao"]
+              writer = csv.DictWriter(f, fieldnames=campos)
+              writer.writeheader()
+              writer.writerows(registros)
+
+          print(f"CSV local da AIBA atualizado automaticamente: {SAIDA}")
+          print(f"Total de registros AIBA: {len(registros)}")
+
+          for r in registros:
+              print(
+                  r["data"],
+                  "|",
+                  r["produto"],
+                  "|",
+                  r["cidade"],
+                  "|",
+                  r["preco"],
+                  "|",
+                  r["unidade"],
+              )
+          PY
+
       - name: Localizar coletor de cotações
         shell: bash
         run: |
@@ -82,6 +435,7 @@ jobs:
         run: |
           echo "Verificando arquivos obrigatórios..."
 
+          test -f cotacoes/dados_aiba/aiba_soja_oeste_bahia.csv
           test -f cotacoes/public/cotacoes_nordeste.json
           test -f cotacoes/public/cotacoes_regionais.json
           test -f cotacoes/public/cotacoes_nordeste.csv
@@ -89,9 +443,9 @@ jobs:
 
           echo "Verificando se há marcas de conflito Git nos arquivos gerados..."
 
-          if grep -R "<<<<<<<\|=======\|>>>>>>>" cotacoes/public cotacoes/logs; then
+          if grep -R "<<<<<<<\|=======\|>>>>>>>" cotacoes/public cotacoes/logs cotacoes/dados_aiba; then
             echo "ERRO: marcas de conflito Git encontradas nos arquivos gerados."
-            echo "A execução será interrompida para não publicar JSON inválido."
+            echo "A execução será interrompida para não publicar arquivo inválido."
             exit 1
           fi
 
@@ -102,17 +456,32 @@ jobs:
           python -m json.tool cotacoes/logs/status_ultima_execucao.json > /tmp/status_ultima_execucao_validado.json
 
           python - <<'PY'
+          import csv
           import json
           from pathlib import Path
 
-          caminho = Path("cotacoes/public/cotacoes_nordeste.json")
-          dados = json.loads(caminho.read_text(encoding="utf-8"))
+          caminho_json = Path("cotacoes/public/cotacoes_nordeste.json")
+          dados = json.loads(caminho_json.read_text(encoding="utf-8"))
           lista = dados.get("dados", [])
 
           if not isinstance(lista, list) or len(lista) == 0:
               raise SystemExit("ERRO: cotacoes_nordeste.json foi gerado sem itens em dados.")
 
           print(f"JSON principal válido com {len(lista)} itens.")
+
+          caminho_aiba = Path("cotacoes/dados_aiba/aiba_soja_oeste_bahia.csv")
+          with caminho_aiba.open("r", encoding="utf-8") as f:
+              registros = list(csv.DictReader(f))
+
+          if len(registros) < 6:
+              raise SystemExit("ERRO: CSV local da AIBA tem poucos registros.")
+
+          print(f"CSV local da AIBA válido com {len(registros)} registros.")
+
+          fontes = dados.get("fontes", [])
+          for fonte in fontes:
+              if fonte.get("fonte") == "AIBA":
+                  print("Status AIBA:", fonte.get("status"), "| total:", fonte.get("total_registros"))
           PY
 
       - name: Mostrar resumo da execução
@@ -161,7 +530,7 @@ jobs:
 
           echo "Validando novamente os arquivos antes do commit..."
 
-          if grep -R "<<<<<<<\|=======\|>>>>>>>" cotacoes/public cotacoes/logs; then
+          if grep -R "<<<<<<<\|=======\|>>>>>>>" cotacoes/public cotacoes/logs cotacoes/dados_aiba; then
             echo "ERRO: marcas de conflito Git encontradas antes do commit."
             echo "Nada será enviado para a branch main."
             exit 1
@@ -177,7 +546,7 @@ jobs:
           git status --short
 
           git add cotacoes/scripts/coletor_cotacoes_nordeste.py
-          git add cotacoes/dados_aiba/aiba_soja_oeste_bahia.csv || true
+          git add cotacoes/dados_aiba/aiba_soja_oeste_bahia.csv
           git add cotacoes/public/cotacoes_nordeste.json
           git add cotacoes/public/cotacoes_regionais.json
           git add cotacoes/public/cotacoes_nordeste.csv
