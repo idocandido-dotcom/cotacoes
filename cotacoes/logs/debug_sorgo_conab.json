@@ -171,9 +171,7 @@
       "produto_valor": "ARROZ EM CASCA",
       "classificacao": "EM GRÃOS",
       "periodo": "13/04/2026 a 17/04/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Arroz",
@@ -198,9 +196,7 @@
       "produto_valor": "FEIJÃO",
       "classificacao": "EM GRÃOS",
       "periodo": "11/05/2026 a 15/05/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Feijão",
