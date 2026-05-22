@@ -3,8 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-05-22T07:37:52-03:00",
-  "ultima_sincronizacao": "2026-05-22 07:37:52",
+  "gerado_em": "2026-05-22T09:52:57-03:00",
+  "ultima_sincronizacao": "2026-05-22 09:52:57",
   "data_limite_cotacoes_ativas": "2026-04-22",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -52,7 +52,7 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 1889,
+      "total_registros": 1890,
       "produtos_fallback": [
         "Arroz",
         "Boi Gordo",
@@ -86,7 +86,7 @@
   "resumo": {
     "total_cotacoes_tabela": 52,
     "total_dados_html": 52,
-    "total_cotacoes_brutas": 4884,
+    "total_cotacoes_brutas": 4885,
     "total_cotacoes_descartadas_por_validacao": 0,
     "grupos_descartados_por_data_antiga": 4737,
     "total_sorgo_conab_tabela": 3,
@@ -330,58 +330,9 @@
       "nivel_comercializacao_chave": "preco_produtor",
       "prioridade_nivel_preco": 1,
       "categoria": "commodity_agricola",
-      "valor": 72.0,
-      "preco": "R$ 72,00/Saca 60 kg",
-      "preco_original": 1.2,
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Kg",
-      "fator_conversao": 60.0,
-      "conversao_aplicada": true,
-      "data": "04/05/2026 a 08/05/2026",
-      "data_iso": "2026-05-08",
-      "data_inicio_iso": "2026-05-04",
-      "data_fim_iso": "2026-05-08",
-      "periodo_referencia": "04/05/2026 a 08/05/2026",
-      "fonte": "CONAB - Preços Agropecuários Semanal UF",
-      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "variacao_valor": null,
-      "variacao_percentual": null,
-      "historico_30d": [
-        {
-          "data": "24/04/2026",
-          "data_iso": "2026-04-24",
-          "valor": 72.0,
-          "preco": "R$ 72,00/Saca 60 kg"
-        },
-        {
-          "data": "01/05/2026",
-          "data_iso": "2026-05-01",
-          "valor": 72.0,
-          "preco": "R$ 72,00/Saca 60 kg"
-        },
-        {
-          "data": "08/05/2026",
-          "data_iso": "2026-05-08",
-          "valor": 72.0,
-          "preco": "R$ 72,00/Saca 60 kg"
-        }
-      ]
-    },
-    {
-      "estado": "MA",
-      "cidade": "Média UF",
-      "regiao": "Maranhão",
-      "produto": "Arroz — Produtor",
-      "produto_base": "Arroz",
-      "produto_original": "ARROZ",
-      "tipo_produto": "principal",
-      "nivel_comercializacao": "Produtor",
-      "nivel_comercializacao_chave": "preco_produtor",
-      "prioridade_nivel_preco": 1,
-      "categoria": "commodity_agricola",
-      "valor": 80.4,
-      "preco": "R$ 80,40/Saca 60 kg",
-      "preco_original": 1.34,
+      "valor": 70.8,
+      "preco": "R$ 70,80/Saca 60 kg",
+      "preco_original": 1.18,
       "unidade": "Saca 60 kg",
       "unidade_original": "Kg",
       "fator_conversao": 60.0,
@@ -399,26 +350,81 @@
         {
           "data": "24/04/2026",
           "data_iso": "2026-04-24",
-          "valor": 81.6,
-          "preco": "R$ 81,60/Saca 60 kg"
+          "valor": 72.0,
+          "preco": "R$ 72,00/Saca 60 kg"
         },
         {
           "data": "01/05/2026",
           "data_iso": "2026-05-01",
-          "valor": 81.0,
-          "preco": "R$ 81,00/Saca 60 kg"
+          "valor": 72.0,
+          "preco": "R$ 72,00/Saca 60 kg"
         },
         {
           "data": "08/05/2026",
           "data_iso": "2026-05-08",
-          "valor": 81.0,
-          "preco": "R$ 81,00/Saca 60 kg"
+          "valor": 72.0,
+          "preco": "R$ 72,00/Saca 60 kg"
         },
         {
           "data": "15/05/2026",
           "data_iso": "2026-05-15",
-          "valor": 80.4,
-          "preco": "R$ 80,40/Saca 60 kg"
+          "valor": 70.8,
+          "preco": "R$ 70,80/Saca 60 kg"
+        }
+      ]
+    },
+    {
+      "estado": "MA",
+      "cidade": "Média UF",
+      "regiao": "Maranhão",
+      "produto": "Arroz — Produtor",
+      "produto_base": "Arroz",
+      "produto_original": "ARROZ",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "commodity_agricola",
+      "valor": 84.6,
+      "preco": "R$ 84,60/Saca 60 kg",
+      "preco_original": 1.41,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "data": "11/05/2026 a 15/05/2026",
+      "data_iso": "2026-05-15",
+      "data_inicio_iso": "2026-05-11",
+      "data_fim_iso": "2026-05-15",
+      "periodo_referencia": "11/05/2026 a 15/05/2026",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "variacao_valor": null,
+      "variacao_percentual": null,
+      "historico_30d": [
+        {
+          "data": "24/04/2026",
+          "data_iso": "2026-04-24",
+          "valor": 78.6,
+          "preco": "R$ 78,60/Saca 60 kg"
+        },
+        {
+          "data": "01/05/2026",
+          "data_iso": "2026-05-01",
+          "valor": 78.0,
+          "preco": "R$ 78,00/Saca 60 kg"
+        },
+        {
+          "data": "08/05/2026",
+          "data_iso": "2026-05-08",
+          "valor": 82.2,
+          "preco": "R$ 82,20/Saca 60 kg"
+        },
+        {
+          "data": "15/05/2026",
+          "data_iso": "2026-05-15",
+          "valor": 84.6,
+          "preco": "R$ 84,60/Saca 60 kg"
         }
       ]
     },
@@ -907,14 +913,14 @@
         {
           "data": "24/04/2026",
           "data_iso": "2026-04-24",
-          "valor": 329.4,
-          "preco": "R$ 329,40/Saca 60 kg"
+          "valor": 259.8,
+          "preco": "R$ 259,80/Saca 60 kg"
         },
         {
           "data": "01/05/2026",
           "data_iso": "2026-05-01",
-          "valor": 240.0,
-          "preco": "R$ 240,00/Saca 60 kg"
+          "valor": 352.8,
+          "preco": "R$ 352,80/Saca 60 kg"
         },
         {
           "data": "08/05/2026",
@@ -1158,8 +1164,8 @@
         {
           "data": "24/04/2026",
           "data_iso": "2026-04-24",
-          "valor": 210.0,
-          "preco": "R$ 210,00/Saca 60 kg"
+          "valor": 150.0,
+          "preco": "R$ 150,00/Saca 60 kg"
         },
         {
           "data": "01/05/2026",
