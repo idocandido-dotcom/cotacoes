@@ -36,7 +36,9 @@
       "produto_valor": "ARROZ EM CASCA",
       "classificacao": "EM GRÃOS",
       "periodo": "18/05/2026 a 22/05/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Arroz",
@@ -160,7 +162,9 @@
       "produto_valor": "ARROZ",
       "classificacao": "EM GRÃOS",
       "periodo": "20/04/2026 a 24/04/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Arroz",
@@ -221,7 +225,9 @@
       "produto_valor": "FEIJÃO",
       "classificacao": "EM GRÃOS",
       "periodo": "25/05/2026 a 29/05/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Feijão",
@@ -246,7 +252,9 @@
       "produto_valor": "FEIJÃO",
       "classificacao": "EM GRÃOS",
       "periodo": "11/05/2026 a 15/05/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Feijão",
@@ -325,7 +333,9 @@
       "produto_valor": "FEIJÃO",
       "classificacao": "EM GRÃOS",
       "periodo": "20/04/2026 a 24/04/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Feijão",
@@ -593,7 +603,9 @@
       "produto_valor": "LEITE",
       "classificacao": "LEITE",
       "periodo": "25/05/2026 a 29/05/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
