@@ -1,7 +1,7 @@
 {
   "ok": true,
   "versao": "1.5.8",
-  "gerado_em": "2026-05-27T21:52:48-03:00",
+  "gerado_em": "2026-05-28T00:52:42-03:00",
   "regra": "Histórico persistente da AIBA/regional. Acumula uma cotação por data real, sem simular valores.",
   "historicos": {
     "Algodão||BA||Oeste da Bahia - AIBA||AIBA": [
@@ -15,6 +15,10 @@
       },
       {
         "data": "2026-05-27",
+        "valor": 134.5
+      },
+      {
+        "data": "2026-05-28",
         "valor": 134.5
       }
     ],
@@ -30,6 +34,10 @@
       {
         "data": "2026-05-27",
         "valor": 77.5
+      },
+      {
+        "data": "2026-05-28",
+        "valor": 77.5
       }
     ],
     "Feijão||BA||Oeste da Bahia - AIBA||AIBA": [
@@ -43,6 +51,10 @@
       },
       {
         "data": "2026-05-27",
+        "valor": 435.0
+      },
+      {
+        "data": "2026-05-28",
         "valor": 435.0
       }
     ],
@@ -58,6 +70,10 @@
       {
         "data": "2026-05-27",
         "valor": 54.33
+      },
+      {
+        "data": "2026-05-28",
+        "valor": 54.33
       }
     ],
     "Soja||BA||Oeste da Bahia - AIBA||AIBA": [
@@ -72,6 +88,10 @@
       {
         "data": "2026-05-27",
         "valor": 117.25
+      },
+      {
+        "data": "2026-05-28",
+        "valor": 117.25
       }
     ],
     "Sorgo||BA||Oeste da Bahia - AIBA||AIBA": [
@@ -85,6 +105,10 @@
       },
       {
         "data": "2026-05-27",
+        "valor": 42.0
+      },
+      {
+        "data": "2026-05-28",
         "valor": 42.0
       }
     ]
