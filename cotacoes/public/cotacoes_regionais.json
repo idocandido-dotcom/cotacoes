@@ -3,8 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-06-01T09:52:50-03:00",
-  "ultima_sincronizacao": "2026-06-01 09:52:50",
+  "gerado_em": "2026-06-01T12:52:53-03:00",
+  "ultima_sincronizacao": "2026-06-01 12:52:53",
   "data_limite_cotacoes_ativas": "2026-05-02",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -13,10 +13,11 @@
       "fonte": "CONAB - Produtos 360º",
       "url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
       "status": "ok",
-      "total_registros": 14,
+      "total_registros": 19,
       "produtos_extraidos": [
         "Algodão",
-        "Milho"
+        "Milho",
+        "Soja"
       ],
       "observacao": "Fonte principal para Soja, Milho e Algodão."
     },
@@ -98,9 +99,9 @@
     }
   ],
   "resumo": {
-    "total_cotacoes_tabela": 48,
-    "total_dados_html": 48,
-    "total_cotacoes_brutas": 4943,
+    "total_cotacoes_tabela": 53,
+    "total_dados_html": 53,
+    "total_cotacoes_brutas": 4948,
     "total_cotacoes_descartadas_por_validacao": 0,
     "grupos_descartados_por_data_antiga": 4805,
     "total_sorgo_conab_tabela": 3,
