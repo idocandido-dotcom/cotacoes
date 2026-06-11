@@ -2,7 +2,7 @@
   "fonte": "CONAB - Produtos 360º",
   "versao": "1.5.8",
   "html_status": "http_200",
-  "total_itens": 19,
+  "total_itens": 15,
   "produtos": [
     {
       "produto": "Soja",
@@ -19,8 +19,8 @@
     {
       "produto": "Algodão",
       "param": "[Produto].[ALGODÃO EM PLUMA]",
-      "resultset": 9,
-      "extraidos": 4
+      "resultset": 0,
+      "extraidos": 0
     }
   ]
 }
