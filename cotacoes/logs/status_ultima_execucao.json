@@ -3,8 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-06-12T15:52:55-03:00",
-  "ultima_sincronizacao": "2026-06-12 15:52:55",
+  "gerado_em": "2026-06-12T16:57:50-03:00",
+  "ultima_sincronizacao": "2026-06-12 16:57:50",
   "data_limite_cotacoes_ativas": "2026-05-13",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -12,9 +12,13 @@
     {
       "fonte": "CONAB - Produtos 360º",
       "url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
-      "status": "sem_registros_extraidos",
-      "total_registros": 0,
-      "produtos_extraidos": [],
+      "status": "ok",
+      "total_registros": 19,
+      "produtos_extraidos": [
+        "Algodão",
+        "Milho",
+        "Soja"
+      ],
       "observacao": "Fonte principal para Soja, Milho e Algodão."
     },
     {
@@ -95,19 +99,19 @@
     }
   ],
   "resumo": {
-    "total_cotacoes_tabela": 40,
-    "total_dados_html": 40,
-    "total_cotacoes_brutas": 4514,
+    "total_cotacoes_tabela": 56,
+    "total_dados_html": 56,
+    "total_cotacoes_brutas": 4533,
     "total_cotacoes_descartadas_por_validacao": 0,
-    "grupos_descartados_por_data_antiga": 4375,
+    "grupos_descartados_por_data_antiga": 4378,
     "total_sorgo_conab_tabela": 3,
     "total_arroz_extraido": 8,
     "total_feijao_extraido": 7,
     "total_boi_gordo_extraido": 3,
     "total_leite_extraido": 15
   },
-  "total_cotacoes_tabela": 40,
-  "total_dados_html": 40,
+  "total_cotacoes_tabela": 56,
+  "total_dados_html": 56,
   "debug_conab_produtos_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json",
   "debug_sorgo_conab": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_sorgo_conab.json",
   "historico_aiba": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/historico_aiba.json",
