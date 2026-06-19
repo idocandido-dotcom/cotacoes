@@ -2,25 +2,25 @@
   "fonte": "CONAB - Produtos 360º",
   "versao": "1.5.8",
   "html_status": "http_200",
-  "total_itens": 19,
+  "total_itens": 16,
   "produtos": [
     {
       "produto": "Soja",
       "param": "[Produto].[SOJA]",
-      "resultset": 16,
+      "resultset": 15,
       "extraidos": 5
     },
     {
       "produto": "Milho",
       "param": "[Produto].[MILHO]",
-      "resultset": 25,
-      "extraidos": 10
+      "resultset": 23,
+      "extraidos": 8
     },
     {
       "produto": "Algodão",
       "param": "[Produto].[ALGODÃO EM PLUMA]",
-      "resultset": 9,
-      "extraidos": 4
+      "resultset": 8,
+      "extraidos": 3
     }
   ]
 }
