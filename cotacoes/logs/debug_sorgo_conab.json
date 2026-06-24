@@ -342,7 +342,9 @@
       "produto_valor": "FEIJAO CARIOCA",
       "classificacao": "EM GRÃOS",
       "periodo": "18/05/2026 a 22/05/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Boi Gordo",
@@ -718,7 +720,9 @@
       "produto_valor": "LEITE",
       "classificacao": "",
       "periodo": "25/05/2026 a 29/05/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
