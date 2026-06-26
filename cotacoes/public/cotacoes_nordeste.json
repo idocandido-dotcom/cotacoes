@@ -3,8 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-06-26T06:52:50-03:00",
-  "ultima_sincronizacao": "2026-06-26 06:52:50",
+  "gerado_em": "2026-06-26T08:40:28-03:00",
+  "ultima_sincronizacao": "2026-06-26 08:40:28",
   "data_limite_cotacoes_ativas": "2026-05-27",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -52,7 +52,7 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 1912,
+      "total_registros": 1918,
       "produtos_fallback": [
         "Arroz",
         "Boi Gordo",
@@ -101,7 +101,7 @@
   "resumo": {
     "total_cotacoes_tabela": 56,
     "total_dados_html": 56,
-    "total_cotacoes_brutas": 4589,
+    "total_cotacoes_brutas": 4595,
     "total_cotacoes_descartadas_por_validacao": 0,
     "grupos_descartados_por_data_antiga": 4442,
     "total_sorgo_conab_tabela": 3,
@@ -414,8 +414,8 @@
         {
           "data": "05/06/2026",
           "data_iso": "2026-06-05",
-          "valor": 77.4,
-          "preco": "R$ 77,40/Saca 60 kg"
+          "valor": 85.8,
+          "preco": "R$ 85,80/Saca 60 kg"
         },
         {
           "data": "12/06/2026",
@@ -859,9 +859,9 @@
       "nivel_comercializacao_chave": "preco_produtor",
       "prioridade_nivel_preco": 1,
       "categoria": "commodity_agricola",
-      "valor": 277.8,
-      "preco": "R$ 277,80/Saca 60 kg",
-      "preco_original": 4.63,
+      "valor": 400.2,
+      "preco": "R$ 400,20/Saca 60 kg",
+      "preco_original": 6.67,
       "unidade": "Saca 60 kg",
       "unidade_original": "Kg",
       "fator_conversao": 60.0,
@@ -885,8 +885,8 @@
         {
           "data": "05/06/2026",
           "data_iso": "2026-06-05",
-          "valor": 277.8,
-          "preco": "R$ 277,80/Saca 60 kg"
+          "valor": 319.8,
+          "preco": "R$ 319,80/Saca 60 kg"
         },
         {
           "data": "12/06/2026",
@@ -897,8 +897,8 @@
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
-          "valor": 277.8,
-          "preco": "R$ 277,80/Saca 60 kg"
+          "valor": 400.2,
+          "preco": "R$ 400,20/Saca 60 kg"
         }
       ]
     },
@@ -1073,9 +1073,9 @@
       "nivel_comercializacao_chave": "preco_produtor",
       "prioridade_nivel_preco": 1,
       "categoria": "commodity_agricola",
-      "valor": 214.8,
-      "preco": "R$ 214,80/Saca 60 kg",
-      "preco_original": 3.58,
+      "valor": 150.0,
+      "preco": "R$ 150,00/Saca 60 kg",
+      "preco_original": 2.5,
       "unidade": "Saca 60 kg",
       "unidade_original": "Kg",
       "fator_conversao": 60.0,
@@ -1093,14 +1093,14 @@
         {
           "data": "29/05/2026",
           "data_iso": "2026-05-29",
-          "valor": 214.8,
-          "preco": "R$ 214,80/Saca 60 kg"
+          "valor": 150.0,
+          "preco": "R$ 150,00/Saca 60 kg"
         },
         {
           "data": "05/06/2026",
           "data_iso": "2026-06-05",
-          "valor": 150.0,
-          "preco": "R$ 150,00/Saca 60 kg"
+          "valor": 214.8,
+          "preco": "R$ 214,80/Saca 60 kg"
         },
         {
           "data": "12/06/2026",
@@ -1111,8 +1111,8 @@
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
-          "valor": 214.8,
-          "preco": "R$ 214,80/Saca 60 kg"
+          "valor": 150.0,
+          "preco": "R$ 150,00/Saca 60 kg"
         }
       ]
     },
@@ -1728,11 +1728,11 @@
       "unidade_original": "Litro",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "25/05/2026 a 29/05/2026",
-      "data_iso": "2026-05-29",
-      "data_inicio_iso": "2026-05-25",
-      "data_fim_iso": "2026-05-29",
-      "periodo_referencia": "25/05/2026 a 29/05/2026",
+      "data": "15/06/2026 a 19/06/2026",
+      "data_iso": "2026-06-19",
+      "data_inicio_iso": "2026-06-15",
+      "data_fim_iso": "2026-06-19",
+      "periodo_referencia": "15/06/2026 a 19/06/2026",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "variacao_valor": null,
@@ -1741,6 +1741,24 @@
         {
           "data": "29/05/2026",
           "data_iso": "2026-05-29",
+          "valor": 3.78,
+          "preco": "R$ 3,78/Litro"
+        },
+        {
+          "data": "05/06/2026",
+          "data_iso": "2026-06-05",
+          "valor": 3.78,
+          "preco": "R$ 3,78/Litro"
+        },
+        {
+          "data": "12/06/2026",
+          "data_iso": "2026-06-12",
+          "valor": 3.78,
+          "preco": "R$ 3,78/Litro"
+        },
+        {
+          "data": "19/06/2026",
+          "data_iso": "2026-06-19",
           "valor": 3.78,
           "preco": "R$ 3,78/Litro"
         }
@@ -1758,18 +1776,18 @@
       "nivel_comercializacao_chave": "preco_produtor",
       "prioridade_nivel_preco": 1,
       "categoria": "pecuaria_leite",
-      "valor": 1.99,
-      "preco": "R$ 1,99/Litro",
-      "preco_original": 1.99,
+      "valor": 2.02,
+      "preco": "R$ 2,02/Litro",
+      "preco_original": 2.02,
       "unidade": "Litro",
       "unidade_original": "Litro",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "25/05/2026 a 29/05/2026",
-      "data_iso": "2026-05-29",
-      "data_inicio_iso": "2026-05-25",
-      "data_fim_iso": "2026-05-29",
-      "periodo_referencia": "25/05/2026 a 29/05/2026",
+      "data": "15/06/2026 a 19/06/2026",
+      "data_iso": "2026-06-19",
+      "data_inicio_iso": "2026-06-15",
+      "data_fim_iso": "2026-06-19",
+      "periodo_referencia": "15/06/2026 a 19/06/2026",
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "variacao_valor": null,
@@ -1780,6 +1798,24 @@
           "data_iso": "2026-05-29",
           "valor": 1.99,
           "preco": "R$ 1,99/Litro"
+        },
+        {
+          "data": "05/06/2026",
+          "data_iso": "2026-06-05",
+          "valor": 2.02,
+          "preco": "R$ 2,02/Litro"
+        },
+        {
+          "data": "12/06/2026",
+          "data_iso": "2026-06-12",
+          "valor": 2.02,
+          "preco": "R$ 2,02/Litro"
+        },
+        {
+          "data": "19/06/2026",
+          "data_iso": "2026-06-19",
+          "valor": 2.02,
+          "preco": "R$ 2,02/Litro"
         }
       ]
     },
