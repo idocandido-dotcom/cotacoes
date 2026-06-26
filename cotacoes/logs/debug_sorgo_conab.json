@@ -15,13 +15,6 @@
       "produto_valor": "SORGO GRANIFERO",
       "classificacao": "EM GRÃOS",
       "periodo": "15/06/2026 a 19/06/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Sorgo",
-      "produto_valor": "[Produto].[SORGO GRANIFERO]",
-      "classificacao": "EM GRÃOS",
-      "periodo": "15/06/2026 a 19/06/2026",
       "resultset": 10,
       "itens_extraidos": 3,
       "metadata": [
