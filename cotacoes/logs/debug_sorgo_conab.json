@@ -45,9 +45,7 @@
       "produto_valor": "[Produto].[ARROZ]",
       "classificacao": "EM GRÃOS",
       "periodo": "22/06/2026 a 26/06/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Arroz",
@@ -225,7 +223,9 @@
       "produto_valor": "FEIJÃO",
       "classificacao": "EM GRÃOS",
       "periodo": "29/06/2026 a 03/07/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Feijão",
@@ -358,7 +358,9 @@
       "produto_valor": "BOI GORDO",
       "classificacao": "",
       "periodo": "22/06/2026 a 26/06/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Boi Gordo",
@@ -392,7 +394,9 @@
       "produto_valor": "BOI GORDO",
       "classificacao": "",
       "periodo": "29/06/2026 a 03/07/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Boi Gordo",
