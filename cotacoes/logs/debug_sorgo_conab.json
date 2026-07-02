@@ -225,7 +225,9 @@
       "produto_valor": "FEIJÃO",
       "classificacao": "EM GRÃOS",
       "periodo": "29/06/2026 a 03/07/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Feijão",
@@ -466,7 +468,9 @@
       "produto_valor": "BOI GORDO",
       "classificacao": "",
       "periodo": "08/06/2026 a 12/06/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Boi Gordo",
@@ -599,7 +603,9 @@
       "produto_valor": "LEITE",
       "classificacao": "LEITE",
       "periodo": "29/06/2026 a 03/07/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
@@ -687,7 +693,9 @@
       "produto_valor": "LEITE DE VACA",
       "classificacao": "LEITE",
       "periodo": "08/06/2026 a 12/06/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
