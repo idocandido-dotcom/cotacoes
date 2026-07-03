@@ -99,7 +99,9 @@
       "produto_valor": "[Produto].[ARROZ]",
       "classificacao": "EM GRÃOS",
       "periodo": "15/06/2026 a 19/06/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Arroz",
@@ -205,9 +207,7 @@
       "produto_valor": "FEIJAO CARIOCA",
       "classificacao": "EM GRÃOS",
       "periodo": "22/06/2026 a 26/06/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Feijão",
