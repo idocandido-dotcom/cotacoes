@@ -1,33 +1,8 @@
 {
   "ok": true,
   "versao": "1.5.8",
-  "gerado_em": "2026-07-07T18:52:45-03:00",
+  "gerado_em": "2026-07-07T19:06:38-03:00",
   "regra": "AIBA/regional: 1 linha por produto + UF + praça + fonte + data + unidade.",
-  "total_grupos_duplicados": 1,
-  "duplicados": [
-    {
-      "chave": {
-        "produto_base": "soja",
-        "uf": "BA",
-        "praca": "oeste-da-bahia-aiba",
-        "fonte": "aiba",
-        "data": "2026-07-07",
-        "unidade": "saca-60-kg"
-      },
-      "mantido": {
-        "produto_original": "Soja Disponível",
-        "preco": 124.63,
-        "preco_formatado": "R$ 124,63/Saca 60 kg",
-        "data": "2026-07-07"
-      },
-      "removidos": [
-        {
-          "produto_original": "Soja Balcão",
-          "preco": 113.17,
-          "preco_formatado": "R$ 113,17/Saca 60 kg",
-          "data": "2026-07-07"
-        }
-      ]
-    }
-  ]
+  "total_grupos_duplicados": 0,
+  "duplicados": []
 }
