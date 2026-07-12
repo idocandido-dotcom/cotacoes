@@ -1,7 +1,11 @@
 {
   "ok": true,
   "versao": "1.5.8",
+<<<<<<< Updated upstream
   "gerado_em": "2026-07-12T12:52:27-03:00",
+=======
+  "gerado_em": "2026-07-12T12:53:15-03:00",
+>>>>>>> Stashed changes
   "regra": "Histórico persistente da AIBA/regional. Acumula uma cotação por data real, sem simular valores.",
   "historicos": {
     "Algodão||BA||Oeste da Bahia - AIBA||AIBA": [
