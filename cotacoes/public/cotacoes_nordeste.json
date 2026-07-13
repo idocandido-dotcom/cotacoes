@@ -3,9 +3,9 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-07-12T22:59:39-03:00",
-  "ultima_sincronizacao": "2026-07-12 22:59:39",
-  "data_limite_cotacoes_ativas": "2026-06-12",
+  "gerado_em": "2026-07-13T00:52:44-03:00",
+  "ultima_sincronizacao": "2026-07-13 00:52:44",
+  "data_limite_cotacoes_ativas": "2026-06-13",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
   "fontes": [
@@ -25,7 +25,7 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF / Histórico 360",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 95,
+      "total_registros": 73,
       "produtos_historico": [
         "Soja",
         "Milho",
@@ -103,7 +103,7 @@
     "total_dados_html": 56,
     "total_cotacoes_brutas": 4091,
     "total_cotacoes_descartadas_por_validacao": 0,
-    "grupos_descartados_por_data_antiga": 3932,
+    "grupos_descartados_por_data_antiga": 3965,
     "total_sorgo_conab_tabela": 3,
     "total_arroz_extraido": 7,
     "total_feijao_extraido": 7,
@@ -139,15 +139,9 @@
       "periodo_referencia": "06/07/2026 a 10/07/2026",
       "fonte": "CONAB - Produtos 360º",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
-      "variacao_valor": 121.22,
-      "variacao_percentual": 784.5955,
+      "variacao_valor": 121.37,
+      "variacao_percentual": 793.268,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 15.45,
-          "preco": "R$ 15,45/Arroba (@)"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -200,15 +194,9 @@
       "periodo_referencia": "06/07/2026 a 10/07/2026",
       "fonte": "CONAB - Produtos 360º",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
-      "variacao_valor": 122.92,
-      "variacao_percentual": 881.147,
+      "variacao_valor": 123.67,
+      "variacao_percentual": 936.8939,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 13.95,
-          "preco": "R$ 13,95/Arroba (@)"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -314,12 +302,6 @@
       "variacao_percentual": 566.6667,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 17.25,
-          "preco": "R$ 17,25/Arroba (@)"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 17.25,
@@ -375,12 +357,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 69.0,
-          "preco": "R$ 69,00/Saca 60 kg"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 72.0,
@@ -429,12 +405,6 @@
       "variacao_valor": null,
       "variacao_percentual": null,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 77.4,
-          "preco": "R$ 77,40/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -485,12 +455,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 106.2,
-          "preco": "R$ 106,20/Saca 60 kg"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 108.6,
@@ -539,12 +503,6 @@
       "variacao_valor": null,
       "variacao_percentual": null,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 77.4,
-          "preco": "R$ 77,40/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -595,12 +553,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 108.6,
-          "preco": "R$ 108,60/Saca 60 kg"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 109.8,
@@ -649,12 +601,6 @@
       "variacao_valor": null,
       "variacao_percentual": null,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 75.0,
-          "preco": "R$ 75,00/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -705,12 +651,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 324.45,
-          "preco": "R$ 324,45/Arroba (@)"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 323.25,
@@ -759,12 +699,6 @@
       "variacao_valor": null,
       "variacao_percentual": null,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 348.75,
-          "preco": "R$ 348,75/Arroba (@)"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -815,12 +749,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 332.7,
-          "preco": "R$ 332,70/Arroba (@)"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 330.3,
@@ -869,12 +797,6 @@
       "variacao_valor": null,
       "variacao_percentual": null,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 420.0,
-          "preco": "R$ 420,00/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -925,12 +847,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 277.8,
-          "preco": "R$ 277,80/Saca 60 kg"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 277.8,
@@ -979,12 +895,6 @@
       "variacao_valor": null,
       "variacao_percentual": null,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 150.0,
-          "preco": "R$ 150,00/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -1035,12 +945,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 283.8,
-          "preco": "R$ 283,80/Saca 60 kg"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 283.8,
@@ -1089,12 +993,6 @@
       "variacao_valor": null,
       "variacao_percentual": null,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 286.2,
-          "preco": "R$ 286,20/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -1145,12 +1043,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 150.0,
-          "preco": "R$ 150,00/Saca 60 kg"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 150.0,
@@ -1199,12 +1091,6 @@
       "variacao_valor": null,
       "variacao_percentual": null,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 2.3,
-          "preco": "R$ 2,30/Litro"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -1255,12 +1141,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 3.77,
-          "preco": "R$ 3,77/Litro"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 3.8,
@@ -1309,12 +1189,6 @@
       "variacao_valor": null,
       "variacao_percentual": null,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 2.15,
-          "preco": "R$ 2,15/Litro"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -1365,12 +1239,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 2.19,
-          "preco": "R$ 2,19/Litro"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 2.21,
@@ -1419,12 +1287,6 @@
       "variacao_valor": null,
       "variacao_percentual": null,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 2.01,
-          "preco": "R$ 2,01/Litro"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -1475,12 +1337,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 2.06,
-          "preco": "R$ 2,06/Litro"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 2.06,
@@ -1529,12 +1385,6 @@
       "variacao_valor": null,
       "variacao_percentual": null,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 4.29,
-          "preco": "R$ 4,29/Litro"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -1585,12 +1435,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 3.3,
-          "preco": "R$ 3,30/Litro"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 3.3,
@@ -1639,12 +1483,6 @@
       "variacao_valor": null,
       "variacao_percentual": null,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 3.0,
-          "preco": "R$ 3,00/Litro"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -1695,12 +1533,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 2.33,
-          "preco": "R$ 2,33/Litro"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 2.43,
@@ -1749,12 +1581,6 @@
       "variacao_valor": null,
       "variacao_percentual": null,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 2.45,
-          "preco": "R$ 2,45/Litro"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -1805,12 +1631,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 3.78,
-          "preco": "R$ 3,78/Litro"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 3.78,
@@ -1859,12 +1679,6 @@
       "variacao_valor": null,
       "variacao_percentual": null,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 2.02,
-          "preco": "R$ 2,02/Litro"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -1915,12 +1729,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 2.33,
-          "preco": "R$ 2,33/Litro"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 2.33,
@@ -1970,12 +1778,6 @@
       "variacao_percentual": null,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 1.94,
-          "preco": "R$ 1,94/Litro"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 1.94,
@@ -2024,12 +1826,6 @@
       "variacao_valor": 9.2,
       "variacao_percentual": 12.9944,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 70.8,
-          "preco": "R$ 70,80/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -2086,12 +1882,6 @@
       "variacao_percentual": 0.6989,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 55.8,
-          "preco": "R$ 55,80/Saca 60 kg"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 55.8,
@@ -2143,15 +1933,9 @@
       "periodo_referencia": "06/07/2026 a 10/07/2026",
       "fonte": "CONAB - Produtos 360º",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
-      "variacao_valor": -1.82,
-      "variacao_percentual": -3.1597,
+      "variacao_valor": 0.58,
+      "variacao_percentual": 1.0507,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 57.6,
-          "preco": "R$ 57,60/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -2204,15 +1988,9 @@
       "periodo_referencia": "06/07/2026 a 10/07/2026",
       "fonte": "CONAB - Produtos 360º",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
-      "variacao_valor": -0.88,
-      "variacao_percentual": -1.3095,
+      "variacao_valor": -1.48,
+      "variacao_percentual": -2.1829,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 67.2,
-          "preco": "R$ 67,20/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -2269,12 +2047,6 @@
       "variacao_percentual": 0.283,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 95.4,
-          "preco": "R$ 95,40/Saca 60 kg"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 95.4,
@@ -2329,12 +2101,6 @@
       "variacao_valor": 4.31,
       "variacao_percentual": 6.9741,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 61.8,
-          "preco": "R$ 61,80/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -2391,12 +2157,6 @@
       "variacao_percentual": 5.9322,
       "historico_30d": [
         {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 70.8,
-          "preco": "R$ 70,80/Saca 60 kg"
-        },
-        {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
           "valor": 70.8,
@@ -2448,15 +2208,9 @@
       "periodo_referencia": "06/07/2026 a 10/07/2026",
       "fonte": "CONAB - Produtos 360º",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
-      "variacao_valor": -2.8,
-      "variacao_percentual": -5.303,
+      "variacao_valor": -2.2,
+      "variacao_percentual": -4.2146,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 52.8,
-          "preco": "R$ 52,80/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -2509,15 +2263,9 @@
       "periodo_referencia": "06/07/2026 a 10/07/2026",
       "fonte": "CONAB - Produtos 360º",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
-      "variacao_valor": 9.43,
-      "variacao_percentual": 8.1858,
+      "variacao_valor": 11.83,
+      "variacao_percentual": 10.4876,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 115.2,
-          "preco": "R$ 115,20/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -2570,15 +2318,9 @@
       "periodo_referencia": "06/07/2026 a 10/07/2026",
       "fonte": "CONAB - Produtos 360º",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
-      "variacao_valor": 9.55,
-      "variacao_percentual": 8.6504,
+      "variacao_valor": 7.75,
+      "variacao_percentual": 6.9073,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 110.4,
-          "preco": "R$ 110,40/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -2631,15 +2373,9 @@
       "periodo_referencia": "06/07/2026 a 10/07/2026",
       "fonte": "CONAB - Produtos 360º",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
-      "variacao_valor": 2.23,
-      "variacao_percentual": 1.977,
+      "variacao_valor": -1.37,
+      "variacao_percentual": -1.177,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 112.8,
-          "preco": "R$ 112,80/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -2692,15 +2428,9 @@
       "periodo_referencia": "06/07/2026 a 10/07/2026",
       "fonte": "CONAB - Produtos 360º",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
-      "variacao_valor": 7.23,
-      "variacao_percentual": 6.5489,
+      "variacao_valor": 6.03,
+      "variacao_percentual": 5.4032,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 110.4,
-          "preco": "R$ 110,40/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -2753,15 +2483,9 @@
       "periodo_referencia": "06/07/2026 a 10/07/2026",
       "fonte": "CONAB - Produtos 360º",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
-      "variacao_valor": 6.2,
-      "variacao_percentual": 5.6466,
+      "variacao_valor": 6.8,
+      "variacao_percentual": 6.2271,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 109.8,
-          "preco": "R$ 109,80/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -2800,29 +2524,23 @@
       "nivel_comercializacao_chave": "preco_produtor",
       "prioridade_nivel_preco": 1,
       "categoria": "commodity_agricola",
-      "valor": 43.8,
-      "preco": "R$ 43,80/Saca 60 kg",
-      "preco_original": 0.73,
+      "valor": 43.2,
+      "preco": "R$ 43,20/Saca 60 kg",
+      "preco_original": 0.72,
       "unidade": "Saca 60 kg",
       "unidade_original": "Kg",
       "fator_conversao": 60.0,
       "conversao_aplicada": true,
-      "data": "29/06/2026 a 03/07/2026",
-      "data_iso": "2026-07-03",
-      "data_inicio_iso": "2026-06-29",
-      "data_fim_iso": "2026-07-03",
-      "periodo_referencia": "29/06/2026 a 03/07/2026",
+      "data": "06/07/2026 a 10/07/2026",
+      "data_iso": "2026-07-10",
+      "data_inicio_iso": "2026-07-06",
+      "data_fim_iso": "2026-07-10",
+      "periodo_referencia": "06/07/2026 a 10/07/2026",
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
-      "variacao_valor": 1.2,
-      "variacao_percentual": 2.8169,
+      "variacao_valor": 0.6,
+      "variacao_percentual": 1.4085,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 42.6,
-          "preco": "R$ 42,60/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -2840,6 +2558,12 @@
           "data_iso": "2026-07-03",
           "valor": 43.8,
           "preco": "R$ 43,80/Saca 60 kg"
+        },
+        {
+          "data": "10/07/2026",
+          "data_iso": "2026-07-10",
+          "valor": 43.2,
+          "preco": "R$ 43,20/Saca 60 kg"
         }
       ]
     },
@@ -2862,22 +2586,16 @@
       "unidade_original": "Kg",
       "fator_conversao": 60.0,
       "conversao_aplicada": true,
-      "data": "29/06/2026 a 03/07/2026",
-      "data_iso": "2026-07-03",
-      "data_inicio_iso": "2026-06-29",
-      "data_fim_iso": "2026-07-03",
-      "periodo_referencia": "29/06/2026 a 03/07/2026",
+      "data": "06/07/2026 a 10/07/2026",
+      "data_iso": "2026-07-10",
+      "data_inicio_iso": "2026-07-06",
+      "data_fim_iso": "2026-07-10",
+      "periodo_referencia": "06/07/2026 a 10/07/2026",
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
       "variacao_valor": 2.4,
       "variacao_percentual": 5.1948,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 46.2,
-          "preco": "R$ 46,20/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -2893,6 +2611,12 @@
         {
           "data": "03/07/2026",
           "data_iso": "2026-07-03",
+          "valor": 48.6,
+          "preco": "R$ 48,60/Saca 60 kg"
+        },
+        {
+          "data": "10/07/2026",
+          "data_iso": "2026-07-10",
           "valor": 48.6,
           "preco": "R$ 48,60/Saca 60 kg"
         }
@@ -2917,22 +2641,16 @@
       "unidade_original": "Kg",
       "fator_conversao": 60.0,
       "conversao_aplicada": true,
-      "data": "29/06/2026 a 03/07/2026",
-      "data_iso": "2026-07-03",
-      "data_inicio_iso": "2026-06-29",
-      "data_fim_iso": "2026-07-03",
-      "periodo_referencia": "29/06/2026 a 03/07/2026",
+      "data": "06/07/2026 a 10/07/2026",
+      "data_iso": "2026-07-10",
+      "data_inicio_iso": "2026-07-06",
+      "data_fim_iso": "2026-07-10",
+      "periodo_referencia": "06/07/2026 a 10/07/2026",
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
       "fonte_url": "https://portaldeinformacoes.conab.gov.br/precos-agropecuarios.html",
-      "variacao_valor": -1.8,
-      "variacao_percentual": -4.6154,
+      "variacao_valor": -0.6,
+      "variacao_percentual": -1.5873,
       "historico_30d": [
-        {
-          "data": "12/06/2026",
-          "data_iso": "2026-06-12",
-          "valor": 39.0,
-          "preco": "R$ 39,00/Saca 60 kg"
-        },
         {
           "data": "19/06/2026",
           "data_iso": "2026-06-19",
@@ -2948,6 +2666,12 @@
         {
           "data": "03/07/2026",
           "data_iso": "2026-07-03",
+          "valor": 37.2,
+          "preco": "R$ 37,20/Saca 60 kg"
+        },
+        {
+          "data": "10/07/2026",
+          "data_iso": "2026-07-10",
           "valor": 37.2,
           "preco": "R$ 37,20/Saca 60 kg"
         }
@@ -2972,19 +2696,25 @@
       "unidade_original": "Arroba (@)",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "12/07/2026",
-      "data_iso": "2026-07-12",
-      "data_inicio_iso": "2026-07-12",
-      "data_fim_iso": "2026-07-12",
-      "periodo_referencia": "12/07/2026",
+      "data": "13/07/2026",
+      "data_iso": "2026-07-13",
+      "data_inicio_iso": "2026-07-13",
+      "data_fim_iso": "2026-07-13",
+      "periodo_referencia": "13/07/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": null,
+      "variacao_valor": 0.0,
       "variacao_percentual": 0.0,
       "historico_30d": [
         {
           "data": "12/07/2026",
           "data_iso": "2026-07-12",
+          "valor": 137.0,
+          "preco": "R$ 137,00/Arroba (@)"
+        },
+        {
+          "data": "13/07/2026",
+          "data_iso": "2026-07-13",
           "valor": 137.0,
           "preco": "R$ 137,00/Arroba (@)"
         }
@@ -3009,19 +2739,25 @@
       "unidade_original": "Saca 60 kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "12/07/2026",
-      "data_iso": "2026-07-12",
-      "data_inicio_iso": "2026-07-12",
-      "data_fim_iso": "2026-07-12",
-      "periodo_referencia": "12/07/2026",
+      "data": "13/07/2026",
+      "data_iso": "2026-07-13",
+      "data_inicio_iso": "2026-07-13",
+      "data_fim_iso": "2026-07-13",
+      "periodo_referencia": "13/07/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": null,
-      "variacao_percentual": 2.03,
+      "variacao_valor": 0.0,
+      "variacao_percentual": 0.0,
       "historico_30d": [
         {
           "data": "12/07/2026",
           "data_iso": "2026-07-12",
+          "valor": 75.5,
+          "preco": "R$ 75,50/Saca 60 kg"
+        },
+        {
+          "data": "13/07/2026",
+          "data_iso": "2026-07-13",
           "valor": 75.5,
           "preco": "R$ 75,50/Saca 60 kg"
         }
@@ -3046,19 +2782,25 @@
       "unidade_original": "Saca 60 kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "12/07/2026",
-      "data_iso": "2026-07-12",
-      "data_inicio_iso": "2026-07-12",
-      "data_fim_iso": "2026-07-12",
-      "periodo_referencia": "12/07/2026",
+      "data": "13/07/2026",
+      "data_iso": "2026-07-13",
+      "data_inicio_iso": "2026-07-13",
+      "data_fim_iso": "2026-07-13",
+      "periodo_referencia": "13/07/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": null,
-      "variacao_percentual": 7.25,
+      "variacao_valor": 0.0,
+      "variacao_percentual": 0.0,
       "historico_30d": [
         {
           "data": "12/07/2026",
           "data_iso": "2026-07-12",
+          "valor": 370.0,
+          "preco": "R$ 370,00/Saca 60 kg"
+        },
+        {
+          "data": "13/07/2026",
+          "data_iso": "2026-07-13",
           "valor": 370.0,
           "preco": "R$ 370,00/Saca 60 kg"
         }
@@ -3083,19 +2825,25 @@
       "unidade_original": "Saca 60 kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "12/07/2026",
-      "data_iso": "2026-07-12",
-      "data_inicio_iso": "2026-07-12",
-      "data_fim_iso": "2026-07-12",
-      "periodo_referencia": "12/07/2026",
+      "data": "13/07/2026",
+      "data_iso": "2026-07-13",
+      "data_inicio_iso": "2026-07-13",
+      "data_fim_iso": "2026-07-13",
+      "periodo_referencia": "13/07/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": null,
+      "variacao_valor": 0.0,
       "variacao_percentual": 0.0,
       "historico_30d": [
         {
           "data": "12/07/2026",
           "data_iso": "2026-07-12",
+          "valor": 56.0,
+          "preco": "R$ 56,00/Saca 60 kg"
+        },
+        {
+          "data": "13/07/2026",
+          "data_iso": "2026-07-13",
           "valor": 56.0,
           "preco": "R$ 56,00/Saca 60 kg"
         }
@@ -3120,19 +2868,25 @@
       "unidade_original": "Saca 60 kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "12/07/2026",
-      "data_iso": "2026-07-12",
-      "data_inicio_iso": "2026-07-12",
-      "data_fim_iso": "2026-07-12",
-      "periodo_referencia": "12/07/2026",
+      "data": "13/07/2026",
+      "data_iso": "2026-07-13",
+      "data_inicio_iso": "2026-07-13",
+      "data_fim_iso": "2026-07-13",
+      "periodo_referencia": "13/07/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": null,
-      "variacao_percentual": 0.1,
+      "variacao_valor": 0.0,
+      "variacao_percentual": 0.0,
       "historico_30d": [
         {
           "data": "12/07/2026",
           "data_iso": "2026-07-12",
+          "valor": 124.63,
+          "preco": "R$ 124,63/Saca 60 kg"
+        },
+        {
+          "data": "13/07/2026",
+          "data_iso": "2026-07-13",
           "valor": 113.83,
           "preco": "R$ 113,83/Saca 60 kg"
         }
@@ -3157,19 +2911,25 @@
       "unidade_original": "Saca 60 kg",
       "fator_conversao": 1.0,
       "conversao_aplicada": false,
-      "data": "12/07/2026",
-      "data_iso": "2026-07-12",
-      "data_inicio_iso": "2026-07-12",
-      "data_fim_iso": "2026-07-12",
-      "periodo_referencia": "12/07/2026",
+      "data": "13/07/2026",
+      "data_iso": "2026-07-13",
+      "data_inicio_iso": "2026-07-13",
+      "data_fim_iso": "2026-07-13",
+      "periodo_referencia": "13/07/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": null,
+      "variacao_valor": 0.0,
       "variacao_percentual": 0.0,
       "historico_30d": [
         {
           "data": "12/07/2026",
           "data_iso": "2026-07-12",
+          "valor": 43.5,
+          "preco": "R$ 43,50/Saca 60 kg"
+        },
+        {
+          "data": "13/07/2026",
+          "data_iso": "2026-07-13",
           "valor": 43.5,
           "preco": "R$ 43,50/Saca 60 kg"
         }
