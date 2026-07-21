@@ -576,7 +576,9 @@
       "produto_valor": "LEITE",
       "classificacao": "",
       "periodo": "13/07/2026 a 17/07/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
