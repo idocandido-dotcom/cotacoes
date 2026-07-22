@@ -36,136 +36,136 @@
       "produto_valor": "ARROZ EM CASCA",
       "classificacao": "EM GRÃOS",
       "periodo": "13/07/2026 a 17/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "[Produto].[ARROZ]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "13/07/2026 a 17/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ",
+      "classificacao": "EM GRÃOS",
+      "periodo": "20/07/2026 a 24/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ EM CASCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "20/07/2026 a 24/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "[Produto].[ARROZ]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "20/07/2026 a 24/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ",
+      "classificacao": "EM GRÃOS",
+      "periodo": "06/07/2026 a 10/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ EM CASCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "06/07/2026 a 10/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "[Produto].[ARROZ]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "06/07/2026 a 10/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ",
+      "classificacao": "EM GRÃOS",
+      "periodo": "29/06/2026 a 03/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ EM CASCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "29/06/2026 a 03/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "[Produto].[ARROZ]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "29/06/2026 a 03/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ",
+      "classificacao": "EM GRÃOS",
+      "periodo": "22/06/2026 a 26/06/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ EM CASCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "22/06/2026 a 26/06/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "[Produto].[ARROZ]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "22/06/2026 a 26/06/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ",
+      "classificacao": "EM GRÃOS",
+      "periodo": "15/06/2026 a 19/06/2026",
       "status": "sem_json_resultset"
     },
     {
       "produto": "Arroz",
-      "produto_valor": "[Produto].[ARROZ]",
-      "classificacao": "EM GRÃOS",
-      "periodo": "13/07/2026 a 17/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ",
-      "classificacao": "EM GRÃOS",
-      "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ EM CASCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "[Produto].[ARROZ]",
-      "classificacao": "EM GRÃOS",
-      "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ",
-      "classificacao": "EM GRÃOS",
-      "periodo": "06/07/2026 a 10/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ EM CASCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "06/07/2026 a 10/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "[Produto].[ARROZ]",
-      "classificacao": "EM GRÃOS",
-      "periodo": "06/07/2026 a 10/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ",
-      "classificacao": "EM GRÃOS",
-      "periodo": "29/06/2026 a 03/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ EM CASCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "29/06/2026 a 03/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "[Produto].[ARROZ]",
-      "classificacao": "EM GRÃOS",
-      "periodo": "29/06/2026 a 03/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ",
-      "classificacao": "EM GRÃOS",
-      "periodo": "22/06/2026 a 26/06/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ EM CASCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "22/06/2026 a 26/06/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "[Produto].[ARROZ]",
-      "classificacao": "EM GRÃOS",
-      "periodo": "22/06/2026 a 26/06/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ",
-      "classificacao": "EM GRÃOS",
-      "periodo": "15/06/2026 a 19/06/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
       "produto_valor": "ARROZ EM CASCA",
       "classificacao": "EM GRÃOS",
       "periodo": "15/06/2026 a 19/06/2026",
@@ -259,9 +259,7 @@
       "produto_valor": "FEIJAO CARIOCA",
       "classificacao": "EM GRÃOS",
       "periodo": "06/07/2026 a 10/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Feijão",
@@ -367,9 +365,7 @@
       "produto_valor": "BOVINO",
       "classificacao": "BOI GORDO",
       "periodo": "13/07/2026 a 17/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Boi Gordo",
