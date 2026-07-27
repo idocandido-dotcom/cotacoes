@@ -45,9 +45,7 @@
       "produto_valor": "[Produto].[ARROZ]",
       "classificacao": "EM GRÃOS",
       "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Arroz",
