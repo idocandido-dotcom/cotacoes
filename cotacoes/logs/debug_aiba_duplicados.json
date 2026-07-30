@@ -1,11 +1,7 @@
 {
   "ok": true,
   "versao": "1.5.8",
-<<<<<<< Updated upstream
-  "gerado_em": "2026-07-29T18:52:51-03:00",
-=======
-  "gerado_em": "2026-07-29T18:54:29-03:00",
->>>>>>> Stashed changes
+  "gerado_em": "2026-07-29T21:53:02-03:00",
   "regra": "AIBA/regional: 1 linha por produto + UF + praça + fonte + data + unidade.",
   "total_grupos_duplicados": 0,
   "duplicados": []
