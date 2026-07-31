@@ -207,9 +207,7 @@
       "produto_valor": "FEIJAO CARIOCA",
       "classificacao": "EM GRÃOS",
       "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Feijão",
@@ -540,9 +538,7 @@
       "produto_valor": "BOI GORDO",
       "classificacao": "",
       "periodo": "22/06/2026 a 26/06/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Boi Gordo",
