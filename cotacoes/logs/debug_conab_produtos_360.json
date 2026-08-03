@@ -2,13 +2,13 @@
   "fonte": "CONAB - Produtos 360º",
   "versao": "1.5.8",
   "html_status": "http_200",
-  "total_itens": 17,
+  "total_itens": 12,
   "produtos": [
     {
       "produto": "Soja",
       "param": "[Produto].[SOJA]",
-      "resultset": 15,
-      "extraidos": 5
+      "resultset": 0,
+      "extraidos": 0
     },
     {
       "produto": "Milho",
