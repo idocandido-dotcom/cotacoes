@@ -45,495 +45,495 @@
       "produto_valor": "[Produto].[ARROZ]",
       "classificacao": "EM GRÃOS",
       "periodo": "27/07/2026 a 31/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ",
-      "classificacao": "EM GRÃOS",
-      "periodo": "03/08/2026 a 07/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ EM CASCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "03/08/2026 a 07/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "[Produto].[ARROZ]",
-      "classificacao": "EM GRÃOS",
-      "periodo": "03/08/2026 a 07/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ",
-      "classificacao": "EM GRÃOS",
-      "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ EM CASCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "[Produto].[ARROZ]",
-      "classificacao": "EM GRÃOS",
-      "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ",
-      "classificacao": "EM GRÃOS",
-      "periodo": "13/07/2026 a 17/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ EM CASCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "13/07/2026 a 17/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "[Produto].[ARROZ]",
-      "classificacao": "EM GRÃOS",
-      "periodo": "13/07/2026 a 17/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ",
-      "classificacao": "EM GRÃOS",
-      "periodo": "06/07/2026 a 10/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ EM CASCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "06/07/2026 a 10/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "[Produto].[ARROZ]",
-      "classificacao": "EM GRÃOS",
-      "periodo": "06/07/2026 a 10/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ",
-      "classificacao": "EM GRÃOS",
-      "periodo": "29/06/2026 a 03/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ EM CASCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "29/06/2026 a 03/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "[Produto].[ARROZ]",
-      "classificacao": "EM GRÃOS",
-      "periodo": "29/06/2026 a 03/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "27/07/2026 a 31/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJÃO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "27/07/2026 a 31/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO CARIOCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "27/07/2026 a 31/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "03/08/2026 a 07/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJÃO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "03/08/2026 a 07/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO CARIOCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "03/08/2026 a 07/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJÃO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO CARIOCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "13/07/2026 a 17/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJÃO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "13/07/2026 a 17/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO CARIOCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "13/07/2026 a 17/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "06/07/2026 a 10/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJÃO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "06/07/2026 a 10/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO CARIOCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "06/07/2026 a 10/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "29/06/2026 a 03/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJÃO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "29/06/2026 a 03/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO CARIOCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "29/06/2026 a 03/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "BOI GORDO",
-      "periodo": "27/07/2026 a 31/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "",
-      "periodo": "27/07/2026 a 31/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "BOI GORDO",
-      "periodo": "27/07/2026 a 31/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "",
-      "periodo": "27/07/2026 a 31/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "BOI GORDO",
-      "periodo": "03/08/2026 a 07/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "",
-      "periodo": "03/08/2026 a 07/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "BOI GORDO",
-      "periodo": "03/08/2026 a 07/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "",
-      "periodo": "03/08/2026 a 07/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "BOI GORDO",
-      "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "",
-      "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "BOI GORDO",
-      "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "",
-      "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "BOI GORDO",
-      "periodo": "13/07/2026 a 17/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "",
-      "periodo": "13/07/2026 a 17/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "BOI GORDO",
-      "periodo": "13/07/2026 a 17/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "",
-      "periodo": "13/07/2026 a 17/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "BOI GORDO",
-      "periodo": "06/07/2026 a 10/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "",
-      "periodo": "06/07/2026 a 10/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "BOI GORDO",
-      "periodo": "06/07/2026 a 10/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "",
-      "periodo": "06/07/2026 a 10/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "BOI GORDO",
-      "periodo": "29/06/2026 a 03/07/2026",
       "status": "sem_json_resultset"
     },
     {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ",
+      "classificacao": "EM GRÃOS",
+      "periodo": "03/08/2026 a 07/08/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ EM CASCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "03/08/2026 a 07/08/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "[Produto].[ARROZ]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "03/08/2026 a 07/08/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ",
+      "classificacao": "EM GRÃOS",
+      "periodo": "20/07/2026 a 24/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ EM CASCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "20/07/2026 a 24/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "[Produto].[ARROZ]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "20/07/2026 a 24/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ",
+      "classificacao": "EM GRÃOS",
+      "periodo": "13/07/2026 a 17/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ EM CASCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "13/07/2026 a 17/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "[Produto].[ARROZ]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "13/07/2026 a 17/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ",
+      "classificacao": "EM GRÃOS",
+      "periodo": "06/07/2026 a 10/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ EM CASCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "06/07/2026 a 10/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "[Produto].[ARROZ]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "06/07/2026 a 10/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ",
+      "classificacao": "EM GRÃOS",
+      "periodo": "29/06/2026 a 03/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ EM CASCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "29/06/2026 a 03/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "[Produto].[ARROZ]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "29/06/2026 a 03/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "27/07/2026 a 31/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJÃO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "27/07/2026 a 31/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO CARIOCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "27/07/2026 a 31/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "03/08/2026 a 07/08/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJÃO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "03/08/2026 a 07/08/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO CARIOCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "03/08/2026 a 07/08/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "20/07/2026 a 24/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJÃO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "20/07/2026 a 24/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO CARIOCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "20/07/2026 a 24/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "13/07/2026 a 17/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJÃO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "13/07/2026 a 17/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO CARIOCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "13/07/2026 a 17/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "06/07/2026 a 10/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJÃO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "06/07/2026 a 10/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO CARIOCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "06/07/2026 a 10/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "29/06/2026 a 03/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJÃO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "29/06/2026 a 03/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO CARIOCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "29/06/2026 a 03/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "BOI GORDO",
+      "periodo": "27/07/2026 a 31/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "",
+      "periodo": "27/07/2026 a 31/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "BOI GORDO",
+      "periodo": "27/07/2026 a 31/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "",
+      "periodo": "27/07/2026 a 31/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "BOI GORDO",
+      "periodo": "03/08/2026 a 07/08/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "",
+      "periodo": "03/08/2026 a 07/08/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "BOI GORDO",
+      "periodo": "03/08/2026 a 07/08/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "",
+      "periodo": "03/08/2026 a 07/08/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "BOI GORDO",
+      "periodo": "20/07/2026 a 24/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "",
+      "periodo": "20/07/2026 a 24/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "BOI GORDO",
+      "periodo": "20/07/2026 a 24/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "",
+      "periodo": "20/07/2026 a 24/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "BOI GORDO",
+      "periodo": "13/07/2026 a 17/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "",
+      "periodo": "13/07/2026 a 17/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "BOI GORDO",
+      "periodo": "13/07/2026 a 17/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "",
+      "periodo": "13/07/2026 a 17/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "BOI GORDO",
+      "periodo": "06/07/2026 a 10/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "",
+      "periodo": "06/07/2026 a 10/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "BOI GORDO",
+      "periodo": "06/07/2026 a 10/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "",
+      "periodo": "06/07/2026 a 10/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "BOI GORDO",
+      "periodo": "29/06/2026 a 03/07/2026",
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
+    },
+    {
       "produto": "Boi Gordo",
       "produto_valor": "BOI GORDO",
       "classificacao": "",
@@ -691,7 +691,9 @@
       "produto_valor": "LEITE DE VACA",
       "classificacao": "LEITE",
       "periodo": "13/07/2026 a 17/07/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
