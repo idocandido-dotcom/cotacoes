@@ -3,13 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-<<<<<<< Updated upstream
-  "gerado_em": "2026-08-10T12:52:40-03:00",
-  "ultima_sincronizacao": "2026-08-10 12:52:40",
-=======
-  "gerado_em": "2026-08-10T12:53:24-03:00",
-  "ultima_sincronizacao": "2026-08-10 12:53:24",
->>>>>>> Stashed changes
+  "gerado_em": "2026-08-10T15:44:49-03:00",
+  "ultima_sincronizacao": "2026-08-10 15:44:49",
   "data_limite_cotacoes_ativas": "2026-07-11",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -17,9 +12,13 @@
     {
       "fonte": "CONAB - Produtos 360º",
       "url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
-      "status": "sem_registros_extraidos",
-      "total_registros": 0,
-      "produtos_extraidos": [],
+      "status": "ok",
+      "total_registros": 18,
+      "produtos_extraidos": [
+        "Algodão",
+        "Milho",
+        "Soja"
+      ],
       "observacao": "Fonte principal para Soja, Milho e Algodão."
     },
     {
@@ -78,372 +77,26 @@
     {
       "fonte": "AIBA",
       "url": "https://aiba.org.br/cotacoes/",
-      "status": "ok",
-      "total_registros": 7,
-      "produtos_extraidos": [
-        "Algodão",
-        "Arroz",
-        "Feijão",
-        "Milho",
-        "Soja",
-        "Sorgo"
-      ],
-      "produtos_permitidos": [
-        "Algodão",
-        "Arroz",
-        "Feijão",
-        "Milho",
-        "Soja",
-        "Sorgo"
-      ],
-      "observacao": "AIBA coletada online, sem override por CSV local. Mantém somente as commodities usadas no filtro do site."
+      "status": "erro",
+      "total_registros": 0,
+      "erro": "HTTPError('429 Client Error: Too Many Requests for url: https://aiba.org.br/cotacoes/')",
+      "observacao": "Falha ao coletar AIBA online. Regionais anteriores serão preservados se existirem."
     }
   ],
   "resumo": {
-    "total_cotacoes_tabela": 40,
-    "total_dados_html": 40,
-    "total_cotacoes_brutas": 3763,
+    "total_cotacoes_tabela": 52,
+    "total_dados_html": 52,
+    "total_cotacoes_brutas": 3774,
     "total_cotacoes_descartadas_por_validacao": 0,
     "grupos_descartados_por_data_antiga": 3622,
     "total_sorgo_conab_tabela": 3,
-    "total_arroz_extraido": 7,
-    "total_feijao_extraido": 8,
+    "total_arroz_extraido": 6,
+    "total_feijao_extraido": 7,
     "total_boi_gordo_extraido": 3,
     "total_leite_extraido": 15,
-    "total_regionais": 6
+    "total_regionais": 0
   },
-  "total_cotacoes_tabela": 6,
-  "total_dados_html": 6,
-  "dados": [
-    {
-      "estado": "BA",
-      "cidade": "Oeste da Bahia - AIBA",
-      "regiao": "Bahia",
-      "produto": "Algodão",
-      "produto_base": "Algodão",
-      "produto_original": "Algodão Pluma",
-      "tipo_produto": "principal",
-      "nivel_comercializacao": "Regional",
-      "nivel_comercializacao_chave": "regional",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "valor": 136.67,
-      "preco": "R$ 136,67/Arroba (@)",
-      "preco_original": 136.67,
-      "unidade": "Arroba (@)",
-      "unidade_original": "Arroba (@)",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "data": "10/08/2026",
-      "data_iso": "2026-08-10",
-      "data_inicio_iso": "2026-08-10",
-      "data_fim_iso": "2026-08-10",
-      "periodo_referencia": "10/08/2026",
-      "fonte": "AIBA",
-      "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": 0.0,
-      "variacao_percentual": 0.0,
-      "historico_30d": [
-        {
-          "data": "07/08/2026",
-          "data_iso": "2026-08-07",
-          "valor": 136.67,
-          "preco": "R$ 136,67/Arroba (@)"
-        },
-        {
-          "data": "08/08/2026",
-          "data_iso": "2026-08-08",
-          "valor": 136.67,
-          "preco": "R$ 136,67/Arroba (@)"
-        },
-        {
-          "data": "09/08/2026",
-          "data_iso": "2026-08-09",
-          "valor": 136.67,
-          "preco": "R$ 136,67/Arroba (@)"
-        },
-        {
-          "data": "10/08/2026",
-          "data_iso": "2026-08-10",
-          "valor": 136.67,
-          "preco": "R$ 136,67/Arroba (@)"
-        }
-      ]
-    },
-    {
-      "estado": "BA",
-      "cidade": "Oeste da Bahia - AIBA",
-      "regiao": "Bahia",
-      "produto": "Arroz — Regional",
-      "produto_base": "Arroz",
-      "produto_original": "Arroz em Casca",
-      "tipo_produto": "principal",
-      "nivel_comercializacao": "Regional",
-      "nivel_comercializacao_chave": "regional",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "valor": 74.0,
-      "preco": "R$ 74,00/Saca 60 kg",
-      "preco_original": 74.0,
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Saca 60 kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "data": "10/08/2026",
-      "data_iso": "2026-08-10",
-      "data_inicio_iso": "2026-08-10",
-      "data_fim_iso": "2026-08-10",
-      "periodo_referencia": "10/08/2026",
-      "fonte": "AIBA",
-      "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": 0.0,
-      "variacao_percentual": 0.0,
-      "historico_30d": [
-        {
-          "data": "07/08/2026",
-          "data_iso": "2026-08-07",
-          "valor": 74.0,
-          "preco": "R$ 74,00/Saca 60 kg"
-        },
-        {
-          "data": "08/08/2026",
-          "data_iso": "2026-08-08",
-          "valor": 74.0,
-          "preco": "R$ 74,00/Saca 60 kg"
-        },
-        {
-          "data": "09/08/2026",
-          "data_iso": "2026-08-09",
-          "valor": 74.0,
-          "preco": "R$ 74,00/Saca 60 kg"
-        },
-        {
-          "data": "10/08/2026",
-          "data_iso": "2026-08-10",
-          "valor": 74.0,
-          "preco": "R$ 74,00/Saca 60 kg"
-        }
-      ]
-    },
-    {
-      "estado": "BA",
-      "cidade": "Oeste da Bahia - AIBA",
-      "regiao": "Bahia",
-      "produto": "Feijão — Regional",
-      "produto_base": "Feijão",
-      "produto_original": "Feijão Carioca",
-      "tipo_produto": "principal",
-      "nivel_comercializacao": "Regional",
-      "nivel_comercializacao_chave": "regional",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "valor": 300.0,
-      "preco": "R$ 300,00/Saca 60 kg",
-      "preco_original": 300.0,
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Saca 60 kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "data": "10/08/2026",
-      "data_iso": "2026-08-10",
-      "data_inicio_iso": "2026-08-10",
-      "data_fim_iso": "2026-08-10",
-      "periodo_referencia": "10/08/2026",
-      "fonte": "AIBA",
-      "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": 0.0,
-      "variacao_percentual": 0.0,
-      "historico_30d": [
-        {
-          "data": "07/08/2026",
-          "data_iso": "2026-08-07",
-          "valor": 300.0,
-          "preco": "R$ 300,00/Saca 60 kg"
-        },
-        {
-          "data": "08/08/2026",
-          "data_iso": "2026-08-08",
-          "valor": 300.0,
-          "preco": "R$ 300,00/Saca 60 kg"
-        },
-        {
-          "data": "09/08/2026",
-          "data_iso": "2026-08-09",
-          "valor": 300.0,
-          "preco": "R$ 300,00/Saca 60 kg"
-        },
-        {
-          "data": "10/08/2026",
-          "data_iso": "2026-08-10",
-          "valor": 300.0,
-          "preco": "R$ 300,00/Saca 60 kg"
-        }
-      ]
-    },
-    {
-      "estado": "BA",
-      "cidade": "Oeste da Bahia - AIBA",
-      "regiao": "Bahia",
-      "produto": "Milho",
-      "produto_base": "Milho",
-      "produto_original": "Milho",
-      "tipo_produto": "principal",
-      "nivel_comercializacao": "Regional",
-      "nivel_comercializacao_chave": "regional",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "valor": 58.67,
-      "preco": "R$ 58,67/Saca 60 kg",
-      "preco_original": 58.67,
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Saca 60 kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "data": "10/08/2026",
-      "data_iso": "2026-08-10",
-      "data_inicio_iso": "2026-08-10",
-      "data_fim_iso": "2026-08-10",
-      "periodo_referencia": "10/08/2026",
-      "fonte": "AIBA",
-      "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": 0.0,
-      "variacao_percentual": 0.0,
-      "historico_30d": [
-        {
-          "data": "07/08/2026",
-          "data_iso": "2026-08-07",
-          "valor": 58.67,
-          "preco": "R$ 58,67/Saca 60 kg"
-        },
-        {
-          "data": "08/08/2026",
-          "data_iso": "2026-08-08",
-          "valor": 58.67,
-          "preco": "R$ 58,67/Saca 60 kg"
-        },
-        {
-          "data": "09/08/2026",
-          "data_iso": "2026-08-09",
-          "valor": 58.67,
-          "preco": "R$ 58,67/Saca 60 kg"
-        },
-        {
-          "data": "10/08/2026",
-          "data_iso": "2026-08-10",
-          "valor": 58.67,
-          "preco": "R$ 58,67/Saca 60 kg"
-        }
-      ]
-    },
-    {
-      "estado": "BA",
-      "cidade": "Oeste da Bahia - AIBA",
-      "regiao": "Bahia",
-      "produto": "Soja",
-      "produto_base": "Soja",
-      "produto_original": "Soja Disponível",
-      "tipo_produto": "principal",
-      "nivel_comercializacao": "Regional",
-      "nivel_comercializacao_chave": "regional",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "valor": 129.25,
-      "preco": "R$ 129,25/Saca 60 kg",
-      "preco_original": 129.25,
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Saca 60 kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "data": "10/08/2026",
-      "data_iso": "2026-08-10",
-      "data_inicio_iso": "2026-08-10",
-      "data_fim_iso": "2026-08-10",
-      "periodo_referencia": "10/08/2026",
-      "fonte": "AIBA",
-      "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": 0.0,
-      "variacao_percentual": 0.0,
-      "historico_30d": [
-        {
-          "data": "07/08/2026",
-          "data_iso": "2026-08-07",
-          "valor": 129.25,
-          "preco": "R$ 129,25/Saca 60 kg"
-        },
-        {
-          "data": "08/08/2026",
-          "data_iso": "2026-08-08",
-          "valor": 129.25,
-          "preco": "R$ 129,25/Saca 60 kg"
-        },
-        {
-          "data": "09/08/2026",
-          "data_iso": "2026-08-09",
-          "valor": 129.25,
-          "preco": "R$ 129,25/Saca 60 kg"
-        },
-        {
-          "data": "10/08/2026",
-          "data_iso": "2026-08-10",
-          "valor": 124.33,
-          "preco": "R$ 124,33/Saca 60 kg"
-        }
-      ]
-    },
-    {
-      "estado": "BA",
-      "cidade": "Oeste da Bahia - AIBA",
-      "regiao": "Bahia",
-      "produto": "Sorgo — Regional",
-      "produto_base": "Sorgo",
-      "produto_original": "Sorgo",
-      "tipo_produto": "principal",
-      "nivel_comercializacao": "Regional",
-      "nivel_comercializacao_chave": "regional",
-      "prioridade_nivel_preco": 5,
-      "categoria": "commodity_agricola",
-      "valor": 43.67,
-      "preco": "R$ 43,67/Saca 60 kg",
-      "preco_original": 43.67,
-      "unidade": "Saca 60 kg",
-      "unidade_original": "Saca 60 kg",
-      "fator_conversao": 1.0,
-      "conversao_aplicada": false,
-      "data": "10/08/2026",
-      "data_iso": "2026-08-10",
-      "data_inicio_iso": "2026-08-10",
-      "data_fim_iso": "2026-08-10",
-      "periodo_referencia": "10/08/2026",
-      "fonte": "AIBA",
-      "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": 0.0,
-      "variacao_percentual": 0.0,
-      "historico_30d": [
-        {
-          "data": "07/08/2026",
-          "data_iso": "2026-08-07",
-          "valor": 43.67,
-          "preco": "R$ 43,67/Saca 60 kg"
-        },
-        {
-          "data": "08/08/2026",
-          "data_iso": "2026-08-08",
-          "valor": 43.67,
-          "preco": "R$ 43,67/Saca 60 kg"
-        },
-        {
-          "data": "09/08/2026",
-          "data_iso": "2026-08-09",
-          "valor": 43.67,
-          "preco": "R$ 43,67/Saca 60 kg"
-        },
-        {
-          "data": "10/08/2026",
-          "data_iso": "2026-08-10",
-          "valor": 43.67,
-          "preco": "R$ 43,67/Saca 60 kg"
-        }
-      ]
-    }
-  ]
+  "total_cotacoes_tabela": 0,
+  "total_dados_html": 0,
+  "dados": []
 }
