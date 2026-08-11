@@ -1,11 +1,7 @@
 {
   "ok": true,
   "versao": "1.5.8",
-<<<<<<< Updated upstream
-  "gerado_em": "2026-08-11T15:52:19-03:00",
-=======
-  "gerado_em": "2026-08-11T15:53:01-03:00",
->>>>>>> Stashed changes
+  "gerado_em": "2026-08-11T18:37:46-03:00",
   "regra": "AIBA/regional: 1 linha por produto + UF + praça + fonte + data + unidade.",
   "total_grupos_duplicados": 1,
   "duplicados": [
@@ -27,8 +23,8 @@
       "removidos": [
         {
           "produto_original": "Soja Balcão",
-          "preco": 123.67,
-          "preco_formatado": "R$ 123,67/Saca 60 kg",
+          "preco": 125.33,
+          "preco_formatado": "R$ 125,33/Saca 60 kg",
           "data": "2026-08-11"
         }
       ]

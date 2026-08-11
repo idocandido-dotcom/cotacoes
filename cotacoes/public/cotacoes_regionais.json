@@ -3,13 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-<<<<<<< Updated upstream
-  "gerado_em": "2026-08-11T15:52:19-03:00",
-  "ultima_sincronizacao": "2026-08-11 15:52:19",
-=======
-  "gerado_em": "2026-08-11T15:53:01-03:00",
-  "ultima_sincronizacao": "2026-08-11 15:53:01",
->>>>>>> Stashed changes
+  "gerado_em": "2026-08-11T18:37:46-03:00",
+  "ultima_sincronizacao": "2026-08-11 18:37:46",
   "data_limite_cotacoes_ativas": "2026-07-12",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -82,18 +77,6 @@
     {
       "fonte": "AIBA",
       "url": "https://aiba.org.br/cotacoes/",
-<<<<<<< Updated upstream
-      "status": "erro",
-      "total_registros": 0,
-      "erro": "ConnectionError(MaxRetryError('HTTPSConnectionPool(host=\\'aiba.org.br\\', port=443): Max retries exceeded with url: /cotacoes/ (Caused by NewConnectionError(\"HTTPSConnection(host=\\'aiba.org.br\\', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))'))",
-      "observacao": "Falha ao coletar AIBA online. Regionais anteriores serão preservados se existirem."
-    }
-  ],
-  "resumo": {
-    "total_cotacoes_tabela": 52,
-    "total_dados_html": 52,
-    "total_cotacoes_brutas": 3776,
-=======
       "status": "ok",
       "total_registros": 7,
       "produtos_extraidos": [
@@ -119,21 +102,15 @@
     "total_cotacoes_tabela": 58,
     "total_dados_html": 58,
     "total_cotacoes_brutas": 3783,
->>>>>>> Stashed changes
     "total_cotacoes_descartadas_por_validacao": 0,
     "grupos_descartados_por_data_antiga": 3622,
     "total_sorgo_conab_tabela": 3,
-    "total_arroz_extraido": 6,
-    "total_feijao_extraido": 7,
+    "total_arroz_extraido": 7,
+    "total_feijao_extraido": 8,
     "total_boi_gordo_extraido": 3,
     "total_leite_extraido": 15,
-    "total_regionais": 0
+    "total_regionais": 6
   },
-<<<<<<< Updated upstream
-  "total_cotacoes_tabela": 0,
-  "total_dados_html": 0,
-  "dados": []
-=======
   "total_cotacoes_tabela": 6,
   "total_dados_html": 6,
   "dados": [
@@ -164,7 +141,7 @@
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "variacao_valor": null,
-      "variacao_percentual": 0.48,
+      "variacao_percentual": 0.0,
       "historico_30d": [
         {
           "data": "11/08/2026",
@@ -238,7 +215,7 @@
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "variacao_valor": null,
-      "variacao_percentual": -2.5,
+      "variacao_percentual": 0.0,
       "historico_30d": [
         {
           "data": "11/08/2026",
@@ -260,9 +237,9 @@
       "nivel_comercializacao_chave": "regional",
       "prioridade_nivel_preco": 5,
       "categoria": "commodity_agricola",
-      "valor": 58.67,
-      "preco": "R$ 58,67/Saca 60 kg",
-      "preco_original": 58.67,
+      "valor": 59.0,
+      "preco": "R$ 59,00/Saca 60 kg",
+      "preco_original": 59.0,
       "unidade": "Saca 60 kg",
       "unidade_original": "Saca 60 kg",
       "fator_conversao": 1.0,
@@ -275,13 +252,13 @@
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "variacao_valor": null,
-      "variacao_percentual": 0.0,
+      "variacao_percentual": 0.56,
       "historico_30d": [
         {
           "data": "11/08/2026",
           "data_iso": "2026-08-11",
-          "valor": 58.67,
-          "preco": "R$ 58,67/Saca 60 kg"
+          "valor": 59.0,
+          "preco": "R$ 59,00/Saca 60 kg"
         }
       ]
     },
@@ -312,13 +289,13 @@
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
       "variacao_valor": null,
-      "variacao_percentual": -0.39,
+      "variacao_percentual": 0.0,
       "historico_30d": [
         {
           "data": "11/08/2026",
           "data_iso": "2026-08-11",
-          "valor": 123.67,
-          "preco": "R$ 123,67/Saca 60 kg"
+          "valor": 125.33,
+          "preco": "R$ 125,33/Saca 60 kg"
         }
       ]
     },
@@ -360,5 +337,4 @@
       ]
     }
   ]
->>>>>>> Stashed changes
 }
