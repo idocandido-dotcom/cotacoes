@@ -3,8 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-08-13T18:36:50-03:00",
-  "ultima_sincronizacao": "2026-08-13 18:36:50",
+  "gerado_em": "2026-08-13T22:13:47-03:00",
+  "ultima_sincronizacao": "2026-08-13 22:13:47",
   "data_limite_cotacoes_ativas": "2026-07-14",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -24,15 +24,9 @@
     {
       "fonte": "CONAB - Preços Agropecuários Semanal UF / Histórico 360",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "status": "ok",
-      "total_registros": 98,
-      "produtos_historico": [
-        "Soja",
-        "Milho",
-        "Algodão",
-        "Sorgo"
-      ],
-      "observacao": "v1.5.8: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. O preço atual continua vindo do CONAB Produtos 360º."
+      "status": "erro",
+      "total_registros": 0,
+      "erro": "HTTPError('404 Client Error: Not Found for url: https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt')"
     },
     {
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
@@ -51,67 +45,46 @@
     {
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "status": "ok",
-      "total_registros": 1843,
-      "produtos_fallback": [
-        "Arroz",
-        "Boi Gordo",
-        "Feijão",
-        "Leite"
-      ],
-      "observacao": "Fallback para Arroz, Feijão, Sorgo, Boi Gordo e Leite quando SIAGRO falhar; filtrado para Nordeste + Tocantins + Pará."
+      "status": "erro",
+      "total_registros": 0,
+      "erro": "HTTPError('404 Client Error: Not Found for url: https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt')"
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
-      "status": "ok",
-      "total_registros": 1912,
-      "produtos_fallback": [
-        "Arroz",
-        "Boi Gordo",
-        "Feijão",
-        "Leite"
-      ],
-      "observacao": "Fallback para Arroz, Feijão, Sorgo, Boi Gordo e Leite quando SIAGRO falhar; filtrado para Nordeste + Tocantins + Pará."
+      "status": "erro",
+      "total_registros": 0,
+      "erro": "HTTPError('404 Client Error: Not Found for url: https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt')"
     },
     {
       "fonte": "AIBA",
       "url": "https://aiba.org.br/cotacoes/",
+      "status": "erro",
+      "total_registros": 0,
+      "erro": "HTTPError('429 Client Error: Too Many Requests for url: https://aiba.org.br/cotacoes/')",
+      "observacao": "Falha ao coletar AIBA online. Regionais anteriores serão preservados se existirem."
+    },
+    {
+      "fonte": "Regionais preservados",
       "status": "ok",
-      "total_registros": 7,
-      "produtos_extraidos": [
-        "Algodão",
-        "Arroz",
-        "Feijão",
-        "Milho",
-        "Soja",
-        "Sorgo"
-      ],
-      "produtos_permitidos": [
-        "Algodão",
-        "Arroz",
-        "Feijão",
-        "Milho",
-        "Soja",
-        "Sorgo"
-      ],
-      "observacao": "AIBA coletada online, sem override por CSV local. Mantém somente as commodities usadas no filtro do site."
+      "total_registros": 6,
+      "observacao": "AIBA/regionais anteriores preservados por segurança."
     }
   ],
   "resumo": {
-    "total_cotacoes_tabela": 58,
-    "total_dados_html": 58,
-    "total_cotacoes_brutas": 3783,
+    "total_cotacoes_tabela": 27,
+    "total_dados_html": 27,
+    "total_cotacoes_brutas": 27,
     "total_cotacoes_descartadas_por_validacao": 0,
-    "grupos_descartados_por_data_antiga": 3622,
+    "grupos_descartados_por_data_antiga": 0,
     "total_sorgo_conab_tabela": 3,
-    "total_arroz_extraido": 7,
-    "total_feijao_extraido": 8,
-    "total_boi_gordo_extraido": 3,
-    "total_leite_extraido": 15
+    "total_arroz_extraido": 1,
+    "total_feijao_extraido": 1,
+    "total_boi_gordo_extraido": 0,
+    "total_leite_extraido": 0
   },
-  "total_cotacoes_tabela": 58,
-  "total_dados_html": 58,
+  "total_cotacoes_tabela": 27,
+  "total_dados_html": 27,
   "debug_conab_produtos_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json",
   "debug_sorgo_conab": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_sorgo_conab.json",
   "historico_aiba": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/historico_aiba.json",
