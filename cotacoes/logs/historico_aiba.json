@@ -1,7 +1,7 @@
 {
   "ok": true,
   "versao": "1.5.8",
-  "gerado_em": "2026-08-17T15:26:43-03:00",
+  "gerado_em": "2026-08-17T18:18:17-03:00",
   "regra": "Histórico persistente da AIBA/regional. Acumula uma cotação por data real, sem simular valores.",
   "historicos": {
     "Algodão||BA||Oeste da Bahia - AIBA||AIBA": [
@@ -27,7 +27,7 @@
       },
       {
         "data": "2026-08-17",
-        "valor": 137.67
+        "valor": 138.0
       }
     ],
     "Arroz||BA||Oeste da Bahia - AIBA||AIBA": [
@@ -131,7 +131,7 @@
       },
       {
         "data": "2026-08-17",
-        "valor": 133.38
+        "valor": 134.25
       }
     ],
     "Sorgo||BA||Oeste da Bahia - AIBA||AIBA": [
@@ -157,7 +157,7 @@
       },
       {
         "data": "2026-08-17",
-        "valor": 44.0
+        "valor": 45.67
       }
     ]
   }
