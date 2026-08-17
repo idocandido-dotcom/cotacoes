@@ -180,9 +180,7 @@
       "produto_valor": "[Produto].[ARROZ]",
       "classificacao": "EM GRÃOS",
       "periodo": "13/07/2026 a 17/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Feijão",
