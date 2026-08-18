@@ -3,8 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-08-18T15:25:18-03:00",
-  "ultima_sincronizacao": "2026-08-18 15:25:18",
+  "gerado_em": "2026-08-18T18:15:46-03:00",
+  "ultima_sincronizacao": "2026-08-18 18:15:46",
   "data_limite_cotacoes_ativas": "2026-07-19",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -13,8 +13,9 @@
       "fonte": "CONAB - Produtos 360º",
       "url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
       "status": "ok",
-      "total_registros": 14,
+      "total_registros": 18,
       "produtos_extraidos": [
+        "Algodão",
         "Milho",
         "Soja"
       ],
@@ -98,9 +99,9 @@
     }
   ],
   "resumo": {
-    "total_cotacoes_tabela": 53,
-    "total_dados_html": 53,
-    "total_cotacoes_brutas": 3807,
+    "total_cotacoes_tabela": 57,
+    "total_dados_html": 57,
+    "total_cotacoes_brutas": 3811,
     "total_cotacoes_descartadas_por_validacao": 0,
     "grupos_descartados_por_data_antiga": 3657,
     "total_sorgo_conab_tabela": 3,
@@ -109,9 +110,229 @@
     "total_boi_gordo_extraido": 3,
     "total_leite_extraido": 15
   },
-  "total_cotacoes_tabela": 53,
-  "total_dados_html": 53,
+  "total_cotacoes_tabela": 57,
+  "total_dados_html": 57,
   "dados": [
+    {
+      "estado": "BA",
+      "cidade": "Bahia - Média estadual CONAB",
+      "regiao": "Bahia",
+      "produto": "Algodão",
+      "produto_base": "Algodão",
+      "produto_original": "Algodão em Pluma",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "commodity_agricola",
+      "valor": 137.33,
+      "preco": "R$ 137,33/Arroba (@)",
+      "preco_original": 137.33,
+      "unidade": "Arroba (@)",
+      "unidade_original": "Arroba (@)",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "10/08/2026 a 14/08/2026",
+      "data_iso": "2026-08-14",
+      "data_inicio_iso": "2026-08-10",
+      "data_fim_iso": "2026-08-14",
+      "periodo_referencia": "10/08/2026 a 14/08/2026",
+      "fonte": "CONAB - Produtos 360º",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
+      "variacao_valor": 122.63,
+      "variacao_percentual": 834.2177,
+      "historico_30d": [
+        {
+          "data": "24/07/2026",
+          "data_iso": "2026-07-24",
+          "valor": 14.7,
+          "preco": "R$ 14,70/Arroba (@)"
+        },
+        {
+          "data": "31/07/2026",
+          "data_iso": "2026-07-31",
+          "valor": 14.55,
+          "preco": "R$ 14,55/Arroba (@)"
+        },
+        {
+          "data": "07/08/2026",
+          "data_iso": "2026-08-07",
+          "valor": 14.7,
+          "preco": "R$ 14,70/Arroba (@)"
+        },
+        {
+          "data": "14/08/2026",
+          "data_iso": "2026-08-14",
+          "valor": 137.33,
+          "preco": "R$ 137,33/Arroba (@)"
+        }
+      ]
+    },
+    {
+      "estado": "MA",
+      "cidade": "Maranhão - Média estadual CONAB",
+      "regiao": "Maranhão",
+      "produto": "Algodão",
+      "produto_base": "Algodão",
+      "produto_original": "Algodão em Pluma",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "commodity_agricola",
+      "valor": 139.42,
+      "preco": "R$ 139,42/Arroba (@)",
+      "preco_original": 139.42,
+      "unidade": "Arroba (@)",
+      "unidade_original": "Arroba (@)",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "10/08/2026 a 14/08/2026",
+      "data_iso": "2026-08-14",
+      "data_inicio_iso": "2026-08-10",
+      "data_fim_iso": "2026-08-14",
+      "periodo_referencia": "10/08/2026 a 14/08/2026",
+      "fonte": "CONAB - Produtos 360º",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
+      "variacao_valor": 125.17,
+      "variacao_percentual": 878.386,
+      "historico_30d": [
+        {
+          "data": "24/07/2026",
+          "data_iso": "2026-07-24",
+          "valor": 14.25,
+          "preco": "R$ 14,25/Arroba (@)"
+        },
+        {
+          "data": "31/07/2026",
+          "data_iso": "2026-07-31",
+          "valor": 14.25,
+          "preco": "R$ 14,25/Arroba (@)"
+        },
+        {
+          "data": "07/08/2026",
+          "data_iso": "2026-08-07",
+          "valor": 14.25,
+          "preco": "R$ 14,25/Arroba (@)"
+        },
+        {
+          "data": "14/08/2026",
+          "data_iso": "2026-08-14",
+          "valor": 139.42,
+          "preco": "R$ 139,42/Arroba (@)"
+        }
+      ]
+    },
+    {
+      "estado": "PI",
+      "cidade": "Piauí - Média estadual CONAB",
+      "regiao": "Piauí",
+      "produto": "Algodão",
+      "produto_base": "Algodão",
+      "produto_original": "Algodão em Pluma",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "commodity_agricola",
+      "valor": 137.0,
+      "preco": "R$ 137,00/Arroba (@)",
+      "preco_original": 137.0,
+      "unidade": "Arroba (@)",
+      "unidade_original": "Arroba (@)",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "10/08/2026 a 14/08/2026",
+      "data_iso": "2026-08-14",
+      "data_inicio_iso": "2026-08-10",
+      "data_fim_iso": "2026-08-14",
+      "periodo_referencia": "10/08/2026 a 14/08/2026",
+      "fonte": "CONAB - Produtos 360º",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
+      "variacao_valor": 122.0,
+      "variacao_percentual": 813.3333,
+      "historico_30d": [
+        {
+          "data": "24/07/2026",
+          "data_iso": "2026-07-24",
+          "valor": 15.0,
+          "preco": "R$ 15,00/Arroba (@)"
+        },
+        {
+          "data": "31/07/2026",
+          "data_iso": "2026-07-31",
+          "valor": 15.0,
+          "preco": "R$ 15,00/Arroba (@)"
+        },
+        {
+          "data": "07/08/2026",
+          "data_iso": "2026-08-07",
+          "valor": 16.5,
+          "preco": "R$ 16,50/Arroba (@)"
+        },
+        {
+          "data": "14/08/2026",
+          "data_iso": "2026-08-14",
+          "valor": 137.0,
+          "preco": "R$ 137,00/Arroba (@)"
+        }
+      ]
+    },
+    {
+      "estado": "TO",
+      "cidade": "Tocantins - Média estadual CONAB",
+      "regiao": "Tocantins",
+      "produto": "Algodão",
+      "produto_base": "Algodão",
+      "produto_original": "Algodão em Pluma",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "commodity_agricola",
+      "valor": 135.0,
+      "preco": "R$ 135,00/Arroba (@)",
+      "preco_original": 135.0,
+      "unidade": "Arroba (@)",
+      "unidade_original": "Arroba (@)",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "10/08/2026 a 14/08/2026",
+      "data_iso": "2026-08-14",
+      "data_inicio_iso": "2026-08-10",
+      "data_fim_iso": "2026-08-14",
+      "periodo_referencia": "10/08/2026 a 14/08/2026",
+      "fonte": "CONAB - Produtos 360º",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
+      "variacao_valor": 117.75,
+      "variacao_percentual": 682.6087,
+      "historico_30d": [
+        {
+          "data": "24/07/2026",
+          "data_iso": "2026-07-24",
+          "valor": 17.25,
+          "preco": "R$ 17,25/Arroba (@)"
+        },
+        {
+          "data": "31/07/2026",
+          "data_iso": "2026-07-31",
+          "valor": 17.25,
+          "preco": "R$ 17,25/Arroba (@)"
+        },
+        {
+          "data": "07/08/2026",
+          "data_iso": "2026-08-07",
+          "valor": 14.7,
+          "preco": "R$ 14,70/Arroba (@)"
+        },
+        {
+          "data": "14/08/2026",
+          "data_iso": "2026-08-14",
+          "valor": 135.0,
+          "preco": "R$ 135,00/Arroba (@)"
+        }
+      ]
+    },
     {
       "estado": "CE",
       "cidade": "Média UF",
@@ -2935,9 +3156,9 @@
       "nivel_comercializacao_chave": "regional",
       "prioridade_nivel_preco": 5,
       "categoria": "commodity_agricola",
-      "valor": 134.25,
-      "preco": "R$ 134,25/Saca 60 kg",
-      "preco_original": 134.25,
+      "valor": 134.5,
+      "preco": "R$ 134,50/Saca 60 kg",
+      "preco_original": 134.5,
       "unidade": "Saca 60 kg",
       "unidade_original": "Saca 60 kg",
       "fator_conversao": 1.0,
@@ -2949,8 +3170,8 @@
       "periodo_referencia": "18/08/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": 5.5,
-      "variacao_percentual": 4.2718,
+      "variacao_valor": 5.75,
+      "variacao_percentual": 4.466,
       "historico_30d": [
         {
           "data": "12/08/2026",
