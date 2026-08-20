@@ -360,9 +360,7 @@
       "produto_valor": "BOI GORDO",
       "classificacao": "",
       "periodo": "10/08/2026 a 14/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Boi Gordo",
@@ -738,9 +736,7 @@
       "produto_valor": "LEITE DE VACA",
       "classificacao": "",
       "periodo": "20/07/2026 a 24/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Leite",
@@ -774,9 +770,7 @@
       "produto_valor": "LEITE DE VACA",
       "classificacao": "",
       "periodo": "13/07/2026 a 17/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     }
   ]
 }
