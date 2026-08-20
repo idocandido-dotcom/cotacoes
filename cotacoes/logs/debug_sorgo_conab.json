@@ -117,7 +117,9 @@
       "produto_valor": "ARROZ EM CASCA",
       "classificacao": "EM GRÃOS",
       "periodo": "27/07/2026 a 31/07/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Arroz",
@@ -349,7 +351,9 @@
       "produto_valor": "BOI GORDO",
       "classificacao": "BOI GORDO",
       "periodo": "10/08/2026 a 14/08/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Boi Gordo",
@@ -581,7 +585,9 @@
       "produto_valor": "LEITE DE VACA",
       "classificacao": "LEITE",
       "periodo": "10/08/2026 a 14/08/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
