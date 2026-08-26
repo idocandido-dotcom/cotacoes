@@ -1,7 +1,7 @@
 {
   "ok": true,
   "versao": "1.5.8",
-  "gerado_em": "2026-08-25T18:19:39-03:00",
+  "gerado_em": "2026-08-25T21:48:52-03:00",
   "regra": "AIBA/regional: 1 linha por produto + UF + praça + fonte + data + unidade.",
   "total_grupos_duplicados": 1,
   "duplicados": [
@@ -16,15 +16,15 @@
       },
       "mantido": {
         "produto_original": "Soja Disponível",
-        "preco": 137.25,
-        "preco_formatado": "R$ 137,25/Saca 60 kg",
+        "preco": 138.0,
+        "preco_formatado": "R$ 138,00/Saca 60 kg",
         "data": "2026-08-25"
       },
       "removidos": [
         {
           "produto_original": "Soja Balcão",
-          "preco": 130.67,
-          "preco_formatado": "R$ 130,67/Saca 60 kg",
+          "preco": 131.33,
+          "preco_formatado": "R$ 131,33/Saca 60 kg",
           "data": "2026-08-25"
         }
       ]
