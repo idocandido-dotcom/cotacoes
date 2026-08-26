@@ -261,9 +261,7 @@
       "produto_valor": "FEIJAO CARIOCA",
       "classificacao": "EM GRÃOS",
       "periodo": "10/08/2026 a 14/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Feijão",
