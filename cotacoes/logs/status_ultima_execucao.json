@@ -3,8 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-08-31T06:07:53-03:00",
-  "ultima_sincronizacao": "2026-08-31 06:07:53",
+  "gerado_em": "2026-08-31T15:31:38-03:00",
+  "ultima_sincronizacao": "2026-08-31 15:31:38",
   "data_limite_cotacoes_ativas": "2026-08-01",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -13,10 +13,9 @@
       "fonte": "CONAB - Produtos 360º",
       "url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
       "status": "ok",
-      "total_registros": 18,
+      "total_registros": 9,
       "produtos_extraidos": [
         "Algodão",
-        "Milho",
         "Soja"
       ],
       "observacao": "Fonte principal para Soja, Milho e Algodão."
@@ -25,7 +24,7 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF / Histórico 360",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 75,
+      "total_registros": 100,
       "produtos_historico": [
         "Soja",
         "Milho",
@@ -52,7 +51,7 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 1900,
+      "total_registros": 1929,
       "produtos_fallback": [
         "Arroz",
         "Boi Gordo",
@@ -99,19 +98,19 @@
     }
   ],
   "resumo": {
-    "total_cotacoes_tabela": 54,
-    "total_dados_html": 54,
-    "total_cotacoes_brutas": 3840,
+    "total_cotacoes_tabela": 46,
+    "total_dados_html": 46,
+    "total_cotacoes_brutas": 3860,
     "total_cotacoes_descartadas_por_validacao": 0,
-    "grupos_descartados_por_data_antiga": 3725,
+    "grupos_descartados_por_data_antiga": 3724,
     "total_sorgo_conab_tabela": 3,
     "total_arroz_extraido": 6,
     "total_feijao_extraido": 8,
     "total_boi_gordo_extraido": 3,
     "total_leite_extraido": 13
   },
-  "total_cotacoes_tabela": 54,
-  "total_dados_html": 54,
+  "total_cotacoes_tabela": 46,
+  "total_dados_html": 46,
   "debug_conab_produtos_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json",
   "debug_sorgo_conab": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_sorgo_conab.json",
   "historico_aiba": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/historico_aiba.json",
