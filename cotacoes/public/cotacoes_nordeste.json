@@ -3,8 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-09-01T05:09:21-03:00",
-  "ultima_sincronizacao": "2026-09-01 05:09:21",
+  "gerado_em": "2026-09-01T10:49:48-03:00",
+  "ultima_sincronizacao": "2026-09-01 10:49:48",
   "data_limite_cotacoes_ativas": "2026-08-02",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -52,7 +52,7 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 1929,
+      "total_registros": 1794,
       "produtos_fallback": [
         "Arroz",
         "Boi Gordo",
@@ -65,7 +65,7 @@
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
       "status": "ok",
-      "total_registros": 1912,
+      "total_registros": 1572,
       "produtos_fallback": [
         "Arroz",
         "Boi Gordo",
@@ -90,19 +90,19 @@
     }
   ],
   "resumo": {
-    "total_cotacoes_tabela": 54,
-    "total_dados_html": 54,
-    "total_cotacoes_brutas": 3868,
+    "total_cotacoes_tabela": 57,
+    "total_dados_html": 57,
+    "total_cotacoes_brutas": 3393,
     "total_cotacoes_descartadas_por_validacao": 0,
-    "grupos_descartados_por_data_antiga": 3725,
+    "grupos_descartados_por_data_antiga": 3238,
     "total_sorgo_conab_tabela": 3,
-    "total_arroz_extraido": 6,
+    "total_arroz_extraido": 7,
     "total_feijao_extraido": 8,
     "total_boi_gordo_extraido": 3,
-    "total_leite_extraido": 13
+    "total_leite_extraido": 15
   },
-  "total_cotacoes_tabela": 54,
-  "total_dados_html": 54,
+  "total_cotacoes_tabela": 57,
+  "total_dados_html": 57,
   "dados": [
     {
       "estado": "BA",
@@ -423,8 +423,8 @@
         {
           "data": "21/08/2026",
           "data_iso": "2026-08-21",
-          "valor": 96.6,
-          "preco": "R$ 96,60/Saca 60 kg"
+          "valor": 94.2,
+          "preco": "R$ 94,20/Saca 60 kg"
         },
         {
           "data": "28/08/2026",
@@ -541,6 +541,61 @@
           "data_iso": "2026-08-28",
           "valor": 87.0,
           "preco": "R$ 87,00/Saca 60 kg"
+        }
+      ]
+    },
+    {
+      "estado": "RN",
+      "cidade": "Média UF",
+      "regiao": "Rio Grande do Norte",
+      "produto": "Arroz — Produtor",
+      "produto_base": "Arroz",
+      "produto_original": "ARROZ",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "commodity_agricola",
+      "valor": 118.8,
+      "preco": "R$ 118,80/Saca 60 kg",
+      "preco_original": 1.98,
+      "unidade": "Saca 60 kg",
+      "unidade_original": "Kg",
+      "fator_conversao": 60.0,
+      "conversao_aplicada": true,
+      "data": "24/08/2026 a 28/08/2026",
+      "data_iso": "2026-08-28",
+      "data_inicio_iso": "2026-08-24",
+      "data_fim_iso": "2026-08-28",
+      "periodo_referencia": "24/08/2026 a 28/08/2026",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "variacao_valor": null,
+      "variacao_percentual": null,
+      "historico_30d": [
+        {
+          "data": "07/08/2026",
+          "data_iso": "2026-08-07",
+          "valor": 117.0,
+          "preco": "R$ 117,00/Saca 60 kg"
+        },
+        {
+          "data": "14/08/2026",
+          "data_iso": "2026-08-14",
+          "valor": 117.0,
+          "preco": "R$ 117,00/Saca 60 kg"
+        },
+        {
+          "data": "21/08/2026",
+          "data_iso": "2026-08-21",
+          "valor": 118.8,
+          "preco": "R$ 118,80/Saca 60 kg"
+        },
+        {
+          "data": "28/08/2026",
+          "data_iso": "2026-08-28",
+          "valor": 118.8,
+          "preco": "R$ 118,80/Saca 60 kg"
         }
       ]
     },
@@ -831,9 +886,9 @@
       "nivel_comercializacao_chave": "preco_produtor",
       "prioridade_nivel_preco": 1,
       "categoria": "commodity_agricola",
-      "valor": 298.8,
-      "preco": "R$ 298,80/Saca 60 kg",
-      "preco_original": 4.98,
+      "valor": 420.0,
+      "preco": "R$ 420,00/Saca 60 kg",
+      "preco_original": 7.0,
       "unidade": "Saca 60 kg",
       "unidade_original": "Kg",
       "fator_conversao": 60.0,
@@ -857,8 +912,8 @@
         {
           "data": "14/08/2026",
           "data_iso": "2026-08-14",
-          "valor": 291.0,
-          "preco": "R$ 291,00/Saca 60 kg"
+          "valor": 420.0,
+          "preco": "R$ 420,00/Saca 60 kg"
         },
         {
           "data": "21/08/2026",
@@ -869,8 +924,8 @@
         {
           "data": "28/08/2026",
           "data_iso": "2026-08-28",
-          "valor": 298.8,
-          "preco": "R$ 298,80/Saca 60 kg"
+          "valor": 420.0,
+          "preco": "R$ 420,00/Saca 60 kg"
         }
       ]
     },
@@ -1106,9 +1161,9 @@
       "nivel_comercializacao_chave": "preco_produtor",
       "prioridade_nivel_preco": 1,
       "categoria": "commodity_agricola",
-      "valor": 150.0,
-      "preco": "R$ 150,00/Saca 60 kg",
-      "preco_original": 2.5,
+      "valor": 220.2,
+      "preco": "R$ 220,20/Saca 60 kg",
+      "preco_original": 3.67,
       "unidade": "Saca 60 kg",
       "unidade_original": "Kg",
       "fator_conversao": 60.0,
@@ -1132,20 +1187,20 @@
         {
           "data": "14/08/2026",
           "data_iso": "2026-08-14",
-          "valor": 150.0,
-          "preco": "R$ 150,00/Saca 60 kg"
+          "valor": 220.2,
+          "preco": "R$ 220,20/Saca 60 kg"
         },
         {
           "data": "21/08/2026",
           "data_iso": "2026-08-21",
-          "valor": 150.0,
-          "preco": "R$ 150,00/Saca 60 kg"
+          "valor": 220.2,
+          "preco": "R$ 220,20/Saca 60 kg"
         },
         {
           "data": "28/08/2026",
           "data_iso": "2026-08-28",
-          "valor": 150.0,
-          "preco": "R$ 150,00/Saca 60 kg"
+          "valor": 220.2,
+          "preco": "R$ 220,20/Saca 60 kg"
         }
       ]
     },
@@ -1559,9 +1614,9 @@
       "nivel_comercializacao_chave": "preco_produtor",
       "prioridade_nivel_preco": 1,
       "categoria": "pecuaria_leite",
-      "valor": 3.5,
-      "preco": "R$ 3,50/Litro",
-      "preco_original": 3.5,
+      "valor": 3.48,
+      "preco": "R$ 3,48/Litro",
+      "preco_original": 3.48,
       "unidade": "Litro",
       "unidade_original": "Litro",
       "fator_conversao": 1.0,
@@ -1597,8 +1652,8 @@
         {
           "data": "28/08/2026",
           "data_iso": "2026-08-28",
-          "valor": 3.5,
-          "preco": "R$ 3,50/Litro"
+          "valor": 3.48,
+          "preco": "R$ 3,48/Litro"
         }
       ]
     },
@@ -1709,6 +1764,116 @@
           "data_iso": "2026-08-28",
           "valor": 2.45,
           "preco": "R$ 2,45/Litro"
+        }
+      ]
+    },
+    {
+      "estado": "RN",
+      "cidade": "Média UF",
+      "regiao": "Rio Grande do Norte",
+      "produto": "Leite — Produtor",
+      "produto_base": "Leite",
+      "produto_original": "LEITE DE CABRA",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "pecuaria_leite",
+      "valor": 3.78,
+      "preco": "R$ 3,78/Litro",
+      "preco_original": 3.78,
+      "unidade": "Litro",
+      "unidade_original": "Litro",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "24/08/2026 a 28/08/2026",
+      "data_iso": "2026-08-28",
+      "data_inicio_iso": "2026-08-24",
+      "data_fim_iso": "2026-08-28",
+      "periodo_referencia": "24/08/2026 a 28/08/2026",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "variacao_valor": null,
+      "variacao_percentual": null,
+      "historico_30d": [
+        {
+          "data": "07/08/2026",
+          "data_iso": "2026-08-07",
+          "valor": 3.78,
+          "preco": "R$ 3,78/Litro"
+        },
+        {
+          "data": "14/08/2026",
+          "data_iso": "2026-08-14",
+          "valor": 3.78,
+          "preco": "R$ 3,78/Litro"
+        },
+        {
+          "data": "21/08/2026",
+          "data_iso": "2026-08-21",
+          "valor": 3.78,
+          "preco": "R$ 3,78/Litro"
+        },
+        {
+          "data": "28/08/2026",
+          "data_iso": "2026-08-28",
+          "valor": 3.78,
+          "preco": "R$ 3,78/Litro"
+        }
+      ]
+    },
+    {
+      "estado": "RN",
+      "cidade": "Média UF",
+      "regiao": "Rio Grande do Norte",
+      "produto": "Leite — Produtor",
+      "produto_base": "Leite",
+      "produto_original": "LEITE DE VACA",
+      "tipo_produto": "principal",
+      "nivel_comercializacao": "Produtor",
+      "nivel_comercializacao_chave": "preco_produtor",
+      "prioridade_nivel_preco": 1,
+      "categoria": "pecuaria_leite",
+      "valor": 2.14,
+      "preco": "R$ 2,14/Litro",
+      "preco_original": 2.14,
+      "unidade": "Litro",
+      "unidade_original": "Litro",
+      "fator_conversao": 1.0,
+      "conversao_aplicada": false,
+      "data": "24/08/2026 a 28/08/2026",
+      "data_iso": "2026-08-28",
+      "data_inicio_iso": "2026-08-24",
+      "data_fim_iso": "2026-08-28",
+      "periodo_referencia": "24/08/2026 a 28/08/2026",
+      "fonte": "CONAB - Preços Agropecuários Semanal UF",
+      "fonte_url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
+      "variacao_valor": null,
+      "variacao_percentual": null,
+      "historico_30d": [
+        {
+          "data": "07/08/2026",
+          "data_iso": "2026-08-07",
+          "valor": 2.14,
+          "preco": "R$ 2,14/Litro"
+        },
+        {
+          "data": "14/08/2026",
+          "data_iso": "2026-08-14",
+          "valor": 2.14,
+          "preco": "R$ 2,14/Litro"
+        },
+        {
+          "data": "21/08/2026",
+          "data_iso": "2026-08-21",
+          "valor": 2.14,
+          "preco": "R$ 2,14/Litro"
+        },
+        {
+          "data": "28/08/2026",
+          "data_iso": "2026-08-28",
+          "valor": 2.14,
+          "preco": "R$ 2,14/Litro"
         }
       ]
     },

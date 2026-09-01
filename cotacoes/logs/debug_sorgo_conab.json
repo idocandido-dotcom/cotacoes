@@ -15,7 +15,7 @@
       "produto_valor": "SORGO GRANIFERO",
       "classificacao": "EM GRÃOS",
       "periodo": "24/08/2026 a 28/08/2026",
-      "resultset": 9,
+      "resultset": 10,
       "itens_extraidos": 3,
       "metadata": [
         "UF.UF",
@@ -774,9 +774,7 @@
       "produto_valor": "LEITE DE VACA",
       "classificacao": "",
       "periodo": "27/07/2026 a 31/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     }
   ]
 }
