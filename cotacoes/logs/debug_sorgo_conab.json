@@ -414,7 +414,9 @@
       "produto_valor": "BOVINO",
       "classificacao": "",
       "periodo": "31/08/2026 a 04/09/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Boi Gordo",
@@ -439,7 +441,9 @@
       "produto_valor": "BOVINO",
       "classificacao": "BOI GORDO",
       "periodo": "17/08/2026 a 21/08/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Boi Gordo",
@@ -554,7 +558,9 @@
       "produto_valor": "BOVINO",
       "classificacao": "",
       "periodo": "27/07/2026 a 31/07/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
@@ -579,7 +585,9 @@
       "produto_valor": "LEITE DE VACA",
       "classificacao": "LEITE",
       "periodo": "24/08/2026 a 28/08/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
@@ -640,7 +648,9 @@
       "produto_valor": "LEITE",
       "classificacao": "",
       "periodo": "17/08/2026 a 21/08/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
@@ -710,7 +720,9 @@
       "produto_valor": "LEITE",
       "classificacao": "",
       "periodo": "03/08/2026 a 07/08/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
@@ -753,7 +765,9 @@
       "produto_valor": "LEITE DE VACA",
       "classificacao": "LEITE",
       "periodo": "27/07/2026 a 31/07/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
