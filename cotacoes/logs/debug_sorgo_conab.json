@@ -189,9 +189,7 @@
       "produto_valor": "FEIJAO",
       "classificacao": "EM GRÃOS",
       "periodo": "24/08/2026 a 28/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Feijão",
@@ -297,9 +295,7 @@
       "produto_valor": "FEIJAO",
       "classificacao": "EM GRÃOS",
       "periodo": "03/08/2026 a 07/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Feijão",
@@ -342,9 +338,7 @@
       "produto_valor": "FEIJAO CARIOCA",
       "classificacao": "EM GRÃOS",
       "periodo": "27/07/2026 a 31/07/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Boi Gordo",
@@ -495,9 +489,7 @@
       "produto_valor": "BOI GORDO",
       "classificacao": "BOI GORDO",
       "periodo": "03/08/2026 a 07/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Boi Gordo",
@@ -585,9 +577,7 @@
       "produto_valor": "LEITE DE VACA",
       "classificacao": "LEITE",
       "periodo": "24/08/2026 a 28/08/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Leite",
@@ -621,9 +611,7 @@
       "produto_valor": "LEITE DE VACA",
       "classificacao": "LEITE",
       "periodo": "31/08/2026 a 04/09/2026",
-      "resultset": 0,
-      "itens_extraidos": 0,
-      "metadata": []
+      "status": "sem_json_resultset"
     },
     {
       "produto": "Leite",
