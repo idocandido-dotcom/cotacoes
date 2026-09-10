@@ -180,7 +180,9 @@
       "produto_valor": "[Produto].[ARROZ]",
       "classificacao": "EM GRÃOS",
       "periodo": "03/08/2026 a 07/08/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Feijão",
@@ -403,7 +405,9 @@
       "produto_valor": "BOVINO",
       "classificacao": "BOI GORDO",
       "periodo": "07/09/2026 a 11/09/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Boi Gordo",
@@ -500,7 +504,9 @@
       "produto_valor": "BOI GORDO",
       "classificacao": "",
       "periodo": "10/08/2026 a 14/08/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Boi Gordo",
@@ -570,7 +576,9 @@
       "produto_valor": "LEITE",
       "classificacao": "",
       "periodo": "31/08/2026 a 04/09/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
@@ -595,7 +603,9 @@
       "produto_valor": "LEITE",
       "classificacao": "LEITE",
       "periodo": "07/09/2026 a 11/09/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
