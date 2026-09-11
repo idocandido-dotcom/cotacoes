@@ -3,8 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-09-11T04:38:11-03:00",
-  "ultima_sincronizacao": "2026-09-11 04:38:11",
+  "gerado_em": "2026-09-11T10:09:01-03:00",
+  "ultima_sincronizacao": "2026-09-11 10:09:01",
   "data_limite_cotacoes_ativas": "2026-08-12",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -906,8 +906,8 @@
         {
           "data": "14/08/2026",
           "data_iso": "2026-08-14",
-          "valor": 291.0,
-          "preco": "R$ 291,00/Saca 60 kg"
+          "valor": 420.0,
+          "preco": "R$ 420,00/Saca 60 kg"
         },
         {
           "data": "21/08/2026",
@@ -918,8 +918,8 @@
         {
           "data": "28/08/2026",
           "data_iso": "2026-08-28",
-          "valor": 298.8,
-          "preco": "R$ 298,80/Saca 60 kg"
+          "valor": 420.0,
+          "preco": "R$ 420,00/Saca 60 kg"
         },
         {
           "data": "04/09/2026",
