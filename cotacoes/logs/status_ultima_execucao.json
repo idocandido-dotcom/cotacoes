@@ -3,9 +3,9 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-09-13T23:38:38-03:00",
-  "ultima_sincronizacao": "2026-09-13 23:38:38",
-  "data_limite_cotacoes_ativas": "2026-08-14",
+  "gerado_em": "2026-09-14T05:22:56-03:00",
+  "ultima_sincronizacao": "2026-09-14 05:22:56",
+  "data_limite_cotacoes_ativas": "2026-08-15",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
   "fontes": [
@@ -25,7 +25,7 @@
       "fonte": "CONAB - Preços Agropecuários Semanal UF / Histórico 360",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "ok",
-      "total_registros": 100,
+      "total_registros": 75,
       "produtos_historico": [
         "Soja",
         "Milho",
@@ -79,7 +79,7 @@
       "url": "https://aiba.org.br/cotacoes/",
       "status": "erro",
       "total_registros": 0,
-      "erro": "HTTPError('403 Client Error: Forbidden for url: https://aiba.org.br/cotacoes/')",
+      "erro": "HTTPError('429 Client Error: Too Many Requests for url: https://aiba.org.br/cotacoes/')",
       "observacao": "Falha ao coletar AIBA online. Regionais anteriores serão preservados se existirem."
     },
     {
@@ -90,19 +90,19 @@
     }
   ],
   "resumo": {
-    "total_cotacoes_tabela": 58,
-    "total_dados_html": 58,
+    "total_cotacoes_tabela": 57,
+    "total_dados_html": 57,
     "total_cotacoes_brutas": 3435,
     "total_cotacoes_descartadas_por_validacao": 0,
-    "grupos_descartados_por_data_antiga": 3272,
+    "grupos_descartados_por_data_antiga": 3307,
     "total_sorgo_conab_tabela": 3,
     "total_arroz_extraido": 7,
-    "total_feijao_extraido": 9,
+    "total_feijao_extraido": 8,
     "total_boi_gordo_extraido": 3,
     "total_leite_extraido": 15
   },
-  "total_cotacoes_tabela": 58,
-  "total_dados_html": 58,
+  "total_cotacoes_tabela": 57,
+  "total_dados_html": 57,
   "debug_conab_produtos_360": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_conab_produtos_360.json",
   "debug_sorgo_conab": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/debug_sorgo_conab.json",
   "historico_aiba": "/home/runner/work/cotacoes/cotacoes/cotacoes/logs/historico_aiba.json",
