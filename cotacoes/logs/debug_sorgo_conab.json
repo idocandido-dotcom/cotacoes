@@ -369,7 +369,9 @@
       "produto_valor": "BOVINO",
       "classificacao": "BOI GORDO",
       "periodo": "21/09/2026 a 25/09/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Boi Gordo",
@@ -457,7 +459,9 @@
       "produto_valor": "BOI GORDO",
       "classificacao": "BOI GORDO",
       "periodo": "07/09/2026 a 11/09/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Boi Gordo",
@@ -563,7 +567,9 @@
       "produto_valor": "LEITE",
       "classificacao": "LEITE",
       "periodo": "21/09/2026 a 25/09/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
@@ -597,7 +603,9 @@
       "produto_valor": "LEITE",
       "classificacao": "LEITE",
       "periodo": "28/09/2026 a 02/10/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Leite",
