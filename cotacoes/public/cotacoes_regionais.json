@@ -3,8 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-10-10T00:36:28-03:00",
-  "ultima_sincronizacao": "2026-10-10 00:36:28",
+  "gerado_em": "2026-10-10T08:39:32-03:00",
+  "ultima_sincronizacao": "2026-10-10 08:39:32",
   "data_limite_cotacoes_ativas": "2026-09-10",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -12,33 +12,23 @@
     {
       "fonte": "CONAB - Produtos 360º",
       "url": "https://portaldeinformacoes.conab.gov.br/produtos-360.html",
-      "status": "ok",
-      "total_registros": 19,
-      "produtos_extraidos": [
-        "Algodão",
-        "Milho",
-        "Soja"
-      ],
+      "status": "sem_registros_extraidos",
+      "total_registros": 0,
+      "produtos_extraidos": [],
       "observacao": "Fonte principal para Soja, Milho e Algodão."
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal UF / Histórico 360",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "status": "ok",
-      "total_registros": 103,
-      "produtos_historico": [
-        "Soja",
-        "Milho",
-        "Algodão",
-        "Sorgo"
-      ],
-      "observacao": "v1.5.8: usado somente para histórico de 30 dias e variação de Soja, Milho e Algodão. O preço atual continua vindo do CONAB Produtos 360º."
+      "status": "erro",
+      "total_registros": 0,
+      "erro": "ConnectionError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalUF.txt (Caused by NewConnectionError(\"HTTPSConnection(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))'))"
     },
     {
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
       "url": "https://pentahoportaldeinformacoes.conab.gov.br/pentaho/api/repos/%3Ahome%3ASIAGRO%3APrecoMedio.wcdf/generatedContent?userid=pentaho&password=password",
-      "status": "ok",
-      "total_registros": 3,
+      "status": "sem_registros_extraidos",
+      "total_registros": 0,
       "produtos_monitorados": [
         "Sorgo Granífero",
         "Arroz",
@@ -51,28 +41,16 @@
     {
       "fonte": "CONAB - Preços Agropecuários Semanal UF",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
-      "status": "ok",
-      "total_registros": 1794,
-      "produtos_fallback": [
-        "Arroz",
-        "Boi Gordo",
-        "Feijão",
-        "Leite"
-      ],
-      "observacao": "Fallback para Arroz, Feijão, Sorgo, Boi Gordo e Leite quando SIAGRO falhar; filtrado para Nordeste + Tocantins + Pará."
+      "status": "erro",
+      "total_registros": 0,
+      "erro": "ConnectionError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalUF.txt (Caused by NewConnectionError(\"HTTPSConnection(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))'))"
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
-      "status": "ok",
-      "total_registros": 1130,
-      "produtos_fallback": [
-        "Arroz",
-        "Boi Gordo",
-        "Feijão",
-        "Leite"
-      ],
-      "observacao": "Fallback para Arroz, Feijão, Sorgo, Boi Gordo e Leite quando SIAGRO falhar; filtrado para Nordeste + Tocantins + Pará."
+      "status": "erro",
+      "total_registros": 0,
+      "erro": "ConnectionError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalMunicipio.txt (Caused by NewConnectionError(\"HTTPSConnection(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Failed to establish a new connection: [Errno 111] Connection refused\"))'))"
     },
     {
       "fonte": "AIBA",
@@ -90,16 +68,16 @@
     }
   ],
   "resumo": {
-    "total_cotacoes_tabela": 61,
-    "total_dados_html": 61,
-    "total_cotacoes_brutas": 2952,
+    "total_cotacoes_tabela": 6,
+    "total_dados_html": 6,
+    "total_cotacoes_brutas": 6,
     "total_cotacoes_descartadas_por_validacao": 0,
-    "grupos_descartados_por_data_antiga": 2778,
-    "total_sorgo_conab_tabela": 3,
-    "total_arroz_extraido": 8,
-    "total_feijao_extraido": 10,
-    "total_boi_gordo_extraido": 3,
-    "total_leite_extraido": 15,
+    "grupos_descartados_por_data_antiga": 0,
+    "total_sorgo_conab_tabela": 0,
+    "total_arroz_extraido": 1,
+    "total_feijao_extraido": 1,
+    "total_boi_gordo_extraido": 0,
+    "total_leite_extraido": 0,
     "total_regionais": 6
   },
   "total_cotacoes_tabela": 6,
