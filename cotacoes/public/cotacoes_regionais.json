@@ -3,9 +3,9 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-10-11T18:18:04-03:00",
-  "ultima_sincronizacao": "2026-10-11 18:18:04",
-  "data_limite_cotacoes_ativas": "2026-09-11",
+  "gerado_em": "2026-10-12T00:33:05-03:00",
+  "ultima_sincronizacao": "2026-10-12 00:33:05",
+  "data_limite_cotacoes_ativas": "2026-09-12",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
   "fontes": [
@@ -57,7 +57,7 @@
       "url": "https://aiba.org.br/cotacoes/",
       "status": "erro",
       "total_registros": 0,
-      "erro": "HTTPError('429 Client Error: Too Many Requests for url: https://aiba.org.br/cotacoes/')",
+      "erro": "ConnectionError(MaxRetryError('HTTPSConnectionPool(host=\\'aiba.org.br\\', port=443): Max retries exceeded with url: /cotacoes/ (Caused by NewConnectionError(\"HTTPSConnection(host=\\'aiba.org.br\\', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))'))",
       "observacao": "Falha ao coletar AIBA online. Regionais anteriores serão preservados se existirem."
     },
     {
@@ -112,12 +112,6 @@
       "variacao_valor": -9.34,
       "variacao_percentual": -6.4561,
       "historico_30d": [
-        {
-          "data": "11/09/2026",
-          "data_iso": "2026-09-11",
-          "valor": 144.67,
-          "preco": "R$ 144,67/Arroba (@)"
-        },
         {
           "data": "12/09/2026",
           "data_iso": "2026-09-12",
@@ -258,12 +252,6 @@
       "variacao_percentual": 16.2162,
       "historico_30d": [
         {
-          "data": "11/09/2026",
-          "data_iso": "2026-09-11",
-          "valor": 92.5,
-          "preco": "R$ 92,50/Saca 60 kg"
-        },
-        {
           "data": "12/09/2026",
           "data_iso": "2026-09-12",
           "valor": 92.5,
@@ -402,12 +390,6 @@
       "variacao_valor": 10.0,
       "variacao_percentual": 3.3333,
       "historico_30d": [
-        {
-          "data": "11/09/2026",
-          "data_iso": "2026-09-11",
-          "valor": 300.0,
-          "preco": "R$ 300,00/Saca 60 kg"
-        },
         {
           "data": "12/09/2026",
           "data_iso": "2026-09-12",
@@ -548,12 +530,6 @@
       "variacao_percentual": -6.1538,
       "historico_30d": [
         {
-          "data": "11/09/2026",
-          "data_iso": "2026-09-11",
-          "valor": 65.0,
-          "preco": "R$ 65,00/Saca 60 kg"
-        },
-        {
           "data": "12/09/2026",
           "data_iso": "2026-09-12",
           "valor": 65.0,
@@ -693,12 +669,6 @@
       "variacao_percentual": -4.698,
       "historico_30d": [
         {
-          "data": "11/09/2026",
-          "data_iso": "2026-09-11",
-          "valor": 149.0,
-          "preco": "R$ 149,00/Saca 60 kg"
-        },
-        {
           "data": "12/09/2026",
           "data_iso": "2026-09-12",
           "valor": 149.0,
@@ -837,12 +807,6 @@
       "variacao_valor": -1.25,
       "variacao_percentual": -2.4038,
       "historico_30d": [
-        {
-          "data": "11/09/2026",
-          "data_iso": "2026-09-11",
-          "valor": 52.0,
-          "preco": "R$ 52,00/Saca 60 kg"
-        },
         {
           "data": "12/09/2026",
           "data_iso": "2026-09-12",

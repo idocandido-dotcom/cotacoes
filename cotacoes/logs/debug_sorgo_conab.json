@@ -14,20 +14,6 @@
       "produto": "Sorgo",
       "produto_valor": "SORGO GRANIFERO",
       "classificacao": "EM GRÃOS",
-      "periodo": "28/09/2026 a 02/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Sorgo",
-      "produto_valor": "[Produto].[SORGO GRANIFERO]",
-      "classificacao": "EM GRÃOS",
-      "periodo": "28/09/2026 a 02/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Sorgo",
-      "produto_valor": "SORGO GRANIFERO",
-      "classificacao": "EM GRÃOS",
       "periodo": "05/10/2026 a 09/10/2026",
       "status": "sem_json_resultset"
     },
@@ -42,6 +28,34 @@
       "produto": "Sorgo",
       "produto_valor": "SORGO GRANIFERO",
       "classificacao": "EM GRÃOS",
+      "periodo": "12/10/2026 a 16/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Sorgo",
+      "produto_valor": "[Produto].[SORGO GRANIFERO]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "12/10/2026 a 16/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Sorgo",
+      "produto_valor": "SORGO GRANIFERO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "28/09/2026 a 02/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Sorgo",
+      "produto_valor": "[Produto].[SORGO GRANIFERO]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "28/09/2026 a 02/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Sorgo",
+      "produto_valor": "SORGO GRANIFERO",
+      "classificacao": "EM GRÃOS",
       "periodo": "21/09/2026 a 25/09/2026",
       "status": "sem_json_resultset"
     },
@@ -81,17 +95,45 @@
       "status": "sem_json_resultset"
     },
     {
-      "produto": "Sorgo",
-      "produto_valor": "SORGO GRANIFERO",
+      "produto": "Arroz",
+      "produto_valor": "ARROZ",
       "classificacao": "EM GRÃOS",
-      "periodo": "31/08/2026 a 04/09/2026",
+      "periodo": "05/10/2026 a 09/10/2026",
       "status": "sem_json_resultset"
     },
     {
-      "produto": "Sorgo",
-      "produto_valor": "[Produto].[SORGO GRANIFERO]",
+      "produto": "Arroz",
+      "produto_valor": "ARROZ EM CASCA",
       "classificacao": "EM GRÃOS",
-      "periodo": "31/08/2026 a 04/09/2026",
+      "periodo": "05/10/2026 a 09/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "[Produto].[ARROZ]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "05/10/2026 a 09/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ",
+      "classificacao": "EM GRÃOS",
+      "periodo": "12/10/2026 a 16/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "ARROZ EM CASCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "12/10/2026 a 16/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Arroz",
+      "produto_valor": "[Produto].[ARROZ]",
+      "classificacao": "EM GRÃOS",
+      "periodo": "12/10/2026 a 16/10/2026",
       "status": "sem_json_resultset"
     },
     {
@@ -119,27 +161,6 @@
       "produto": "Arroz",
       "produto_valor": "ARROZ",
       "classificacao": "EM GRÃOS",
-      "periodo": "05/10/2026 a 09/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ EM CASCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "05/10/2026 a 09/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "[Produto].[ARROZ]",
-      "classificacao": "EM GRÃOS",
-      "periodo": "05/10/2026 a 09/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ",
-      "classificacao": "EM GRÃOS",
       "periodo": "21/09/2026 a 25/09/2026",
       "status": "sem_json_resultset"
     },
@@ -200,24 +221,45 @@
       "status": "sem_json_resultset"
     },
     {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ",
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO",
       "classificacao": "EM GRÃOS",
-      "periodo": "31/08/2026 a 04/09/2026",
+      "periodo": "05/10/2026 a 09/10/2026",
       "status": "sem_json_resultset"
     },
     {
-      "produto": "Arroz",
-      "produto_valor": "ARROZ EM CASCA",
+      "produto": "Feijão",
+      "produto_valor": "FEIJÃO",
       "classificacao": "EM GRÃOS",
-      "periodo": "31/08/2026 a 04/09/2026",
+      "periodo": "05/10/2026 a 09/10/2026",
       "status": "sem_json_resultset"
     },
     {
-      "produto": "Arroz",
-      "produto_valor": "[Produto].[ARROZ]",
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO CARIOCA",
       "classificacao": "EM GRÃOS",
-      "periodo": "31/08/2026 a 04/09/2026",
+      "periodo": "05/10/2026 a 09/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "12/10/2026 a 16/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJÃO",
+      "classificacao": "EM GRÃOS",
+      "periodo": "12/10/2026 a 16/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Feijão",
+      "produto_valor": "FEIJAO CARIOCA",
+      "classificacao": "EM GRÃOS",
+      "periodo": "12/10/2026 a 16/10/2026",
       "status": "sem_json_resultset"
     },
     {
@@ -245,27 +287,6 @@
       "produto": "Feijão",
       "produto_valor": "FEIJAO",
       "classificacao": "EM GRÃOS",
-      "periodo": "05/10/2026 a 09/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJÃO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "05/10/2026 a 09/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO CARIOCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "05/10/2026 a 09/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO",
-      "classificacao": "EM GRÃOS",
       "periodo": "21/09/2026 a 25/09/2026",
       "status": "sem_json_resultset"
     },
@@ -326,24 +347,59 @@
       "status": "sem_json_resultset"
     },
     {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "31/08/2026 a 04/09/2026",
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "BOI GORDO",
+      "periodo": "05/10/2026 a 09/10/2026",
       "status": "sem_json_resultset"
     },
     {
-      "produto": "Feijão",
-      "produto_valor": "FEIJÃO",
-      "classificacao": "EM GRÃOS",
-      "periodo": "31/08/2026 a 04/09/2026",
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "",
+      "periodo": "05/10/2026 a 09/10/2026",
       "status": "sem_json_resultset"
     },
     {
-      "produto": "Feijão",
-      "produto_valor": "FEIJAO CARIOCA",
-      "classificacao": "EM GRÃOS",
-      "periodo": "31/08/2026 a 04/09/2026",
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "BOI GORDO",
+      "periodo": "05/10/2026 a 09/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "",
+      "periodo": "05/10/2026 a 09/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "BOI GORDO",
+      "periodo": "12/10/2026 a 16/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOI GORDO",
+      "classificacao": "",
+      "periodo": "12/10/2026 a 16/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "BOI GORDO",
+      "periodo": "12/10/2026 a 16/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Boi Gordo",
+      "produto_valor": "BOVINO",
+      "classificacao": "",
+      "periodo": "12/10/2026 a 16/10/2026",
       "status": "sem_json_resultset"
     },
     {
@@ -372,34 +428,6 @@
       "produto_valor": "BOVINO",
       "classificacao": "",
       "periodo": "28/09/2026 a 02/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "BOI GORDO",
-      "periodo": "05/10/2026 a 09/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "",
-      "periodo": "05/10/2026 a 09/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "BOI GORDO",
-      "periodo": "05/10/2026 a 09/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "",
-      "periodo": "05/10/2026 a 09/10/2026",
       "status": "sem_json_resultset"
     },
     {
@@ -487,31 +515,59 @@
       "status": "sem_json_resultset"
     },
     {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
-      "classificacao": "BOI GORDO",
-      "periodo": "31/08/2026 a 04/09/2026",
+      "produto": "Leite",
+      "produto_valor": "LEITE",
+      "classificacao": "LEITE",
+      "periodo": "05/10/2026 a 09/10/2026",
       "status": "sem_json_resultset"
     },
     {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOI GORDO",
+      "produto": "Leite",
+      "produto_valor": "LEITE",
       "classificacao": "",
-      "periodo": "31/08/2026 a 04/09/2026",
+      "periodo": "05/10/2026 a 09/10/2026",
       "status": "sem_json_resultset"
     },
     {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
-      "classificacao": "BOI GORDO",
-      "periodo": "31/08/2026 a 04/09/2026",
+      "produto": "Leite",
+      "produto_valor": "LEITE DE VACA",
+      "classificacao": "LEITE",
+      "periodo": "05/10/2026 a 09/10/2026",
       "status": "sem_json_resultset"
     },
     {
-      "produto": "Boi Gordo",
-      "produto_valor": "BOVINO",
+      "produto": "Leite",
+      "produto_valor": "LEITE DE VACA",
       "classificacao": "",
-      "periodo": "31/08/2026 a 04/09/2026",
+      "periodo": "05/10/2026 a 09/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Leite",
+      "produto_valor": "LEITE",
+      "classificacao": "LEITE",
+      "periodo": "12/10/2026 a 16/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Leite",
+      "produto_valor": "LEITE",
+      "classificacao": "",
+      "periodo": "12/10/2026 a 16/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Leite",
+      "produto_valor": "LEITE DE VACA",
+      "classificacao": "LEITE",
+      "periodo": "12/10/2026 a 16/10/2026",
+      "status": "sem_json_resultset"
+    },
+    {
+      "produto": "Leite",
+      "produto_valor": "LEITE DE VACA",
+      "classificacao": "",
+      "periodo": "12/10/2026 a 16/10/2026",
       "status": "sem_json_resultset"
     },
     {
@@ -540,34 +596,6 @@
       "produto_valor": "LEITE DE VACA",
       "classificacao": "",
       "periodo": "28/09/2026 a 02/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE",
-      "classificacao": "LEITE",
-      "periodo": "05/10/2026 a 09/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE",
-      "classificacao": "",
-      "periodo": "05/10/2026 a 09/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE DE VACA",
-      "classificacao": "LEITE",
-      "periodo": "05/10/2026 a 09/10/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE DE VACA",
-      "classificacao": "",
-      "periodo": "05/10/2026 a 09/10/2026",
       "status": "sem_json_resultset"
     },
     {
@@ -652,34 +680,6 @@
       "produto_valor": "LEITE DE VACA",
       "classificacao": "",
       "periodo": "07/09/2026 a 11/09/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE",
-      "classificacao": "LEITE",
-      "periodo": "31/08/2026 a 04/09/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE",
-      "classificacao": "",
-      "periodo": "31/08/2026 a 04/09/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE DE VACA",
-      "classificacao": "LEITE",
-      "periodo": "31/08/2026 a 04/09/2026",
-      "status": "sem_json_resultset"
-    },
-    {
-      "produto": "Leite",
-      "produto_valor": "LEITE DE VACA",
-      "classificacao": "",
-      "periodo": "31/08/2026 a 04/09/2026",
       "status": "sem_json_resultset"
     }
   ]
