@@ -1,14 +1,10 @@
 {
   "ok": true,
   "versao": "1.5.8",
-  "gerado_em": "2026-10-14T23:33:31-03:00",
+  "gerado_em": "2026-10-15T04:52:24-03:00",
   "regra": "Histórico persistente da AIBA/regional. Acumula uma cotação por data real, sem simular valores.",
   "historicos": {
     "Algodão||BA||Oeste da Bahia - AIBA||AIBA": [
-      {
-        "data": "2026-09-14",
-        "valor": 143.67
-      },
       {
         "data": "2026-09-16",
         "valor": 143.33
@@ -76,13 +72,13 @@
       {
         "data": "2026-10-13",
         "valor": 135.33
+      },
+      {
+        "data": "2026-10-15",
+        "valor": 130.5
       }
     ],
     "Arroz||BA||Oeste da Bahia - AIBA||AIBA": [
-      {
-        "data": "2026-09-14",
-        "valor": 92.5
-      },
       {
         "data": "2026-09-16",
         "valor": 95.0
@@ -149,15 +145,15 @@
       },
       {
         "data": "2026-10-13",
+        "valor": 107.5
+      },
+      {
+        "data": "2026-10-15",
         "valor": 107.5
       }
     ],
     "Feijão||BA||Oeste da Bahia - AIBA||AIBA": [
       {
-        "data": "2026-09-14",
-        "valor": 300.0
-      },
-      {
         "data": "2026-09-16",
         "valor": 305.0
       },
@@ -224,13 +220,13 @@
       {
         "data": "2026-10-13",
         "valor": 310.0
+      },
+      {
+        "data": "2026-10-15",
+        "valor": 310.0
       }
     ],
     "Milho||BA||Oeste da Bahia - AIBA||AIBA": [
-      {
-        "data": "2026-09-14",
-        "valor": 64.67
-      },
       {
         "data": "2026-09-16",
         "valor": 64.67
@@ -298,13 +294,13 @@
       {
         "data": "2026-10-13",
         "valor": 61.0
+      },
+      {
+        "data": "2026-10-15",
+        "valor": 60.67
       }
     ],
     "Soja||BA||Oeste da Bahia - AIBA||AIBA": [
-      {
-        "data": "2026-09-14",
-        "valor": 146.0
-      },
       {
         "data": "2026-09-16",
         "valor": 146.88
@@ -372,13 +368,13 @@
       {
         "data": "2026-10-13",
         "valor": 142.0
+      },
+      {
+        "data": "2026-10-15",
+        "valor": 141.75
       }
     ],
     "Sorgo||BA||Oeste da Bahia - AIBA||AIBA": [
-      {
-        "data": "2026-09-14",
-        "valor": 52.0
-      },
       {
         "data": "2026-09-16",
         "valor": 52.0
@@ -445,6 +441,10 @@
       },
       {
         "data": "2026-10-13",
+        "valor": 50.75
+      },
+      {
+        "data": "2026-10-15",
         "valor": 50.75
       }
     ]
