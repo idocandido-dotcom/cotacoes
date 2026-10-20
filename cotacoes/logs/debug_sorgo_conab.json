@@ -405,7 +405,9 @@
       "produto_valor": "BOVINO",
       "classificacao": "BOI GORDO",
       "periodo": "19/10/2026 a 23/10/2026",
-      "status": "sem_json_resultset"
+      "resultset": 0,
+      "itens_extraidos": 0,
+      "metadata": []
     },
     {
       "produto": "Boi Gordo",
