@@ -3,9 +3,9 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-10-20T23:43:43-03:00",
-  "ultima_sincronizacao": "2026-10-20 23:43:43",
-  "data_limite_cotacoes_ativas": "2026-09-20",
+  "gerado_em": "2026-10-21T05:09:41-03:00",
+  "ultima_sincronizacao": "2026-10-21 05:09:41",
+  "data_limite_cotacoes_ativas": "2026-09-21",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
   "fontes": [
@@ -57,7 +57,7 @@
       "url": "https://aiba.org.br/cotacoes/",
       "status": "erro",
       "total_registros": 0,
-      "erro": "ConnectionError(MaxRetryError('HTTPSConnectionPool(host=\\'aiba.org.br\\', port=443): Max retries exceeded with url: /cotacoes/ (Caused by NewConnectionError(\"HTTPSConnection(host=\\'aiba.org.br\\', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable\"))'))",
+      "erro": "HTTPError('429 Client Error: Too Many Requests for url: https://aiba.org.br/cotacoes/')",
       "observacao": "Falha ao coletar AIBA online. Regionais anteriores serão preservados se existirem."
     },
     {
@@ -112,12 +112,6 @@
       "variacao_valor": -15.17,
       "variacao_percentual": -10.6329,
       "historico_30d": [
-        {
-          "data": "20/09/2026",
-          "data_iso": "2026-09-20",
-          "valor": 142.67,
-          "preco": "R$ 142,67/Arroba (@)"
-        },
         {
           "data": "21/09/2026",
           "data_iso": "2026-09-21",
@@ -242,15 +236,9 @@
       "periodo_referencia": "19/10/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": 12.5,
-      "variacao_percentual": 13.1579,
+      "variacao_valor": 7.5,
+      "variacao_percentual": 7.5,
       "historico_30d": [
-        {
-          "data": "20/09/2026",
-          "data_iso": "2026-09-20",
-          "valor": 95.0,
-          "preco": "R$ 95,00/Saca 60 kg"
-        },
         {
           "data": "21/09/2026",
           "data_iso": "2026-09-21",
@@ -379,12 +367,6 @@
       "variacao_percentual": 1.6393,
       "historico_30d": [
         {
-          "data": "20/09/2026",
-          "data_iso": "2026-09-20",
-          "valor": 305.0,
-          "preco": "R$ 305,00/Saca 60 kg"
-        },
-        {
           "data": "21/09/2026",
           "data_iso": "2026-09-21",
           "valor": 305.0,
@@ -508,15 +490,9 @@
       "periodo_referencia": "19/10/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": -4.34,
-      "variacao_percentual": -6.711,
+      "variacao_valor": -4.0,
+      "variacao_percentual": -6.2179,
       "historico_30d": [
-        {
-          "data": "20/09/2026",
-          "data_iso": "2026-09-20",
-          "valor": 64.67,
-          "preco": "R$ 64,67/Saca 60 kg"
-        },
         {
           "data": "21/09/2026",
           "data_iso": "2026-09-21",
@@ -641,15 +617,9 @@
       "periodo_referencia": "19/10/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": -8.38,
-      "variacao_percentual": -5.7444,
+      "variacao_valor": -9.5,
+      "variacao_percentual": -6.4626,
       "historico_30d": [
-        {
-          "data": "20/09/2026",
-          "data_iso": "2026-09-20",
-          "valor": 145.88,
-          "preco": "R$ 145,88/Saca 60 kg"
-        },
         {
           "data": "21/09/2026",
           "data_iso": "2026-09-21",
@@ -774,15 +744,9 @@
       "periodo_referencia": "19/10/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": -1.5,
-      "variacao_percentual": -2.8846,
+      "variacao_valor": -0.5,
+      "variacao_percentual": -0.9804,
       "historico_30d": [
-        {
-          "data": "20/09/2026",
-          "data_iso": "2026-09-20",
-          "valor": 52.0,
-          "preco": "R$ 52,00/Saca 60 kg"
-        },
         {
           "data": "21/09/2026",
           "data_iso": "2026-09-21",
