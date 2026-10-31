@@ -2,7 +2,7 @@
   "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
   "versao": "1.5.8",
   "modo": "enxuto",
-  "html_status": "http_200",
+  "html_status": "erro: SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'pentahoportaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /pentaho/api/repos/%3Ahome%3ASIAGRO%3APrecoMedio.wcdf/generatedContent?userid=pentaho&password=password (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'pentahoportaldeinformacoes.conab.gov.br\\'. (_ssl.c:1016)\")))'))",
   "total_itens_extraidos": 0,
   "total_sorgo_extraido": 0,
   "total_arroz_extraido": 0,
