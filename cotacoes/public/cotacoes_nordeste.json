@@ -3,8 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-11-03T10:20:36-03:00",
-  "ultima_sincronizacao": "2026-11-03 10:20:36",
+  "gerado_em": "2026-11-03T17:43:21-03:00",
+  "ultima_sincronizacao": "2026-11-03 17:43:21",
   "data_limite_cotacoes_ativas": "2026-10-04",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -25,7 +25,7 @@
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "erro",
       "total_registros": 0,
-      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalUF.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1016)\")))'))"
+      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalUF.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1018)\")))'))"
     },
     {
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
@@ -46,14 +46,14 @@
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "erro",
       "total_registros": 0,
-      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalUF.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1016)\")))'))"
+      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalUF.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1018)\")))'))"
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
       "status": "erro",
       "total_registros": 0,
-      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalMunicipio.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1016)\")))'))"
+      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalMunicipio.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1018)\")))'))"
     },
     {
       "fonte": "AIBA",
