@@ -3,8 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-11-03T17:43:21-03:00",
-  "ultima_sincronizacao": "2026-11-03 17:43:21",
+  "gerado_em": "2026-11-03T21:59:08-03:00",
+  "ultima_sincronizacao": "2026-11-03 21:59:08",
   "data_limite_cotacoes_ativas": "2026-10-04",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -25,7 +25,7 @@
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "erro",
       "total_registros": 0,
-      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalUF.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1018)\")))'))"
+      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalUF.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1016)\")))'))"
     },
     {
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
@@ -46,14 +46,14 @@
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "erro",
       "total_registros": 0,
-      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalUF.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1018)\")))'))"
+      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalUF.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1016)\")))'))"
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
       "status": "erro",
       "total_registros": 0,
-      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalMunicipio.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1018)\")))'))"
+      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalMunicipio.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1016)\")))'))"
     },
     {
       "fonte": "AIBA",
@@ -107,9 +107,9 @@
       "nivel_comercializacao_chave": "regional",
       "prioridade_nivel_preco": 5,
       "categoria": "commodity_agricola",
-      "valor": 125.0,
-      "preco": "R$ 125,00/Arroba (@)",
-      "preco_original": 125.0,
+      "valor": 125.5,
+      "preco": "R$ 125,50/Arroba (@)",
+      "preco_original": 125.5,
       "unidade": "Arroba (@)",
       "unidade_original": "Arroba (@)",
       "fator_conversao": 1.0,
@@ -121,8 +121,8 @@
       "periodo_referencia": "03/11/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": -10.33,
-      "variacao_percentual": -7.6332,
+      "variacao_valor": -9.83,
+      "variacao_percentual": -7.2637,
       "historico_30d": [
         {
           "data": "09/10/2026",
@@ -193,8 +193,8 @@
         {
           "data": "03/11/2026",
           "data_iso": "2026-11-03",
-          "valor": 125.0,
-          "preco": "R$ 125,00/Arroba (@)"
+          "valor": 125.5,
+          "preco": "R$ 125,50/Arroba (@)"
         }
       ]
     },
@@ -210,9 +210,9 @@
       "nivel_comercializacao_chave": "regional",
       "prioridade_nivel_preco": 5,
       "categoria": "commodity_agricola",
-      "valor": 107.5,
-      "preco": "R$ 107,50/Saca 60 kg",
-      "preco_original": 107.5,
+      "valor": 108.5,
+      "preco": "R$ 108,50/Saca 60 kg",
+      "preco_original": 108.5,
       "unidade": "Saca 60 kg",
       "unidade_original": "Saca 60 kg",
       "fator_conversao": 1.0,
@@ -224,8 +224,8 @@
       "periodo_referencia": "03/11/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": 0.0,
-      "variacao_percentual": 0.0,
+      "variacao_valor": 1.0,
+      "variacao_percentual": 0.9302,
       "historico_30d": [
         {
           "data": "09/10/2026",
@@ -296,8 +296,8 @@
         {
           "data": "03/11/2026",
           "data_iso": "2026-11-03",
-          "valor": 107.5,
-          "preco": "R$ 107,50/Saca 60 kg"
+          "valor": 108.5,
+          "preco": "R$ 108,50/Saca 60 kg"
         }
       ]
     },
@@ -313,9 +313,9 @@
       "nivel_comercializacao_chave": "regional",
       "prioridade_nivel_preco": 5,
       "categoria": "commodity_agricola",
-      "valor": 315.0,
-      "preco": "R$ 315,00/Saca 60 kg",
-      "preco_original": 315.0,
+      "valor": 322.5,
+      "preco": "R$ 322,50/Saca 60 kg",
+      "preco_original": 322.5,
       "unidade": "Saca 60 kg",
       "unidade_original": "Saca 60 kg",
       "fator_conversao": 1.0,
@@ -327,8 +327,8 @@
       "periodo_referencia": "03/11/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": 5.0,
-      "variacao_percentual": 1.6129,
+      "variacao_valor": 12.5,
+      "variacao_percentual": 4.0323,
       "historico_30d": [
         {
           "data": "09/10/2026",
@@ -399,8 +399,8 @@
         {
           "data": "03/11/2026",
           "data_iso": "2026-11-03",
-          "valor": 315.0,
-          "preco": "R$ 315,00/Saca 60 kg"
+          "valor": 322.5,
+          "preco": "R$ 322,50/Saca 60 kg"
         }
       ]
     },
@@ -519,9 +519,9 @@
       "nivel_comercializacao_chave": "regional",
       "prioridade_nivel_preco": 5,
       "categoria": "commodity_agricola",
-      "valor": 144.63,
-      "preco": "R$ 144,63/Saca 60 kg",
-      "preco_original": 144.63,
+      "valor": 143.5,
+      "preco": "R$ 143,50/Saca 60 kg",
+      "preco_original": 143.5,
       "unidade": "Saca 60 kg",
       "unidade_original": "Saca 60 kg",
       "fator_conversao": 1.0,
@@ -533,8 +533,8 @@
       "periodo_referencia": "03/11/2026",
       "fonte": "AIBA",
       "fonte_url": "https://aiba.org.br/cotacoes/",
-      "variacao_valor": 2.63,
-      "variacao_percentual": 1.8521,
+      "variacao_valor": 1.5,
+      "variacao_percentual": 1.0563,
       "historico_30d": [
         {
           "data": "09/10/2026",
@@ -605,8 +605,8 @@
         {
           "data": "03/11/2026",
           "data_iso": "2026-11-03",
-          "valor": 137.0,
-          "preco": "R$ 137,00/Saca 60 kg"
+          "valor": 136.33,
+          "preco": "R$ 136,33/Saca 60 kg"
         }
       ]
     },
