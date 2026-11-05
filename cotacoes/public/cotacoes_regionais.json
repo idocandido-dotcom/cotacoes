@@ -3,8 +3,8 @@
   "projeto": "Nordeste Agro",
   "modulo": "cotacoes",
   "versao": "1.5.8",
-  "gerado_em": "2026-11-04T16:09:48-03:00",
-  "ultima_sincronizacao": "2026-11-04 16:09:48",
+  "gerado_em": "2026-11-04T22:12:43-03:00",
+  "ultima_sincronizacao": "2026-11-04 22:12:43",
   "data_limite_cotacoes_ativas": "2026-10-05",
   "dias_maximos_cotacao_ativa": 30,
   "politica": "CONAB é a fonte principal. Produtos 360º para Soja, Milho e Algodão; SIAGRO/Preço Médio UF para Sorgo, Arroz, Feijão, Boi Gordo e Leite; regionais como complemento; CEPEA fora da tabela principal. AIBA acumula histórico próprio persistente em cotacoes/logs/historico_aiba.json e remove duplicidades visuais por produto/praça/data.",
@@ -25,7 +25,7 @@
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "erro",
       "total_registros": 0,
-      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalUF.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1016)\")))'))"
+      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalUF.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1018)\")))'))"
     },
     {
       "fonte": "CONAB - Preços Agropecuários Painel SIAGRO",
@@ -46,43 +46,34 @@
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalUF.txt",
       "status": "erro",
       "total_registros": 0,
-      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalUF.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1016)\")))'))"
+      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalUF.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1018)\")))'))"
     },
     {
       "fonte": "CONAB - Preços Agropecuários Semanal Município",
       "url": "https://portaldeinformacoes.conab.gov.br/downloads/arquivos/PrecosSemanalMunicipio.txt",
       "status": "erro",
       "total_registros": 0,
-      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalMunicipio.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1016)\")))'))"
+      "erro": "SSLError(MaxRetryError('HTTPSConnectionPool(host=\\'portaldeinformacoes.conab.gov.br\\', port=443): Max retries exceeded with url: /downloads/arquivos/PrecosSemanalMunicipio.txt (Caused by SSLError(SSLCertVerificationError(1, \"[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for \\'portaldeinformacoes.conab.gov.br\\'. (_ssl.c:1018)\")))'))"
     },
     {
       "fonte": "AIBA",
       "url": "https://aiba.org.br/cotacoes/",
+      "status": "erro",
+      "total_registros": 0,
+      "erro": "HTTPError('429 Client Error: Too Many Requests for url: https://aiba.org.br/cotacoes/')",
+      "observacao": "Falha ao coletar AIBA online. Regionais anteriores serão preservados se existirem."
+    },
+    {
+      "fonte": "Regionais preservados",
       "status": "ok",
-      "total_registros": 7,
-      "produtos_extraidos": [
-        "Algodão",
-        "Arroz",
-        "Feijão",
-        "Milho",
-        "Soja",
-        "Sorgo"
-      ],
-      "produtos_permitidos": [
-        "Algodão",
-        "Arroz",
-        "Feijão",
-        "Milho",
-        "Soja",
-        "Sorgo"
-      ],
-      "observacao": "AIBA coletada online, sem override por CSV local. Mantém somente as commodities usadas no filtro do site."
+      "total_registros": 6,
+      "observacao": "AIBA/regionais anteriores preservados por segurança."
     }
   ],
   "resumo": {
     "total_cotacoes_tabela": 20,
     "total_dados_html": 20,
-    "total_cotacoes_brutas": 22,
+    "total_cotacoes_brutas": 21,
     "total_cotacoes_descartadas_por_validacao": 0,
     "grupos_descartados_por_data_antiga": 1,
     "total_sorgo_conab_tabela": 0,
@@ -635,8 +626,8 @@
         {
           "data": "04/11/2026",
           "data_iso": "2026-11-04",
-          "valor": 136.33,
-          "preco": "R$ 136,33/Saca 60 kg"
+          "valor": 143.5,
+          "preco": "R$ 143,50/Saca 60 kg"
         }
       ]
     },
