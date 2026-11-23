@@ -1,7 +1,7 @@
 {
   "ok": true,
   "versao": "1.5.8",
-  "gerado_em": "2026-11-23T08:34:35-03:00",
+  "gerado_em": "2026-11-23T20:08:32-03:00",
   "regra": "AIBA/regional: 1 linha por produto + UF + praça + fonte + data + unidade.",
   "total_grupos_duplicados": 1,
   "duplicados": [
@@ -16,8 +16,8 @@
       },
       "mantido": {
         "produto_original": "Soja Disponível",
-        "preco": 149.5,
-        "preco_formatado": "R$ 149,50/Saca 60 kg",
+        "preco": 151.5,
+        "preco_formatado": "R$ 151,50/Saca 60 kg",
         "data": "2026-11-23"
       },
       "removidos": [
